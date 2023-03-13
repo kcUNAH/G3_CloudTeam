@@ -1,0 +1,210 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: sans-serif;
+}
+/* background-color: #FF8C00; */
+
+body{
+    background-image: URL(../Imagenes/Logo.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+main{
+    width: 100%;
+    padding: 20px;
+    margin: auto;
+    margin-top: 100px;
+
+}
+
+.contenedor__todo{
+width: 100%;
+max-width: 800px;
+margin: auto;
+position: relative;
+}
+
+.caja__trasera{
+    width: 100%;
+    padding: 10px 20px;
+    /* el display en flex se utiliza para crear el efecto corrediso entre pestañas*/
+    display: flex;
+    justify-content: center;
+    /* difuminado del cuadro que estara en la caja trasera*/
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 102, 0, 0.911);
+
+}
+
+/*engloba a los div que se encuentran en caja trasera*/
+.caja__trasera div {
+    margin: 100px 40px;
+    color: antiquewhite;
+    transition: all 500ms;
+ 
+}
+
+.caja__trasera div p,
+.caja__trasera div button{
+    margin: 30px;
+}
+
+.caja__trasera div h3{
+    font-weight: 400;
+    font-size: 28px;
+}
+
+/*Le dara estilo al boton*/
+.caja__trasera button{
+    padding: 10px 40px;
+    border: 2px solid floralwhite;
+    background: transparent;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    color: white;
+    outline: none;
+    transition: all 500ms;
+}
+
+.caja__trasera button:hover{
+    background: #fff;
+    color: rgb(255, 123, 0);
+}
+
+.contenedor__login-registro{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 380px;
+    position: relative;
+    top: -185px;
+    left: 10px;
+    transition: 500ms cubic-bezier(0.175, 0.885, 0.320, 1.275);
+     
+}
+
+
+/*inicio de estilos aplicados a los formularios*/
+.contenedor__login-registro form{
+    width: 100%;
+    padding: 80px 20px;
+    background: #fff;
+    /*para poder mover los formularios */
+    position: absolute;
+    border-radius: 20px;
+}
+
+.contenedor__login-registro form h2 {
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+    color:  rgba(255, 102, 0, 0.911);
+}
+
+.contenedor__login-registro form input{
+    width: 100%;
+    margin-top: 20px;
+    padding: 18px;
+    border: none;
+    background: #f2f2f2;
+    font-size: 16px; 
+    outline: none;
+
+
+}
+
+.contenedor__login-registro form button {
+    padding: 10px 40px;
+    margin-top: 40px;
+    border: none;
+    font-size: 14px;
+    background:  rgba(255, 102, 0, 0.911);
+     color: white;
+     cursor: pointer;
+     outline: none;
+}
+
+ /*anteponer el formulario de inicio de secion */
+ .formulario__login{
+    opacity: 1 ;
+    display: block;
+ }
+
+ .formulario__registro{
+    display: none;
+ }
+ 
+ /*Trabaando en el Responsive Desing*/
+ @media screen and (max-width : 850px){
+    main{
+        margin-top: 58px;
+    }
+
+    .caja__trasera{
+        max-width: 358px;
+        height: 308px;
+        flex-direction: column;
+        margin: auto;
+    }
+
+    .caja__trasera div{
+        margin: 0px;
+        position: absolute;
+    }
+
+
+
+    /*Trabaando en el Responsive Desing especificamente en la parte de los formularios*/
+    .contenedor__login-registro{
+        top: -10px;
+        left: -5px;
+        margin: auto;
+
+    }
+
+    .contenedor__login-registro form {
+        position: relative;
+         
+    }
+
+
+
+        /*                                          Usuarios Lista*/
+        #container h1¨{
+            font-size: 35px;
+            display: inline-block;
+        }
+      
+        .btn_new{
+            display: inline-block;
+            background: #239baa;
+            color:rgba(101, 46, 9, 0.911);
+            padding: 5px 25px;
+            border-radius: 4px;
+            margin: 20px;
+      
+        } 
+      
+        table{
+            border-collapse: collapse;
+            font-size: 12pt;
+            font-family: Arial, Helvetica, sans-serif;
+            width: 100%;
+        };
+      
+        table th{
+            text-align: left;
+            padding: 10px;
+            background: #3d7ba8;
+            color: #fff;
+        }
+
+
+ }

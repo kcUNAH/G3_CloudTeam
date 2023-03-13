@@ -1,0 +1,45 @@
+div{
+    text-align: center;
+}
+
+.data_delete{
+    text-align: center;
+}
+
+.data_delete h2{
+    font-size: 12pt;
+}
+
+.data_delete samp{
+    font-weight: bold;
+    color: orange;
+    font-size: 12pt;
+}
+
+.btn_cancel{
+    text-align: center;
+    width: 124px;
+    background: orange;
+    color: black;
+    display: inline-block;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 15px;
+}
+
+.btn_ok{
+    width: 124px;
+    background: rgb(130, 226, 130);
+    color: black;
+    display: inline-block;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 15px;
+}
+
+body{
+    text-align: center;
+}
+

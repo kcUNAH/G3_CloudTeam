@@ -1,0 +1,46 @@
+ /*                                          Usuarios Lista*/
+ #container h1¨{
+    font-size: 35px;
+    display: inline-block;
+}
+
+.btn_new{
+    display: inline-block;
+    background: #ffffff;
+    color:rgb(255, 124, 2);
+    padding: 5px 25px;
+    border-radius: 4px;
+    margin: 20px;
+
+} 
+
+table{
+    border-collapse: collapse;
+    font-size: 10pt;
+    font-family: Arial;
+    width: 100%;
+};
+
+table th{
+    text-align: left;
+    padding: 10px;
+    background: #ffffff;
+    color: #fff;
+}
+
+table tr:nth-child(){
+    background: #fff;
+}
+table td {
+    padding: 10px;
+}
+
+.link_edit{
+    color: green;
+}
+
+.link_delete{
+    color: red;
+}
+
+
