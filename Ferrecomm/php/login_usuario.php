@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 
 include 'conexion.php';
@@ -37,7 +37,7 @@ $va_estado = $fila_estado['estado_usuario'];
 //$intentos = "SELECT parametro FROM tbl_ms_parametros WHERE id = '1'";
 //$obtener_intentos = mysqli_query($conexion, $intentos);
 //$fila_intentos = mysqli_fetch_array($obtener_intentos);
-//$va_intentos = $fila_intentos['parametro'];
+//$va_intentos = $fila_intentos['parametro']; xxxxxxx
 
 if (isset($_COOKIE["block" . $usuario])) {
     echo '
