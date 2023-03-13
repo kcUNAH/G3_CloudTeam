@@ -42,7 +42,7 @@ $va_estado = $fila_estado['estado_usuario'];
 if (isset($_COOKIE["block" . $usuario])) {
     echo '
         <script>
-        alert("Usuario bloqueado, demasiados intentos ");
+        alert("Usuario bloqueado, por demasiados intentos ");
         window.location= "../index.php";
         </script>
         ';
