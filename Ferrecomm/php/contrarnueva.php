@@ -7,6 +7,9 @@ include_once "conexion2.php";
 
 
 
+
+
+
 ?>
 <?php
  
@@ -42,7 +45,7 @@ include_once "conexion2.php";
 
 
 
-              <form  method="POST" action="pregunta.php" class="formulario__registro" id="formulario"> 
+              <form  method="POST" action="login_usuario.php" class="formulario__registro" id="formulario"> 
 
                     <!-- Grupo: Contraseña actual -->
                     <div class="formulario__grupo" id="grupo__contra_login">
@@ -87,8 +90,9 @@ include_once "conexion2.php";
 
 
                     <br><br>
-                    <div class="d-grid">
-                      <button style="background-color: #fda00e;" type="submit" name="cambiar_clave" id="cambiar_clave" class="btn btn btn-success btn-block">Cambiar Contrase&ntilde;a</button >
+                    <div class="formulario__grupo formulario__grupo-btn-enviar">
+                        <button style="background-color: #fda00e;" type="submit" name="cambiar_clave" id="cambiar_clave" class="btn btn btn-success btn-block">Cambiar contraseña</button>
+                        <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado exitosamente!</p>
                     </div>
                 
                   </div>
