@@ -6,7 +6,7 @@ const ojito = document.getElementById('Ojito');
 const expresiones = {
 	usuario: /^[a-zA-Z\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
 	nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
-	contra: /^.{6,12}$/, // 6 a 12 digitos.
+	contra: /^.{5,20}$/, // 6 a 20 digitos.
 	email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
 }
 

@@ -47,7 +47,7 @@ if (empty($_SESSION['vario'])) {
         <div class="row justify-content-center mt-5">
             <div class="col-md-6">
                 <div class="card card-outline card-primary">
-                    <div class="card-header text-white  mb-3" style="background-color:#2F2F2F;" style=" background-image: URL(Ferrecomm\accesos\Imagenes\Logo.jpeg);">
+                    <div class="card-header text-white  mb-3" style="background-color:rgba(255, 102, 0, 0.911);" style=" background-image: URL(Ferrecomm\accesos\Imagenes\Logo.jpeg);">
                         <h4 class=" text-center ">Verificar preguntas de seguridad</h4>
                     </div>
                     <div class="card-body">

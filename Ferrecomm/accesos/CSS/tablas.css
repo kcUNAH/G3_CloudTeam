@@ -14,7 +14,9 @@
 
 } 
 
-table{
+table head {
+    color: #fff;
+    background-color: #f00;
     border-collapse: collapse;
     font-size: 10pt;
     font-family: Arial;

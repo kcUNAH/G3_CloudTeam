@@ -17,15 +17,15 @@
   height: 100%;
   width: 78px;
   background: #ce810f;
-  padding: 6px 14px;
-  z-index: 99;
+  padding: 10px 14px;
+  z-index: 200;
   transition: all 0.5s ease;
 }
 .sidebar.open{
   width: 250px;
 }
 .sidebar .logo-details{
-  height: 60px;
+  height: 100px;
   display: flex;
   align-items: center;
   position: relative;

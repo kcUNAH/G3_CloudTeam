@@ -189,7 +189,7 @@ if (!empty($_POST)) {
                         <input type="password" class="formulario__input" name="contra" id="contra">
                         <i class="formulario__validacion-estado fas fa-times-circle"></i>
                     </div>
-                    <p class="formulario__input-error">La contraseña tiene que ser de 4 a 12 dígitos.</p>
+                    <p class="formulario__input-error">La contraseña tiene que ser de 5 a 20 dígitos.</p>
                 </div>
 
                 <!-- Grupo: Contraseña 2 -->

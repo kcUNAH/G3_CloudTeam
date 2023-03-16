@@ -64,7 +64,7 @@ if (isset($_SESSION['usuario'])) {
                             <input type="password" class="formulario__input" name="contra_login" id="contra_login">
                             <i class="formulario__validacion-estado fa-solid fa-eye" id="Ojito3"></i>
                         </div>
-                        <p class="formulario__input-error">La contraseña tiene que ser de 6 a 20 dígitos.</p>
+                        <p class="formulario__input-error">La contraseña tiene que ser de 5 a 20 dígitos.</p>
                     </div>
 
                     <div class="formulario__mensaje" id="formulario__mensaje">
@@ -116,7 +116,7 @@ if (isset($_SESSION['usuario'])) {
                             <input type="password" class="formulario__input" name="contra" id="contra">
                             <i class="formulario__validacion-estado fa-solid fa-eye" id="Ojito"></i>
                         </div>
-                        <p class="formulario__input-error">La contraseña tiene que ser de 6 a 20 dígitos.</p>
+                        <p class="formulario__input-error">La contraseña tiene que ser de 5 a 20 dígitos.</p>
                     </div>
 
 

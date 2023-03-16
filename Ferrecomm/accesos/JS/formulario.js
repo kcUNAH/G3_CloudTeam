@@ -8,9 +8,9 @@ const input_contra = document.getElementById('contra_login');
 const expresiones = {
 	usuario: /^[a-zA-Z\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
 	nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
-	contra: /^.{6,20}$/, // 6 a 20 digitos.
+	contra: /^.{5,20}$/, // 6 a 20 digitos.
 	usuario_login: /^[a-zA-Z\_\-]{4,16}$/,
-	contra_login: /^.{6,20}$/, // 6 a 20 digitos.
+	contra_login: /^.{5,20}$/, // 6 a 20 digitos.
 	email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
 }
 

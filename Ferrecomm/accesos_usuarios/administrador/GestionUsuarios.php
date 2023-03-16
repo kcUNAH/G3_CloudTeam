@@ -106,19 +106,27 @@ if(!isset ($_SESSION['usuario'])){
       
       <?php include'conex.php';?>
       <section id="container">
-
-      <h1>Revisar:</h1>
+      <head>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+   <link rel="stylesheet" href="./fontawesome-free/css/all.min.css">
+   <div class="container-fluid" style=" background-image: URL(Ferrecomm\accesos\Imagenes\Logo.jpeg);"></div> 
+</head>
+   
+      <h2>Revisar:</h2>
       
       <a href="registro.php" class="btn_new">Crear Usuario</a>
       <a href="usuario_activo.php" class="btn_new">Usuarios Activos</a>
       <a href="usuario_inactivo.php" class="btn_new">Usuarios Inactivos</a>
       
-      <link rel="stylesheet" href="accesos/CSS/tablas.css">
+     
 
       <?php include'conex.php';?>
       <section id="container">
 
-      <table>
+      <table class="table table-success table-string">
+        
         <tr>
             <th>Id</th>
             <th>Usuario</th>
@@ -132,6 +140,7 @@ if(!isset ($_SESSION['usuario'])){
             <th>Fecha Modificación</th>
             
             <th>Acciones</th>
+
         </tr>
         
         <?php
@@ -162,11 +171,11 @@ if(!isset ($_SESSION['usuario'])){
             <td><?php echo $data["creado_por"] ?></td>
             <td> <?php echo $data["fecha_creacion"] ?></td>
             <td> <?php echo $data["fecha_modificacion"] ?></td>
-
-    
-            <td>
-                <a class="link_edit" href="editar.php?id=<?php echo $data["id_usuario"]; ?>">Editar</a>
-                <a class="link_delete" href="elim_usuario.php?id=<?php echo $data["id_usuario"]; ?>">Eliminar</a>
+            <td> <a type="button" class="btn btn-primary" href="editar.php?id=<?php echo $data["id_usuario"]; ?>">Editar</a>
+             <a type="button" class="btn btn-danger" href="elim_usuario.php?id=<?php echo $data["id_usuario"]; ?>">Eliminar</a>
+        
+    <!--  <a class="link_edit" href="editar.php?id=<?php// echo $data["id_usuario"]; ?>">Editar</a> --> 
+               <!--   <a class="link_delete" href="elim_usuario.php?id=<?php// echo $data["id_usuario"]; ?>">Eliminar</a>--> 
             </td>
         </tr>
         <?php
@@ -183,7 +192,7 @@ if(!isset ($_SESSION['usuario'])){
 
 
   <script>
-  let sidebar = document.querySelector(".sidebar");
+ /let sidebar = document.querySelector(".sidebar");
   let closeBtn = document.querySelector("#btn");
   let searchBtn = document.querySelector(".bx-search");
 

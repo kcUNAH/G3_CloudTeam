@@ -2,7 +2,7 @@
 session_start();
 
 include 'conexion.php';
-
+include_once 'bitacora.php';
 //obtencion de datos 
 $usuario = $_POST['usuario_login'];
 $contra = $_POST['contra_login'];
@@ -30,7 +30,25 @@ $estado = "SELECT estado_usuario FROM tbl_ms_usuario WHERE usuario = '$usuario'"
 $obtener_estado = mysqli_query($conexion, $estado);
 $fila_estado = mysqli_fetch_array($obtener_estado);
 $va_estado = $fila_estado['estado_usuario'];
+//obteer id_usuario
+$idusuario = "SELECT id_usuario FROM tbl_ms_usuario WHERE usuario = '$usuario'";
+$obtenerid = mysqli_query($conexion,$idusuario);
+$filaid = mysqli_fetch_array($obtenerid);
+$va_id =$filaid['id_usuario'];
+//Obtener primer Ingreso 
+$usuarioprimero = "SELECT primer_ingreso FROM tbl_ms_usuario WHERE usuario = '$usuario'";
+$obtener_primer_ingreso = mysqli_query($conexion,$usuarioprimero);
+$filai_primer = mysqli_fetch_array($obtener_primer_ingreso);
+$va_primer_ingreso =$filai_primer ['primer_ingreso'];
 
+if($va_primer_ingreso=='NO'){
+  $sql="UPDATE tbl_ms_usuario SET primer_ingreso = 'Si' WHERE usuario = '$usuario'";
+header("location: pregunta.php");
+
+mysqli_query($conexion,$sql);
+
+
+}
 //obtener numero de intentos
 // ADMIN_INTENTOS =  (id= 1) nombre del paramentro en la base de datos que especifica el numero de intentos.
 
@@ -38,7 +56,7 @@ $va_estado = $fila_estado['estado_usuario'];
 //$obtener_intentos = mysqli_query($conexion, $intentos);
 //$fila_intentos = mysqli_fetch_array($obtener_intentos);
 //$va_intentos = $fila_intentos['parametro']; xxxxxxx
-
+if($va_primer_ingreso=='Si'){
 if (isset($_COOKIE["block" . $usuario])) {
     echo '
         <script>
@@ -95,15 +113,6 @@ if (isset($_COOKIE["block" . $usuario])) {
             setcookie($usuario, 1, time() + 120);
         }
 
-
-
-
-
-
-
-
-
-
         if ($va_estado == 'INACTIVO') {
             echo '
         <script>
@@ -124,4 +133,5 @@ if (isset($_COOKIE["block" . $usuario])) {
     ';
         exit();
     }
+}
 }
