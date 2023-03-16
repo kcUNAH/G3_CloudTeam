@@ -170,7 +170,7 @@ if (isset($_SESSION['usuario'])) {
                              Recuperar via preguntas secretas
                        </button>
 
-                       <button type="reset" href='index.php'class="btn btn-block btn-warning btn-flat">
+                       <button type="reset" onclick="location.href='index.php'" class="btn btn-block btn-warning btn-flat">
                         <strong>Cancelar</strong> 
                      </button>
                     <?php
