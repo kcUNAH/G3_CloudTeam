@@ -1,9 +1,10 @@
 const formulario = document.getElementById('formulario');
 const inputs = document.querySelectorAll('#formulario input');
+const ojito = document.getElementById('Ojito');
 const expresiones = {
 	usuario: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
-	password: /^.{6,20}$/, // 6 a 20 digitos.
-    passwordant: /^.{6,20}$/ // 6 a 30 digitos.
+	password: /^.{5,20}$/, // 6 a 20 digitos.
+    passwordant: /^.{5,20}$/ // 6 a 20 digitos.
 }
 
 const campos = {
@@ -94,4 +95,22 @@ formulario.addEventListener('submit', (e) => {
 	}
 
 
+})
+
+this.addEventListener('click', (e) => {
+	console.log(e.target);
+
+	if(e.target.id === 'Ojito' || e.target.id === 'Ojito1'|| e.target.id === 'Ojito2'){
+		if(e.target.previousElementSibling.type === 'password') {
+			e.target.previousElementSibling.type = 'text'
+			e.target.classList.remove('fa-eye')
+			e.target.classList.add('fa-eye-slash')
+	
+		} else {
+			e.target.previousElementSibling.type = 'password'
+			e.target.classList.add('fa-eye')
+			e.target.classList.remove('fa-eye-slash')
+		}
+	}
+	
 })

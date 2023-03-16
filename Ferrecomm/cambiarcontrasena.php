@@ -13,6 +13,10 @@ if (isset($_SESSION['usuario'])) {
 	<title>Validación de Formulario con Javascript</title>
 	<link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> 
+	<link rel="stylesheet" href="accesos/CSS/Estilos_formulario.css">
+    <link rel="stylesheet" href="accesos/CSS/Estilos.css">
+    <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
 	<link rel="stylesheet" href="accesos/CSS/Estiloscambio.css">
 </head>
 <body>
@@ -35,10 +39,9 @@ if (isset($_SESSION['usuario'])) {
 			<label for="password" class="formulario__label">Contraseña enviada a su correo</label>
 			<div class="formulario__grupo-input">
 				<input type="password" class="formulario__input" name="passwordant" id="passwordant">
-                <i class="formulario__validacion-estado fa-solid fa-eye" id="Ojito1"></i>
-				<i class="formulario__validacion-estado fas fa-times-circle"></i>
+                <i class="formulario__validacion-estado fa-solid fa-eye" id="Ojito"></i>
 			</div>
-			<p class="formulario__input-error">La contraseña tiene que ser de 6 a 20 dígitos.</p>
+			<p class="formulario__input-error">La contraseña tiene que ser de 5 a 20 dígitos.</p>
 		</div>
 
 			<!-- Nueva Contraseña -->
@@ -46,10 +49,9 @@ if (isset($_SESSION['usuario'])) {
 				<label for="password" class="formulario__label">Contraseña</label>
 				<div class="formulario__grupo-input">
 					<input type="password" class="formulario__input" name="password" id="password">
-                    <i class="formulario__validacion-estado fa-solid fa-eye" id="Ojito2"></i>
-					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    <i class="formulario__validacion-estado fa-solid fa-eye" id="Ojito1"></i>
 				</div>
-				<p class="formulario__input-error">La contraseña tiene que ser de 6 a 20 dígitos.</p>
+				<p class="formulario__input-error">La contraseña tiene que ser de 5 a 20 dígitos.</p>
 			</div>
 
 			<!-- Confirmar Contraseña -->
@@ -57,8 +59,7 @@ if (isset($_SESSION['usuario'])) {
 				<label for="password2" class="formulario__label">Confirmar Contraseña</label>
 				<div class="formulario__grupo-input">
 					<input type="password" class="formulario__input" name="password2" id="password2">
-                            <i class="formulario__validacion-estado fa-solid fa-eye" id="Ojito3"></i>
-					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    <i class="formulario__validacion-estado fa-solid fa-eye" id="Ojito2"></i>
 				</div>
 				<p class="formulario__input-error">Ambas contraseñas deben ser iguales.</p>
 			</div>
