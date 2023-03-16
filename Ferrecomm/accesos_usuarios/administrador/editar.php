@@ -42,6 +42,11 @@ if(!isset ($_SESSION['usuario'])){
                 date_default_timezone_set('America/Mexico_City');
                  $fecha_modificacion =date("Y-m-d H:i:s");
 
+                 if($estado_usuario == 1){
+                    $estado_usuario= 'ACTIVO';
+                }else{
+                    $estado_usuario= 'INACTIVO';
+                }
 
                 $query = mysqli_query($conex,"SELECT * FROM tbl_ms_usuario 
                 WHERE (usuario = '$usuario' AND id_usuario != $id_usuario)
@@ -55,7 +60,7 @@ if(!isset ($_SESSION['usuario'])){
 
                
                     $sql_update = mysqli_query($conex,"UPDATE tbl_ms_usuario
-                    SET nombre_usuario='$nombre_usuario', estado_usuario='$estado',contrasenia='$contrasenia', id_rol='$rol', 
+                    SET nombre_usuario='$nombre_usuario', estado_usuario='$estado_usuario',contrasenia='$contrasenia', id_rol='$rol', 
                     correo_electronico='$correo_electronico',
                     fecha_modificacion='$fecha_modificacion'
                     WHERE id_usuario = $id_usuario");
@@ -172,8 +177,8 @@ if(!isset ($_SESSION['usuario'])){
 
             <label for="Estado_usuario">Estado</label>
             <select name="estado_usuario" id="estado_usuario">
-                <option value="1">Activo</option>
-                <option value="2">Inactivo</option>
+                <option value="1">ACTIVO</option>
+                <option value="2">INACTIVO</option>
             </select>
             <label for="contrasenia">Contraseña</label>
             <input type="password" name="contrasenia" id="contrasenia" placeholder="contrasenia" value="<?php echo $contrasenia; ?>">

@@ -55,9 +55,9 @@ if (!empty($_POST)) {
         $fecha_creacion = date("Y-m-d H:i:s");
 
         if($estado_usuario == 1){
-            $estado= 'ACTIVO';
+            $estado_usuario= 'ACTIVO';
         }else{
-            $estado= 'INACTIVO';
+            $estado_usuario= 'INACTIVO';
         }
       
       
@@ -77,7 +77,7 @@ if (!empty($_POST)) {
         } else {
             $query_insert = mysqli_query($conex, "INSERT INTO tbl_ms_usuario(usuario,nombre_usuario,estado_usuario,contrasenia,id_rol,
                                         fecha_vencimiento,correo_electronico, creado_por, fecha_creacion)
-            VALUES('$usuario','$nombre_usuario','$estado','$contrasenia','$rol','$fecha_vencimiento','$correo_electronico','$creado_por','$fecha_creacion')");
+            VALUES('$usuario','$nombre_usuario','$estado_usuario','$contrasenia','$rol','$fecha_vencimiento','$correo_electronico','$creado_por','$fecha_creacion')");
 
             if ($query_insert) {
                 //  $alert= '<p class= "msg_save">El usuario se ha creado.</p>';
@@ -161,8 +161,8 @@ if (!empty($_POST)) {
 
                 <label for="estado_usuario">Estado</label>
                 <select name="estado_usuario" id="Estado Usuario">
-                    <option value="1">Activo</option>
-                    <option value="2">Inactivo</option>
+                    <option value="1">ACTIVO</option>
+                    <option value="2">INACTIVO</option>
                 </select>
 
                 <label for="id_rol">ROL</label>
