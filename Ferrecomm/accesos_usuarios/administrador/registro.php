@@ -46,10 +46,13 @@ if (!empty($_POST)) {
         $rol = $_POST['id_rol'];
         //Creacion automatica de fecha
         date_default_timezone_set('America/Mexico_City');
-        $fecha_vencimiento=(new DateTime('+ 1 months'))->format('Y-m-d H:i:s');
+        $fecha_vencimiento=(new DateTime('+ 12 months'))->format('Y-m-d H:i:s');
 
         $correo_electronico = $_POST['email'];
-        $creado_por = "ADMINISTRADOR";
+        $creado_por = "ADMINISTRADOR";  
+
+
+        $primer_ingreso="NO";
         //Creacion automatica de fecha
         date_default_timezone_set('America/Mexico_City');
         $fecha_creacion = date("Y-m-d H:i:s");
@@ -76,8 +79,8 @@ if (!empty($_POST)) {
                 ';
         } else {
             $query_insert = mysqli_query($conex, "INSERT INTO tbl_ms_usuario(usuario,nombre_usuario,estado_usuario,contrasenia,id_rol,
-                                        fecha_vencimiento,correo_electronico, creado_por, fecha_creacion)
-            VALUES('$usuario','$nombre_usuario','$estado_usuario','$contrasenia','$rol','$fecha_vencimiento','$correo_electronico','$creado_por','$fecha_creacion')");
+                                        fecha_vencimiento,correo_electronico, creado_por, fecha_creacion, primer_ingreso)
+            VALUES('$usuario','$nombre_usuario','$estado_usuario','$contrasenia','$rol','$fecha_vencimiento','$correo_electronico','$creado_por','$fecha_creacion','$primer_ingreso')");
 
             if ($query_insert) {
                 //  $alert= '<p class= "msg_save">El usuario se ha creado.</p>';
@@ -122,6 +125,7 @@ if (!empty($_POST)) {
     <title>Registro Usuarios</title>
     <link rel="stylesheet" href="accesos/CSS/registro.css">
     <link rel="stylesheet" href="accesos/CSS/Estilos.css">
+    <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 </head>
 
 <body>
@@ -187,7 +191,7 @@ if (!empty($_POST)) {
                     <label for="password" class="formulario__label">Contraseña</label>
                     <div class="formulario__grupo-input">
                         <input type="password" class="formulario__input" name="contra" id="contra">
-                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                        <i class="formulario__validacion-estado fa-solid fa-eye" id="Ojito"></i>
                     </div>
                     <p class="formulario__input-error">La contraseña tiene que ser de 5 a 20 dígitos.</p>
                 </div>
@@ -197,7 +201,7 @@ if (!empty($_POST)) {
                     <label for="password2" class="formulario__label">Repetir Contraseña</label>
                     <div class="formulario__grupo-input">
                         <input type="password" class="formulario__input" name="password2" id="password2">
-                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                        <i class="formulario__validacion-estado fa-solid fa-eye" id="Ojito2"></i>
                     </div>
                     <p class="formulario__input-error">Ambas contraseñas deben ser iguales.</p>
                 </div>

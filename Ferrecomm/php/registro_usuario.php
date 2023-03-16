@@ -15,9 +15,12 @@ $primerIngreso = "NO";
  //Creacion automatica de fecha
  date_default_timezone_set('America/Mexico_City');
  $fecha_creacion = date("Y-m-d H:i:s");
+ //fecha de vencimiento 
+       date_default_timezone_set('America/Mexico_City');
+        $fecha_vencimiento=(new DateTime('+ 12 months'))->format('Y-m-d H:i:s');
 
-$queri = "INSERT INTO tbl_ms_usuario (nombre_usuario, correo_electronico, usuario, contrasenia, id_rol, estado_usuario, creado_por, fecha_creacion, primer_ingreso) 
-                     VALUES ('$nombre', '$email','$usuario','$contra','$defaul_rol','$defaul_estado', '$creado','$fecha_creacion','$primerIngreso')";
+$queri = "INSERT INTO tbl_ms_usuario (nombre_usuario, correo_electronico, usuario, contrasenia, id_rol, estado_usuario, creado_por, fecha_creacion, primer_ingreso, fecha_vencimiento) 
+                     VALUES ('$nombre', '$email','$usuario','$contra','$defaul_rol','$defaul_estado', '$creado','$fecha_creacion','$primerIngreso','$fecha_vencimiento')";
 
 
 $consulta= "SELECT * FROM tbl_ms_usuario WHERE usuario = '$usuario' ";

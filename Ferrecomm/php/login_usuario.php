@@ -15,48 +15,17 @@ $contra = hash('sha512', $contra);
 $validar_login = mysqli_query($conexion, "SELECT * FROM tbl_ms_usuario WHERE usuario = '$usuario'
                               and contrasenia = '$contra' ");
 
-$rol = "SELECT id_rol FROM tbl_ms_usuario WHERE usuario = '$usuario'";
-$obtener_rol = mysqli_query($conexion, $rol);
-$fila = mysqli_fetch_array($obtener_rol);
-$va_rol = $fila['id_rol'];
-//obtener nombre 
-$Nombre = "SELECT nombre_usuario FROM tbl_ms_usuario WHERE usuario = '$usuario'";
-$obtener_nombre = mysqli_query($conexion, $Nombre);
-$fila_Nombre = mysqli_fetch_array($obtener_nombre);
-$va_Nombre = $fila_Nombre['nombre_usuario'];
-
-//obtener Estado
-$estado = "SELECT estado_usuario FROM tbl_ms_usuario WHERE usuario = '$usuario'";
-$obtener_estado = mysqli_query($conexion, $estado);
-$fila_estado = mysqli_fetch_array($obtener_estado);
-$va_estado = $fila_estado['estado_usuario'];
-//obteer id_usuario
-$idusuario = "SELECT id_usuario FROM tbl_ms_usuario WHERE usuario = '$usuario'";
-$obtenerid = mysqli_query($conexion,$idusuario);
-$filaid = mysqli_fetch_array($obtenerid);
-$va_id =$filaid['id_usuario'];
-//Obtener primer Ingreso 
-$usuarioprimero = "SELECT primer_ingreso FROM tbl_ms_usuario WHERE usuario = '$usuario'";
-$obtener_primer_ingreso = mysqli_query($conexion,$usuarioprimero);
-$filai_primer = mysqli_fetch_array($obtener_primer_ingreso);
-$va_primer_ingreso =$filai_primer ['primer_ingreso'];
-
-if($va_primer_ingreso=='NO'){
-  $sql="UPDATE tbl_ms_usuario SET primer_ingreso = 'Si' WHERE usuario = '$usuario'";
-header("location: pregunta.php");
-
-mysqli_query($conexion,$sql);
 
 
-}
 //obtener numero de intentos
-// ADMIN_INTENTOS =  (id= 1) nombre del paramentro en la base de datos que especifica el numero de intentos.
+// ADMIN_INTENTOS = (id= 1) nombre del paramentro en la base de datos que especifica el numero de intentos.
 
-//$intentos = "SELECT parametro FROM tbl_ms_parametros WHERE id = '1'";
-//$obtener_intentos = mysqli_query($conexion, $intentos);
-//$fila_intentos = mysqli_fetch_array($obtener_intentos);
-//$va_intentos = $fila_intentos['parametro']; xxxxxxx
-if($va_primer_ingreso=='Si'){
+$intentos = "SELECT valor FROM tbl_ms_parametros WHERE parametro = 'ADMIN_INTENTOS'";
+$obtener_intentos = mysqli_query($conexion, $intentos);
+$fila_intentos = mysqli_fetch_array($obtener_intentos);
+$va_intentos = $fila_intentos['valor'];
+
+
 if (isset($_COOKIE["block" . $usuario])) {
     echo '
         <script>
@@ -66,7 +35,51 @@ if (isset($_COOKIE["block" . $usuario])) {
         ';
 } else {
 
+
+
+    if (mysqli_num_rows($validar_login) > 0){
+        $estado = "SELECT estado_usuario FROM tbl_ms_usuario WHERE usuario = '$usuario'";
+        $obtener_estado = mysqli_query($conexion, $estado);
+        $fila_estado = mysqli_fetch_array($obtener_estado);
+        $va_estado = $fila_estado['estado_usuario'];
+    }
+
     if (mysqli_num_rows($validar_login) > 0 && $va_estado == 'ACTIVO') {
+
+        $rol = "SELECT id_rol FROM tbl_ms_usuario WHERE usuario = '$usuario'";
+        $obtener_rol = mysqli_query($conexion, $rol);
+        $fila = mysqli_fetch_array($obtener_rol);
+        $va_rol = $fila['id_rol'];
+        //obtener nombre 
+        $Nombre = "SELECT nombre_usuario FROM tbl_ms_usuario WHERE usuario = '$usuario'";
+        $obtener_nombre = mysqli_query($conexion, $Nombre);
+        $fila_Nombre = mysqli_fetch_array($obtener_nombre);
+        $va_Nombre = $fila_Nombre['nombre_usuario'];
+        
+        //obtener Estado
+        $estado = "SELECT estado_usuario FROM tbl_ms_usuario WHERE usuario = '$usuario'";
+        $obtener_estado = mysqli_query($conexion, $estado);
+        $fila_estado = mysqli_fetch_array($obtener_estado);
+        $va_estado = $fila_estado['estado_usuario'];
+        //obteer id_usuario
+        $idusuario = "SELECT id_usuario FROM tbl_ms_usuario WHERE usuario = '$usuario'";
+        $obtenerid = mysqli_query($conexion,$idusuario);
+        $filaid = mysqli_fetch_array($obtenerid);
+        $va_id =$filaid['id_usuario'];
+        //Obtener primer Ingreso 
+        $usuarioprimero = "SELECT primer_ingreso FROM tbl_ms_usuario WHERE usuario = '$usuario'";
+        $obtener_primer_ingreso = mysqli_query($conexion,$usuarioprimero);
+        $filai_primer = mysqli_fetch_array($obtener_primer_ingreso);
+        $va_primer_ingreso =$filai_primer ['primer_ingreso'];
+
+
+
+
+        if($va_primer_ingreso =='NO'){
+            header("location:pregunta.php");
+          exit();
+          }
+        
 
         switch ($va_rol) {
             case 1:
@@ -94,6 +107,26 @@ if (isset($_COOKIE["block" . $usuario])) {
 
         exit();
     } else {
+        if (mysqli_num_rows($validar_login) > 0){
+        //obtener Estado  
+          $estado = "SELECT estado_usuario FROM tbl_ms_usuario WHERE usuario = '$usuario'";
+          $obtener_estado = mysqli_query($conexion, $estado);
+          $fila_estado = mysqli_fetch_array($obtener_estado);
+          $va_estado = $fila_estado['estado_usuario'];
+
+
+
+
+          if ($va_estado == 'INACTIVO') {
+            echo '
+        <script>
+        alert("Usuario ingresado inactivo, por favor intente de nuevo ");
+        window.location= "../index.php";
+        </script>
+        ';
+            exit();
+        }
+        }
 
 
 
@@ -101,7 +134,7 @@ if (isset($_COOKIE["block" . $usuario])) {
             $cont = $_COOKIE["$usuario"];
             $cont++;
             setcookie($usuario, $cont, time() + 120);
-            if ($cont >= 3) {
+            if ($cont == $va_intentos) {
                 setcookie("block" . $usuario, $cont, time() + 30);
                 $queribloqueo = "UPDATE tbl_ms_usuario
                           SET estado_usuario = 'INACTIVO' 
@@ -113,15 +146,7 @@ if (isset($_COOKIE["block" . $usuario])) {
             setcookie($usuario, 1, time() + 120);
         }
 
-        if ($va_estado == 'INACTIVO') {
-            echo '
-        <script>
-        alert("Usuario ingresado inactivo, por favor intente de nuevo ");
-        window.location= "../index.php";
-        </script>
-        ';
-            exit();
-        }
+       
 
 
 
@@ -133,5 +158,5 @@ if (isset($_COOKIE["block" . $usuario])) {
     ';
         exit();
     }
-}
+
 }

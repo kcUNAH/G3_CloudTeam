@@ -34,7 +34,7 @@ main {
 .formulario__input {
 	width: 100%;
 	background: #fff;
-	border: 3px solid transparent;
+	border: 1px solid;
 	border-radius: 3px;
 	height: 45px;
 	line-height: 45px;
