@@ -1,28 +1,52 @@
 <?php
 session_start();
-include_once "conexion2.php";
+include 'conexion.php';
 
 
-
-
-
-
-
-
-
-?>
-<?php
- 
- 
-    $valor = 20;
+if (empty($_POST)) {
+  $usuario = $_SESSION['usuario']['user'];
+  $contrasenia_actual = $_POST['contra_login'];
+  $contrasenia_nueva = $_POST['contra'];
   
-?>
-<?php
+  $validar_contrasenia = mysqli_query($conexion, "SELECT * FROM tbl_ms_usuario WHERE usuario = '$usuario'
+                                ");
+  
+  if (mysqli_num_rows($validar_contrasenia) > 0){
+  
+    $queri = "UPDATE tbl_ms_usuario
+    SET contrasenia = '$contrasenia_actual' 
+    where usuario = '$usuario' ";
+    
+    $EJECUTAR = mysqli_query($conexion, $queri);
+    session_destroy();  
+    echo '
+    <script>
+    alert("Contraseña actualizada con exito!! Por favor ingrese de nuevo ");
+    window.location= "../index.php";
+    </script>
+    ';
+        exit();
+  
+  
+  
+  }else{
+    echo '
+    <script>
+    alert("Contraseña incorrecta, por favor pruebe de nuevo ");
+    </script>
+    ';
+  }
 
-    $valor1 = 20;
+}
 
- 
+
+
+
+
+
 ?>
+
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -45,7 +69,7 @@ include_once "conexion2.php";
 
 
 
-              <form  method="POST" action="login_usuario.php" class="formulario__registro" id="formulario"> 
+              <form  method="POST" action="" class="formulario__registro" id="formulario"> 
 
                     <!-- Grupo: Contraseña actual -->
                     <div class="formulario__grupo" id="grupo__contra_login">
@@ -91,7 +115,7 @@ include_once "conexion2.php";
 
                     <br><br>
                     <div class="formulario__grupo formulario__grupo-btn-enviar">
-                        <button style="background-color: #fda00e;" type="submit" name="cambiar_clave" id="cambiar_clave" class="btn btn btn-success btn-block">Cambiar contraseña</button>
+                        <button style="background-color: #fda00e;" name="cambiar_clave" id="cambiar_clave" class="btn btn btn-success btn-block">Cambiar contraseña</button>
                         <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado exitosamente!</p>
                     </div>
                 

@@ -184,8 +184,8 @@ if(!isset ($_SESSION['usuario'])){
             </td>
          
         
-    <!--  <a class="link_edit" href="editar.php?id=<?php// echo $data["id_usuario"]; ?>">Editar</a> --> 
-               <!--   <a class="link_delete" href="elim_usuario.php?id=<?php// echo $data["id_usuario"]; ?>">Eliminar</a>--> 
+    <!--  <a class="link_edit" href="editar.php?id=<// echo $data["id_usuario"]; ?>">Editar</a> --> 
+               <!--   <a class="link_delete" href="elim_usuario.php?id=<// echo $data["id_usuario"]; ?>">Eliminar</a>--> 
            
         </tr>
         <?php
@@ -206,7 +206,7 @@ if(!isset ($_SESSION['usuario'])){
 
 
   <script>
- /let sidebar = document.querySelector(".sidebar");
+  let sidebar = document.querySelector(".sidebar");
   let closeBtn = document.querySelector("#btn");
   let searchBtn = document.querySelector(".bx-search");
 
