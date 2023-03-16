@@ -24,6 +24,7 @@ if(!isset ($_SESSION['usuario'])){
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../../accesos/CSS/EstiloMenu.css">
     <link rel="stylesheet" href="../../accesos/CSS/tablas.css">
+    <link rel="stylesheet" href="../../accesos/CSS/tablaproducto.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
    </head>
@@ -108,25 +109,30 @@ if(!isset ($_SESSION['usuario'])){
       <section id="container">
       <head>
     
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+   
    <link rel="stylesheet" href="./fontawesome-free/css/all.min.css">
    <div class="container-fluid" style=" background-image: URL(Ferrecomm\accesos\Imagenes\Logo.jpeg);"></div> 
 </head>
-   
-      <h2>Revisar:</h2>
-      
-      <a href="registro.php" class="btn_new">Crear Usuario</a>
-      <a href="usuario_activo.php" class="btn_new">Usuarios Activos</a>
-      <a href="usuario_inactivo.php" class="btn_new">Usuarios Inactivos</a>
-      
+<section id="container"  >
+      <form action=" buscar_producto.php" method="get" style="background-color:#DCFFFE ;">
+  <input type="text" name="buscar" style="margin-left: 40px" id="buscar" placeholder="Buscar...">
+  <button type="submit" class="boton-buscar">Buscar</button>
+  <a href="registro.php" class="btn_newproducto" > Crear usuario<i id="icon_nuevo" class='bx bxs-cart-add'></i></a>
+  <a href="usuario_activo.php" class="btn_activo" > Usuarios Activos<i id="icon_nuevo" class='bx bxs-cart-add'></i></a>
+  <a href="usuario_inactivo.php" class="btn_inactivo" >Usuarios Inactivos<i id="icon_nuevo" class='bx bxs-cart-add'></i></a>
+  <a href="#" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
+
+
+</form>
+
+
      
 
       <?php include'conex.php';?>
       <section id="container">
 
-      <table class="table table-success table-string">
-        
+      <table>
+      <thead>
         <tr>
             <th>Id</th>
             <th>Usuario</th>
@@ -142,7 +148,7 @@ if(!isset ($_SESSION['usuario'])){
             <th>Acciones</th>
 
         </tr>
-        
+       </thead>
         <?php
        /* include 'php/conexion.php';*/
        include 'conex.php';
@@ -171,12 +177,16 @@ if(!isset ($_SESSION['usuario'])){
             <td><?php echo $data["creado_por"] ?></td>
             <td> <?php echo $data["fecha_creacion"] ?></td>
             <td> <?php echo $data["fecha_modificacion"] ?></td>
-            <td> <a type="button" class="btn btn-primary" href="editar.php?id=<?php echo $data["id_usuario"]; ?>">Editar</a>
-             <a type="button" class="btn btn-danger" href="elim_usuario.php?id=<?php echo $data["id_usuario"]; ?>">Eliminar</a>
+            <td>
+              <!--  <a class="link_factura" href="#"><i class='bx bx-check-double'></i></i></a>-->
+                <a class="link_edit" href="editar.php?id=<?php echo $data["id_usuario"]; ?>"><i class='bx bx-edit'></i></a>
+                <a class="link_delete" href="elim_usuario.php?id=<?php echo $data["id_usuario"]; ?>"><i class='bx bxs-trash'></i></a>
+            </td>
+         
         
     <!--  <a class="link_edit" href="editar.php?id=<?php// echo $data["id_usuario"]; ?>">Editar</a> --> 
                <!--   <a class="link_delete" href="elim_usuario.php?id=<?php// echo $data["id_usuario"]; ?>">Eliminar</a>--> 
-            </td>
+           
         </tr>
         <?php
             }
@@ -186,7 +196,11 @@ if(!isset ($_SESSION['usuario'])){
 
       </table>
 
+      <div class="navigation">
+ <a type="button"   class="btn_anterior" href="#"  name="anterior">anterior<i class='bx bx-chevrons-left'></i></a>  
 
+  <a type="button"  class="btn_anterior" href="#"  name="anterior"><i class='bx bx-chevrons-right'>Siguiente</i></a>  
+</div>
       
   </section>
 
@@ -209,5 +223,65 @@ if(!isset ($_SESSION['usuario'])){
    }
   }
   </script>
+
+  <!--diseño buscar-->
+<style type="text/css">
+form {
+  display: flex;
+  align-items: center;
+}
+
+input[type="text"] {
+  padding: 8px;
+  border: none;
+  border-radius: 10px;
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 8px 16px;
+  font-size: 16px;
+}
+</style>
+
+</body>
+<!--diseño siguiente-->
+<style type="text/css">
+.navigation {
+  display: flex;
+  justify-content: left;
+  align-items: left;
+
+}
+
+.navigation button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 5px 20px;
+  text-align:left;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 1px 2px;
+  cursor: pointer;
+}
+
+.navigation button:hover {
+  opacity: 0.8;
+}
+
+.navigation .page-number {
+  margin: 0 0px;
+  font-size: 10px;
+}
+
+</style>
 </body>
 </html>

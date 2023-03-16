@@ -2,11 +2,11 @@
  #container h1¨{
     font-size: 35px;
     display: inline-block;
-    color: #eb901b;
+    color: rgba(255, 102, 0, 0.911);
 }
 
 h1{
-    color: #eb901b;
+    color:rgba(255, 102, 0, 0.911);
     margin-left: 20px;
     text-align: center;
     font-size: 30pt;
@@ -16,7 +16,7 @@ h2 {
     font-size: 30px;
     text-align: center;
     margin-bottom: 20px;
-    color: #eb901b;
+    color: rgba(255, 102, 0, 0.911);
     
     margin:auto;
 }
@@ -32,7 +32,7 @@ table{
 }
 
 thead{
-  background-color: #c98509;
+  background-color: rgba(255, 102, 0, 0.911);
   border-bottom: solid 5px;
   color: rgb(0, 0, 0);
 }
@@ -48,10 +48,10 @@ table td:first-child {
     width: 10px;
   }
   table td:nth-child(4){
-    width: 260px;
+    width: 300px;
   }
   table td:nth-child(5){
-    width: 150px;
+    width: 100px;
   }
   table td:nth-child(6){
     width: 150px;
@@ -60,7 +60,7 @@ table td:first-child {
     width: 100px;
   }
   table td:nth-child(8){
-    width: 70px;
+    width: 50px;
   }
   table td:nth-child(9){
     width: 70px;
@@ -69,7 +69,7 @@ table td:first-child {
 
 
   table td:last-child {
-    width: 150px;
+    width: 100px;
   }
 
 .table .th{
@@ -116,12 +116,32 @@ table td {
 
 .btn_pdf{
     display: inline-block;
-    background: #d44c4c;
+    background-color: rgba(255, 102, 0, 0.911);
     color:rgb(255, 255, 255);
     padding: 5px 25px;
     border-radius: 10px;
     margin: 20px;
     text-decoration: none;
+
+} 
+.btn_inactivo{
+  display: inline-block;
+  background-color: rgba(255, 0, 0, 0.911);
+  color:rgb(255, 255, 255);
+  padding: 5px 25px;
+  border-radius: 10px;
+  margin: 20px;
+  text-decoration: none;
+
+} 
+.btn_activo{
+  display: inline-block;
+  background-color: green;
+  color:rgb(255, 255, 255);
+  padding: 5px 25px;
+  border-radius: 10px;
+  margin: 20px;
+  text-decoration: none;
 
 } 
 
@@ -241,4 +261,14 @@ form{
 
 .formulario__grupo-incorrecto .formulario__input {
 	border: 3px solid #bb2929;
+}
+.btn_anterior{
+  display: inline-block;
+  background: #fdfdfd;
+  color:rgb(42, 22, 223);
+  padding: 5px 25px;
+  border-radius: 10px;
+  margin: 20px;
+  text-decoration: none;
+
 }

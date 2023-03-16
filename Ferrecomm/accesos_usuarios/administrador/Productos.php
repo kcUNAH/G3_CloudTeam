@@ -102,11 +102,19 @@ if(!isset ($_SESSION['usuario'])){
 </br>
       <h1>  Productos <i class='bx bx-shopping-bag'></i></h1>
       <?php include 'conex.php';?>
-      <section id="container">
-    
-      <a href="./productos/agregarproducto.php" class="btn_newproducto"> Nuevo producto<i id="icon_nuevo" class='bx bxs-cart-add'></i></a>
-      <a href="#" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
-      
+
+      <section id="container"  >
+      <form action=" buscar_producto.php" method="get" style="background-color:#DCFFFE ;">
+  <input type="text" name="buscar" style="margin-left: 40px" id="buscar" placeholder="Buscar...">
+  <button type="submit" class="boton-buscar">Buscar</button>
+  <a href= "./productos/agregarproducto.php" class="btn_newproducto" style="margin-left: 350px"> Nuevo producto<i id="icon_nuevo" class='bx bxs-cart-add'></i></a>
+    <a href="#" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
+
+
+</form>
+
+
+&nbsp;&nbsp;&nbsp; 
 
       <table>
         <thead>
@@ -169,8 +177,18 @@ if(!isset ($_SESSION['usuario'])){
         ?>
 
       </table>
+      &nbsp;&nbsp;&nbsp; 
+   
+ <div class="navigation">
+ <a type="button"   class="btn_anterior" href="#"  name="anterior">anterior<i class='bx bx-chevrons-left'></i></a>  
 
-      
+  <a type="button"  class="btn_anterior" href="#"  name="anterior"><i class='bx bx-chevrons-right'>Siguiente</i></a>  
+</div>
+
+
+</style>
+
+
   </section>
   <script>
   let sidebar = document.querySelector(".sidebar");
@@ -190,8 +208,80 @@ if(!isset ($_SESSION['usuario'])){
    }
   }
   </script>
+<!--diseño buscar-->
+<style type="text/css">
+form {
+  display: flex;
+  align-items: center;
+}
 
+input[type="text"] {
+  padding: 8px;
+  border: none;
+  border-radius: 10px;
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 8px 16px;
+  font-size: 16px;
+}
+</style>
 
 </body>
+<!--diseño siguiente-->
+<style type="text/css">
+.navigation {
+  display: flex;
+  justify-content: left;
+  align-items: left;
+
+}
+
+.navigation button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 5px 20px;
+  text-align:left;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 1px 2px;
+  cursor: pointer;
+}
+
+.navigation button:hover {
+  opacity: 0.8;
+}
+
+.navigation .page-number {
+  margin: 0 0px;
+  font-size: 10px;
+}
+
+</style>
+<!--Codigo java ventana flotante-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </html>
 

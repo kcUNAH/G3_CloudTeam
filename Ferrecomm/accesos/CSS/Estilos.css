@@ -45,7 +45,7 @@ position: relative;
 /*engloba a los div que se encuentran en caja trasera*/
 .caja__trasera div {
     margin: 100px 40px;
-    color: antiquewhite;
+    color: #faebd7;
     transition: all 500ms;
  
 }

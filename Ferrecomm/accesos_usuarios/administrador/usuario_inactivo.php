@@ -24,6 +24,7 @@ if(!isset ($_SESSION['usuario'])){
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../../accesos/CSS/EstiloMenu.css">
     <link rel="stylesheet" href="../../accesos/CSS/tablas.css">
+    <link rel="stylesheet" href="../../accesos/CSS/tablaproducto.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
    </head>
@@ -107,11 +108,19 @@ if(!isset ($_SESSION['usuario'])){
       <?php include'conex.php';?>
       <section id="container">
 
-      
-      <a href="registro.php" class="btn_new">Crear Usuario</a>
+<form action=" buscar_producto.php" method="get" style="background-color:#DCFFFE ;">
+  <input type="text" name="buscar" style="margin-left: 40px" id="buscar" placeholder="Buscar...">
+  <button type="submit" class="boton-buscar">Buscar</button>
+  <a href="registro.php" class="btn_newproducto" style="margin-left: 350px" > Crear usuario<i id="icon_nuevo" class='bx bxs-cart-add'></i></a>
+  <a href="#" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
+
+
+</form>
+
       <link rel="stylesheet" href="accesos/CSS/tablas.css">
 
       <table>
+      <thead>
         <tr>
             <th>Id</th>
             <th>Usuario</th>
@@ -128,7 +137,7 @@ if(!isset ($_SESSION['usuario'])){
             
             <th>Acciones</th>
         </tr>
-        
+        </thead>
         <?php
        /* include 'php/conexion.php';*/
        include 'conex.php';
@@ -157,8 +166,9 @@ if(!isset ($_SESSION['usuario'])){
 
     
             <td>
-                <a class="link_edit" href="editar.php?id=<?php echo $data["id_usuario"]; ?>">Editar</a>
-                <a class="link_delete" href="elim_usuario.php?id=<?php echo $data["id_usuario"]; ?>">Eliminar</a>
+              <!--  <a class="link_factura" href="#"><i class='bx bx-check-double'></i></i></a>-->
+                <a class="link_edit" href="editar.php?id=<?php echo $data["id_usuario"]; ?>"><i class='bx bx-edit'></i></a>
+                <a class="link_delete" href="elim_usuario.php?id=<?php echo $data["id_usuario"]; ?>"><i class='bx bxs-trash'></i></a>
             </td>
         </tr>
         <?php
@@ -168,10 +178,70 @@ if(!isset ($_SESSION['usuario'])){
         ?>
 
       </table>
+      <div class="navigation">
+ <a type="button"   class="btn_anterior" href="#"  name="anterior">anterior<i class='bx bx-chevrons-left'></i></a>  
 
+  <a type="button"  class="btn_anterior" href="#"  name="anterior"><i class='bx bx-chevrons-right'>Siguiente</i></a>  
+</div>
   </section>
+ <!--diseño buscar-->
+ <style type="text/css">
+form {
+  display: flex;
+  align-items: center;
+}
 
+input[type="text"] {
+  padding: 8px;
+  border: none;
+  border-radius: 10px;
+  margin-right: 10px;
+  font-size: 16px;
+}
 
+button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 8px 16px;
+  font-size: 16px;
+}
+</style>
+
+</body>
+<!--diseño siguiente-->
+<style type="text/css">
+.navigation {
+  display: flex;
+  justify-content: left;
+  align-items: left;
+
+}
+
+.navigation button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 5px 20px;
+  text-align:left;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 1px 2px;
+  cursor: pointer;
+}
+
+.navigation button:hover {
+  opacity: 0.8;
+}
+
+.navigation .page-number {
+  margin: 0 0px;
+  font-size: 10px;
+}
+</style>
   <script>
   let sidebar = document.querySelector(".sidebar");
   let closeBtn = document.querySelector("#btn");
@@ -190,6 +260,6 @@ if(!isset ($_SESSION['usuario'])){
    }
   }
   </script>
-  <a href="GestionUsuarios.php" class="btn_new">Atrás</a>
+  <a href="GestionUsuarios.php" class="btn_pdf">Atrás</a>
 </body>
 </html>

@@ -20,10 +20,9 @@ if(!isset ($_SESSION['usuario'])){
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="../../accesos/CSS/EstiloMenu.css">
     <link rel="stylesheet" href="../../accesos/CSS/tablas.css">
-   
+    <link rel="stylesheet" href="../../accesos/CSS/tablaproducto.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
@@ -103,42 +102,35 @@ if(!isset ($_SESSION['usuario'])){
 
     <!-- Aqui inicia el formulario-->
     <i class='bx bxs-group icon'></i> 
-    <div class="text">Proveedores</div><hr> </hr>
+    <div class="text">Proveedores</div>
     <div class="d-grid gap-2">
                     
                       
                      </div>
 
-                     <nav class="navbar bg-body-tertiary">
-                <div class="container-fluid">
-    <form class="d-flex" role="search">
-      <input class="form-control me-2" type="search" placeholder="buscar" aria-label="Buscar">
-      <button class="btn btn-outline-success" type="submit">Buscar</button>
-    </form>
-    <a type="button" class="btn btn-primary" href="javascript:abrir()" style="background-color:orange; border-color:black; color:black" name="agrega"> <i class='bx bx-user-plus'  ></i> Agregar Nuevo</a>  
-    <a type="button" class="btn btn-primary" href="registro.php"   style="background-color:orange; border-color:black; color:black" > <i class='bx bxs-file-pdf' ></i> PDF</a>
-                    
-  </div>
-</nav>
+  <form action=" buscar_producto.php" method="get" style="background-color:#DCFFFE ;">
+  <input type="text" name="buscar" style="margin-left: 40px" id="buscar" placeholder="Buscar...">
+  <button type="submit" class="boton-buscar">Buscar</button>
+  <a href="registro.php" class="btn_newproducto" style="margin-left: 350px" > Agregar Proveedor<i id="icon_nuevo" class='bx bxs-cart-add'></i></a>
+  <a href="#" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
+
+
+</form>
                     
 
     <head>
-    
-     <!-- Bootstrap CSS -->
     
     <link rel="stylesheet" href="./fontawesome-free/css/all.min.css">
     <div class="container-fluid" style=" background-image: URL(..\..\accesos\Imagenes\Logo.jpeg);"></div> 
 </head>
 <?php include'conex.php';?>
       <section id="container">
-  
-  
-    <hr> </hr>
 
-    <table class="table table-success table-string">
-        
 
-         <tr>
+   
+    <table>
+      <thead>
+        <tr>
         <th>id proveedor</th>
         <th>Nombre del proveedor</th>
         <th>RTN</th>
@@ -148,10 +140,12 @@ if(!isset ($_SESSION['usuario'])){
 
 
         <th>Acción 
-            <hr> </hr>
+          
             
         </th>
-      </tr>
+        </tr>
+       </thead>
+   
       <tr>
         
       <?php
@@ -184,23 +178,12 @@ if(!isset ($_SESSION['usuario'])){
         ?>
 
       </table>
+      <div class="navigation">
+ <a type="button"   class="btn_anterior" href="#"  name="anterior">anterior<i class='bx bx-chevrons-left'></i></a>  
 
-      <hr> </hr>
-    <nav aria-label="...">
-  <ul class="pagination">
-    <li class="page-item disabled">
-      <span class="page-link">Anterior</span>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item active" aria-current="page">
-      <span class="page-link">2</span>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#">Siguiente</a>
-    </li>
-  </ul>
-</nav>
+  <a type="button"  class="btn_anterior" href="#"  name="anterior"><i class='bx bx-chevrons-right'>Siguiente</i></a>  
+</div>
+  
 <!--Ventana flotante-->
       <div class ="ventana" id="vent"> 
   <section class="registro_proveedor">
@@ -235,8 +218,6 @@ top:0%;
 display: none;
 
 }
-
-
 .registro_proveedor {
   width: 400px;
   background: #24303c;
@@ -285,7 +266,66 @@ display: none;
 
 
 
-</style>       
+</style>   
+ <!--diseño buscar-->
+ <style type="text/css">
+form {
+  display: flex;
+  align-items: center;
+}
+
+input[type="text"] {
+  padding: 8px;
+  border: none;
+  border-radius: 10px;
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 8px 16px;
+  font-size: 16px;
+}
+</style>
+
+</body>
+<!--diseño siguiente-->
+<style type="text/css">
+.navigation {
+  display: flex;
+  justify-content: left;
+  align-items: left;
+
+}
+
+.navigation button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 5px 20px;
+  text-align:left;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 1px 2px;
+  cursor: pointer;
+}
+
+.navigation button:hover {
+  opacity: 0.8;
+}
+
+.navigation .page-number {
+  margin: 0 0px;
+  font-size: 10px;
+}
+
+</style>    
 
 </div>
     

@@ -6,10 +6,6 @@
   font-family: "Poppins" , sans-serif;
 }
 
-   
-
-
-
 .sidebar{
   position: fixed;
   left: 0;
@@ -116,7 +112,7 @@
   border: none;
   border-radius: 12px;
   transition: all 0.5s ease;
-  background: #1d1b31;
+  background: #fcfcfd;
 }
 .sidebar.open input{
   padding: 0 20px 0 50px;
@@ -152,7 +148,7 @@
 .sidebar li a:hover .links_name,
 .sidebar li a:hover i{
   transition: all 0.5s ease;
-  color: #11101D;
+  color: #ffffff;
 }
 .sidebar li i{
   height: 50px;
@@ -214,7 +210,7 @@
 }
 .home-section{
   position: relative;
-  background: #E4E9F7;
+  background:#DCFFFE ;
   min-height: 100vh;
   top: 0;
   left: 78px;
@@ -249,6 +245,12 @@
 .home-section .Tbl_Proveedores{
 width: 90%;
 border-collapse: collapse;
+}
+body {
+  background-image: url('ferrecomm/accesos/Imagenes/fondo_diseño.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 
 
