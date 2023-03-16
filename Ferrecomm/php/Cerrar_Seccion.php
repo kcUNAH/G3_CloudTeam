@@ -1,5 +1,6 @@
 <?php
 INCLUDE 'conexion.php';
+include_once 'bitacora.php';
 session_start();
 
 $user = $_SESSION['usuario']['user'];
@@ -12,6 +13,10 @@ SET fecha_ultima_conexion = '$fecha_Ultima_conexion'
 where usuario = '$user' ";
 
 $EJECUTAR = mysqli_query($conexion, $queri);
+$codigoObjeto=2;
+$accion='Cerro sesion';
+$descripcion= 'El usuario Cerro la sesion';
+bitacora($codigoObjeto, $accion,$descripcion);
 
 mysqli_close($conexion);
 

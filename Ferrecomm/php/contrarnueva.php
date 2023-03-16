@@ -3,21 +3,19 @@ session_start();
 include 'conexion.php';
 
 
-if (empty($_POST)) {
+if (isset($_POST['cambiar_clave'])){
   $usuario = $_SESSION['usuario']['user'];
-  $contrasenia_actual = $_POST['contra_login'];
   $contrasenia_nueva = $_POST['contra'];
-  
+  $contrasenia_repetida = $_POST['password2'];
+  $nueva= $contrasenia_nueva=  $contrasenia_repetida ;
   $validar_contrasenia = mysqli_query($conexion, "SELECT * FROM tbl_ms_usuario WHERE usuario = '$usuario'
                                 ");
   
   if (mysqli_num_rows($validar_contrasenia) > 0){
-  
-    $queri = "UPDATE tbl_ms_usuario
-    SET contrasenia = '$contrasenia_actual' 
-    where usuario = '$usuario' ";
+    $sql = "UPDATE tbl_ms_usuario SET contrasenia  = '$nueva' WHERE usuario = '$usuarios'";
     
-    $EJECUTAR = mysqli_query($conexion, $queri);
+    
+    $EJECUTAR = mysqli_query($conexion, $sql);
     session_destroy();  
     echo '
     <script>
@@ -67,19 +65,9 @@ if (empty($_POST)) {
             <center><h4 style="font-style: italic; font-size: 20px; ">Cambiar la contraseña Asignada</h4></center>
               <hr style="color: #999; background-color: green ; height: 2px; border: none;">
 
-
-
               <form  method="POST" action="" class="formulario__registro" id="formulario"> 
 
-                    <!-- Grupo: Contraseña actual -->
-                    <div class="formulario__grupo" id="grupo__contra_login">
-                        <label for="password" class="formulario__label">Contraseña actual</label>
-                        <div class="formulario__grupo-input">
-                            <input type="password" class="formulario__input" name="contra_login" id="contra_login">
-                            <i class="formulario__validacion-estado fa-solid fa-eye" id="Ojito3"></i>
-                        </div>
-                        <p class="formulario__input-error">La contraseña tiene que ser de 5 a 20 dígitos.</p>
-                    </div>
+                 
 
                   
 

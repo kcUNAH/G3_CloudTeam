@@ -73,7 +73,7 @@ if (isset($_COOKIE["block" . $usuario])) {
         $filai_primer = mysqli_fetch_array($obtener_primer_ingreso);
         $va_primer_ingreso =$filai_primer ['primer_ingreso'];
 
-
+        $_SESSION['id_usuario']=$va_id;
 
 
         if($va_primer_ingreso =='NO'){
@@ -84,21 +84,41 @@ if (isset($_COOKIE["block" . $usuario])) {
 
         switch ($va_rol) {
             case 1:
+             
+               
                 $_SESSION['usuario']['rol'] = "ADMINISTRADOR";
                 $_SESSION['usuario']['nombre'] = $va_Nombre;
                 header("Location: ../accesos_usuarios/administrador/Menu.php");
+                $codigoObjeto=1;
+                $accion='Inicio de sesion';
+                $descripcion= 'El usuario Default inicio sesion';
+                bitacora($codigoObjeto, $accion,$descripcion);
+               
+              
                 break;
 
             case 2:
                 $_SESSION['usuario']['rol'] = "VENDEDOR";
                 $_SESSION['usuario']['nombre'] = $va_Nombre;
                 header("Location: ../accesos_usuarios/vendedor/Menu.php");
-                break;
+                
+                $codigoObjeto=1;
+                  $accion='Inicio de sesion';
+                  $descripcion= 'El usuario Vendedor inicio sesion';
+                  bitacora($codigoObjeto, $accion,$descripcion);
+                  break;
 
             case 3:
                 $_SESSION['usuario']['rol'] = "DEFAULT";
                 $_SESSION['usuario']['nombre'] = $va_Nombre;
                 header("Location: ../accesos_usuarios/defaul/Menu.php");
+
+                $codigoObjeto=1;
+                $accion='Inicio de sesion';
+                $descripcion= 'El usuario Default inicio sesion';
+                bitacora($codigoObjeto, $accion,$descripcion);
+
+
                 break;
         }
 

@@ -1,22 +1,32 @@
-
 <?php 
-
+session_start();
+include 'conex.php';
+include_once 'bitacora2.php';
    if(!empty($_POST)){
         $idusuario=$_POST['id_usuario'];
 
-        include 'conex.php';
+        
 
        $query_delete = mysqli_query($conex,"DELETE FROM tbl_ms_usuario WHERE id_usuario = $idusuario ");
+      
+       
        //$query_delete=mysqli_query($conex,"UPDATE tbl_ms_usuario SET estado_usuario = 2 WHERE id_usuario = $idusuario ");
-        if($query_delete){
+       
+       
+       if($query_delete){
            // header("Location: GestionUsuarios.php");
+            
             echo '
             <script>
             alert("El usuario ha sido eliminado");
             window.location= "GestionUsuarios.php";
             </script>
-            ';
             
+            ';
+        $codigoObjeto=4;
+        $accion='Eliminar';
+        $descripcion= 'Elimino el Usuario existente';
+        bitacora($codigoObjeto, $accion,$descripcion);
         }else{
             echo '
             <script>

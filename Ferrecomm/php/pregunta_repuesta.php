@@ -48,10 +48,10 @@ if (isset($_POST['verifica'])) {
         ';
         } else {
             if ($va_creado == 'ADMINISTRADOR') {
-                $sql = "UPDATE tbl_ms_usuario SET primer_ingreso = 'Si' WHERE usuario = '$usuarios'";
-                mysqli_query($conexion, $sql);
+         $sql = "UPDATE tbl_ms_usuario SET primer_ingreso = 'Si' WHERE usuario = '$usuarios'";
+        mysqli_query($conexion, $sql);
 
-                echo '
+      echo '
         <script>
         alert("Pregunta Registrada con exito");
         window.location= "contrarnueva.php";
