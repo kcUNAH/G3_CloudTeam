@@ -39,8 +39,8 @@ if(isset($_REQUEST['usuario'])) {  //aqui capturo el usuario enviado
             
                           $para = $va_email; // Dirección de correo electrónico del destinatario
                           $asunto = 'Recuperacion de contraseña'; // Asunto del correo electrónico
-                          $mensaje = 'Su contraseña temporal es la siguiente:' ."\r\n". $contrasenia; // Cuerpo del correo electrónico
-            
+                          $mensaje = 'Su contraseña temporal es la siguiente:' ."\r\n". $contrasenia . "\r\n" .'Cambie su contraseña para mayor seguridad, en el formulario que le aparece en el sistema.'; // Cuerpo del correo electrónico
+                          
                           // Cabezera del correo electrónico
                           $cabecera = 'From: river261527@gmail.com' . "\r\n" .
                           'Reply-To: river261527@gmail.com' . "\r\n" .
