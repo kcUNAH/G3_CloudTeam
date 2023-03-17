@@ -17,7 +17,7 @@ if(!isset ($_SESSION['usuario'])){
 <?php
 
 include_once "./conexionproducto.php";
-
+include '../../../php/bitacora.php';
 //Mostrar datos
 
 if(empty($_GET['id'])){
@@ -117,6 +117,11 @@ if (!empty($_POST)) {
               window.location= "../Productos.php";
               </script>
                ';
+
+                        $codigoObjeto=3;
+                        $accion='Actualizar';
+                        $descripcion= 'El producto se actualizo correctamente';
+                        bitacora($codigoObjeto, $accion,$descripcion);
              } else {
               echo
              '<script>

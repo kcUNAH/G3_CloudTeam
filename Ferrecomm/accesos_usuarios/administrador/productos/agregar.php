@@ -1,8 +1,5 @@
 <?php
 session_start();
-
-
-
 if (!isset($_SESSION['usuario'])) {
     echo '
     <script>
@@ -20,7 +17,7 @@ if (!isset($_SESSION['usuario'])) {
 <?php
 
 include '../conex.php';
-
+include '../../../php/bitacora.php';
 
 
 
@@ -66,6 +63,10 @@ if (!empty($_POST)) {
                 window.location= "../Productos.php";
                 </script>
                 ';
+                $codigoObjeto=7;
+                $accion='Registro';
+                $descripcion= 'Se agrego un producto con Exito';
+                bitacora($codigoObjeto, $accion,$descripcion);
             } else {
                 echo
                 '<script>

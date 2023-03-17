@@ -7,15 +7,13 @@ const expresiones = {
 	usuario: /^[a-zA-Z\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
 	nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
 	contra: /^.{5,20}$/, // 6 a 20 digitos.
-	contra_login: /^.{5,20}$/, // 6 a 20 digitos.
 	email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
 }
 
 
 const campos = {
 contra : false,
-Password2 : false,
-contra_login: false
+Password2 : false
 }
 
 
@@ -84,8 +82,6 @@ if(inputPassword.value !== inputPassword2.value){
 
 
 
-input_contra.addEventListener('keyup', validarformulario);
-input_contra.addEventListener('blur', validarformulario);
 
 inputs.forEach((input) =>{
 input.addEventListener('keyup', validarformulario);
@@ -96,7 +92,7 @@ formulario.addEventListener('submit', (e) => {
 	e.preventDefault();
 
 
-	if(campos.contra_login && campos.contra){
+	if(campos.contra == true){
 		document.getElementById('formulario__mensaje-exito').classList.add('formulario__mensaje-exito-activo');
 		setTimeout(() => {
 			document.getElementById('formulario__mensaje-exito').classList.remove('formulario__mensaje-exito-activo');
@@ -105,6 +101,7 @@ formulario.addEventListener('submit', (e) => {
 		document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
 			icono.classList.remove('formulario__grupo-correcto');
 		});
+
 		formulario.submit(); 
 
 		

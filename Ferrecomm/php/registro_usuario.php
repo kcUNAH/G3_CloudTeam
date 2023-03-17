@@ -1,6 +1,6 @@
 <?php
 INCLUDE 'conexion.php';
-
+include_once 'bitacora.php';
 $nombre = $_POST ['nombre'];
 $email = $_POST ['email'];
 $usuario = $_POST ['usuario'];
@@ -62,6 +62,10 @@ if ($EJECUTAR){
     window.location= "../index.php";
     </script>
     ';
+    $codigoObjeto=7;
+    $accion='Registro';
+    $descripcion= 'Se registro un nuevo Usuario';
+    bitacora($codigoObjeto, $accion,$descripcion);
 }else {
     echo'
     <script>

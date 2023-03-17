@@ -2,7 +2,6 @@
 session_start();
 
 
-
 if (!isset($_SESSION['usuario'])) {
     echo '
     <script>
@@ -18,7 +17,7 @@ if (!isset($_SESSION['usuario'])) {
 
 <?php 
 include '../conex.php';
-
+include '../../../php/bitacora.php';
 
 if(empty($_GET['id'])){
     header('Location: Productos.php');
@@ -77,6 +76,10 @@ WHERE id_producto = $id_producto;");
                 window.location= "../Productos.php";
                 </script>
                 ';
+       $codigoObjeto=4;
+        $accion='Eliminar';
+        $descripcion= 'Elimino Producto correctamente';
+        bitacora($codigoObjeto, $accion,$descripcion);
             
         }else{
             echo
