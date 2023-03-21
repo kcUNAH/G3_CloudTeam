@@ -120,6 +120,7 @@ if(!isset ($_SESSION['usuario'])){
   <a href="registro.php" class="btn_newproducto" > Crear usuario<i id="icon_nuevo" class='bx bxs-cart-add'></i></a>
   <a href="usuario_activo.php" class="btn_activo" > Usuarios Activos<i id="icon_nuevo" class='bx bxs-cart-add'></i></a>
   <a href="usuario_inactivo.php" class="btn_inactivo" >Usuarios Inactivos<i id="icon_nuevo" class='bx bxs-cart-add'></i></a>
+  <a href="usuario_nuevo.php" class="btn_nuevo" >Usuarios Nuevos<i id="icon_nuevo" class='bx bxs-cart-add'></i></a>
   <a href="#" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
 

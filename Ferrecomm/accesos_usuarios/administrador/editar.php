@@ -42,10 +42,12 @@ if(!isset ($_SESSION['usuario'])){
                 date_default_timezone_set('America/Mexico_City');
                  $fecha_modificacion =date("Y-m-d H:i:s");
 
-                 if($estado_usuario == 1){
-                    $estado_usuario= 'ACTIVO';
+                 if ($estado_usuario == 1) {
+                    $estado_usuario = 'ACTIVO';
+                }elseif ($estado_usuario == 2){
+                    $estado_usuario = 'INACTIVO';
                 }else{
-                    $estado_usuario= 'INACTIVO';
+                    $estado_usuario = 'NUEVO';
                 }
 
                 $query = mysqli_query($conex,"SELECT * FROM tbl_ms_usuario 
