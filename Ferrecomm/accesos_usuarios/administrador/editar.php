@@ -42,10 +42,12 @@ if(!isset ($_SESSION['usuario'])){
                 date_default_timezone_set('America/Mexico_City');
                  $fecha_modificacion =date("Y-m-d H:i:s");
 
-                 if($estado_usuario == 1){
-                    $estado_usuario= 'ACTIVO';
+                 if ($estado_usuario == 1) {
+                    $estado_usuario = 'ACTIVO';
+                }elseif ($estado_usuario == 2){
+                    $estado_usuario = 'INACTIVO';
                 }else{
-                    $estado_usuario= 'INACTIVO';
+                    $estado_usuario = 'NUEVO';
                 }
 
                 $query = mysqli_query($conex,"SELECT * FROM tbl_ms_usuario 
@@ -151,15 +153,22 @@ if(!isset ($_SESSION['usuario'])){
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
+    <link rel="stylesheet" href="../../accesos/CSS/tablaproducto.css">
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../accesos/CSS/EstiloMenu.css">
     <link rel="stylesheet" href="../../accesos/CSS/Tablas.css">
+
+    
+    
     <link rel="stylesheet" href="../../accesos/CSS/registro.css">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edición de Usuarios</title>
-    <link rel="stylesheet" href="accesos/CSS/registro.css">
-    <link rel="stylesheet" href="accesos/CSS/Estilos.css">
+
+    
+    <link rel="stylesheet" href="../../../accesos/CSS/EstiloMenu.css">
+    <link rel="stylesheet" href="../../../accesos/CSS/tablaproducto.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
@@ -167,11 +176,161 @@ if(!isset ($_SESSION['usuario'])){
       <?php include 'conex.php';?>
       <section id="container">
 
-    <div class="form_register">
-        <h1>Editar Usuario</h1>
-        <hr>
-        <div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
 
+
+
+      <div class="sidebar">
+    <div class="logo-details">
+        <i class='bx bxs-factory icon'></i>
+        <div class="logo_name">FERRECOMM</div>
+        <i class='bx bx-menu' id="btn" ></i>
+    </div>
+    <ul class="nav-list">
+        <li>
+            <a href="../Menu.php">
+                <i class='bx bxs-home' ></i>
+                <span class="links_name">Inicio</span>
+            </a>
+            <span class="tooltip">Inicio</span>
+        </li>
+        <li>
+            <a href="../Facturacion.php">
+                <i class='bx bx-money'></i>
+                <span class="links_name">Facturación</span>
+            </a>
+            <span class="tooltip">Facturación</span>
+        </li>
+        <li>
+            <a href="../Compras.php">
+                <i class='bx bxs-cart'></i>
+                <span class="links_name">Compras</span>
+            </a>
+            <span class="tooltip">Compras</span>
+        </li>
+        <li>
+            <a href="../Productos.php">
+                <i class='bx bx-shopping-bag'></i>
+                <span class="links_name">Productos</span>
+            </a>
+            <span class="tooltip">Productos</span>
+        </li>
+        <li>
+            <a href="../Seguridad.php">
+                <i class='bx bx-shield-quarter'></i>
+                <span class="links_name">Seguridad</span>
+            </a>
+            <span class="tooltip">Seguridad</span>
+        </li>
+        <li>
+            <a href="../Proveedores.php">
+                <i class='bx bxs-user'></i>
+                <span class="links_name">Proveedores</span>
+            </a>
+            <span class="tooltip">Proveedores</span>
+        </li>
+        <li>
+            <a href="../Inventario.php">
+                <i class='bx bx-package'></i>
+                <span class="links_name">Inventario</span>
+            </a>
+            <span class="tooltip">Inventario</span>
+        </li>
+        <li>
+        <a href="GestionUsuarios.php">
+                <i class='bx bx-package'></i>
+                <span class="links_name">Usuarios</span>
+            </a>
+            <span class="tooltip">Usuarios</span>
+        </li>
+        <a href="../../../index.php">
+     <li class="profile">
+         <i class='bx bx-log-out' id="log_out" ></i>
+         <div class="Salir">Cerrar Sesión</div>
+     </li>
+    </a>
+    </ul>
+  </div>
+  <style>
+   form{
+    background-color: #db881a;
+    border-radius: 3px;
+    padding: 20px;
+    margin : 0 auto;
+    width : 500px;
+    font-size: 15px;
+   }
+   input, textarea{
+    border: ;
+    outline: none;
+
+   }
+   .field{
+    border: solid 1px #ccc;
+    padding: 6px;
+    width: 450px;
+   }
+   .field:focus{
+    border-color: #18A383;
+   }
+   .btn_agregar{
+    height: 45px;
+    width: 227px;
+    background: #2ad313;
+    color: black;
+    font-weight: bold;
+    display: inline-block;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 15px;
+   }
+   .btn_cancelar{
+    height: 45px;
+    width: 227px;
+	background: #d1d40a;
+	color: #000000;
+	font-weight: bold;
+    display: inline-block;
+	border-radius: 5px;
+	cursor: pointer;
+    margin: 15px;
+   }
+
+   .alert{
+    width: 100%;
+    background: #d82606;
+    border-radius: 6px;
+    margin: 20px auto;
+}
+
+.msg_error{
+    color: black;
+}
+
+.msg_save{
+    color: greenyellow;
+}
+
+.alert p{
+    padding: 10px;
+}
+
+  </style>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="form_register">
+       
+        <div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
+        <h1>Editar Usuario</h1>
         <form action="" method ="POST">
             <input type="hidden" name="id_usuario" value="<?php echo $iduser;?>">
             <label for="usuario">Usuario</label>
@@ -196,7 +355,11 @@ if(!isset ($_SESSION['usuario'])){
             <label for="correo_electronico">Correo</label>
             <input type="correo_electronico" name="correo_electronico" id="correo_electronico" placeholder="correo_electronico" value="<?php echo $correo_electronico; ?>">
             
-            <input type="submit" value="Modificar Usuario" class="btn_save">
+            <br>
+            <button class="btn_agregar">Actualizar</button> 
+            <button type="reset" onclick="location.href='GestionUsuarios.php'" class="btn_cancelar">Cancelar</button>
+
+
 
 
         </form>

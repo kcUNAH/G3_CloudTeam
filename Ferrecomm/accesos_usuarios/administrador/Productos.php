@@ -104,8 +104,8 @@ if(!isset ($_SESSION['usuario'])){
       <?php include 'conex.php';?>
 
       <section id="container"  >
-      <form action=" buscar_producto.php" method="get" style="background-color:#DCFFFE ;">
-  <input type="text" name="buscar" style="margin-left: 40px" id="buscar" placeholder="Buscar...">
+      <form action="./productos/buscarproducto.php" method="get" style="background-color:#DCFFFE ;">
+  <input type="text" name="busqueda" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
   <button type="submit" class="boton-buscar">Buscar</button>
   <a href= "./productos/agregarproducto.php" class="btn_newproducto" style="margin-left: 350px"> Nuevo producto<i id="icon_nuevo" class='bx bxs-cart-add'></i></a>
     <a href="#" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
@@ -135,10 +135,26 @@ if(!isset ($_SESSION['usuario'])){
         <?php
        /* include 'php/conexion.php';*/
        include 'conex.php';
-       
+       //Paginador
+       $sql_register =mysqli_query($conex,"SELECT COUNT(*) as total_registro FROM tbl_producto");
+       $result_register = mysqli_fetch_array($sql_register);
+       $total_registro = $result_register['total_registro'];
+
+       $por_pagina = 4;
+
+       if(empty($_GET['pagina'])){
+          $pagina = 1;
+       }else{
+          $pagina = $_GET['pagina'];
+       }
+
+       $desde = ($pagina-1) * $por_pagina;
+       $total_paginas = ceil($total_registro / $por_pagina);
+
         $query = mysqli_query($conex,"SELECT p.id_producto, c.nombre_categoria, p.nombre_producto, p.descripcion_producto, 
         p.precio_producto, p.img_producto, p.unidad_medida, p.cantidad_min, p.cantidad_max 
-        FROM tbl_producto p INNER JOIN tbl_categoria c on p.id_categoria = c.id_categoria");
+        FROM tbl_producto p INNER JOIN tbl_categoria c on p.id_categoria = c.id_categoria ORDER BY p.id_producto ASC LIMIT $desde,$por_pagina;
+        ");
 
 
         
@@ -179,10 +195,30 @@ if(!isset ($_SESSION['usuario'])){
       </table>
       &nbsp;&nbsp;&nbsp; 
    
- <div class="navigation">
- <a type="button"   class="btn_anterior" href="#"  name="anterior">anterior<i class='bx bx-chevrons-left'></i></a>  
-
-  <a type="button"  class="btn_anterior" href="#"  name="anterior"><i class='bx bx-chevrons-right'>Siguiente</i></a>  
+ <div class="paginador">
+     <ul>
+      <?php
+        if($pagina !=1)
+        {
+      ?>
+      <li><a href="?pagina=<?php echo 1; ?>">|<</a></li>
+      <li><a href="?pagina=<?php echo $pagina-1; ?>"><<</a></li>
+      <?php 
+        }
+       for($i=1; $i <= $total_paginas; $i++){
+          if($i == $pagina){
+            echo '<li class="pageSelected">'.$i.'</li>';
+          }else{
+            echo '<li><a href="?pagina='.$i.'">'.$i.'</a></li>';
+          }
+       }
+       if($pagina != $total_paginas)
+       {
+       ?>
+      <li><a href="?pagina=<?php echo $pagina + 1; ?>">>></a></li>
+      <li><a href="?pagina=<?php echo $total_paginas; ?>">>|</a></li>
+       <?php } ?>
+     </ul>
 </div>
 
 
