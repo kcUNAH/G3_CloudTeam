@@ -1,32 +1,28 @@
-<?php
-session_start();
-
-
-if(!isset ($_SESSION['usuario'])){
-    echo '
-    <script>
-    alert("Por favor, debe iniciar seccion");
-    window.location= "index.php";
-    </script>
-    ';
-    //header("localitation: index.php");
-    session_destroy();
-    die();
-}
-
-
-?>
-
-
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
   <head>
-    <meta charset="UTF-8">
+  <meta charset="utf8mb4_spanish_ci">
+    <meta name="description" content=" ">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="">
+    <meta name="theme-color" content="#1b219d">
+    <!-- Main CSS-->
+   
+    <!-- Font-icon css-->
+
+  
     <link rel="stylesheet" href="../../accesos/CSS/EstiloMenu.css">
+    <link rel="stylesheet" type="text/css" href="../../js/css/main.css">
+    <link rel="stylesheet" type="text/css" href="../../js/css/style.css">
+    <link rel="stylesheet" href="../../accesos/CSS/EstiloMenu.css">
+    <link rel="stylesheet" href="../../accesos/CSS/tablas.css">
+    <link rel="stylesheet" href="../../accesos/CSS/tablaproducto.css">
+    <link rel="stylesheet" type="text/css" href="../../js/css/bootstrap-select.min.css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   </head>
-<body>
+  </head>
+  <body class="app sidebar-mini">
   <div class="sidebar">
     <div class="logo-details">
         <i class='bx bxs-factory icon'></i>
@@ -83,7 +79,14 @@ if(!isset ($_SESSION['usuario'])){
             </a>
             <span class="tooltip">Inventario</span>
         </li>
-        <a href="index.php">
+        <li>
+            <a href="GestionUsuarios.php">
+                <i class='bx bx-package'></i>
+                <span class="links_name">Usuarios</span>
+            </a>
+            <span class="tooltip">Usuarios</span>
+        </li>
+        <a href="../../php/Cerrar_Seccion.php">
      <li class="profile">
          <i class='bx bx-log-out' id="log_out" ></i>
          <div class="Salir">Cerrar Sesión</div>
@@ -92,25 +95,65 @@ if(!isset ($_SESSION['usuario'])){
     </ul>
   </div>
   <section class="home-section">
-      <div class="text">Formulario Compras</div>
-  </section>
-  <script>
-  let sidebar = document.querySelector(".sidebar");
-  let closeBtn = document.querySelector("#btn");
-  let searchBtn = document.querySelector(".bx-search");
+</br>
+    </header>
+  
+<!-- /////////////////////////////////#DCFFFE/////////////////////////////////////////////////////////////////////-->
+    <div id="divModal"></div>
+    <main class="app-content" style="background-color: #DCFFFE;">
+    <a href="nueva_compra.php" class="btn_newproducto" >Nueva Compra<i id="icon_nuevo" class='bx bxs-cart-add'></i></a>
+    <a href="registro.php" class="btn_pdf" >Generar PDF<i id="" class=''></i></a>
+      <div class="row">
+            <div class="col-md-12">
+              <div class="tile">
+                <div class="tile-body">
+                  
+                  <div class="table-responsive">
+                    <table class="table table-hover table-bordered" id="tablePedidos" >
+                    
+                   
+                      <thead>
+                        <tr>
+                          <th>Id Compra</th>
+                          <th>Proveedor</th>
+                          <th>Fecha</th>
+                          <th>Total</th>
+                          <th>Estado</th>
+                          <th>Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </main>
+ <!-- Essential javascripts for application to work-->
+ 
 
-  closeBtn.addEventListener("click", ()=>{
-    sidebar.classList.toggle("open");
-    menuBtnChange();
-  });
+ <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/popper.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
 
-  function menuBtnChange() {
-   if(sidebar.classList.contains("open")){
-     closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");
-   }else {
-     closeBtn.classList.replace("bx-menu-alt-right","bx-menu");
-   }
-  }
-  </script>
-</body>
+    <script src="../../js/main.js"></script>
+    
+    <!-- The javascript plugin to display page loading on top-->
+    <script src="../../js/plugins/pace.min.js"></script>
+    <!-- para data tables-->
+ 
+    <script type="text/javascript" src="../../js/plugins/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="../../js/plugins/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="../../js/plugins/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+
+    <script src="../../js/functions_compras.js"></script>
+
+  </body>
 </html>

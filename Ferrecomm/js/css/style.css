@@ -1,0 +1,333 @@
+.app-sidebar__user-avatar{
+    width: 78px;
+    background:#2572b7;
+    padding: 0px;
+
+}
+
+.app-header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    background-color: #2572b7;
+    z-index: 1030;
+    padding-right: -15px;
+  }
+  .app-header__logo {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 auto;
+            flex: 0 0 auto;
+    display: block;
+    width: 230px;
+    background-color: #2572b7;
+  }
+  .app-sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding-top: 70px;
+    width: 230px;
+    overflow: auto;
+    z-index: 10;
+    background-color: #2572b7;
+    -webkit-box-shadow: 0px 8px 17px rgb(0 0 0 / 20%);
+    box-shadow: 0px 8px 17px rgb(0 0 0 / 20%);
+    -webkit-transition: left 0.3s ease, width 0.3s ease;
+    -o-transition: left 0.3s ease, width 0.3s ease;
+    transition: left 0.3s ease, width 0.3s ease;
+}
+
+.col-md-6 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 100%;
+}
+
+.btn-btn-primary {
+    color: #FFF;
+    background-color: #2572b7;
+    border-color: #2572b7;
+    width: 780px;
+}
+.row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    margin-right: -5px;
+    margin-left: -5px;
+  }
+
+  .widget-small .info {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    padding: 0 20px;
+    -ms-flex-item-align: center;
+    align-self: center;
+    margin-right: auto;
+}
+::selection {
+    color: #FFF;
+    background-color: #00635a;
+}
+.widget-small {
+   
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    border-radius: 15px;
+    color: #FFF;
+    margin-bottom: 30px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+            box-shadow
+            : 0 1px 1px rgba(0, 0, 0, 0.1);
+  }
+  .upimg, .notblock{
+	display: none !important;
+}
+
+
+
+
+
+
+.app-sidebar__user-avatar{
+    width: 78px;
+    background:#2572b7;
+    padding: 0px;
+
+}
+
+.app-header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    background-color: #2572b7;
+    z-index: 1030;
+    padding-right: -15px;
+  }
+  .app-header__logo {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 auto;
+            flex: 0 0 auto;
+    display: block;
+    width: 230px;
+    background-color: #2572b7;
+  }
+  .app-sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding-top: 70px;
+    width: 230px;
+    overflow: auto;
+    z-index: 10;
+    background-color: #2572b7;
+    -webkit-box-shadow: 0px 8px 17px rgb(0 0 0 / 20%);
+    box-shadow: 0px 8px 17px rgb(0 0 0 / 20%);
+    -webkit-transition: left 0.3s ease, width 0.3s ease;
+    -o-transition: left 0.3s ease, width 0.3s ease;
+    transition: left 0.3s ease, width 0.3s ease;
+}
+/*CODIGO DE BARRA*//*copiar de aqui */
+/*copiar codigo*/
+.textcenter{
+	text-align: center;
+}
+.bootstrap-select > .dropdown-toggle{
+	border: 1px solid #CCC;
+}
+
+/* Upload fotos*/ 
+#containerImages{
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	flex-wrap: wrap;
+}
+#containerImages > div{
+	margin-right: 10px;
+	margin-bottom: 8px;
+}
+.prevImage{
+	border: 1px solid #CCC;
+	width: 120px;
+	height: 148px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.prevImage img{
+	width: 100%;
+}
+.inputUploadfile{
+	display: none;
+}
+.btnUploadfile, .btnDeleteImage{
+	border: 0;
+	background-color: #009688;
+	text-align: center;
+	padding: 2px 3px;
+	color: #FFF;
+	font-size: 9pt;
+	cursor: pointer;
+	width: 100%;
+}
+.btnDeleteImage{
+	background-color: #dc3545;
+}
+.prevImage .loading{
+	width: 30px;
+	height: 30px;
+}
+#celFotos img{
+	width: 150px;
+	margin: 10px;
+}
+
+.textright{
+	text-align: right;
+}
+.textleft{
+	text-align: left;
+}
+/*copiar codigo*/
+
+/*CODIGO DE BARRA*/
+
+.col-md-6 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 100%;
+}/*CODIGO DE BARRA*/ /*hasta  aqui */
+
+.btn-btn-primary {
+    color: #FFF;
+    background-color: #2572b7;
+    border-color: #2572b7;
+    width: 780px;
+}
+.row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    margin-right: -5px;
+    margin-left: -5px;
+  }
+
+  .widget-small .info {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    padding: 0 20px;
+    -ms-flex-item-align: center;
+    align-self: center;
+    margin-right: auto;
+}
+::selection {
+    color: #FFF;
+    background-color: #00635a;
+}
+.widget-small {
+   
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    border-radius: 15px;
+    color: #FFF;
+    margin-bottom: 30px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+            box-shadow
+            : 0 1px 1px rgba(0, 0, 0, 0.1);
+  }
+
+
+/*Estilos de la imagen COPIAR*/
+
+.upimg, .notblock{
+	display: none !important;
+}
+
+.prevPhoto {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+    height: 200px;
+    border: 1px solid #CCC;
+    position: relative;
+    cursor: pointer;
+    background: url(../images/portada_categoria.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    margin: auto;
+}
+.prevPhoto label{
+	cursor: pointer;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 2;
+}
+.prevPhoto img{
+	width: 100%;
+	height: 100%;
+}
+.upimg, .notBlock{
+	display: none !important;
+}
+.errorArchivo{
+	font-size: 16px;
+	font-family: arial;
+	color: #cc0000;
+	text-align: center;
+	font-weight: bold; 
+	margin-top: 10px;
+}
+.delPhoto{
+	color: #FFF;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 50%;
+	width: 25px;
+	height: 25px;
+	background: red;
+	position: absolute;
+	right: -10px;
+	top: -10px;
+	z-index: 10;
+}
+#tbl_list_productos img{
+	width: 50px;
+}
+.imgProductoDelete{
+	width: 175px;
+}
+
+
+/* final Estilos de la imagen COPIAR*/

@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+include '../../php/bitacora.php';
 if(!isset ($_SESSION['usuario'])){
     echo '
     <script>
@@ -73,6 +73,10 @@ if(!isset ($_SESSION['usuario'])){
                         window.location= "GestionUsuarios.php";
                         </script>
                         ';
+                        $codigoObjeto=3;
+                        $accion='Actualizar';
+                        $descripcion= 'El Usuario Actualizo el registro';
+                        bitacora($codigoObjeto, $accion,$descripcion);
                     }else{
                         //$alert= '<p class= "msg_error">Error al actualizar el usario.</p>';
                         echo '<script>

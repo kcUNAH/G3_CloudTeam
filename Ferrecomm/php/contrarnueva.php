@@ -6,13 +6,11 @@ include 'conexion.php';
 if (isset($_POST['cambiar_clave'])){
   $usuario = $_SESSION['usuario']['user'];
   $contrasenia_nueva = $_POST['contra'];
-  $contrasenia_repetida = $_POST['password2'];
-  $nueva= $contrasenia_nueva=  $contrasenia_repetida ;
   $validar_contrasenia = mysqli_query($conexion, "SELECT * FROM tbl_ms_usuario WHERE usuario = '$usuario'
                                 ");
   
   if (mysqli_num_rows($validar_contrasenia) > 0){
-    $sql = "UPDATE tbl_ms_usuario SET contrasenia  = '$nueva' WHERE usuario = '$usuarios'";
+    $sql = "UPDATE tbl_ms_usuario SET contrasenia  = '$contrasenia_nueva' WHERE usuario = '$usuarios'";
     
     
     $EJECUTAR = mysqli_query($conexion, $sql);

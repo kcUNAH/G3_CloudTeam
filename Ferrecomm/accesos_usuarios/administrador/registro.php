@@ -1,8 +1,9 @@
 <?php
 session_start();
 
-include_once 'bitacora2.php';
+
 include 'conex.php';
+include '../../php/bitacora.php';
 if (!isset($_SESSION['usuario'])) {
     echo '
     <script>
@@ -97,7 +98,7 @@ if (!empty($_POST)) {
                 $codigoObjeto=7;
                 $accion='Registro';
                 $descripcion= 'El Usario Administrador registro un Usuario';
-                bitacora2($codigoObjeto, $accion,$descripcion);
+                bitacora($codigoObjeto, $accion,$descripcion);
             } else {
                 // $alert= '<p class= "msg_error">Error al crear el usario.</p>';
                 echo
@@ -106,6 +107,10 @@ if (!empty($_POST)) {
                 window.location= "registro.php";
                 </script>
                 ';
+                $codigoObjeto=7;
+                $accion='Registro';
+                $descripcion= 'Error al intentar crear Usuario';
+                bitacora2($codigoObjeto, $accion,$descripcion);
             }
         }
     }

@@ -1,7 +1,7 @@
 <?php 
 session_start();
 include 'conex.php';
-include_once 'bitacora2.php';
+include '../../php/bitacora.php';
    if(!empty($_POST)){
         $idusuario=$_POST['id_usuario'];
 
@@ -34,6 +34,13 @@ include_once 'bitacora2.php';
             window.location= "GestionUsuarios.php";
             </script>
             ';
+
+            $codigoObjeto=4;
+            $accion='Eliminar';
+            $descripcion= 'El Usuario Elimino Un registro';
+            bitacora2($codigoObjeto, $accion,$descripcion);
+
+
         }
    }
 
@@ -84,6 +91,10 @@ include_once 'bitacora2.php';
                 window.location= "GestionUsuarios.php";
                 </script>
                 ';
+
+
+
+
             }
         }
 ?>

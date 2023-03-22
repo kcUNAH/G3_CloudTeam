@@ -256,7 +256,6 @@ button[type="submit"] {
   margin: 1px 2px;
   cursor: pointer;
 }
-
 .navigation button:hover {
   opacity: 0.8;
 }
@@ -265,23 +264,7 @@ button[type="submit"] {
   margin: 0 0px;
   font-size: 10px;
 }
-
 </style>
 <!--Codigo java ventana flotante-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </html>
 
