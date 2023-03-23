@@ -19,7 +19,7 @@
                      que valida que la contraseña tenga minimo una letra mayuscula,minuscula,codigo especial y numeros  */
                     if($clave  <> $confirmar_clave){ //Si las contraseñas no son iguales 
                         echo "<script> alert('Las contraseñas no son iguales')
-                        location.href = '../Cambio_contraseña_preguntas.php';
+                        location.href = '../Cambio_contrasena_preguntas.php';
                         </script>";
                     }
                     else{ 
@@ -35,7 +35,7 @@
                                 $row=$datos->num_rows;
                                 if($row>0){ //si la contraseña es la misma que tiene en el sistema
                                     echo "<script> alert('!Utilice una contraseña que no haya usado anteriormente')
-                                    location.href = '../Cambio_contraseña_preguntas.php';
+                                    location.href = '../Cambio_contrasena_preguntas.php';
                                     </script>";
                                 }
                                 else{ //si la contraseña es diferente de la que tiene en el sistema
@@ -61,7 +61,7 @@
                                                 else{//error al ingresar los datos,saber que error sera :v (pero hay que mostrar mensaje de error xd )
                                                     echo "<script> 
                                                     alert('!Error al ingresar los datos¡');
-                                                    location.href = '../Cambio_contraseña_preguntas.php';
+                                                    location.href = '../Cambio_contrasena_preguntas.php';
                                                     </script>";
                                                     exit;
                                                 }

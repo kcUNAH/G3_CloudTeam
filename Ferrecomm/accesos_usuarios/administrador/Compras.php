@@ -21,6 +21,7 @@
     <link rel="stylesheet" type="text/css" href="../../js/css/bootstrap-select.min.css">
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    
   </head>
   <body class="app sidebar-mini">
   <div class="sidebar">
@@ -100,6 +101,7 @@
   
 <!-- /////////////////////////////////#DCFFFE/////////////////////////////////////////////////////////////////////-->
     <div id="divModal"></div>
+    <h1>  Compras <i class="bx bx-shopping-bag"></i></h1>
     <main class="app-content" style="background-color: #DCFFFE;">
     <a href="nueva_compra.php" class="btn_newproducto" >Nueva Compra<i id="icon_nuevo" class='bx bxs-cart-add'></i></a>
     <a href="registro.php" class="btn_pdf" >Generar PDF<i id="" class=''></i></a>

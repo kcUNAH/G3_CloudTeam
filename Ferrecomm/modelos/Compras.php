@@ -23,7 +23,7 @@ Class Compras
 		// Recorrer los resultados de la consulta y agregarlos a la matriz de datos
 		
 		while ($row = $datos->fetch_assoc()) {
-			$btnEdit = "<button type='button' class='btn btn-primary btn-sm' onclick='editCompras(" . $row['id_compra'] . ")'>Editar</button>";
+			$btnEdit = "<button type='button' class='btn btn-primary btn-sm' onclick='editCompras(" . $row['id_compra'] . ")'><i class='bx bx-edit'></i>SS</button>";
 			$btnDelete = "<button type='button' class='btn btn-danger btn-sm' onclick='deleteCompras(" . $row['id_compra'] . ")'>Eliminar</button>";
 			$result[] = array(
 				"id_compra" => $row['id_compra'],
@@ -105,7 +105,7 @@ Class Compras
 		// Recorrer los resultados de la consulta y agregarlos a la matriz de datos
 		
 		while ($row = $datos->fetch_assoc()) {
-			$btnEdit = "<button type='button' class='btn btn-primary btn-sm' onclick='editCompras(" . $row['id_compra'] . ")'>Editar</button>";
+			$btnEdit = "<button type='button' class='btn btn-primary btn-sm' onclick='editCompras(" . $row['id_compra'] . ")'><i class='bx bx-edit'></i></button>";
 			$btnDelete = "<button type='button' class='btn btn-danger btn-sm' onclick='deleteCompras(" . $row['id_compra'] . ")'>Eliminar</button>";
 			$result[] = array(
 				"id_compra" => $row['id_compra'],

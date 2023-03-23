@@ -28,6 +28,7 @@
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" type="text/css" href="../public/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="../../accesos/CSS/tablas.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -104,7 +105,8 @@
         </ul>
     </div> <!-- Main content -->
     <section class="content" style="background-color: #DCFFFE;">
-    <h2 style="text-align: center;  color: rgba(255, 102, 0, 0.91);"> Añadir Nueva Compra <i class='bx bx-shopping-bag' ></i></h2>
+        <h2 style="text-align: center;  color: rgba(255, 102, 0, 0.91);"> Añadir Nueva Compra <i
+                class='bx bxs-cart'></i></h2>
         <div class="row">
             <div class="col-md-12">
                 <div class="box">
@@ -115,7 +117,7 @@
 
                     </div>
                     <div class="panel-body" style="height: 400px;" id="formularioregistros">
-                        <form name="formulario" id="formulario" method="POST">
+                        <form name="formulario" id="formulario" method="POST" >
                             <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
                                 <label>Proveedor(*):</label>
                                 <input type="hidden" name="idingreso" id="idingreso">
@@ -126,7 +128,7 @@
                             </div>
                             <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                 <label>Fecha(*):</label>
-                                <input type="date" class="form-control" name="fecha_hora" id="fecha_hora" required="">
+                                <input type="date" class="form-control" name="fecha_hora" id="fecha_hora" required=""  value="<?php echo date("Y-m-d") ?>">
                             </div>
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <label>Tipo Comprobante(*):</label>
@@ -137,11 +139,11 @@
                                     <option value="Ticket">Ticket</option>
                                 </select>
                             </div>
-                            
+
                             <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                                <label>Número:</label>
+                                <label>Nº Compra:</label>
                                 <input type="text" class="form-control" name="num_comprobante" id="num_comprobante"
-                                    maxlength="10" placeholder="Número" required="">
+                                    maxlength="10" placeholder="" required="" readonly>
                             </div>
                             <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
                                 <label>Impuesto:</label>
@@ -156,14 +158,14 @@
 
                             <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                                 <table id="detalles"
-                                    class="table table-striped table-bordered table-condensed table-hover">
+                                    class="table table-striped table-bordered table-condensed table-hover" >
                                     <thead
-                                        style="width: 107.083px; background-color: rgba(255, 102, 0, 0.91); color: rgb(0, 0, 0);">
+                                        style="width: 130.083px; background-color: rgba(255, 102, 0, 0.91); color: rgb(0, 0, 0);">
                                         <th>Opciones</th>
                                         <th>Artículo</th>
                                         <th>Cantidad</th>
-                                        <th>Precio Compra</th>
                                         <th>Precio Venta</th>
+                                        <th>Precio Compra</th>
                                         <th>Subtotal</th>
                                     </thead>
                                     <tfoot>
@@ -173,7 +175,7 @@
                                         <th></th>
                                         <th></th>
                                         <th>
-                                            <h4 id="total">S/. 0.00</h4><input type="hidden" name="total_compra"
+                                            <h4 id="total">L. 0.00</h4><input type="hidden" name="total_compra"
                                                 id="total_compra">
                                         </th>
                                     </tfoot>
@@ -184,7 +186,7 @@
                             </div>
 
                             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i>
+                                <button class="btn btn-primary"   onclick="guardaryeditar()" type="submit" id="btnGuardar"><i class="fa fa-save"></i>
                                     Guardar</button>
 
                                 <button id="btnCancelar" class="btn btn-danger" onclick="cancelarform()"
@@ -207,29 +209,23 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Seleccione un Artículo</h4>
+                    <h2 style="text-align: center;  color: rgba(255, 102, 0, 0.91);"> Seleccionar Productos a la compra <i
+                class='bx bxs-cart'></i></h2>
                 </div>
                 <div class="modal-body">
-                    <table id="tblarticulos" class="table table-striped table-bordered table-condensed table-hover">
-                        <thead>
+                    <table id="tblarticulos" style=" width: 100%; overflow-x: auto;" class="table table-striped table-bordered table-condensed table-hover ancho-100">
+                        <thead  style="width: 107.083px; background-color: rgba(255, 102, 0, 0.91); color: rgb(0, 0, 0);">>
                             <th>Opciones</th>
                             <th>Nombre</th>
                             <th>Categoría</th>
-                            <th>Código</th>
+                            <th>Descripcion</th>
                             <th>Stock</th>
                             <th>Imagen</th>
                         </thead>
                         <tbody>
 
                         </tbody>
-                        <tfoot>
-                            <th>Opciones</th>
-                            <th>Nombre</th>
-                            <th>Categoría</th>
-                            <th>Código</th>
-                            <th>Stock</th>
-                            <th>Imagen</th>
-                        </tfoot>
+                    
                     </table>
                 </div>
                 <div class="modal-footer">
@@ -241,14 +237,29 @@
     <!-- Fin modal -->
     <div>
         <style>
+          
+
             .row {
                 margin-right: 321px;
                 margin-left: 375px;
             }
-            .content {
-  min-height: 950px;
 
+            .content {
+                min-height: 950px;
+
+            }
+            .link_edit{
+    color: green;
+    font-size: 25px;
 }
+
+
+.link_delete{
+    color: red;
+    font-size: 25px;
+}
+
+
         </style>
 
         <div class="form-group col-md-6" id="tbldiv">
@@ -305,6 +316,20 @@
 
         <script src="../../js/functions_compras.js"></script>
     </div>
+    <style>
+    
+
+        .modal-body {
+            position: relative;
+            padding: 0px;
+
+        }
+
+        .modal-dialog {
+            width: 50%;
+        }
+
+    </style>
 </body>
 
 </html>

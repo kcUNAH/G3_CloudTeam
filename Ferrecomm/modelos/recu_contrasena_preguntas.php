@@ -31,7 +31,7 @@ if (isset($_SESSION['vario'])) {
        
           //  window.location='../Vistas/modulos/cambio_contrasena_preguntas.php';
           //</script>";Cambio_contraseña_preguntas
-          echo '<script> alert("RESPUESTA CORRECTA "); window.location="../Cambio_contraseña_preguntas.php"; </script>';
+          echo '<script> alert("RESPUESTA CORRECTA "); window.location="../Cambio_contrasena_preguntas.php"; </script>';
         } else { //Si no hay registros en la fila ,la respuesta es incorrecta y se bloquea al usuario :/
           echo '<script> alert("RESPUESTA INCORRECTA "); window.location="../Recuperarpreguntas.php"; </script>';
         //  $_SESSION['vario'] = $usuario;

@@ -46,6 +46,12 @@ function init(){
 	            $("#idproveedor").html(r);
 	            $('#idproveedor').selectpicker('refresh');
 	});
+	$.post("../../modelos/ComprasControlador.php?op=selectidcompra", function(r){
+		
+
+		
+		$("#num_comprobante").val(r);
+});
 	
 }
 
@@ -164,14 +170,15 @@ function listarArticulos()
 }
 //Función para guardar o editar
 
+
 function guardaryeditar(e)
 {
-	e.preventDefault(); //No se activará la acción predeterminada del evento
+
 	//$("#btnGuardar").prop("disabled",true);
 	var formData = new FormData($("#formulario")[0]);
 
 	$.ajax({
-		url: "../ajax/ingreso.php?op=guardaryeditar",
+		url: "../../modelos/ComprasControlador.php?op=guardaryeditar",
 	    type: "POST",
 	    data: formData,
 	    contentType: false,
@@ -187,7 +194,6 @@ function guardaryeditar(e)
 	});
 	limpiar();
 }
-
 function mostrar(idingreso)
 {
 	$.post("../ajax/ingreso.php?op=mostrar",{idingreso : idingreso}, function(data, status)
@@ -252,21 +258,21 @@ function marcarImpuesto()
     }
   }
 
-function agregarDetalle(idarticulo,articulo)
+function agregarDetalle(idarticulo,articulo,precio_compra)
   {
   	var cantidad=1;
-    var precio_compra=1;
+   
     var precio_venta=1;
 
     if (idarticulo!="")
     {
-    	var subtotal=cantidad*precio_compra;
+    	var subtotal=cantidad*precio_venta;
     	var fila='<tr class="filas" id="fila'+cont+'">'+
     	'<td><button type="button" class="btn btn-danger" onclick="eliminarDetalle('+cont+')">X</button></td>'+
-    	'<td><input type="hidden" name="idarticulo[]" value="'+idarticulo+'">'+articulo+'</td>'+
-    	'<td><input type="number" name="cantidad[]" id="cantidad[]" value="'+cantidad+'"></td>'+
-    	'<td><input type="number" name="precio_compra[]" id="precio_compra[]" value="'+precio_compra+'"></td>'+
-    	'<td><input type="number" name="precio_venta[]" value="'+precio_venta+'"></td>'+
+    	'<td><input type="hidden" name="idarticulo[]" style="width: 500px;" value="'+idarticulo+'">'+articulo+'</td>'+
+    	'<td><input type="number" name="cantidad[]" id="cantidad[]" style="width: 50px;" value="'+cantidad+'"></td>'+
+    	'<td><input type="text" name="precio_compra[]" id="precio_compra[]"  style="width: 200px;" readonly value="'+precio_compra+'"></td>'+
+    	'<td><input type="text" name="precio_venta[]" style="width: 200px;" value="'+precio_venta+'"></td>'+
     	'<td><span name="subtotal" id="subtotal'+cont+'">'+subtotal+'</span></td>'+
     	'<td><button type="button" onclick="modificarSubototales()" class="btn btn-info"><i class="fa fa-refresh"></i></button></td>'+
     	'</tr>';
@@ -284,7 +290,7 @@ function agregarDetalle(idarticulo,articulo)
   function modificarSubototales()
   {
   	var cant = document.getElementsByName("cantidad[]");
-    var prec = document.getElementsByName("precio_compra[]");
+    var prec = document.getElementsByName("precio_venta[]");
     var sub = document.getElementsByName("subtotal");
 
     for (var i = 0; i <cant.length; i++) {
@@ -305,7 +311,7 @@ function agregarDetalle(idarticulo,articulo)
   	for (var i = 0; i <sub.length; i++) {
 		total += document.getElementsByName("subtotal")[i].value;
 	}
-	$("#total").html("S/. " + total);
+	$("#total").html("L. " + total);
     $("#total_compra").val(total);
     evaluar();
   }
