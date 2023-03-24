@@ -254,9 +254,9 @@ if (!isset($_SESSION['usuario'])) {
               <?php
               for ($i = 1; $i <= $total_paginas; $i++) {
                 # code...
-                if ($i = $pagina) {
-                  echo '<li class="pageSelected">'.$i.'">'.$i.'</li>';
-                } else {
+                if($i == $pagina){
+                  echo '<li class="pageSelected">'.$i.'</a></li>';
+                }else{
                   echo '<li><a href="?pagina='.$i.'">'.$i.'</a></li>';
                 }
               }
