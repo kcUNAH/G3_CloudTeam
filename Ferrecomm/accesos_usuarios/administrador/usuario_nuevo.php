@@ -108,9 +108,9 @@ if(!isset ($_SESSION['usuario'])){
       <?php include'conex.php';?>
       <section id="container">
 
-    <form action=" buscar_producto.php" method="get" style="background-color:#DCFFFE ;">
-  <input type="text" name="buscar" style="margin-left: 40px" id="buscar" placeholder="Buscar...">
-  <button type="submit" class="boton-buscar">Buscar</button>
+      <form action="buscar_usuario.php" method="get" class="form_search" style="background-color:#DCFFFE ;">
+          <input type="text" name="busqueda" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
+          <button type="submit" value="Buscar" class="boton-buscar">Buscar</button>
   <a href="registro.php" class="btn_newproducto" style="margin-left: 350px" > Crear usuario<i id="icon_nuevo" class='bx bxs-cart-add'></i></a>
   <a href="#" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
@@ -141,10 +141,26 @@ if(!isset ($_SESSION['usuario'])){
         <?php
        /* include 'php/conexion.php';*/
        include 'conex.php';
+            //Paginador
+          $sqlregistre = mysqli_query($conex, "SELECT COUNT(*) AS total_registro FROM tbl_ms_usuario WHERE estado_usuario = 3");     
+          $result_registre = mysqli_fetch_array($sqlregistre);
+          $total_registro = $result_registre['total_registro'];
+
+          $por_pagina = 4;
+
+          if (empty($_GET['pagina'])) {
+            $pagina = 1;
+          } else {
+            $pagina = $_GET['pagina'];
+          }
+
+          $desde = ($pagina - 1) * $por_pagina;
+          $total_paginas = ceil($total_registro / $por_pagina);
+
         $query = mysqli_query($conex,"SELECT u.id_usuario, u.usuario, u.nombre_usuario, u.estado_usuario,  r.rol, 
         u.fecha_ultima_conexion,  u.fecha_vencimiento, u.correo_electronico, u.creado_por, 
         u.fecha_creacion, u.fecha_modificacion FROM tbl_ms_usuario u INNER JOIN tbl_ms_rol r on u.id_rol = r.id_rol
-        WHERE estado_usuario ='NUEVO'");
+        WHERE estado_usuario ='NUEVO' LIMIT $desde,$por_pagina");
         
         $result = mysqli_num_rows($query);
         if($result > 0){ //si hay registros
@@ -177,11 +193,33 @@ if(!isset ($_SESSION['usuario'])){
         ?>
 
       </table>
-      <div class="navigation">
- <a type="button"   class="btn_anterior" href="#"  name="anterior">anterior<i class='bx bx-chevrons-left'></i></a>  
-
-  <a type="button"  class="btn_anterior" href="#"  name="anterior"><i class='bx bx-chevrons-right'>Siguiente</i></a>  
-</div>
+      <div class="paginador">
+            <ul>
+            <?php
+            if($pagina != 1) //Si la pagina es distinta a 1
+            {
+            ?>
+              <li><a href="?pagina=<?php echo 1;?>">|<</a></li>
+              <li><a href="?pagina=<?php echo $pagina -1;?>"><<</a></li>
+              <?php
+              }
+              for ($i = 1; $i <= $total_paginas; $i++) {
+                # code...
+                if($i == $pagina){
+                  echo '<li class="pageSelected">'.$i.'</a></li>';
+                }else{
+                  echo '<li><a href="?pagina='.$i.'">'.$i.'</a></li>';
+                }
+              }
+            if($pagina != $total_paginas){
+            ?>
+              <li><a href="?pagina=<?php echo  $pagina + 1; ?>">>></a></li>
+              <li><a href="?pagina=<?php echo $total_paginas;?>">>|</a></li>
+              <?php 
+            } 
+            ?>
+            </ul>
+          </div>
   </section>
   <style type="text/css">
 form {
@@ -211,34 +249,56 @@ button[type="submit"] {
 </body>
 <!--diseño siguiente-->
 <style type="text/css">
-.navigation {
-  display: flex;
-  justify-content: left;
-  align-items: left;
+ .paginador {
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    justify-content: flex-end;
 
-}
+  }
 
-.navigation button {
-  background-color: #4CAF50;
-  border: none;
-  color: white;
-  padding: 5px 20px;
-  text-align:left;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 1px 2px;
-  cursor: pointer;
-}
+  .paginador button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 5px 20px;
+    text-align: left;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 1px 2px;
+    cursor: pointer;
+  }
 
-.navigation button:hover {
-  opacity: 0.8;
-}
+  .paginador button:hover {
+    opacity: 0.8;
+  }
 
-.navigation .page-number {
-  margin: 0 0px;
-  font-size: 10px;
-}
+  .paginador .page-number {
+    margin: 0 0px;
+    font-size: 10px;
+  }
+
+  .paginador a,
+  .pageSelected {
+    color: #428bca;
+    border: 1px solid #ddd;
+    padding: 5px;
+    display: inline-block;
+    font-size: 14px;
+    text-align: center;
+    width: 35px;
+  }
+
+  .paginador a:hover {
+    bacbackground-color: #ddd;
+  }
+
+  .pageSelected {
+    color: white;
+    background: #428bca;
+    border: 1px solid: #428bca;
+  }
 </style>
 
   <script>

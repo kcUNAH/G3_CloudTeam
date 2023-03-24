@@ -244,9 +244,6 @@ if (!isset($_SESSION['usuario'])) {
             ?>
 
           </table>
-
-
-
           <div class="paginador">
             <ul>
             <?php
