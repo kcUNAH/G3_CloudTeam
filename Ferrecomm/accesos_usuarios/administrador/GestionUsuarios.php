@@ -249,9 +249,14 @@ if (!isset($_SESSION['usuario'])) {
 
           <div class="paginador">
             <ul>
-              <li><a href="#">|<</a></li>
-              <li><a href="#"><<</a></li>
+            <?php
+            if($pagina != 1) //Si la pagina es distinta a 1
+            {
+            ?>
+              <li><a href="?pagina=<?php echo 1;?>">|<</a></li>
+              <li><a href="?pagina=<?php echo $pagina -1;?>"><<</a></li>
               <?php
+              }
               for ($i = 1; $i <= $total_paginas; $i++) {
                 # code...
                 if($i == $pagina){
@@ -260,9 +265,13 @@ if (!isset($_SESSION['usuario'])) {
                   echo '<li><a href="?pagina='.$i.'">'.$i.'</a></li>';
                 }
               }
-              ?>
-              <li><a href="#">>></a></li>
-              <li><a href="#">>|</a></li>
+            if($pagina != $total_paginas){
+            ?>
+              <li><a href="?pagina=<?php echo  $pagina + 1; ?>">>></a></li>
+              <li><a href="?pagina=<?php echo $total_paginas;?>">>|</a></li>
+              <?php 
+            } 
+            ?>
             </ul>
           </div>
 
