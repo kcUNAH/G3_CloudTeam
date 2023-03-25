@@ -108,9 +108,55 @@ include '../../php/bitacora.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eliminar Usuario</title>
     <link rel="stylesheet" href="../../accesos/CSS/elim.css">
+
+
+    <link rel="stylesheet" href="../../../accesos/CSS/EstiloMenu.css">
+    <link rel="stylesheet" href="../../../accesos/CSS/tablaproducto.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+
+.btn_cancelar{
+    height: 45px;
+    width: 227px;
+	background: #d1d40a;
+	color: #000000;
+	font-weight: bold;
+    display: inline-block;
+	border-radius: 5px;
+	cursor: pointer;
+    
+   }
+
+    .btn_ok{
+    height: 45px;
+    width: 227px;
+    background: #2ad313;
+    color: black;
+    font-weight: bold;
+    display: inline-block;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 15px;
+}
+</style>
+
+
     <?php ?>
     <section id="container">
         <div class="data_delete"></div>
@@ -131,11 +177,15 @@ include '../../php/bitacora.php';
         <form method="POST" action="">
             <input type="hidden" name="id_usuario" value="<?php echo $idusuario; ?>">
 
-            <a href="GestionUsuarios.php" class="btn_cancel">Cancelar</a>
-            <input type="submit" value="Aceptar" class="btn_ok">
+            
+            <input type="submit" value="Eliminar" class="btn_ok">
+            <button type="reset" onclick="location.href='GestionUsuarios.php'" class="btn_cancelar">Cancelar</button>
         </form>
+        
 
-
+        
+      
+      
     </section>
     <script src="accesos/JS/scrip.js"> </script>
 </body>
