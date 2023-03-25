@@ -39,7 +39,8 @@ if (!empty($_POST)) {
 
         $usuario = $_POST['usuario'];
         $nombre_usuario = $_POST['nombre'];
-        $estado_usuario = $_POST['estado_usuario'];
+
+        $estado_usuario = ['estado_usuario'];
         //encriptamiento de la contraseña
         $contrasenia = $_POST['contra'];
         $contrasenia = hash('sha512', $contrasenia);
@@ -51,12 +52,11 @@ if (!empty($_POST)) {
 
         $correo_electronico = $_POST['email'];
         $creado_por = "ADMINISTRADOR";
-
-
         $primer_ingreso = "NO";
         //Creacion automatica de fecha
         date_default_timezone_set('America/Mexico_City');
         $fecha_creacion = date("Y-m-d H:i:s");
+
 
         if ($estado_usuario == 1) {
             $estado_usuario = 'ACTIVO';
@@ -131,34 +131,203 @@ if (!empty($_POST)) {
 
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../accesos/CSS/tablaproducto.css">
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../accesos/CSS/EstiloMenu.css">
-    <link rel="stylesheet" href="../../accesos/CSS/Estilos_formulario.css">
     <link rel="stylesheet" href="../../accesos/CSS/Tablas.css">
+
+    
+    
     <link rel="stylesheet" href="../../accesos/CSS/registro.css">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro Usuarios</title>
-    <link rel="stylesheet" href="accesos/CSS/registro.css">
-    <link rel="stylesheet" href="accesos/CSS/Estilos.css">
-    <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+    
+    <link rel="stylesheet" href="../../../accesos/CSS/EstiloMenu.css">
+    <link rel="stylesheet" href="../../../accesos/CSS/tablaproducto.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    
+    
 </head>
 
 <body>
+
+<div class="sidebar">
+    <div class="logo-details">
+      <i class='bx bxs-factory icon'></i>
+      <div class="logo_name">FERRECOMM</div>
+      <i class='bx bx-menu' id="btn"></i>
+    </div>
+    <ul class="nav-list">
+      <li>
+        <a href="Menu.php">
+          <i class='bx bxs-home'></i>
+          <span class="links_name">Inicio</span>
+        </a>
+        <span class="tooltip">Inicio</span>
+      </li>
+      <li>
+        <a href="Facturacion.php">
+          <i class='bx bx-money'></i>
+          <span class="links_name">Facturación</span>
+        </a>
+        <span class="tooltip">Facturación</span>
+      </li>
+      <li>
+        <a href="Compras.php">
+          <i class='bx bxs-cart'></i>
+          <span class="links_name">Compras</span>
+        </a>
+        <span class="tooltip">Compras</span>
+      </li>
+      <li>
+        <a href="Productos.php">
+          <i class='bx bx-shopping-bag'></i>
+          <span class="links_name">Productos</span>
+        </a>
+        <span class="tooltip">Productos</span>
+      </li>
+      <li>
+        <a href="Seguridad.php">
+          <i class='bx bx-shield-quarter'></i>
+          <span class="links_name">Seguridad</span>
+        </a>
+        <span class="tooltip">Seguridad</span>
+      </li>
+      <li>
+        <a href="Proveedores.php">
+          <i class='bx bxs-user'></i>
+          <span class="links_name">Proveedores</span>
+        </a>
+        <span class="tooltip">Proveedores</span>
+      </li>
+      <li>
+        <a href="Inventario.php">
+          <i class='bx bx-package'></i>
+          <span class="links_name">Inventario</span>
+        </a>
+        <span class="tooltip">Inventario</span>
+      </li>
+      <li>
+        <a href="GestionUsuarios.php">
+          <i class='bx bx-package'></i>
+          <span class="links_name">Usuarios</span>
+        </a>
+        <span class="tooltip">Usuarios</span>
+      </li>
+
+      <a href="../../php/Cerrar_Seccion.php">
+        <li class="profile">
+          <i class='bx bx-log-out' id="log_out"></i>
+          <div class="Salir">Cerrar Sesión</div>
+        </li>
+      </a>
+    </ul>
+  </div>
+  <section class="home-section">
+    
+
+  <style>
+   form{
+    background-color: #db881a;
+    border-radius: 3px;
+    padding: 20px;
+    margin : 0 auto;
+    width : 500px;
+    font-size: 15px;
+   }
+   input, textarea{
+    border: ;
+    outline: none;
+
+   }
+   .field{
+    border: solid 1px #ccc;
+    padding: 6px;
+    width: 450px;
+   }
+
+   .formulario_input{
+    border: solid 1px #ccc;
+    padding: 6px;
+    width: 450px;
+   }
+   .field:focus{
+    border-color: #18A383;
+   }
+   .btn_agregar{
+    height: 45px;
+	line-height: 45px;
+	background: #2ad313;
+	color: #000000;
+	font-weight: bold;
+	border: none;
+	border-radius: 3px;
+	cursor: pointer;
+	transition: .1s ease all;
+    width: 226px;
+    justify-content: center;
+   }
+   .btn_cancelar{
+    height: 45px;
+	line-height: 45px;
+	background: #d1d40a;
+	color: #000000;
+	font-weight: bold;
+	border: none;
+	border-radius: 3px;
+	cursor: pointer;
+	transition: .1s ease all;
+    width: 226px;
+    justify-content: center;
+   }
+
+   .warnings{
+      width: 200px;
+      text-align: center;
+      margin: auto;
+      color: #B06AB3;
+      padding-top: 20px;
+   }
+
+
+   @media screen and (max-width: 800px) {
+	.formulario {
+		grid-template-columns: 1fr;
+	}
+
+	.formulario__grupo-terminos, 
+	.formulario__mensaje,
+	.formulario__grupo-btn-enviar {
+		grid-column: 1;
+	}
+
+	.formulario__btn {
+		width: 100%;
+	}
+}
+  </style>
+
+
+
+
+
 
     <?php include 'conex.php'; ?>
     <section id="container">
 
         <div class="form_register">
-            <h1>Registro Usuario</h1>
+            
             <hr>
             <div class="alert">
                 <?php echo isset($alert) ? $alert : ''; ?>
             </div>
 
-
+            <h1>Registro Usuario</h1>
             <!-- formulario registro-->
             <form action="" method="POST" class="formulario__registro" id="formulario">
-                <h2>Registrarse</h2>
+            
 
                 <!-- Grupo: Usuario -->
                 <div class="formulario__grupo" id="grupo__usuario">
@@ -233,12 +402,13 @@ if (!empty($_POST)) {
                     <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario</p>
                 </div>
 
-                <div class="formulario__grupo formulario__grupo-btn-enviar">
-                    <button>Registrarse</button>
-                    <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado exitosamente!
-                    </p>
-                </div>
-
+                <br>
+                <button type="submit" class="btn_agregar">Agregar</button>
+                <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado exitosamente!</p>
+                <button type="reset" onclick="location.href='GestionUsuarios.php'" class="btn_cancelar">Cancelar</button>
+                
+                
+                
 
 
                 <script>
@@ -258,7 +428,7 @@ if (!empty($_POST)) {
     <script src="../JS/formulario_registro.js"> </script>
     <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
 
-    <a class="link_edit" href="GestionUsuarios.php">Volver</a>
+    <a href="GestionUsuarios.php" class="btn_pdf">Atrás</a>
 
 
 </body>
