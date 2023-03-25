@@ -124,10 +124,8 @@ if(!isset ($_SESSION['usuario'])){
             <th>Id</th>
             <th>Usuario</th>
             <th>Nombre</th>
-            
             <th>Rol</th>
             <th>Ultima Conexión</th>
-            
             <th>Fecha Vencimiento</th>
             <th>Correo</th>
             <th>Creado Por</th>
@@ -142,25 +140,28 @@ if(!isset ($_SESSION['usuario'])){
        /* include 'php/conexion.php';*/
        include 'conex.php';
             //Paginador
-          $sqlregistre = mysqli_query($conex, "SELECT COUNT(*) AS total_registro FROM tbl_ms_usuario WHERE estado_usuario = 3");     
+          $sqlregistre = mysqli_query($conex, "SELECT COUNT(*) AS total_registro FROM tbl_ms_usuario WHERE estado_usuario = 'NUEVO'");     
           $result_registre = mysqli_fetch_array($sqlregistre);
           $total_registro = $result_registre['total_registro'];
 
           $por_pagina = 4;
 
-          if (empty($_GET['pagina'])) {
-            $pagina = 1;
-          } else {
-            $pagina = $_GET['pagina'];
-          }
+            if (empty($_GET['pagina'])) {
+              $pagina = 1;
+            } else {
+              $pagina = $_GET['pagina'];
+            }
 
-          $desde = ($pagina - 1) * $por_pagina;
-          $total_paginas = ceil($total_registro / $por_pagina);
+            $desde = ($pagina - 1) * $por_pagina;
+            $total_paginas = ceil($total_registro / $por_pagina);
+
+          
 
         $query = mysqli_query($conex,"SELECT u.id_usuario, u.usuario, u.nombre_usuario, u.estado_usuario,  r.rol, 
         u.fecha_ultima_conexion,  u.fecha_vencimiento, u.correo_electronico, u.creado_por, 
         u.fecha_creacion, u.fecha_modificacion FROM tbl_ms_usuario u INNER JOIN tbl_ms_rol r on u.id_rol = r.id_rol
-        WHERE estado_usuario ='NUEVO' LIMIT $desde,$por_pagina");
+        WHERE estado_usuario ='NUEVO' 
+        LIMIT $desde,$por_pagina");
         
         $result = mysqli_num_rows($query);
         if($result > 0){ //si hay registros
@@ -173,12 +174,13 @@ if(!isset ($_SESSION['usuario'])){
             <td><?php echo $data["nombre_usuario"] ?></td>
             <td><?php echo $data["rol"] ?></td>
             <td><?php echo $data["fecha_ultima_conexion"] ?></td>
-            
-            <td> <?php echo $data["fecha_vencimiento"] ?></td>
+            <td><?php echo $data["fecha_vencimiento"] ?></td>
             <td><?php echo $data["correo_electronico"] ?></td>
             <td><?php echo $data["creado_por"] ?></td>
-            <td> <?php echo $data["fecha_creacion"] ?></td>
-            <td> <?php echo $data["fecha_modificacion"] ?></td>
+            <td><?php echo $data["fecha_creacion"] ?></td>
+            <td><?php echo $data["fecha_modificacion"] ?></td>
+
+            
 
             <td>
               <!--  <a class="link_factura" href="#"><i class='bx bx-check-double'></i></i></a>-->
@@ -221,6 +223,35 @@ if(!isset ($_SESSION['usuario'])){
             </ul>
           </div>
   </section>
+
+
+
+  </style>
+
+<script>
+let sidebar = document.querySelector(".sidebar");
+let closeBtn = document.querySelector("#btn");
+let searchBtn = document.querySelector(".bx-search");
+
+closeBtn.addEventListener("click", ()=>{
+  sidebar.classList.toggle("open");
+  menuBtnChange();
+});
+
+function menuBtnChange() {
+ if(sidebar.classList.contains("open")){
+   closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+ }else {
+   closeBtn.classList.replace("bx-menu-alt-right","bx-menu");
+ }
+}
+</script>
+<a href="GestionUsuarios.php" class="btn_pdf">Atrás</a>
+
+
+
+
+
   <style type="text/css">
 form {
   display: flex;
@@ -299,26 +330,8 @@ button[type="submit"] {
     background: #428bca;
     border: 1px solid: #428bca;
   }
-</style>
 
-  <script>
-  let sidebar = document.querySelector(".sidebar");
-  let closeBtn = document.querySelector("#btn");
-  let searchBtn = document.querySelector(".bx-search");
 
-  closeBtn.addEventListener("click", ()=>{
-    sidebar.classList.toggle("open");
-    menuBtnChange();
-  });
 
-  function menuBtnChange() {
-   if(sidebar.classList.contains("open")){
-     closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");
-   }else {
-     closeBtn.classList.replace("bx-menu-alt-right","bx-menu");
-   }
-  }
-  </script>
-  <a href="GestionUsuarios.php" class="btn_pdf">Atrás</a>
 </body>
 </html>
