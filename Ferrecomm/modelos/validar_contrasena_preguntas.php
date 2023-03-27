@@ -23,10 +23,9 @@
                         </script>";
                     }
                     else{ 
-                        echo "HOLA MUNDO";
+                      
             
-                           
-                           
+                
                             $pass = hash('sha512', $clave);
                            
                             //se puede mandar a laas otras validaciones
