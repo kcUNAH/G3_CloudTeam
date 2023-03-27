@@ -28,7 +28,7 @@ if (isset($_SESSION['usuario'])) {
 			<div class="formulario__grupo" id="grupo__usuario">
 				<label for="usuario" class="formulario__label">Usuario</label>
 				<div class="formulario__grupo-input">
-					<input type="text" class="formulario__input" onblur="cambiarAMayusculas(this);" name="usuario" id="usuario" >
+					<input type="text" class="formulario__input" style="text-transform:uppercase;" onkeyup="mayus(this);" name="usuario" id="usuario" >
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
 				<p class="formulario__input-error">El usuario tiene que ser de 4 a 16 dígitos y solo puede contener numeros, letras y guion bajo.</p>
