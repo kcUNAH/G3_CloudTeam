@@ -68,6 +68,10 @@ if(empty($_GET['id'])){
                 window.location= "../../administrador/proveedores.php";
                 </script>
                 ';
+               $codigoObjeto=4;
+            $accion='Eliminar';
+            $descripcion= 'El Usuario intento eliminar Un proveedor';
+            bitacora($codigoObjeto, $accion,$descripcion);
         }
    }
 
@@ -140,13 +144,7 @@ if(empty($_GET['id'])){
             </a>
             <span class="tooltip">Inventario</span>
         </li>
-        <li>
-            <a href="../GestionUsuarios.php">
-            <i class='bx bxs-user'></i>
-                <span class="links_name">Usuarios</span>
-            </a>
-            <span class="tooltip">Usuarios</span>
-        </li>
+       
         
         <a href="../../../index.php">
      <li class="profile">

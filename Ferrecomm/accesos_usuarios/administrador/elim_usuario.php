@@ -37,7 +37,7 @@ include '../../php/bitacora.php';
 
             $codigoObjeto=4;
             $accion='Eliminar';
-            $descripcion= 'El Usuario Elimino Un registro';
+            $descripcion= 'El Usuario intento eliminar Un registro';
             bitacora($codigoObjeto, $accion,$descripcion);
 
 
@@ -189,13 +189,7 @@ include '../../php/bitacora.php';
         <span class="tooltip">Inventario</span>
       </li>
       <li>
-        <a href="GestionUsuarios.php">
-          <i class='bx bx-package'></i>
-          <span class="links_name">Usuarios</span>
-        </a>
-        <span class="tooltip">Usuarios</span>
-      </li>
-
+       
       <a href="../../php/Cerrar_Seccion.php">
         <li class="profile">
           <i class='bx bx-log-out' id="log_out"></i>

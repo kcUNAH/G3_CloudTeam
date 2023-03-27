@@ -129,6 +129,10 @@ if (!empty($_POST)) {
               window.location= "actualizar.php";
              </script>
               ';
+              $codigoObjeto=3;
+              $accion='Actualizar';
+              $descripcion= 'Se produjo un error al  Actualizo el producto';
+              bitacora($codigoObjeto, $accion,$descripcion);
              }
             }else{
                 
@@ -226,13 +230,7 @@ if (!empty($_POST)) {
             </a>
             <span class="tooltip">Inventario</span>
         </li>
-        <li>
-            <a href="../GestionUsuarios.php">
-                <i class='bx bx-package'></i>
-                <span class="links_name">Usuarios</span>
-            </a>
-            <span class="tooltip">Usuarios</span>
-        </li>
+      
         <a href="../../../index.php">
      <li class="profile">
          <i class='bx bx-log-out' id="log_out" ></i>

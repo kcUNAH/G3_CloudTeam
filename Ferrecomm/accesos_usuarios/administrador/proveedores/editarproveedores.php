@@ -64,6 +64,10 @@ if(!isset ($_SESSION['usuario'])){
                         window.location= "editarproveedores.php";
                         </script>
                         ';
+                        $codigoObjeto=3;
+                        $accion='Actualizar';
+                        $descripcion= 'Se produjo un error al  Actualizo el  proveedor';
+                        bitacora($codigoObjeto, $accion,$descripcion);
                     }
                 
                 
@@ -168,13 +172,6 @@ if(!isset ($_SESSION['usuario'])){
                 <span class="links_name">Inventario</span>
             </a>
             <span class="tooltip">Inventario</span>
-        </li>
-        <li>
-            <a href="../GestionUsuarios.php">
-            <i class='bx bxs-user'></i>
-                <span class="links_name">Usuarios</span>
-            </a>
-            <span class="tooltip">Usuarios</span>
         </li>
         
         <a href="../../../index.php">

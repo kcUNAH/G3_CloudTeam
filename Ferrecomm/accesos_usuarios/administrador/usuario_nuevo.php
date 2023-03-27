@@ -85,13 +85,7 @@ if(!isset ($_SESSION['usuario'])){
             </a>
             <span class="tooltip">Inventario</span>
         </li>
-        <li>
-            <a href="GestionUsuarios.php">
-                <i class='bx bx-package'></i>
-                <span class="links_name">Usuarios</span>
-            </a>
-            <span class="tooltip">Usuarios</span>
-        </li>
+        
 
         <a href="../../php/Cerrar_Seccion.php">
      <li class="profile">

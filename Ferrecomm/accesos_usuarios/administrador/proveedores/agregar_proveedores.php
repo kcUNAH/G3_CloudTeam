@@ -59,13 +59,7 @@
             </a>
             <span class="tooltip">Inventario</span>
         </li>
-        <li>
-            <a href="../GestionUsuarios.php">
-            <i class='bx bxs-user'></i>
-                <span class="links_name">Usuarios</span>
-            </a>
-            <span class="tooltip">Usuarios</span>
-        </li>
+       
         
         <a href="../../../index.php">
      <li class="profile">

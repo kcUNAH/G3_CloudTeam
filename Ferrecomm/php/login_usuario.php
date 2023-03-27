@@ -91,7 +91,7 @@ if (isset($_COOKIE["block" . $usuario])) {
                 header("Location: ../accesos_usuarios/administrador/Menu.php");
                 $codigoObjeto=1;
                 $accion='Inicio de sesion';
-                $descripcion= 'El usuario Default inicio sesion';
+                $descripcion= 'El usuario Administrador inicio sesion';
                 bitacora($codigoObjeto, $accion,$descripcion);
                
               

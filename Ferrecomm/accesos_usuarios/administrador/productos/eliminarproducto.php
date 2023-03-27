@@ -88,6 +88,11 @@ WHERE id_producto = $id_producto;");
                 window.location= "../Productos.php";
                 </script>
                 ';
+
+             $codigoObjeto=4;
+            $accion='Eliminar';
+            $descripcion= 'El Usuario intento eliminar Un producto';
+            bitacora($codigoObjeto, $accion,$descripcion);
         }
    }
 
@@ -160,13 +165,7 @@ WHERE id_producto = $id_producto;");
             </a>
             <span class="tooltip">Inventario</span>
         </li>
-        <li>
-            <a href="../GestionUsuarios.php">
-                <i class='bx bx-package'></i>
-                <span class="links_name">Usuarios</span>
-            </a>
-            <span class="tooltip">Usuarios</span>
-        </li>
+       
         <a href="../../../index.php">
      <li class="profile">
          <i class='bx bx-log-out' id="log_out" ></i>
