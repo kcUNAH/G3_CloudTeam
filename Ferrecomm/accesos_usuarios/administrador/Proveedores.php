@@ -183,9 +183,9 @@ if(!isset ($_SESSION['usuario'])){
             <td><?php echo $data["telefono_proveedor"] ?></td>
             <td><?php echo $data["correo_proveedor"] ?></td>
             <td><?php echo $data["direccion_proveedor"] ?></td>
-            <td> <a type="button" class="link_edit" href="editarproveedores.php?id=<?php echo $data["id_proveedor"]; ?>"><i class='bx bx-edit'></i></a>
+            <td> <a type="button" class="link_edit" href="./proveedores/editarproveedores.php?id=<?php echo $data["id_proveedor"]; ?>"><i class='bx bx-edit'></i></a>
            
-            <a type="button"class="link_delete" href="eliminarproveedor.php?id=<?php echo $data["id_proveedor"]; ?>"><i class='bx bxs-trash'></i></a>
+            <a type="button"class="link_delete" href="./proveedores/eliminarproveedor.php?id=<?php echo $data["id_proveedor"]; ?>"><i class='bx bxs-trash'></i></a>
 
 
              </td>
