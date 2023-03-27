@@ -159,7 +159,7 @@ if (isset($_SESSION['usuario'])) {
 
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="Usuario-recuperar">Usuario:</span>
-                        <input required type="text" name="usuario" class="form-control"  placeholder="Ingresa el usuario" aria-label="Username" aria-describedby="basic-addon1" minlength="6" maxlength="15" style="text-transform:uppercase;" onkeyup="mayus(this);">
+                        <input required type="text" name="usuario" class="form-control"  placeholder="Ingresa el usuario" aria-label="Username" aria-describedby="basic-addon1" minlength="6" maxlength="15" style="text-transform:uppercase;" onblur="cambiarAMayusculas(this);">
                     </div>
                     <div class="d-grid gap-2">
                        <button type="submit" name="correo" id="correo"  class="btn btn-light border-secondary" type="button">
