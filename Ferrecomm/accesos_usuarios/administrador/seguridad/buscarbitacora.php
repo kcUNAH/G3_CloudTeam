@@ -159,7 +159,7 @@ if(!isset ($_SESSION['usuario'])){
                                                                  id_usuario LIKE '%$busqueda%' OR
                                                                  id_objeto LIKE '%$busqueda%' OR
                                                                  accion LIKE '%$busqueda%' OR
-                                                                 descripcionLIKE '%$busqueda%')");
+                                                                 descripcion LIKE '%$busqueda%')");
        $result_register = mysqli_fetch_array($sql_register);
        $total_registro = $result_register['total_registro'];
 
@@ -175,12 +175,12 @@ if(!isset ($_SESSION['usuario'])){
        $total_paginas = ceil($total_registro / $por_pagina);
 
         $query = mysqli_query($conex,"SELECT id_bitacora,fecha,id_usuario,id_objeto,accion,descripcion
-        FROM tbl_proveedores   WHERE (id_bitacora LIKE '%$busqueda%' OR
+        FROM tbl_bitacora   WHERE (id_bitacora LIKE '%$busqueda%' OR
                                                                  fecha LIKE '%$busqueda%' OR
                                                                  id_usuario LIKE '%$busqueda%' OR
                                                                  id_objeto LIKE '%$busqueda%' OR
                                                                  accion LIKE '%$busqueda%' OR
-                                                                 descripcionLIKE '%$busqueda%')ORDER BY id_bitacora ASC LIMIT $desde,$por_pagina;");
+                                                                 descripcion LIKE '%$busqueda%')ORDER BY id_bitacora ASC LIMIT $desde,$por_pagina;");
         $result = mysqli_num_rows($query);
         if($result > 0){ 
 

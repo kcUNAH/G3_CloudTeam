@@ -181,7 +181,7 @@ if(!isset ($_SESSION['usuario'])){
             float: left;
 			margin-left: 35px;
             display: block;
-			margin-top: 1px;
+			margin-top: 50px;
             
 		}
         .btn2:hover {
@@ -219,18 +219,19 @@ button[type="submit"] {
 </head>
 <body>
     <div class="overlay">
-	<a class="btn" href = "GestionUsuarios.php"><i class='bx bx-user'>usarios</i></a>
-    <a class="btn" href = " "><i class='bx bxs-registered'>permisos</i></a>
+	<a class="btn" href = "GestionUsuarios.php"><i class='bx bx-user'> Usuarios</i></a>
+    <a class="btn" href = " "><i class='bx bxs-user-detail'>Permisos</i></a>
    
   
  
    
     <div>
-    <a class="btn1" href = " "><i class='bx bxs-registered'>parametros</i></a>
-    <a class="btn1" href = "seguridad/mostrarbitacora.php "><i class='bx bxs-registered'>Bitacora</i></a>
-        </div>
+    <a class="btn1" href = " "><i class='bx bxs-notepad'> Parametros</i></a>
+    <a class="btn1" href = "seguridad/mostrarbitacora.php "><i class='bx bx-note'> Bitacora</i></a>
+        
+</div>
     <div>
-    <a class="btn2" href = " "><i class='bx bxs-registered'>roles</i></a>
+    <a class="btn2" href = " ">  <i class='bx bx-user-check'>   Roles   </i></a>
     </div>
     <div>
  
