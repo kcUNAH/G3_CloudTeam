@@ -333,7 +333,7 @@ if (!empty($_POST)) {
                 <div class="formulario__grupo" id="grupo__usuario">
                     <label for="usuario" class="formulario__label">Usuario</label>
                     <div class="formulario__grupo-input">
-                        <input type="text" class="formulario__input" onblur="cambiarAMayusculas(this);" name="usuario"
+                        <input type="text" class="formulario__input" style="text-transform:uppercase;" onblur="cambiarAMayusculas(this);" name="usuario"
                             id="usuario" placeholder="USUARIO123">
                         <i class="formulario__validacion-estado fas fa-times-circle"></i>
                     </div>
