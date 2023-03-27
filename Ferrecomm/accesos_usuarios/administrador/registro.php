@@ -92,11 +92,32 @@ if (!empty($_POST)) {
             if ($query_insert) {
                 //  $alert= '<p class= "msg_save">El usuario se ha creado.</p>';
                 echo
-                    '<script>
+                        '<script>
                 alert("Usuario creado correctamente");
                 window.location= "GestionUsuarios.php";
                 </script>
                 ';
+
+                //$va_email = $_POST['correo_electronico'];
+            
+                          $para = $_POST['email']; // Dirección de correo electrónico del destinatario
+                          $asunto = 'Bienvenida'; // Asunto del correo electrónico
+                          $mensaje = 'Bienvenid@!' ."\r\n". "\r\n" .'Se ha creado su usuario en el sistema de FERROCOM'; // Cuerpo del correo
+
+
+                          // Cabezera del correo electrónico
+                          $cabecera = 'From: cloudteamg3@gmail.com' . "\r\n" .
+                          'Reply-To: cloudteamg3@gmail.com' . "\r\n" .
+                          'X-Mailer: PHP/' . phpversion();
+
+
+                          // Confirmación y envío del correo electrónico
+                         if (mail($para, $asunto, $mensaje, $cabecera)) {
+                          echo 'El correo electrónico fue enviado exitosamente.';
+
+                   } else {
+                          echo 'Ocurrió un error al enviar el correo electrónico.';
+                   }
                 $codigoObjeto = 7;
                 $accion = 'Registro';
                 $descripcion = 'El Usario Administrador registro un Usuario';
