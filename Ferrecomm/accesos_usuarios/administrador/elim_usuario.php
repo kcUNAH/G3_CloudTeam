@@ -38,7 +38,7 @@ include '../../php/bitacora.php';
             $codigoObjeto=4;
             $accion='Eliminar';
             $descripcion= 'El Usuario Elimino Un registro';
-            bitacora2($codigoObjeto, $accion,$descripcion);
+            bitacora($codigoObjeto, $accion,$descripcion);
 
 
         }

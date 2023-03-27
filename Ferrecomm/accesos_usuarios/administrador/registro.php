@@ -83,7 +83,7 @@ if (!empty($_POST)) {
             $codigoObjeto = 7;
             $accion = 'Registro';
             $descripcion = 'intento ingresar un usuario ya existente';
-            bitacora2($codigoObjeto, $accion, $descripcion);
+            bitacora($codigoObjeto, $accion, $descripcion);
         } else {
             $query_insert = mysqli_query($conex, "INSERT INTO tbl_ms_usuario(usuario,nombre_usuario,estado_usuario,contrasenia,id_rol,
                                         fecha_vencimiento,correo_electronico, creado_por, fecha_creacion, primer_ingreso)
@@ -112,7 +112,7 @@ if (!empty($_POST)) {
                 $codigoObjeto = 7;
                 $accion = 'Registro';
                 $descripcion = 'Error al intentar crear Usuario';
-                bitacora2($codigoObjeto, $accion, $descripcion);
+                bitacora($codigoObjeto, $accion, $descripcion);
             }
         }
     }
