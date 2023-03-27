@@ -25,7 +25,6 @@ if(!isset ($_SESSION['usuario'])){
     <link rel="stylesheet" href="../../accesos/CSS/tablaproducto.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
    </head>
    
 <body >
@@ -74,20 +73,22 @@ if(!isset ($_SESSION['usuario'])){
             <span class="tooltip">Seguridad</span>
         </li>
         <li>
-            <a href="Proveedores.php">
-                <i class='bx bxs-user'></i>
-                <span class="links_name">Proveedores</span>
-            </a>
-            <span class="tooltip">Proveedores</span>
-        </li>
-        <li>
             <a href="Inventario.php">
                 <i class='bx bx-package'></i>
                 <span class="links_name">Inventario</span>
             </a>
             <span class="tooltip">Inventario</span>
         </li>
-        <a href="../../php/Cerrar_Seccion.php">
+        <li>
+        <li>
+            <a href="GestionUsuarios.php">
+            <i class='bx bxs-user'></i>
+                <span class="links_name">Usuarios</span>
+            </a>
+            <span class="tooltip">Usuarios</span>
+        </li>
+        
+        <a href="../../../index.php">
      <li class="profile">
          <i class='bx bx-log-out' id="log_out" ></i>
          <div class="Salir">Cerrar Sesión</div>
@@ -108,10 +109,11 @@ if(!isset ($_SESSION['usuario'])){
                       
                      </div>
 
-  <form action=" buscar_producto.php" method="get" style="background-color:#DCFFFE ;">
-  <input type="text" name="buscar" style="margin-left: 40px" id="buscar" placeholder="Buscar...">
+ 
+  <form action="./proveedores/buscarproveedor.php" method="get" style="background-color:#DCFFFE ;">
+  <input type="text" name="busqueda" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
   <button type="submit" class="boton-buscar">Buscar</button>
-  <a href="registro.php" class="btn_newproducto" style="margin-left: 350px" > Agregar Proveedor<i id="icon_nuevo" class='bx bxs-cart-add'></i></a>
+  <a href="./proveedores/agregar_proveedores.php" class="btn_newproducto" style="margin-left: 350px" > Agregar Proveedor<i id="icon_nuevo"  class='bx bxs-user-plus'></i></a>
   <a href="#" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
 
@@ -151,8 +153,24 @@ if(!isset ($_SESSION['usuario'])){
       <?php
        /* include 'php/conexion.php';*/
        include 'conex.php';
-       
-        $query = mysqli_query($conex,"SELECT id_proveedor,nombre_proveedor, rtn_proveedor, telefono_proveedor,correo_proveedor,direccion_proveedor FROM tbl_proveedores");
+        //Paginador
+        $sql_register =mysqli_query($conex,"SELECT COUNT(*) as total_registro FROM tbl_proveedores");
+        $result_register = mysqli_fetch_array($sql_register);
+        $total_registro = $result_register['total_registro'];
+        $por_pagina = 4;
+        if(empty($_GET['pagina'])){
+          $pagina = 1;
+       }else{
+          $pagina = $_GET['pagina'];
+       }
+
+       $desde = ($pagina-1) * $por_pagina;
+       $total_paginas = ceil($total_registro / $por_pagina);
+
+        $query = mysqli_query($conex,"SELECT id_proveedor, nombre_proveedor, rtn_proveedor, telefono_proveedor, 
+       correo_proveedor, direccion_proveedor FROM tbl_proveedores  ORDER BY id_proveedor ASC LIMIT $desde,$por_pagina;");
+
+     
         $result = mysqli_num_rows($query);
         if($result > 0){ //si hay registros
 
@@ -165,8 +183,9 @@ if(!isset ($_SESSION['usuario'])){
             <td><?php echo $data["telefono_proveedor"] ?></td>
             <td><?php echo $data["correo_proveedor"] ?></td>
             <td><?php echo $data["direccion_proveedor"] ?></td>
-            <td> <a type="button" class="btn btn-primary" href="editar.php?id=<?php echo $data["id_proveedor"]; ?>">Editar</a>
-             <a type="button" class="btn btn-danger" href="elim_usuario.php?id=<?php echo $data["id_proveedor"]; ?>">Eliminar</a>
+            <td> <a type="button" class="link_edit" href="editarproveedores.php?id=<?php echo $data["id_proveedor"]; ?>"><i class='bx bx-edit'></i></a>
+           
+            <a type="button"class="link_delete" href="eliminarproveedor.php?id=<?php echo $data["id_proveedor"]; ?>"><i class='bx bxs-trash'></i></a>
 
 
              </td>
@@ -178,95 +197,40 @@ if(!isset ($_SESSION['usuario'])){
         ?>
 
       </table>
-      <div class="navigation">
- <a type="button"   class="btn_anterior" href="#"  name="anterior">anterior<i class='bx bx-chevrons-left'></i></a>  
 
-  <a type="button"  class="btn_anterior" href="#"  name="anterior"><i class='bx bx-chevrons-right'>Siguiente</i></a>  
+     
+      <div class="paginador">
+     <ul>
+      <?php
+        if($pagina !=1)
+        {
+      ?>
+      <li><a href="?pagina=<?php echo 1; ?>">|<</a></li>
+      <li><a href="?pagina=<?php echo $pagina-1; ?>"><<</a></li>
+      <?php 
+        }
+       for($i=1; $i <= $total_paginas; $i++){
+          if($i == $pagina){
+            echo '<li class="pageSelected">'.$i.'</li>';
+          }else{
+            echo '<li><a href="?pagina='.$i.'">'.$i.'</a></li>';
+          }
+       }
+       if($pagina != $total_paginas)
+       {
+       ?>
+      <li><a href="?pagina=<?php echo $pagina + 1; ?>">>></a></li>
+      <li><a href="?pagina=<?php echo $total_paginas; ?>">>|</a></li>
+       <?php } ?>
+     </ul>
 </div>
-  
-<!--Ventana flotante-->
-      <div class ="ventana" id="vent"> 
-  <section class="registro_proveedor">
-  <h4 style="font-style: italic; font-size: 20px;"><i class="far fa-building"></i>Añadir proveedor </h4>
-  <hr style="color: #999; background-color:  #fbfcfc ; height: 2px; border: none;">
 
-    <input class="control" type="Text" name="nombre" id="nombre" placeholder="Ingrese su nombre:">
-    <input class="control" type="Text" name="RTN"    id="RTN"     placeholder="RTN Proveedor:">
-    <input class="control" type="Text" name="telefono" id="telefono" placeholder="Ingrese su telefono">
-    <input class="control" type="email" name="correo" id="correo" placeholder="Ingrese su correo:">
-    <input class="control" type="Text" name="direccion" id="direccion" placeholder="Ingrese su Direccion:">
-    <a type="button" class="btn btn-primary" href="registro_proveedores">Agregar</a>
-    <a type="reset" onclick="location.href='Proveedores.php'" class="btn btn-danger">Cancelar</a>
+  
 
       </section>
     
 </div>
-<style type="text/css">
-.ventana{
-background:rgba(red, rgb(128, 62, 0), blue, alpha);
-width: 30%;
-color:rgba(255, 255, 255,1);
-font-family:Arial,Helvetica,sans-serif;
-font-size: 18px;
-text-align: center;
-padding: 33px;
-min-height: 250px;
-border-radius: 22px;
-position: absolute;
-left: 34%;
-top:0%;
-display: none;
-
-}
-.registro_proveedor {
-  width: 400px;
-  background: #24303c;
-  padding: 30px;
-  margin: auto;
-  margin-top: 100px;
-  border-radius: 4px;
-  font-family: 'calibri';
-  color: white;
-  box-shadow: 7px 13px 37px #000;
-}
-
-.registro_proveedor h4 {
-  font-size: 22px;
-  margin-bottom: 20px;
-}
-
-.control {
-  width: 100%;
-  background: #24303c;
-  padding: 10px;
-  border-radius: 4px;
-  margin-bottom: 16px;
-  border: 1px solid #1f53c5;
-  font-family: 'calibri';
-  font-size: 18px;
-  color: white;
-}
-
-.registro_proveedor p {
-  height: 40px;
-  text-align: center;
-  font-size: 18px;
-  line-height: 40px;
-}
-
-.registro_proveedor a {
-  color: white;
-  text-decoration: none;
-}
-
-.registro_proveedor a:hover {
-  color: white;
-  text-decoration: underline;
-}
-
-
-
-</style>   
+ 
  <!--diseño buscar-->
  <style type="text/css">
 form {
@@ -291,41 +255,17 @@ button[type="submit"] {
   padding: 8px 16px;
   font-size: 16px;
 }
+.ventana{
+
+}
+
+
 </style>
 
 </body>
 <!--diseño siguiente-->
-<style type="text/css">
-.navigation {
-  display: flex;
-  justify-content: left;
-  align-items: left;
 
-}
 
-.navigation button {
-  background-color: #4CAF50;
-  border: none;
-  color: white;
-  padding: 5px 20px;
-  text-align:left;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 1px 2px;
-  cursor: pointer;
-}
-
-.navigation button:hover {
-  opacity: 0.8;
-}
-
-.navigation .page-number {
-  margin: 0 0px;
-  font-size: 10px;
-}
-
-</style>    
 
 </div>
     
@@ -335,12 +275,7 @@ button[type="submit"] {
 
       
 </section>
-<!--Codigo java ventana flotante-->
-<script>
-  function abrir(){
-document.getElementById("vent").style.display="block";
 
-  }
   </script>
 
    

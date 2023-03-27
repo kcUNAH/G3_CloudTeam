@@ -117,19 +117,16 @@ if (!isset($_SESSION['usuario'])) {
         <link rel="stylesheet" href="./fontawesome-free/css/all.min.css">
         <div class="container-fluid" style=" background-image: URL(Ferrecomm\accesos\Imagenes\Logo.jpeg);"></div>
       </head>
-      <section id="container">
-        <form action="buscar_usuario.php" method="get" class="form_search" style="background-color:#DCFFFE ;">
-          <input type="text" name="busqueda" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
-          <button type="submit" value="Buscar" class="boton-buscar">Buscar</button>
-          <a href="registro.php" class="btn_newproducto"> Crear usuario<i id="icon_nuevo"
-              class='bx bxs-cart-add'></i></a>
-          <a href="usuario_activo.php" class="btn_activo"> Usuarios Activos<i id="icon_nuevo"
-              class='bx bxs-cart-add'></i></a>
-          <a href="usuario_inactivo.php" class="btn_inactivo">Usuarios Inactivos<i id="icon_nuevo"
-              class='bx bxs-cart-add'></i></a>
-          <a href="usuario_nuevo.php" class="btn_nuevo">Usuarios Nuevos<i id="icon_nuevo"
-              class='bx bxs-cart-add'></i></a>
-          <a href="#" class="btn_pdf"> PDF <i class='bx bxs-file-pdf'></i></a>
+      <section id="container"  >
+      <form action=" buscar_producto.php" method="get" style="background-color:#DCFFFE ;">
+  <input type="text" name="buscar" style="margin-left: 40px" id="buscar" placeholder="Buscar...">
+  <button type="submit" class="boton-buscar">Buscar</button>
+  <a href="registro.php" class="btn_nuevorpoducto" > Crear usuario<i id="icon_nuevo" class='bx bxs-user-plus'></i></a>
+  <a href="usuario_activo.php" class="btnactivo" > Usuarios Activos<i id="icon_nuevo" class='bx bx-user-check'></i></a>
+  <a href="usuario_inactivo.php" class="btninactivo">Usuarios Inactivos<i id="icon_nuevo" class='bx bx-user-x'></i></a>
+  <a href="usuario_nuevo.php" class="btn_nuevorpoducto" >Usuarios Nuevos<i id="icon_nuevo" class='bx bxs-user-plus'></i></a>
+  <a href="#" class="pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
+
 
 
         </form>
@@ -295,32 +292,104 @@ if (!isset($_SESSION['usuario'])) {
           }
         </script>
 
-        <!--diseño buscar-->
-        <style type="text/css">
-          form {
-            display: flex;
-            align-items: center;
-          }
+      <!--diseño buscar-->
+<style type="text/css">
+form {
+  display: flex;
+  align-items: center;
+}
 
-          input[type="text"] {
-            padding: 8px;
-            border: none;
-            border-radius: 10px;
-            margin-right: 10px;
-            font-size: 16px;
-          }
+input[type="text"] {
+  padding: 8px;
+  border: none;
+  border-radius: 10px;
+  margin-right: 10px;
+  font-size: 16px;
+}
 
-          button[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            padding: 8px 16px;
-            font-size: 16px;
-          }
-        </style>
+button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 8px 16px;
+  font-size: 16px;
+}
+</style>
 
+</body>
+<!--diseño siguiente-->
+<style type="text/css">
+.navigation {
+  display: flex;
+  justify-content: left;
+  align-items: left;
+
+}
+
+.navigation button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 5px 20px;
+  text-align:left;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 1px 2px;
+  cursor: pointer;
+}
+
+.navigation button:hover {
+  opacity: 0.8;
+}
+
+.navigation .page-number {
+  margin: 0 0px;
+  font-size: 10px;
+}
+.btn_nuevorpoducto{
+    display: inline-block;
+    background: #306fe6;
+    color:rgb(255, 255, 255);
+    padding: 1px 20px;
+    border-radius: 10px;
+    margin: 10px;
+    text-decoration: none;
+
+} 
+.btnactivo{
+    display: inline-block;
+    background: green;
+    color:rgb(255, 255, 255);
+    padding: 1px 20px;
+    border-radius: 10px;
+    margin: 10px;
+    text-decoration: none;
+
+} 
+.btninactivo{
+    display: inline-block;
+    background: red;
+    color:rgb(255, 255, 255);
+    padding: 1px 20px;
+    border-radius: 10px;
+    margin: 10px;
+    text-decoration: none;
+
+} 
+.pdf{
+    display: inline-block;
+    background: orange;
+    color:rgb(255, 255, 255);
+    padding: 1px 20px;
+    border-radius: 10px;
+    margin: 10px;
+    text-decoration: none;
+
+} 
+</style>
 </body>
 <!--diseño siguiente-->
 <style type="text/css">
