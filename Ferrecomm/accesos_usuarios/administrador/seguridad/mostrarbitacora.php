@@ -23,7 +23,7 @@ if(!isset ($_SESSION['usuario'])){
   <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../../../accesos/CSS/EstiloMenu.css">
-   
+    <link rel="stylesheet" href="../../../accesos/CSS/tablaproducto.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
    </head>
@@ -50,27 +50,28 @@ if(!isset ($_SESSION['usuario'])){
             <span class="tooltip">Facturación</span>
         </li>
         <li>
-            <a href="../Compras.php">
+            <a href="../../../compras.php">
                 <i class='bx bxs-cart'></i>
                 <span class="links_name">Compras</span>
             </a>
             <span class="tooltip">Compras</span>
         </li>
         <li>
-            <a href="../../Productos.php">
+            <a href="../Productos.php">
                 <i class='bx bx-shopping-bag'></i>
                 <span class="links_name">Productos</span>
             </a>
             <span class="tooltip">Productos</span>
         </li>
         <li>
-            <a href="../Seguridad.php">
+            <a href="../seguridad.php">
                 <i class='bx bx-shield-quarter'></i>
                 <span class="links_name">Seguridad</span>
             </a>
             <span class="tooltip">Seguridad</span>
         </li>
         <li>
+            
             <a href="../Proveedores.php">
             <i class='bx bx-id-card'></i>
                 <span class="links_name">Proveedores</span>
@@ -78,7 +79,7 @@ if(!isset ($_SESSION['usuario'])){
             <span class="tooltip">Proveedores</span>
         </li>
         <li>
-            <a href="../Inventario.php">
+            <a href="../../../inventario.php">
                 <i class='bx bx-package'></i>
                 <span class="links_name">Inventario</span>
             </a>
@@ -95,7 +96,7 @@ if(!isset ($_SESSION['usuario'])){
     </ul>
   </div>
   <section class="home-section">
-    <div class="text">Bienvedio </div>
+  <h1> Bitacora <i class='bx bx-note'></i></h1>
 
 
     <?php include '../conex.php'; ?>
@@ -131,7 +132,7 @@ if(!isset ($_SESSION['usuario'])){
             <th>id_objeto</th>
             <th>accion</th>
             <th>descripcion</th>
-            <th>accion</th>
+          
 
             
         </tr>
@@ -173,9 +174,7 @@ if(!isset ($_SESSION['usuario'])){
             <td><?php echo $data["id_objeto"] ?></td>
             <td><?php echo $data["accion"] ?></td>
             <td> <?php echo $data["descripcion"] ?></td>
-           <th> 
-            <a type="button"class="link_delete" href="./seguridad/eliminarbitacora.php?id=<?php echo $data["id_bitacora"]; ?>"><i class='bx bxs-trash'></i></a>
-          </th>
+           
         </tr>
         <?php
             }
@@ -385,6 +384,13 @@ table td {
     margin: 20px;
     text-decoration: none;
 
+} 
+.h1{
+    color:rgba(255, 102, 0, 0.911);
+    margin-left: 20px;
+    text-align: center;
+    font-size: 30pt;
+    
 } 
 </style>
 

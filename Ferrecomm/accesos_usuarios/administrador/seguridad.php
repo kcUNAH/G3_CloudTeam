@@ -98,9 +98,15 @@ if(!isset ($_SESSION['usuario'])){
       <h1>  seguridad <i class='bx bx-shield-quarter'></i></h1>
  
       <style>
-		.btn {
+     body {
+  background-image: url('../../../fondo_diseño.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+        .btn {
 			display: inline-block;
-			background-color: #007bff;
+			background-color: #2471A3;
 			color: #fff;
 			border: none;
 			border-radius: 5px;
@@ -113,10 +119,10 @@ if(!isset ($_SESSION['usuario'])){
 			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 			transition: all 0.3s ease;
             float: left;
-			margin-left: 35px;
+			margin-left: 25px;
             display: block;
 			margin-top: 50px;
-            
+            display: block;
 		}
 		
 		.btn:hover {
@@ -124,23 +130,9 @@ if(!isset ($_SESSION['usuario'])){
 			box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 			transform: translateY(-2px);
 		}
-        .overlay {
-			position: fixed;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			background-color:#ffab66;
-			z-index: 1;
-			margin: auto;
-			width: 50%;
-			height: 50%;
-            
-
-            }
-            .btn1 {
+		.btn1 {
 			display: inline-block;
-			background-color: #007bff;
+			background-color: green;
 			color: #fff;
 			border: none;
 			border-radius: 5px;
@@ -154,19 +146,20 @@ if(!isset ($_SESSION['usuario'])){
 			transition: all 0.3s ease;
             float: left;
 			margin-left: 35px;
-            display: block;
+            margin-left: 35px;
 			margin-top: 50px;
-            
+            display: block;
 		}
-        
-        .btn1:hover {
+		
+		.btn1:hover {
 			background-color: #0062cc;
 			box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 			transform: translateY(-2px);
 		}
-        .btn2 {
+       
+            .btn2 {
 			display: inline-block;
-			background-color: #007bff;
+			background-color: orange;
 			color: #fff;
 			border: none;
 			border-radius: 5px;
@@ -180,15 +173,70 @@ if(!isset ($_SESSION['usuario'])){
 			transition: all 0.3s ease;
             float: left;
 			margin-left: 35px;
-            display: block;
+            margin-left: 35px;
 			margin-top: 50px;
+            display: block;
             
 		}
+        
         .btn2:hover {
 			background-color: #0062cc;
 			box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 			transform: translateY(-2px);
 		}
+        .btn3 {
+			display: inline-block;
+			background-color: red;
+			color: #fff;
+			border: none;
+			border-radius: 5px;
+			padding: 20px 40px;
+			font-size: 30px;
+			font-weight: bold;
+			text-align: center;
+			text-decoration: none;
+			cursor: pointer;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+			transition: all 0.3s ease;
+            float: left;
+            margin-left: 30px;
+			margin-top: 50px;
+            display: block;
+            
+		}
+        .btn3:hover {
+			background-color: #0062cc;
+			box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+			transform: translateY(-2px);
+		}
+        .btn4 {
+			display: inline-block;
+			background-color: #922B21 ;
+			color: #fff;
+			border: none;
+			border-radius: 5px;
+			padding: 20px 40px;
+			font-size: 30px;
+			font-weight: bold;
+			text-align: center;
+			text-decoration: none;
+			cursor: pointer;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+			transition: all 0.3s ease;
+            float: left;
+			margin-left: 35px;
+            margin-left: 35px;
+			margin-top: 50px;
+            display: block;
+            
+		}
+        .btn4:hover {
+			background-color: #0062cc;
+			box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+			transform: translateY(-2px);
+		}
+        </style>
+
           <!--diseño buscar-->
 <style type="text/css">
 form {
@@ -213,25 +261,37 @@ button[type="submit"] {
   padding: 8px 16px;
   font-size: 16px;
 }
+.h2 {
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: rgba(255, 102, 0, 0.911);
+    
+    margin:auto;
+}
+
 </style>
 	</style>
 
 </head>
 <body>
-    <div class="overlay">
+    
 	<a class="btn" href = "GestionUsuarios.php"><i class='bx bx-user'> Usuarios</i></a>
-    <a class="btn" href = " "><i class='bx bxs-user-detail'>Permisos</i></a>
+    <a class="btn3" href = "seguridad/mostrarbitacora.php "><i class='bx bx-note'> Bitacora</i></a>
+    <a class="btn1" href = " "><i class='bx bxs-notepad'> Parametros</i></a>
    
-  
+
+    <a class="btn4" href = " ">  <i class='bx bx-user-check'>Roles </i></a>
+    <a ></a>
  
    
     <div>
-    <a class="btn1" href = " "><i class='bx bxs-notepad'> Parametros</i></a>
-    <a class="btn1" href = "seguridad/mostrarbitacora.php "><i class='bx bx-note'> Bitacora</i></a>
+    <a ></a>
+    <a class="btn2" href = " "><i class='bx bxs-user-detail'>Permisos</i></a>
         
 </div>
     <div>
-    <a class="btn2" href = " ">  <i class='bx bx-user-check'>   Roles   </i></a>
+   
     </div>
     <div>
  

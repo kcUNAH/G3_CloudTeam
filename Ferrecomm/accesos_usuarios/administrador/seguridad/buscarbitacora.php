@@ -101,7 +101,7 @@ if(!isset ($_SESSION['usuario'])){
   </div>
   <section class="home-section">
 </br>
-      <h1>  Proveedores <i class='bx bx-shopping-bag'></i></h1>
+      <h1> Bitacora </h1>
       <?php include '../conex.php';?>
 
       <section id="container"  >
@@ -118,7 +118,7 @@ if(!isset ($_SESSION['usuario'])){
 
 
 
-<form action="buscarbitacora..php" method="get" style="background-color:#DCFFFE ;">
+<form action="buscarbitacora.php" method="get" style="background-color:#DCFFFE ;">
   <input type="text" name="busqueda" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
   <button type="submit" class="boton-buscar">Buscar</button>
   <a href="#" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
@@ -289,67 +289,142 @@ button[type="submit"] {
   padding: 8px 16px;
   font-size: 16px;
 }
-</style>
-
-</body>
-<!--diseño siguiente-->
-<style type="text/css">
-.navigation {
-  display: flex;
-  justify-content: left;
-  align-items: left;
-
+table{
+    border-collapse: collapse;
+    font-size: 10pt;
+    font-family: Arial;
+    margin-left: 40px;
+    margin-right: 5px;
+    background-color: #fff;
+    
 }
 
-.navigation button {
-  background-color: #4CAF50;
-  border: none;
-  color: white;
-  padding: 5px 20px;
-  text-align:left;
-  text-decoration: none;
+thead{
+  background-color: rgba(255, 102, 0, 0.911);
+  border-bottom: solid 5px;
+  color: rgb(0, 0, 0);
+}
+
+
+table td:first-child {
+    width: 70px;
+  }
+  table td:nth-child(2){
+    width: 180px;
+  }
+  table td:nth-child(3){
+    width: 30px;
+  }
+  table td:nth-child(4){
+    width: 30px;
+  }
+  table td:nth-child(5){
+    width: 150px;
+  }
+  table td:nth-child(6){
+    width: 200px;
+  }
+  
+  .link_delete{
+    color: red;
+    font-size: 25px;
+}
+
+
+/*Tamaño de los th de la tabla*/
+table th:first-child {
+  width: 70px;
+}
+table th:nth-child(2){
+  width: 180px;
+}
+table th:nth-child(3){
+  width: 30px;
+}
+table th:nth-child(4){
+  width: 30px;
+}
+table th:nth-child(5){
+  width: 150px;
+}
+table th:nth-child(6){
+  width: 200px;
+}
+
+
+
+  table td:last-child {
+    width: 10px;
+  }
+
+.table .th{
+    text-align: left;
+    padding: 10px;
+    background: #ffffff;
+    color: #181212;
+    
+}
+.h2 {
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: rgba(255, 102, 0, 0.911);
+    
+    margin:auto;
+}
+
+table tr:nth-child(){
+    background: #fff;
+}
+table td {
+    padding: 10px;
+}
+
+/*-----------Paginador------------*/
+.paginador ul{
+  padding: 15px;
+  list-style: none;
+  background: #DCFFFE;
+  margin-top: 15px;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  
+}
+
+.paginador a, .pageSelected{
+  color: #428bca;
+  border: 1px solid #ddd;
+  padding: 5px;
   display: inline-block;
-  font-size: 16px;
-  margin: 1px 2px;
-  cursor: pointer;
-}
-
-.navigation button:hover {
-  opacity: 0.8;
-}
-
-.navigation .page-number {
-  margin: 0 0px;
-  font-size: 10px;
-}
-
-form {
-  display: flex;
-  align-items: center;
-}
-
-input[type="text"] {
-  padding: 8px;
-  border: none;
-  border-radius: 10px;
-  margin-right: 10px;
-  font-size: 16px;
-}
-
-button[type="submit"] {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  padding: 8px 16px;
-  font-size: 16px;
-}
-.ventana{
-
+  font-size: 14px;
+  text-align: center;
+  width: 35px;
+  text-decoration: none;
 }
 
 
+.paginador a:hover{
+  background: #ddd;
+}
+
+.pageSelected{
+  color: #fff;
+  background: #428bca;
+  border: 1px solid #428bca;
+}
+.btn_pdf{
+    display: inline-block;
+    background-color: rgba(255, 102, 0, 0.911);
+    color:rgb(255, 255, 255);
+    padding: 5px 25px;
+    border-radius: 10px;
+    margin: 20px;
+    text-decoration: none;
+
+} 
 </style>
 <!--Codigo java ventana flotante-->
 
