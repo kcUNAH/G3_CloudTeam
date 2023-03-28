@@ -40,7 +40,7 @@ if (!empty($_POST)) {
         $usuario = $_POST['usuario'];
         $nombre_usuario = $_POST['nombre'];
 
-        $estado_usuario = ['estado_usuario'];
+        $estado_usuario = ['NUEVO'];
         //encriptamiento de la contraseña
         $contrasenia = $_POST['contra'];
         $contrasenia = hash('sha512', $contrasenia);
@@ -360,7 +360,7 @@ if (!empty($_POST)) {
                 <div class="formulario__grupo" id="grupo__nombre">
                     <label for="nombre" class="formulario__label">Nombre</label>
                     <div class="formulario__grupo-input">
-                        <input type="text" class="formulario__input" onblur="cambiarAMayusculas(this);" name="nombre"
+                        <input type="text" class="formulario__input" style="text-transform:uppercase;" onblur="cambiarAMayusculas(this);" name="nombre"
                             id="nombre" placeholder="Nombre Apellido">
                         <i class="formulario__validacion-estado fas fa-times-circle"></i>
                     </div>

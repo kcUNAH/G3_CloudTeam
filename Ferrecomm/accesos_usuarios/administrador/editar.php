@@ -330,11 +330,11 @@ if(!isset ($_SESSION['usuario'])){
         <div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
         <h1>Editar Usuario</h1>
         <form action="" method ="POST">
-            <input type="hidden" name="id_usuario" value="<?php echo $iduser;?>">
+            <input type="hidden" name="id_usuario" style="text-transform:uppercase;" value="<?php echo $iduser;?>">
             <label for="usuario">Usuario</label>
-            <input type="text" name="usuario" id="usuario" placeholder="usuario" value="<?php echo $usuario;?>">
+            <input type="text" name="usuario" id="usuario" style="text-transform:uppercase;" placeholder="usuario" value="<?php echo $usuario;?>">
             <label for="nombre_usuario">Nombre</label>
-            <input type="text" name="nombre_usuario" id="nombre_usuario" placeholder="Nombre Completo" value="<?php echo $nombre_usuario; ?>">
+            <input type="text" name="nombre_usuario" id="nombre_usuario" style="text-transform:uppercase;" placeholder="Nombre Completo" value="<?php echo $nombre_usuario; ?>">
 
             <label for="Estado_usuario">Estado</label>
             <select name="estado_usuario" id="estado_usuario">
