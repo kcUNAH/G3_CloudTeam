@@ -112,8 +112,8 @@ if (!isset($_SESSION['usuario'])) {
         <div class="container-fluid" style=" background-image: URL(Ferrecomm\accesos\Imagenes\Logo.jpeg);"></div>
       </head>
       <section id="container"  >
-      <form action=" buscar_producto.php" method="get" style="background-color:#DCFFFE ;">
-  <input type="text" name="buscar" style="margin-left: 40px" id="buscar" placeholder="Buscar...">
+      <form action=" buscar_usuario.php" method="get" style="background-color:#DCFFFE ;">
+  <input type="text" name="busqueda" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
   <button type="submit" class="boton-buscar">Buscar</button>
   <a href="registro.php" class="btn_nuevorpoducto" > Crear usuario<i id="icon_nuevo" class='bx bxs-user-plus'></i></a>
   <a href="usuario_activo.php" class="btnactivo" > Usuarios Activos<i id="icon_nuevo" class='bx bx-user-check'></i></a>
