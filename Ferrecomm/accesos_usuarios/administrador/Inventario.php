@@ -165,7 +165,7 @@ if (!isset($_SESSION['usuario'])) {
             $total_paginas = ceil($total_registro / $por_pagina);
 
 
-
+             
             $query = mysqli_query($conex, "SELECT i.id_inventario, p.id_producto, p.nombre_producto, c.nombre_categoria, p.unidad_medida,
             p.cantidad_min, p.cantidad_max, i.cantidad,
             p.precio_producto
@@ -193,7 +193,7 @@ if (!isset($_SESSION['usuario'])) {
 
                 <tr>
                   <td>
-                    <?php echo $data["id_producto"] ?>
+                    <?php echo $data["id_inventario"] ?>
                   </td>
                   <td>
                     <?php echo $data["nombre_producto"] ?>
