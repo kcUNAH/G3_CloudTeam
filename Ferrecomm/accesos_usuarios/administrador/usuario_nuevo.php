@@ -96,7 +96,7 @@ if(!isset ($_SESSION['usuario'])){
     </ul>
   </div>
   <section class="home-section">
-      <div class="text">Lista de Usuarios Activos</div>
+      <div class="text">Lista de Usuarios Nuevos</div>
     
       
       <?php include'conex.php';?>
