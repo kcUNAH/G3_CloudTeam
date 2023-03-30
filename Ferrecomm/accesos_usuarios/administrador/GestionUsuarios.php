@@ -134,7 +134,7 @@ if (!isset($_SESSION['usuario'])) {
           <table>
             <thead>
               <tr>
-                <th>Id</th>
+               
                 <th>Usuario</th>
                 <th>Nombre</th>
                 <th>Rol</th>
@@ -185,9 +185,7 @@ if (!isset($_SESSION['usuario'])) {
                 ?>
 
                 <tr>
-                  <td>
-                    <?php echo $data["id_usuario"] ?>
-                  </td>
+                 
                   <td>
                     <?php echo $data["usuario"] ?>
                   </td>
