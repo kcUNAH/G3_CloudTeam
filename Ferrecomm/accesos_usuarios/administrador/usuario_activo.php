@@ -115,7 +115,7 @@ if(!isset ($_SESSION['usuario'])){
       <table>
       <thead>
         <tr>
-            <th>Id</th>
+            
             <th>Usuario</th>
             <th>Nombre</th>
             
@@ -164,7 +164,7 @@ if(!isset ($_SESSION['usuario'])){
             while($data = mysqli_fetch_array($query)){
         ?>
         <tr>
-            <td><?php echo $data["id_usuario"] ?></td>
+            
             <td><?php echo $data["usuario"] ?></td>
             <td><?php echo $data["nombre_usuario"] ?></td>
             <td><?php echo $data["rol"] ?></td>
