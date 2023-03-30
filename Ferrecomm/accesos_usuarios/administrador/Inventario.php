@@ -130,7 +130,7 @@ if (!isset($_SESSION['usuario'])) {
           <table>
             <thead>
               <tr>
-                <th>Id Inventario</th>
+                
                 <th>Nombre Producto</th>
                 <th>Categoria</th>
                 <th>Medida</th>
@@ -192,9 +192,7 @@ if (!isset($_SESSION['usuario'])) {
                 ?>
 
                 <tr>
-                  <td>
-                    <?php echo $data["id_inventario"] ?>
-                  </td>
+                  
                   <td>
                     <?php echo $data["nombre_producto"] ?>
                   </td>
