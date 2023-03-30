@@ -70,27 +70,31 @@ if (!empty($_POST)) {
 
     if (empty($_POST['cantidad']) >= 0)  
         {
-                    $id_producto = $_POST['id_producto'];
-        $cantidad = $_POST['cantidad'];
+
+            $query = mysqli_query($conex, "SELECT * FROM tbl_inventario WHERE id_producto = '$id_producto' ");
+            $result = mysqli_fetch_array($query);
+
+            if ($result > 0) {        
+                echo
+             '<script>
+             alert("Ya existe una cantidad");
+              window.location= "../Productos.php";
+             </script>
+              ';
+                
+             } else {
+              $id_producto = $_POST['id_producto'];
+               $cantidad = $_POST['cantidad'];
         
             $query_insert = mysqli_query($conex, "INSERT INTO tbl_inventario(id_producto,cantidad)
             VALUES('$id_producto','$cantidad')");
 
-            
-            if ($query_insert) {
               echo
               '<script>
-              alert("Producto actualizado correctamente");
+              alert("Cantidad agregada exitosamente");
               window.location= "../Productos.php";
               </script>
                ';
-             } else {
-              echo
-             '<script>
-             alert("Error al actualizar el producto");
-              window.location= "actualizar.php";
-             </script>
-              ';
              }
             
     } elseif (empty($_POST['cantidad']) < 0){
@@ -250,7 +254,7 @@ if (!empty($_POST)) {
       
       <form action="" method="POST" enctype="multipart/form-data">
         <div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
-      <input type="hidden" name="id_producto" value="<?php echo $id_producto;?>">
+      <input type="hidden" name="id_producto" id="nombre_producto" value="<?php echo $id_producto;?>">
             <p>Nombre del producto:
             <input type="text" class="field" name="nombre_producto" id="nombre_producto" value="<?=$nombre_producto?>" disabled>
             </p>
