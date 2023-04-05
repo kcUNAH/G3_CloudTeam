@@ -129,7 +129,7 @@ if (!isset($_SESSION['usuario'])) {
       </head>
       <section id="container">
         <form action="buscar_usuario.php" method="get" class="form_search" style="background-color:#DCFFFE ;">
-          <input type="text" name="busqueda" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
+          <input type="text" name="busqueda" style="text-transform:uppercase;" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
           <button type="submit" value="Buscar" class="boton-buscar">Buscar</button>
           <a href="registro.php" class="btn_newproducto"> Crear usuario<i id="icon_nuevo"
               class='bx bxs-cart-add'></i></a>
@@ -196,7 +196,7 @@ if (!isset($_SESSION['usuario'])) {
             $result_registre = mysqli_fetch_array($sqlregistre);
             $total_registro = $result_registre['total_registro'];
 
-            $por_pagina = 4;
+            $por_pagina = 10;
 
             if (empty($_GET['pagina'])) {
               $pagina = 1;
