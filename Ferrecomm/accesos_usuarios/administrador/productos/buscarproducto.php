@@ -174,6 +174,7 @@ if(!isset ($_SESSION['usuario'])){
                                                                  precio_producto LIKE '%$busqueda%' OR
                                                                  unidad_medida LIKE '%$busqueda%' OR
                                                                  cantidad_min LIKE '%$busqueda%' OR
+                                                                 cantidad_max  LIKE '%$busqueda%' OR
                                                                  cantidad_max  LIKE '%$busqueda%'
                                                                  $categoria )  ");
        $result_register = mysqli_fetch_array($sql_register);
