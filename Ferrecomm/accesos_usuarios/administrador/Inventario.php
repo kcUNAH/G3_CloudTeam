@@ -112,9 +112,9 @@ if (!isset($_SESSION['usuario'])) {
         <div class="container-fluid" style=" background-image: URL(Ferrecomm\accesos\Imagenes\Logo.jpeg);"></div>
       </head>
       <section id="container"  >
-      <form action="./inventario/buscar_inventario.php" method="get" style="background-color:#DCFFFE ;">
-  <input type="text" name="busqueda" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
-  <button type="submit" class="boton-buscar">Buscar</button>
+      <form action="buscar_inventario.php" method="get" class="form_search" style="background-color:#DCFFFE ;">
+          <input type="text" name="busqueda" style="text-transform:uppercase;" style="text-transform:uppercase;" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
+          <button type="submit" value="Buscar" class="boton-buscar">Buscar</button>
   
   <form action="./agregar_inventario.php" method="POST" enctype="multipart/form-data" id="formulario">
   <a href="#" class="pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 

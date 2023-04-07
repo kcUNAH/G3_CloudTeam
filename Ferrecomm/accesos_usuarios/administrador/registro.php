@@ -158,7 +158,7 @@ if (!empty($_POST)) {
     <link rel="stylesheet" href="../../accesos/CSS/EstiloMenu.css">
     <link rel="stylesheet" href="../../accesos/CSS/Tablas.css">
 
-    
+    <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     
     <link rel="stylesheet" href="../../accesos/CSS/registro.css">
 
@@ -393,15 +393,15 @@ if (!empty($_POST)) {
                         guion bajo.</p>
                 </div>
 
-                <!-- Grupo: Contraseña -->
-                <div class="formulario__grupo" id="grupo__contra">
-                    <label for="password" class="formulario__label">Contraseña</label>
-                    <div class="formulario__grupo-input">
-                        <input type="password" class="formulario__input" name="contra" id="contra">
-                        <i class="formulario__validacion-estado fa-solid fa-eye" id="Ojito"></i>
+                 <!-- Grupo: Contraseña -->
+                 <div class="formulario__grupo" id="grupo__contra">
+                        <label for="password" class="formulario__label">Contraseña</label>
+                        <div class="formulario__grupo-input">
+                            <input type="password" class="formulario__input" name="contra" id="contra">
+                            <i class="formulario__validacion-estado fa-solid fa-eye" id="Ojito"></i>
+                        </div>
+                        <p class="formulario__input-error">La contraseña tiene que ser de 5 a 20 dígitos.</p>
                     </div>
-                    <p class="formulario__input-error">La contraseña tiene que ser de 5 a 20 dígitos.</p>
-                </div>
 
                 <!-- Grupo: Contraseña 2 -->
                 <div class="formulario__grupo" id="grupo__password2">
