@@ -188,7 +188,7 @@ if($busqueda == 'Construccion'){
             
             
             
-            $por_pagina = 4;
+            $por_pagina = 10;
 
             if (empty($_GET['pagina'])) {
               $pagina = 1;
