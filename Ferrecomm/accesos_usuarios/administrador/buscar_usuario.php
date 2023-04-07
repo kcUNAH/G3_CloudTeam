@@ -137,8 +137,9 @@ if (!isset($_SESSION['usuario'])) {
               class='bx bxs-cart-add'></i></a>
           <a href="usuario_inactivo.php" class="btn_inactivo">Usuarios Inactivos<i id="icon_nuevo"
               class='bx bxs-cart-add'></i></a>
-          <a href="usuario_nuevo.php" class="btn_nuevo">Usuarios Nuevos<i id="icon_nuevo"
+          <a href="usuario_nuevo.php" class="btn_nuevorpoducto">Usuarios Nuevos<i id="icon_nuevo"
               class='bx bxs-cart-add'></i></a>
+              
           <a href="#" class="btn_pdf"> PDF <i class='bx bxs-file-pdf'></i></a>
 
 
@@ -443,6 +444,16 @@ if (!isset($_SESSION['usuario'])) {
 .navigation .page-number {
   margin: 0 0px;
   font-size: 10px;
+}
+.btn_nuevorpoducto{
+    display: inline-block;
+    background: #306fe6;
+    color:rgb(255, 255, 255);
+    padding: 1px 20px;
+    border-radius: 10px;
+    margin: 10px;
+    text-decoration: none;
+
 }
 </style>
 </body>
