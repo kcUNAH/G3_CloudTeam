@@ -106,7 +106,7 @@ if(!isset ($_SESSION['usuario'])){
           <input type="text" name="busqueda" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
           <button type="submit" value="Buscar" class="boton-buscar">Buscar</button>
   <a href="registro.php" class="btn_newproducto" style="margin-left: 350px" > Crear usuario<i id="icon_nuevo" class='bx bxs-cart-add'></i></a>
-  <a href="#" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
+  <a href="../../fpdf/ReporteUsuarioNuevo.php" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
 
 </form>
