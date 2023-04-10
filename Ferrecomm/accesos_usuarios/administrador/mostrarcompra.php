@@ -1,22 +1,3 @@
-
-<?php
-session_start();
-
-
-if(!isset ($_SESSION['usuario'])){
-    echo '
-    <script>
-    alert("Por favor, debe iniciar seccion");
-    window.location= "../../index.php";
-    </script>
-    ';
-    //header("localitation: index.php");
-    session_destroy();
-    die();
-}
-
-
-?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -135,8 +116,8 @@ if(!isset ($_SESSION['usuario'])){
                     <div class="panel-body table-responsive" id="listadoregistros">
 
                     </div>
-                    <div class="panel-body" style="height: auto;" id="formularioregistros">
-                        <form name="formulario" id="formulario" method="POST">
+                    <div class="panel-body" style="height: 400px;" id="formularioregistros">
+                        <form name="formulario" id="formulario" method="POST" >
                             <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
                                 <label>Proveedor(*):</label>
                                 <input type="hidden" name="idingreso" id="idingreso">
@@ -147,8 +128,7 @@ if(!isset ($_SESSION['usuario'])){
                             </div>
                             <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                 <label>Fecha(*):</label>
-                                <input type="date" class="form-control" name="fecha_hora" id="fecha_hora" required=""
-                                    value="<?php echo date("Y-m-d") ?>">
+                                <input type="date" class="form-control" name="fecha_hora" id="fecha_hora" required=""  value="<?php echo date("Y-m-d") ?>">
                             </div>
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <label>Tipo Comprobante(*):</label>
@@ -167,7 +147,7 @@ if(!isset ($_SESSION['usuario'])){
                             </div>
                             <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
                                 <label>Impuesto:</label>
-                                <input type="text" class="form-control" name="impuesto" id="impuesto">
+                                <input type="text" class="form-control" name="impuesto" id="impuesto" required="">
                             </div>
                             <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                 <a data-toggle="modal" href="#myModal">
@@ -181,8 +161,8 @@ if(!isset ($_SESSION['usuario'])){
                                     class="table table-striped table-bordered table-condensed table-hover" >
                                     <thead
                                         style="width: 130.083px; background-color: rgba(255, 102, 0, 0.91); color: rgb(0, 0, 0);">
-                                        <th>Opciones</th>
-                                        <th>Artículo</th>
+                                        <th>Nº</th>
+                                        <th>Producto</th>
                                         <th>Cantidad</th>
                                         <th>Precio Compra</th>
                                         <th> subtotal</th>
@@ -206,8 +186,7 @@ if(!isset ($_SESSION['usuario'])){
                             </div>
 
                             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <button class="btn btn-primary" onclick="guardaryeditar()" type="submit"
-                                    id="btnGuardar"><i class="fa fa-save"></i>
+                                <button class="btn btn-primary"   onclick="guardaryeditar()" type="submit" id="btnGuardar"><i class="fa fa-save"></i>
                                     Guardar</button>
 
                                 <button id="btnCancelar" class="btn btn-danger" onclick="cancelarform()"
@@ -230,24 +209,23 @@ if(!isset ($_SESSION['usuario'])){
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h2 style="text-align: center;  color: rgba(255, 102, 0, 0.91);"> Seleccionar Productos a la compra
-                        <i class='bx bxs-cart'></i></h2>
+                    <h2 style="text-align: center;  color: rgba(255, 102, 0, 0.91);"> Seleccionar Productos a la compra <i
+                class='bx bxs-cart'></i></h2>
                 </div>
                 <div class="modal-body">
-                    <table id="tblarticulos" style=" width: 100%; overflow-x: auto;"
-                        class="table table-striped table-bordered table-condensed table-hover ancho-100">
-                        <thead
-                            style="width: 107.083px; background-color: rgba(255, 102, 0, 0.91); color: rgb(0, 0, 0);">>
+                    <table id="tblarticulos" style=" width: 100%; overflow-x: auto;" class="table table-striped table-bordered table-condensed table-hover ancho-100">
+                        <thead  style="width: 107.083px; background-color: rgba(255, 102, 0, 0.91); color: rgb(0, 0, 0);">>
                             <th>Opciones</th>
                             <th>Nombre</th>
                             <th>Categoría</th>
-
+                     
                             <th>Stock</th>
                             <th>Imagen</th>
                         </thead>
                         <tbody>
 
                         </tbody>
+                    
                     </table>
                 </div>
                 <div class="modal-footer">
@@ -270,17 +248,18 @@ if(!isset ($_SESSION['usuario'])){
                 min-height: 950px;
 
             }
+            .link_edit{
+    color: green;
+    font-size: 25px;
+}
 
-            .link_edit {
-                color: green;
-                font-size: 25px;
-            }
+
+.link_delete{
+    color: red;
+    font-size: 25px;
+}
 
 
-            .link_delete {
-                color: red;
-                font-size: 25px;
-            }
         </style>
 
         <div class="form-group col-md-6" id="tbldiv">
@@ -338,6 +317,8 @@ if(!isset ($_SESSION['usuario'])){
         <script src="../../js/functions_compras.js"></script>
     </div>
     <style>
+    
+
         .modal-body {
             position: relative;
             padding: 0px;
@@ -347,6 +328,7 @@ if(!isset ($_SESSION['usuario'])){
         .modal-dialog {
             width: 50%;
         }
+
     </style>
 </body>
 

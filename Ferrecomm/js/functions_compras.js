@@ -17,10 +17,10 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         "columns": [
             { "data": "id_compra" },
-            { "data": "id_proveedor" },
+            { "data": "nombre_proveedor" },
             { "data": "fecha_compra" },
             { "data": "total_compra" },
-            { "data": "id_estado_compras" },
+            { "data": "nombre_estad_compra" },
             { "data": "options" }
         ],
         "resonsieve": "true",
@@ -46,6 +46,10 @@ function init(){
 	            $("#idproveedor").html(r);
 	            $('#idproveedor').selectpicker('refresh');
 	});
+	$.post("../../modelos/ComprasControlador.php?op=selectEstado", function(r){
+		$("#estadoc").html(r);
+		$('#estadoc').selectpicker('refresh');
+});
 	$.post("../../modelos/ComprasControlador.php?op=selectidcompra", function(r){
 		
 
@@ -109,8 +113,11 @@ function mostrarform(flag)
 //Función cancelarform
 function cancelarform()
 {
+	window.location.href = '../administrador/compras.php';
+
 	limpiar();
 	mostrarform(false);
+	
 }
 
 //Función Listar
@@ -184,32 +191,68 @@ function guardaryeditar(e)
 	    contentType: false,
 	    processData: false,
 
-	    success: function(datos)
-	    {                    
-	          bootbox.alert(datos);	          
-	          mostrarform(false);
-	          listar();
-	    }
+		success: function(datos)
+		{                    
+			bootbox.alert({
+				message: datos,
+				callback: function() {
+					location.reload();
+				}
+			});	          
+			mostrarform(false);
+			listar();
+		}
+		
 
 	});
 	limpiar();
 }
+function actualizar()
+{
+	var formData = new FormData($("#formulario2")[0]);
+
+	$.ajax({
+		url: "../../modelos/ComprasControlador.php?op=actualizar",
+	    type: "POST",
+	    data: formData,
+	    contentType: false,
+	    processData: false,
+
+		success: function(datos)
+		{                    
+			bootbox.alert({
+				message: datos,
+				callback: function() {
+					
+				}
+			});	          
+			
+		tableRoles.api().ajax.reload();	
+		
+		}
+		
+
+	});
+
+}
 function mostrar(idingreso)
 {
-	$.post("../ajax/ingreso.php?op=mostrar",{idingreso : idingreso}, function(data, status)
+	$.post("../../modelos/ComprasControlador.php?op=mostrar",{idingreso : idingreso}, function(data, status)
 	{
+		//window.location.href = '../administrador/mostrarcompra.php';
 		data = JSON.parse(data);		
 		mostrarform(true);
 
-		$("#idproveedor").val(data.idproveedor);
+		$("#idproveedor").val(data.id_proveedor);
 		$("#idproveedor").selectpicker('refresh');
 		$("#tipo_comprobante").val(data.tipo_comprobante);
 		$("#tipo_comprobante").selectpicker('refresh');
-		$("#serie_comprobante").val(data.serie_comprobante);
-		$("#num_comprobante").val(data.num_comprobante);
+		$("#estadoc").val(data.id_estado_compras);
+		$("#estadoc").selectpicker('refresh');
+		$("#num_comprobante").val(data.id_compra);
 		$("#fecha_hora").val(data.fecha);
 		$("#impuesto").val(data.impuesto);
-		$("#idingreso").val(data.idingreso);
+		$("#idingreso").val(data.id_compra);
 
 		//Ocultar y mostrar los botones
 		$("#btnGuardar").hide();
@@ -217,7 +260,7 @@ function mostrar(idingreso)
 		$("#btnAgregarArt").hide();
  	});
 
- 	$.post("../ajax/ingreso.php?op=listarDetalle&id="+idingreso,function(r){
+ 	$.post("../../modelos/ComprasControlador.php?op=listarDetalle&id="+idingreso,function(r){
 	        $("#detalles").html(r);
 	});
 }
@@ -225,12 +268,13 @@ function mostrar(idingreso)
 //Función para anular registros
 function anular(idingreso)
 {
-	bootbox.confirm("¿Está Seguro de anular el ingreso?", function(result){
+	bootbox.confirm("¿Está Seguro de anular la compra?", function(result){
 		if(result)
         {
-        	$.post("../ajax/ingreso.php?op=anular", {idingreso : idingreso}, function(e){
+        	$.post("../../modelos/ComprasControlador.php?op=anular", {idingreso : idingreso}, function(e){
         		bootbox.alert(e);
-	            tabla.ajax.reload();
+	           
+				tableRoles.api().ajax.reload();
         	});	
         }
 	})
@@ -258,51 +302,55 @@ function marcarImpuesto()
     }
   }
 
-function agregarDetalle(idarticulo,articulo,precio_compra)
-  {
-  	var cantidad=1;
-   
-    var precio_venta=1;
-
-    if (idarticulo!="")
-    {
-    	var subtotal=cantidad*precio_venta;
-    	var fila='<tr class="filas" id="fila'+cont+'">'+
-    	'<td><button type="button" class="btn btn-danger" onclick="eliminarDetalle('+cont+')">X</button></td>'+
-    	'<td><input type="hidden" name="idarticulo[]" style="width: 500px;" value="'+idarticulo+'">'+articulo+'</td>'+
-    	'<td><input type="number" name="cantidad[]" id="cantidad[]" style="width: 50px;" value="'+cantidad+'"></td>'+
-    	'<td><input type="text" name="precio_compra[]" id="precio_compra[]"  style="width: 200px;" readonly value="'+precio_compra+'"></td>'+
-    	'<td><input type="text" name="precio_venta[]" style="width: 200px;" value="'+precio_venta+'"></td>'+
-    	'<td><span name="subtotal" id="subtotal'+cont+'">'+subtotal+'</span></td>'+
-    	'<td><button type="button" onclick="modificarSubototales()" class="btn btn-info"><i class="fa fa-refresh"></i></button></td>'+
-    	'</tr>';
-    	cont++;
-    	detalles=detalles+1;
-    	$('#detalles').append(fila);
-    	modificarSubototales();
-    }
-    else
-    {
-    	alert("Error al ingresar el detalle, revisar los datos del artículo");
-    }
+  function agregarDetalle(idarticulo, articulo) {
+	var cantidad = 1;
+	var precio_venta = 1;
+	var encontrado = false;
+	
+	// Busca si el artículo ya está en la tabla
+	$('#detalles tr').each(function(i, fila) {
+	  if ($(fila).find('input[name="idarticulo[]"]').val() == idarticulo) {
+		encontrado = true;
+		var cantidad_actual = parseInt($(fila).find('input[name="cantidad[]"]').val());
+		$(fila).find('input[name="cantidad[]"]').val(cantidad_actual + 1);
+		modificarSubototales();
+	  }
+	});
+	
+	if (!encontrado) {
+	  // Si no se encontró, agrega una nueva fila
+	  var subtotal = cantidad * precio_venta;
+	  var fila = '<tr class="filas" id="fila'+cont+'">'+
+		'<td><button type="button" class="btn btn-danger" onclick="eliminarDetalle('+cont+')">X</button></td>'+
+		'<td><input type="hidden" name="idarticulo[]" style="width: 500px;" value="'+idarticulo+'">'+articulo+'</td>'+
+		'<td><input type="number" name="cantidad[]" id="cantidad[]" style="width: 50px;" value="'+cantidad+'" onkeyup="modificarSubototales()"></td>'+
+		'<td><input type="text" name="precio_venta[]" style="width: 200px;" value="'+precio_venta+'" onkeyup="modificarSubototales()"></td>'+
+		'<td><span name="subtotal" id="subtotal'+cont+'">'+subtotal+'</span></td>'+
+	
+		'</tr>';
+	  cont++;
+	  detalles++;
+	  $('#detalles').append(fila);
+	  modificarSubototales();
+	}
   }
+  
 
   function modificarSubototales()
   {
-  	var cant = document.getElementsByName("cantidad[]");
-    var prec = document.getElementsByName("precio_venta[]");
-    var sub = document.getElementsByName("subtotal");
-
-    for (var i = 0; i <cant.length; i++) {
-    	var inpC=cant[i];
-    	var inpP=prec[i];
-    	var inpS=sub[i];
-
-    	inpS.value=inpC.value * inpP.value;
-    	document.getElementsByName("subtotal")[i].innerHTML = inpS.value;
-    }
-    calcularTotales();
-
+	  var cant = document.getElementsByName("cantidad[]");
+	  var prec = document.getElementsByName("precio_venta[]");
+	  var sub = document.getElementsByName("subtotal");
+  
+	  for (var i = 0; i <cant.length; i++) {
+		  var inpC=cant[i];
+		  var inpP=prec[i];
+		  var inpS=sub[i];
+  
+		  inpS.value=inpC.value * inpP.value;
+		  document.getElementsByName("subtotal")[i].innerHTML = inpS.value;
+	  }
+	  calcularTotales();
   }
   function calcularTotales(){
   	var sub = document.getElementsByName("subtotal");

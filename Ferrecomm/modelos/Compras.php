@@ -24,7 +24,7 @@ Class Compras
 		
 		while ($row = $datos->fetch_assoc()) {
 			$btnEdit = "<button type='button' class='btn btn-primary btn-sm' onclick='editCompras(" . $row['id_compra'] . ")'><i class='bx bx-edit'></i>SS</button>";
-			$btnDelete = "<button type='button' class='btn btn-danger btn-sm' onclick='deleteCompras(" . $row['id_compra'] . ")'>Eliminar</button>";
+			$btnDelete = "<button type='button' class='btn btn-danger btn-sm' onclick='anular(" . $row['id_compra'] . ")'>Eliminar</button>";
 			$result[] = array(
 				"id_compra" => $row['id_compra'],
 				"id_proveedor" => $row['id_proveedor'],
