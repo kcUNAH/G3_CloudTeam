@@ -102,9 +102,9 @@ if(!isset ($_SESSION['usuario'])){
       <?php include'conex.php';?>
       <section id="container">
 
-<form action=" buscar_producto.php" method="get" style="background-color:#DCFFFE ;">
-  <input type="text" name="buscar" style="text-transform:uppercase;" style="margin-left: 40px" id="buscar" placeholder="Buscar...">
-  <button type="submit"  class="boton-buscar">Buscar</button>
+      <form action=" buscar_usuario.php" method="get" style="background-color:#DCFFFE ;">
+  <input type="text" name="busqueda" style="text-transform:uppercase;" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
+  <button type="submit" class="boton-buscar">Buscar</button>
   <a href="registro.php" class="btn_newproducto" style="margin-left: 350px" > Crear usuario<i id="icon_nuevo" class='bx bxs-cart-add'></i></a>
   <a href="../../fpdf/ReporteUsuariosInactivos.php" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
