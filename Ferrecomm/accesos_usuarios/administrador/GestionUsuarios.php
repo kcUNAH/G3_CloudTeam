@@ -119,7 +119,7 @@ if (!isset($_SESSION['usuario'])) {
   <a href="usuario_activo.php" class="btnactivo" > Usuarios Activos<i id="icon_nuevo" class='bx bx-user-check'></i></a>
   <a href="usuario_inactivo.php" class="btninactivo">Usuarios Inactivos<i id="icon_nuevo" class='bx bx-user-x'></i></a>
   <a href="usuario_nuevo.php" class="btn_nuevorpoducto" >Usuarios Nuevos<i id="icon_nuevo" class='bx bxs-user-plus'></i></a>
-  <a href="#" class="pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
+  <a href="../../fpdf/ReporteUsuarios.php" class="pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
 
 
@@ -141,7 +141,7 @@ if (!isset($_SESSION['usuario'])) {
                 <th>Ultima Conexión</th>
                 <th>Fecha Vencimiento</th>
                 <th>Correo</th>
-                <th>Creado Por</th>
+                
                 <th>Fecha Creación</th>
                 <th>Fecha Modificación</th>
 
@@ -205,9 +205,7 @@ if (!isset($_SESSION['usuario'])) {
                   <td>
                     <?php echo $data["correo_electronico"] ?>
                   </td>
-                  <td>
-                    <?php echo $data["creado_por"] ?>
-                  </td>
+                  
                   <td>
                     <?php echo $data["fecha_creacion"] ?>
                   </td>
