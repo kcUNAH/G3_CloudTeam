@@ -30,12 +30,12 @@ if (!empty($_POST)) {
         // $alert= '<p class= "msg_error"> Todos los campos son obligatorios.</p>';  
         echo '<script>
             alert("Todos los campos son obligatorios");
-            window.location= "agregarproducto.php";
+            window.location.href= "agregarproducto.php";
             </script>
             ';
     } else {
 
-
+        
         $categoria = $_POST['id_categoria'];
         $nombre_producto =$_POST['nombre_producto'];
         $descripcion_producto = $_POST['descripcion_producto'];
@@ -44,19 +44,33 @@ if (!empty($_POST)) {
         $unidad_medida = $_POST['unidad_medida'];
         $cantidad_min = $_POST['cantidad_min'];
         $cantidad_max = $_POST['cantidad_max'];
-        $nombimagen =$_FILES['img_producto']['name'];
-        $tamañoarchivo=$_FILES['img_producto']['size'];
-        $imagensubida = fopen($_FILES['img_producto']['tmp_name'],'r');
-        $img_productos =fread($imagensubida,$tamañoarchivo);
-        
-        $img_producto = mysqli_escape_string($conex,$img_productos);
+
+        $foto = $_FILES['img_producto'];
+        $nombre_foto = $foto['name'];
+        $type = $foto['type'];
+        $url_temp = $foto['tmp_name'];
+        $size = $foto['size'];
+
+        $imgProducto = 'Imagen.PNG';
+
+        if($nombre_foto != ""){
+            $destino = 'img/uploads/';
+            $img_nombre = 'img_'.md5(date('d-m-Y H:m:s'));
+            $imgProducto = $img_nombre.'.png';
+            $src = $destino.$imgProducto;
+        }
+
+
        // $img_producto = $_POST['img_producto'];
             $query_insert = mysqli_query($conex, "INSERT INTO tbl_producto(id_categoria,nombre_producto,descripcion_producto,
                                                    precio_producto,img_producto,unidad_medida,cantidad_min,cantidad_max)
-            VALUES('$categoria','$nombre_producto','$descripcion_producto','$precio_producto','$img_producto',
+            VALUES('$categoria','$nombre_producto','$descripcion_producto','$precio_producto','$imgProducto',
             '$unidad_medida','$cantidad_min','$cantidad_max')");
 
             if ($query_insert) {
+                if($nombre_foto != ''){
+                move_uploaded_file($url_temp,$src);
+            }
                 echo
                 '<script>
                 alert("Producto agregado correctamente");

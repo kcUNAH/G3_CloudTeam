@@ -44,12 +44,9 @@ WHERE id_producto = $id_producto;");
         $nombre_producto =$data['nombre_producto'];
         $descripcion_producto = $data['descripcion_producto'];
         $precio_producto = $data['precio_producto'];
-        $img_producto = $data['img_producto'];
         $unidad_medida = $data['unidad_medida'];
         $cantidad_min = $data['cantidad_min'];
         $cantidad_max = $data['cantidad_max'];
-
-        $valor = "<img src='data:image/jpg;base64,".base64_encode($img_producto)."'>";
 
         if($id_categoria == 1){
             $option = '<option value="'.$id_categoria.'"select>'.$categoria.'</option>';
@@ -59,8 +56,17 @@ WHERE id_producto = $id_producto;");
             $option = '<option value="'.$id_categoria.'"select>'.$categoria.'</option>';
         }
 
+            if($data['img_producto'] != 'Imagen.PNG')
+            {
+                $foto = '<img width="150" src="img/uploads/'.$data['img_producto'].'" alt="Producto">';
+            }else{
+                $foto = '<img width="150" src="img/uploads/'.$data['img_producto'].'" alt="Producto">';
+            }
+
+
     }
  }
+
 
 
  
@@ -94,61 +100,51 @@ if (!empty($_POST)) {
             if($imagen_producto == 0){ //Si ya existe manda eel mensaje 
                 $alert= '<p class= "msg_error">El producto ya existe.</p>';
                 
-            }elseif($imagen_producto == 0){
-                 
-            $nombimagen =$_FILES['img_producto']['name'];
-            $tamañoarchivo=$_FILES['img_producto']['size'];
-            $imagensubida = fopen($_FILES['img_producto']['tmp_name'],'r');
-            $img_productos =fread($imagensubida,$tamañoarchivo);
-        
-            $img_producto = mysqli_escape_string($conexion,$img_productos);
-
-            $query_update = mysqli_query($conexion, "UPDATE tbl_producto SET id_categoria = '$categoria',
-            nombre_producto = '$nombre_producto', descripcion_producto = '$descripcion_producto', 
-            img_producto = '$img_producto', precio_producto ='$precio_producto', unidad_medida = '$unidad_medida', 
-            cantidad_min = '$cantidad_min', cantidad_max = '$cantidad_max'
-            WHERE id_producto = $id_producto ");
-
-            
-            if ($query_update) {
-              echo
-              '<script>
-              alert("Producto actualizado correctamente");
-              window.location= "../Productos.php";
-              </script>
-               ';
-
-                        $codigoObjeto=3;
-                        $accion='Actualizar';
-                        $descripcion= 'El producto se actualizo correctamente';
-                        bitacora($codigoObjeto, $accion,$descripcion);
-             } else {
-              echo
-             '<script>
-             alert("Error al actualizar el producto");
-              window.location= "actualizar.php";
-             </script>
-              ';
-              $codigoObjeto=3;
-              $accion='Actualizar';
-              $descripcion= 'Se produjo un error al  Actualizo el producto';
-              bitacora($codigoObjeto, $accion,$descripcion);
-             }
             }else{
-                
+            
+                $unidad_medida = $_POST['unidad_medida'];
+                $cantidad_min = $_POST['cantidad_min'];
+                $cantidad_max = $_POST['cantidad_max'];
+        
+                $foto = $_FILES['img_producto'];
+                $nombre_foto = $foto['name'];
+                $type = $foto['type'];
+                $url_temp = $foto['tmp_name'];
+                $size = $foto['size'];
+
+                if($nombre_foto != ""){
+                    $destino = 'img/uploads/';
+                    $img_nombre = 'img_'.md5(date('d-m-Y H:m:s'));
+                    $imgProducto = $img_nombre.'.png';
+                    $src = $destino.$imgProducto;
+
                 $query_update2 = mysqli_query($conexion, "UPDATE tbl_producto SET id_categoria = '$categoria',
                 nombre_producto = '$nombre_producto', descripcion_producto = '$descripcion_producto', 
-                precio_producto ='$precio_producto', unidad_medida = '$unidad_medida', 
+                precio_producto ='$precio_producto', img_producto = '$imgProducto', unidad_medida = '$unidad_medida',
                 cantidad_min = '$cantidad_min', cantidad_max = '$cantidad_max'
-                WHERE id_producto = $id_producto ");
-
+                WHERE id_producto = $id_producto ");    
+                }else{
+                    $query_update2 = mysqli_query($conexion, "UPDATE tbl_producto SET id_categoria = '$categoria',
+                    nombre_producto = '$nombre_producto', descripcion_producto = '$descripcion_producto', 
+                    precio_producto ='$precio_producto', unidad_medida = '$unidad_medida',
+                    cantidad_min = '$cantidad_min', cantidad_max = '$cantidad_max'
+                    WHERE id_producto = $id_producto ");   
+                }
+                
             if ($query_update2) {
+                if($nombre_foto != ''){
+                    move_uploaded_file($url_temp,$src);
+                }
                 echo
                 '<script>
                 alert("Producto actualizado correctamente");
                 window.location= "../Productos.php";
                 </script>
                 ';
+                $codigoObjeto=3;
+              $accion='Actualizar';
+              $descripcion= 'Se produjo un error al  Actualizo el producto';
+              bitacora($codigoObjeto, $accion,$descripcion);
             } else {
                 echo
                 '<script>
@@ -334,31 +330,76 @@ if (!empty($_POST)) {
                    ?>
                 </select>
         
-            <p>Nombre del producto:
-            <input type="text" class="field" name="nombre_producto" id="nombre_producto" value="<?=$nombre_producto?>">
-            </p>
-            <p>Descripcion:
-             <input type="text" class="field" name="descripcion_producto" id="descripcion_producto" value="<?php echo $descripcion_producto;?>" >
-            </p>
-             <p>Precio:
-            <input type="text" class="field" name="precio_producto" id="precio_producto" value="<?php echo $precio_producto;?>" >
-            </p>
+            
+
+                <div class="formulario__grupo" id="grupo__nombre_producto">
+				<label for="nombre_producto" class="formulario__label">Nombre producto</label>
+				<div class="formulario__grupo-input">
+					<input type="text" class="field"  name="nombre_producto" id="nombre_producto" style="text-transform:uppercase;" value="<?=$nombre_producto?>" onblur="cambiarAMayusculas(this);" required >
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">El nombre del producto tiene que contener letras y contener 3 a 16 de las mismas</p>
+			    </div>
+
+                <div class="formulario__grupo" id="grupo__descripcion_producto">
+				<label for="descripcion_producto" class="formulario__label">Descripcion</label>
+				<div class="formulario__grupo-input">
+					<input type="text" class="field"  name="descripcion_producto" id="descripcion_producto" style="text-transform:uppercase;" value="<?php echo $descripcion_producto;?>" onblur="cambiarAMayusculas(this);" required >
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">La descripcion del producto debe de tener 4 a 16 letras, solo puede contener numeros Y letras.</p>
+			    </div>
+
+                <div class="formulario__grupo" id="grupo__precio_producto">
+				<label for="precio_producto" class="formulario__label">Precio</label>
+				<div class="formulario__grupo-input">
+					<input type="number" class="field"  name="precio_producto" id="precio_producto" value="<?php echo $precio_producto;?>" required >
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">El precio solo puede contener numeros y puntos</p>
+			    </div>
+
             <p class="input-file-wrapper">
             <label for="upload">Imagen del producto:</label></br>
             <div align="center">
-            <img height="100px"  src="data:image/jpg;base64,<?php echo base64_encode($img_producto); ?>"/></div>
-            <input type="file" name="img_producto" id="img_producto" height="70px" src="data:image/jpg;base64,<?php echo base64_encode($img_producto); ?>"/  > </input>
+            <?php echo $foto; ?></br>
+                </div>
+            <input type="file" name="img_producto" id="img_producto" height="70px" > </input>
             </p>
-            <p>Unidad medida:
-            <input type="text" class="field" name="unidad_medida" id="unidad_medida" value="<?php echo $unidad_medida;?>" >
-            </p>
-            <p>Cantidad minima:
-            <input type="text" class="field" name="cantidad_min" id="cantidad_min" value="<?php echo $cantidad_min;?>">
-            </p>
-            <p>Cantidad maxima:
-            <input type="text" class="field" name="cantidad_max" id="cantidad_max" value="<?php echo $cantidad_max;?>">
-            </p>
+            <div class="formulario__grupo" id="grupo__unidad_medida">
+				<label for="unidad_medida" class="formulario__label">Unidad medida</label>
+				<div class="formulario__grupo-input">
+					<input type="text" class="field"  name="unidad_medida" id="unidad_medida" style="text-transform:uppercase;" value="<?php echo $unidad_medida;?>" onblur="cambiarAMayusculas(this);" required>
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">Solo puede contener numeros y letras</p>
+			    </div>
+
+                <div class="formulario__grupo" id="grupo__cantidad_min">
+				<label for="cantidad_min" class="formulario__label">Cantidad minima:</label>
+				<div class="formulario__grupo-input">
+					<input type="number" class="field"  name="cantidad_min" id="cantidad_min" value="<?php echo $cantidad_min;?>" required >
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">Solo puede contener numeros y debe ser menor que la Cantidad Maxima</p>
+			    </div>
+
+                <div class="formulario__grupo" id="grupo__cantidad_max">
+				<label for="cantidad_max" class="formulario__label">Cantidad maxima:</label>
+				<div class="formulario__grupo-input">
+					<input type="number" class="field"  name="cantidad_max" id="cantidad_max" value="<?php echo $cantidad_max;?>" required>
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">Solo puede contener numeros y debe ser mayos que la Cantidad Minima </p>
+			    </div>
+
             </br>
+            
+            <div class="formulario__mensaje" id="formulario__mensaje">
+				<p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor llene todos los campos correctamente </p>
+			</div>
+
+
             
       <button class="btn_agregar">Actualizar</button>
       <button type="reset" onclick="location.href='../Productos.php'" class="btn_cancelar">Cancelar</button>
@@ -374,6 +415,7 @@ if (!empty($_POST)) {
 
                     
                 </form>
+<script src="formularioproducto.js"></script>
 
       
   <script>

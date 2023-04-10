@@ -1,8 +1,7 @@
 <?php
 session_start();
 
-
-if (!isset($_SESSION['usuario'])) {
+if(!isset ($_SESSION['usuario'])){
     echo '
     <script>
     alert("Por favor, debe iniciar seccion");
@@ -13,23 +12,24 @@ if (!isset($_SESSION['usuario'])) {
     session_destroy();
     die();
 }
-?>
 
-<?php 
-include '../conex.php';
+?>
+<?php
+
+include_once "./conexionproducto.php";
 include '../../../php/bitacora.php';
+//Mostrar datos
 
 if(empty($_GET['id'])){
-    header('Location: Productos.php');
+    header('Location: promocion.php');
 }
- $id_producto = $_GET['id'];
- $sql = mysqli_query($conex, "SELECT p.id_producto,p.nombre_producto, p.descripcion_producto,
- p.precio_producto, p.img_producto, p.unidad_medida, p.cantidad_min, p.cantidad_max, 
- (p.id_categoria) as id_categoria, (c.nombre_categoria) as categoria
-FROM tbl_producto p 
-INNER JOIN tbl_categoria c 
-on p.id_categoria = c.id_categoria 
-WHERE id_producto = $id_producto;");
+ $id_promocion = $_GET['id'];
+ $sql = mysqli_query($conexion, "SELECT p.id_promocion,p.nombre_promocion, p.fecha_inicio,
+ p.fecha_final, p.precio_venta, (p.id_estado_prom) as id_estado_prom, (e.estado_promocion) as estado
+FROM tbl_promociones p 
+INNER JOIN tbl_estado_promociones e
+on p.id_estado_prom = e.id_estado_prom 
+WHERE id_promocion = $id_promocion;");
  $result_sql = mysqli_num_rows($sql);
 
  if($result_sql == 0){
@@ -37,71 +37,62 @@ WHERE id_producto = $id_producto;");
  }else{
     $option = '';
     while ($data = mysqli_fetch_array($sql)){
-        $id_producto = $data['id_producto'];
-        $id_categoria = $data['id_categoria'];
-        $categoria = $data['categoria'];
-        $nombre_producto =$data['nombre_producto'];
-        $descripcion_producto = $data['descripcion_producto'];
-        $precio_producto = $data['precio_producto'];
-        $unidad_medida = $data['unidad_medida'];
-        $cantidad_min = $data['cantidad_min'];
-        $cantidad_max = $data['cantidad_max'];
+        $id_promocion = $data['id_promocion'];
+        $nombre_promocion = $data['nombre_promocion'];
+        $fecha_inicio = $data['fecha_inicio'];
+        $fecha_final =$data['fecha_final'];
+        $precio_venta = $data['precio_venta'];
+        $id_estado_prom = $data['id_estado_prom'];
+        $estado = $data['estado'];
 
-        if($id_categoria == 1){
-            $option = '<option value="'.$id_categoria.'"select>'.$categoria.'</option>';
-        }else if($id_categoria == 2){
-            $option = '<option value="'.$id_categoria.'"select>'.$categoria.'</option>';
-        }else if($id_categoria == 3){
-            $option = '<option value="'.$id_categoria.'"select>'.$categoria.'</option>';
+        if($id_estado_prom == 1){
+            $option = '<option value="'.$id_estado_prom.'"select>'.$estado.'</option>';
+        }else if($id_estado_prom == 2){
+            $option = '<option value="'.$id_estado_prom.'"select>'.$estado.'</option>';
         }
 
-        if($data['img_producto'] != 'Imagen.PNG')
-        {
-            $foto = '<img width="150" src="img/uploads/'.$data['img_producto'].'" alt="Producto">';
-        }else{
-            $foto = '<img width="150" src="img/uploads/'.$data['img_producto'].'" alt="Producto">';
-        }
 
     }
  }
 
-   if(!empty($_POST)){
-        $id_producto=$_POST['id_producto'];
 
+
+ 
+
+ if(!empty($_POST)){
+    $id_promocion=$_POST['id_promocion'];
+
+    
+
+   $query_delete = mysqli_query($conexion,"DELETE FROM tbl_promociones WHERE id_promocion = $id_promocion ");
+   if($query_delete){
+       
+        echo
+            '<script>
+            alert("Promocion eliminada correctamente");
+            window.location= "promocion.php";
+            </script>
+            ';
+   $codigoObjeto=4;
+    $accion='Eliminar';
+    $descripcion= 'Elimino una promocion correctamente';
+    bitacora($codigoObjeto, $accion,$descripcion);
         
+    }else{
+        echo
+            '<script>
+            alert("Error al eliminar la promocion correctamente");
+            window.location= "promocion.php";
+            </script>
+            ';
 
-       $query_delete = mysqli_query($conex,"DELETE FROM tbl_producto WHERE id_producto = $id_producto ");
-       if($query_delete){
-           // header("Location: GestionUsuarios.php");
-            
-            echo
-                '<script>
-                alert("Producto eliminado correctamente");
-                window.location= "../Productos.php";
-                </script>
-                ';
-       $codigoObjeto=4;
+         $codigoObjeto=4;
         $accion='Eliminar';
-        $descripcion= 'Elimino Producto correctamente';
+        $descripcion= 'El Usuario intento eliminar una promocion';
         bitacora($codigoObjeto, $accion,$descripcion);
-            
-        }else{
-            echo
-                '<script>
-                alert("Error al eliminar el producto correctamente");
-                window.location= "../Productos.php";
-                </script>
-                ';
-
-             $codigoObjeto=4;
-            $accion='Eliminar';
-            $descripcion= 'El Usuario intento eliminar Un producto';
-            bitacora($codigoObjeto, $accion,$descripcion);
-        }
-   }
-
+    }
+}
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -169,7 +160,7 @@ WHERE id_producto = $id_producto;");
             </a>
             <span class="tooltip">Inventario</span>
         </li>
-       
+      
         <a href="../../../index.php">
      <li class="profile">
          <i class='bx bx-log-out' id="log_out" ></i>
@@ -190,13 +181,9 @@ WHERE id_producto = $id_producto;");
    input, textarea{
     border: ;
     outline: none;
+    background-color: #ffff;
 
    }
-   
-   input[type="text"]:disabled {
-  background: #ffff;
-   }
-
    .field{
     border: solid 1px #ccc;
     padding: 6px;
@@ -249,52 +236,60 @@ WHERE id_producto = $id_producto;");
     padding: 10px;
 }
 
-span{
-    background: #ffff;
-    border: ;
-    outline: none;
-    border: solid 1px #ccc;
-    padding: 6px;
-    width: 450px;
-}
   </style>
   <section class="home-section"></br>
 
-      <h2>  Eliminar producto <i class='bx bxs-trash'></i></h2>
+      <h2>  Eliminar promoción <i class='bx bxs-trash'></i></h2>
       
       <form action="" method="POST" enctype="multipart/form-data">
         <div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
-      <input type="hidden" name="id_producto" value="<?php echo $id_producto;?>">
-            <label for="id_categoria">Categoria:</label></br>    
-            <input type="text" class="field" name="categoria" id="categoria" value="<?=$categoria?>" disabled>
+      <input type="hidden" name="id_promocion" value="<?php echo $id_promocion;?>">
+        
+      <div class="formulario__grupo" id="grupo__nombre_promocion">
+				<label for="nombre_promocion" class="formulario__label">Promocion</label>
+				<div class="formulario__grupo-input">
+					<input type="text" class="field"  name="nombre_promocion" id="nombre_promocion" style="text-transform:uppercase;" value="<?php echo $nombre_promocion;?>" onblur="cambiarAMayusculas(this);" disabled >
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">La descripcion del producto debe de tener 4 a 16 letras, solo puede contener numeros Y letras.</p>
+			    </div>
+
+                <div class="formulario__grupo" id="grupo__fecha_inicio">
+				<label for="fecha_inicio" class="formulario__label">Fecha de inicio</label>
+				<div class="formulario__grupo-input">
+					<input type="date" class="field"  name="fecha_inicio" id="fecha_inicio" value="<?php echo date('Y-m-d', strtotime($fecha_inicio)) ?>" disabled >
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">La fecha de inicio debe ser menor a la fecha final</p>
+			    </div>
+
+                <div class="formulario__grupo" id="grupo__fecha_final">
+				<label for="fecha_final" class="formulario__label">Fecha final</label>
+				<div class="formulario__grupo-input">
+					<input type="date" class="field"  name="fecha_final" id="fecha_final" value="<?php echo date('Y-m-d', strtotime($fecha_final)) ?>" disabled>
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">La fecha final debe ser mayor a la fecha de inicio</p>
+			    </div>
+
+                <div class="formulario__grupo" id="grupo__precio_venta">
+				<label for="precio_venta" class="formulario__label">Precio de venta</label>
+				<div class="formulario__grupo-input">
+					<input type="number" class="field"  name="precio_venta" id="precio_venta" style="text-transform:uppercase;" value="<?php echo $precio_venta;?>" onblur="cambiarAMayusculas(this);" disabled>
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">Solo puede contener numeros</p>
+			    </div>
+
+                <label for="id_estado_prom">Estado promocion</label></br>  
+            <input type="text" class="field" name="categoria" id="categoria" value="<?=$estado?>" disabled>
             </p>
-            <p>Nombre del producto:
-            <input type="text" class="field" name="nombre_producto" id="nombre_producto" value="<?=$nombre_producto?>" disabled>
-            </p>
-            <p>Descripcion:
-             <input type="text" class="field" name="descripcion_producto" id="descripcion_producto" value="<?php echo $descripcion_producto;?>" disabled>
-            </p>
-             <p>Precio:
-            <input type="text" class="field" name="precio_producto" id="precio_producto" value="<?php echo $precio_producto;?>" disabled>
-            </p>
-            <p class="input-file-wrapper">
-            <label for="upload">Imagen del producto:</label></br>
-            <div align="center">
-            <?php echo $foto; ?>
-             </div></p>
-            <p>Unidad medida:
-            <input type="text" class="field" name="unidad_medida" id="unidad_medida" value="<?php echo $unidad_medida;?>" disabled >
-            </p>
-            <p>Cantidad minima:
-            <input type="text" class="field" name="cantidad_min" id="cantidad_min" value="<?php echo $cantidad_min;?>" disabled>
-            </p>
-            <p>Cantidad maxima:
-            <input type="text" class="field" name="cantidad_max" id="cantidad_max" value="<?php echo $cantidad_max;?>" disabled>
-            </p>
-            </br>
+                
+
+            </br></br>
             
-      <button class="btn_agregar">Eliminar</button>
-      <button type="reset" onclick="location.href='../Productos.php'" class="btn_cancelar">Cancelar</button>
+            <button class="btn_agregar">Eliminar</button>
+      <button type="reset" onclick="location.href='promocion.php'" class="btn_cancelar">Cancelar</button>
 
 
 
@@ -307,6 +302,7 @@ span{
 
                     
                 </form>
+<script src="formularioproducto.js"></script>
 
       
   <script>

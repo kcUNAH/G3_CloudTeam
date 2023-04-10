@@ -22,7 +22,7 @@ if(!isset ($_SESSION['usuario'])){
   <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../../../accesos/CSS/EstiloMenu.css">
-    <link rel="stylesheet" href="../../../accesos/CSS/tablaproducto.css">
+    <link rel="stylesheet" href="../../../accesos/CSS/tablapromocion.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
    </head>
@@ -100,7 +100,7 @@ if(!isset ($_SESSION['usuario'])){
   </div>
   <section class="home-section">
 </br>
-      <h1>  Productos <i class='bx bx-shopping-bag'></i></h1>
+<h1>  Promociones <i class='bx bxs-purchase-tag-alt'></i></h1>
       <?php include '../conex.php';?>
 
       <section id="container"  >
@@ -110,16 +110,16 @@ if(!isset ($_SESSION['usuario'])){
        $busqueda = strtolower($_REQUEST['busqueda']);
        if(empty($busqueda))
        {
-        header("location: ../productos.php");
+        header("location: promocion.php");
        }
       
       ?>
 
-      <form action="buscarproducto.php" method="get" style="background-color:#DCFFFE ;">
+      <form action="promocionbuscar.php" method="get" style="background-color:#DCFFFE ;">
   <input type="text" name="busqueda" style="text-transform:uppercase; margin-left: 40px" id="busqueda" placeholder="Buscar..." value="<?php echo $busqueda; ?>">
   <button type="submit" class="boton-buscar">Buscar</button>
-  <a href= "agregarproducto.php" class="btn_newproducto" style="margin-left: 350px"> Nuevo producto<i id="icon_nuevo" class='bx bxs-cart-add'></i></a>
-    <a href="#" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
+  <a href= "../productos.php" class="btn_productos" style="margin-left: 190px"> Productos<i id="icon_nuevo" class='bx bx-shopping-bag'></i></i></a>
+  <a href= "promocionagregar.php" class="btn_newproducto" style="margin-left: 30px"> Nueva promocion<i id="icon_nuevo" class='bx bxs-folder-plus'></i></a>
 
 
 </form>
@@ -130,16 +130,11 @@ if(!isset ($_SESSION['usuario'])){
       <table>
         <thead>
         <tr >
-           <th >Categoría</th>
-           <th >Nombre</th>
-           <th >Descripción</th>
-           <th >Precio</th>
-           <th >Imagen</th>
-           <th >Unidad medida</th>
-           <th >Cantidad minima</th>
-           <th >Cantidad máxima</th>
-           <th >Agregar cantidad</th>
-           <th >Promociones</th>
+        <th >Promocion</th>
+           <th >Fecha inicio</th>
+           <th >Fecha final</th>
+           <th >Precio venta</th>
+           <th >Estado promocion</th>
            <th >Acción</th>
         </tr>
       </thead>
@@ -151,32 +146,22 @@ if(!isset ($_SESSION['usuario'])){
 
        //Paginador
 
-       $categoria = '';
-       if($busqueda == 'Construccion'){
+       $estadopromocion = '';
+       if($busqueda == 'NUEVA'){
 
-         $categoria = "OR id_categoria LIKE '%1%' ";
+         $estadopromocion = "OR id_estado_prom LIKE '%1%' ";
 
-       }else if($busqueda == 'Industrial'){
-        
-        $categoria = "OR id_categoria LIKE '%2%' ";
-
-       }else if($busqueda == 'Plomeria'){
-
-        $categoria = "OR id_categoria LIKE '%3%' ";
-
-      }
+       }
 
 
 
-       $sql_register =mysqli_query($conex,"SELECT COUNT(*) as total_registro FROM tbl_producto
-                                                          WHERE (id_producto LIKE '%$busqueda%' OR
-                                                                 nombre_producto LIKE '%$busqueda%' OR
-                                                                 descripcion_producto LIKE '%$busqueda%' OR
-                                                                 precio_producto LIKE '%$busqueda%' OR
-                                                                 unidad_medida LIKE '%$busqueda%' OR
-                                                                 cantidad_min LIKE '%$busqueda%' OR
-                                                                 cantidad_max  LIKE '%$busqueda%'
-                                                                 $categoria )  ");
+       $sql_register =mysqli_query($conex,"SELECT COUNT(*) as total_registro FROM tbl_promociones
+                                                          WHERE (id_promocion LIKE '%$busqueda%' OR
+                                                                 nombre_promocion LIKE '%$busqueda%' OR
+                                                                 fecha_inicio LIKE '%$busqueda%' OR
+                                                                 fecha_final LIKE '%$busqueda%' OR
+                                                                 Precio_venta LIKE '%$busqueda%' 
+                                                                 $estadopromocion )  ");
        $result_register = mysqli_fetch_array($sql_register);
        $total_registro = $result_register['total_registro'];
 
@@ -191,59 +176,37 @@ if(!isset ($_SESSION['usuario'])){
        $desde = ($pagina-1) * $por_pagina;
        $total_paginas = ceil($total_registro / $por_pagina);
 
-        $query = mysqli_query($conex,"SELECT p.id_producto, c.nombre_categoria, p.nombre_producto, p.descripcion_producto, 
-        p.precio_producto, p.img_producto, p.unidad_medida, p.cantidad_min, p.cantidad_max 
-        FROM tbl_producto p INNER JOIN tbl_categoria c on p.id_categoria = c.id_categoria 
-                                                      WHERE (p.id_producto LIKE '%$busqueda%' OR
-                                                             p.nombre_producto LIKE '%$busqueda%' OR
-                                                             p.descripcion_producto LIKE '%$busqueda%'OR
-                                                             p.precio_producto LIKE '%$busqueda%' OR
-                                                             p.unidad_medida LIKE '%$busqueda%' OR
-                                                             p.cantidad_min LIKE '%$busqueda%' OR
-                                                             p.cantidad_max  LIKE '%$busqueda%' OR
-                                                             c.nombre_categoria LIKE '%$busqueda%' ) 
-                                                      
-                                                      ORDER BY p.id_producto ASC LIMIT $desde,$por_pagina;
-        ");
 
-
+$query = mysqli_query($conex,"SELECT p.id_promocion, e.estado_promocion, p.nombre_promocion, p.fecha_inicio,
+p.fecha_final, p.precio_venta
+FROM tbl_promociones p INNER JOIN tbl_estado_promociones e on p.id_estado_prom = e.id_estado_prom 
+                   WHERE(p.id_promocion LIKE '%$busqueda%' OR 
+                         e.estado_promocion LIKE '%$busqueda%' OR 
+                         p.nombre_promocion LIKE '%$busqueda%' OR 
+                         p.fecha_inicio LIKE '%$busqueda%' OR
+                         p.fecha_final LIKE '%$busqueda%' OR 
+                         p.precio_venta LIKE '%$busqueda%' OR
+                         e.estado_promocion LIKE '%$busqueda%' )
+ORDER BY p.id_promocion ASC LIMIT $desde,$por_pagina;
+");
         
         $result = mysqli_num_rows($query);
         if($result > 0){ 
 
           while($data = mysqli_fetch_array($query)){
-            if($data['img_producto'] != 'Imagen.PNG'){
-              $foto = 'img/uploads/'.$data['img_producto'];
-              //$foto = "<img width='100' src='data:image/jpg;base64,".base64_encode($img_producto)."'>";
-            }else{
-              $foto = 'img/uploads/'.$data['img_producto'];
-              
-              //$foto = "<img width='100' src='data:image/jpg;base64,".base64_encode($img_producto)."'>";
-
-              //$foto = 'img/'.$data['foto'];
-            }
+           
         ?>
         
         <tr>
-            <td><?php echo $data["nombre_categoria"] ?></td>
-            <td><?php echo $data["nombre_producto"] ?></td>
-            <td><?php echo $data["descripcion_producto"] ?></td>
-            <td>L. <?php echo $data["precio_producto"] ?></td>
-            <td><img width="110" src="<?php echo $foto; ?>" class="card-img-top" alt="<?php echo $data["nombre_producto"] ?>"></td> 
-            <td><?php echo $data["unidad_medida"] ?></td>
-            <td><?php echo $data["cantidad_min"] ?></td>
-            <td> <?php echo $data["cantidad_max"] ?></td>
-            <td>
-            <a class="link_cantidad" href="./productos/agregarcantidad.php?id=<?php echo $data["id_producto"]; ?>"><i class='bx bx-package'></i></a>
-           </td>
-           <td>
-            <a class="link_agregarpromocion" href="productopromocion.php?id=<?php echo $data["id_producto"]; ?>"><i class='bx bx-add-to-queue'></i></a>
-            <a class="link_promociones" href="promocion.php"><i class='bx bx-low-vision'></i></a>
-          </td>
+            <td><?php echo $data["nombre_promocion"] ?></td>
+            <td><?php echo $data["fecha_inicio"] ?></td>
+            <td><?php echo $data["fecha_final"] ?></td>
+            <td><?php echo $data["precio_venta"] ?></td>
+            <td><?php echo $data["estado_promocion"] ?></td>
             <td>
               <!--  <a class="link_factura" href="#"><i class='bx bx-check-double'></i></i></a>-->
-                <a class="link_edit" href="editarproducto.php?id=<?php echo $data["id_producto"]; ?>"><i class='bx bx-edit'></i></a>
-                <a class="link_delete" href="eliminarproducto.php?id=<?php echo $data["id_producto"]; ?>"><i class='bx bxs-trash'></i></a>
+                <a class="link_edit" href="promocioneditar.php?id=<?php echo $data["id_promocion"]; ?>"><i class='bx bx-edit'></i></a>
+                <a class="link_delete" href="promocioneliminar.php?id=<?php echo $data["id_promocion"]; ?>"><i class='bx bxs-trash'></i></a>
             </td>
         </tr>
         <?php

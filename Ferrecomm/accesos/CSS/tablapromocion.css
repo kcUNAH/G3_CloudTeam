@@ -1,5 +1,5 @@
-  /*                                          Usuarios Lista*/
-  #container h1¨{
+ /*                                          Usuarios Lista*/
+ #container h1¨{
     font-size: 35px;
     display: inline-block;
     color: rgba(255, 102, 0, 0.911);
@@ -39,13 +39,13 @@
   
   
   table td:first-child {
-    width: 10px;
+    width: 200px;
   }
   table td:nth-child(2){
-    width: 10px;
+    width: 200px;
   }
   table td:nth-child(3){
-    width: 400px;
+    width: 200px;
   }
   table td:nth-child(4){
     width: 100px;
@@ -66,13 +66,13 @@
   
   /*Tamaño de los th de la tabla*/
   table th:first-child {
-  width: 10px;
+  width: 200px;
   }
   table th:nth-child(2){
-  width: 10px;
+  width: 200px;
   }
   table th:nth-child(3){
-  width: 400px;
+  width: 200px;
   }
   table th:nth-child(4){
   width: 10px;
@@ -352,5 +352,14 @@
       color: rgb(37, 50, 224);
       font-size: 25px;
       }
-  
-  
+
+.btn_productos{
+        display: inline-block;
+        background: #e77619;
+        color:rgb(255, 255, 255);
+        padding: 5px 25px;
+        border-radius: 10px;
+        margin: 20px;
+        text-decoration: none;
+      
+      }

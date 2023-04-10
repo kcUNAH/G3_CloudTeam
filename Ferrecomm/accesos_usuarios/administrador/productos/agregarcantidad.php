@@ -77,7 +77,7 @@ if (!empty($_POST)) {
             if ($result > 0) {        
                 echo
              '<script>
-             alert("Ya existe una cantidad");
+             alert("Ya existe una cantidad establecida para este producto, verifiquelo en su inventario");
               window.location= "../Productos.php";
              </script>
               ';
@@ -91,7 +91,7 @@ if (!empty($_POST)) {
 
               echo
               '<script>
-              alert("Cantidad agregada exitosamente");
+              alert("Cantidad agregada exitosamente, revise el inventario");
               window.location= "../Productos.php";
               </script>
                ';
@@ -252,21 +252,29 @@ if (!empty($_POST)) {
 
       <h2>  Cantidad del producto <i class='bx bx-edit'></i></h2>
       
-      <form action="" method="POST" enctype="multipart/form-data">
+      <form action="" method="POST" enctype="multipart/form-data" id="formulario">
         <div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
       <input type="hidden" name="id_producto" id="nombre_producto" value="<?php echo $id_producto;?>">
             <p>Nombre del producto:
             <input type="text" class="field" name="nombre_producto" id="nombre_producto" value="<?=$nombre_producto?>" disabled>
             </p>
-            <p>Cantidad existente del producto:
-            <input type="text" class="field" name="cantidad" id="cantidad">
-            </p>
+            <div class="formulario__grupo" id="grupo__cantidad">
+				<label for="cantidad" class="formulario__label">Cantidad:</label>
+				<div class="formulario__grupo-input">
+					<input type="number" class="field"  name="cantidad" id="cantidad" required >
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">Debe ser igual o mayor que 0</p>
+			    </div>
             </br>
-            
-      <button class="btn_agregar">Guardar</button>
+                        
+            <div class="formulario__mensaje" id="formulario__mensaje">
+				<p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor llene todos los campos correctamente </p>
+			</div>
+
+      <button type="submit" class="btn_agregar">Guardar</button>
+      <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado exitosamente!</p>
       <button type="reset" onclick="location.href='../Productos.php'" class="btn_cancelar">Cancelar</button>
-
-
 
                     <script>
                         function cambiarAMayusculas(elemento) {
@@ -278,6 +286,7 @@ if (!empty($_POST)) {
                     
                 </form>
 
+  <script src="formulariocantidad.js"></script>
       
   <script>
   let sidebar = document.querySelector(".sidebar");

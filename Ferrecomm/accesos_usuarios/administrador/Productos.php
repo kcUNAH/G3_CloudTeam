@@ -99,10 +99,10 @@ if(!isset ($_SESSION['usuario'])){
 
       <section id="container"  >
       <form action="./productos/buscarproducto.php" method="get" style="background-color:#DCFFFE ;">
-  <input type="text" name="busqueda" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
+  <input type="text" name="busqueda" style="text-transform:uppercase; margin-left: 40px" id="busqueda" placeholder="Buscar...">
   <button type="submit" class="boton-buscar">Buscar</button>
   <a href= "./productos/agregarproducto.php" class="btn_newproducto" style="margin-left: 350px"> Nuevo producto<i id="icon_nuevo" class='bx bxs-cart-add'></i></a>
-    <a href="#" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
+    <a href="../../fpdf/PruebaH.php" target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
 
 </form>
@@ -113,7 +113,6 @@ if(!isset ($_SESSION['usuario'])){
       <table>
         <thead>
         <tr >
-           <th  >ID</th>
            <th >Categoría</th>
            <th >Nombre</th>
            <th >Descripción</th>
@@ -123,6 +122,7 @@ if(!isset ($_SESSION['usuario'])){
            <th >Cantidad minima</th>
            <th >Cantidad máxima</th>
            <th >Agregar cantidad</th>
+           <th >Promociones</th>
            <th >Acción</th>
            
         </tr>
@@ -136,7 +136,7 @@ if(!isset ($_SESSION['usuario'])){
        $result_register = mysqli_fetch_array($sql_register);
        $total_registro = $result_register['total_registro'];
 
-       $por_pagina = 4;
+       $por_pagina = 10;
 
        if(empty($_GET['pagina'])){
           $pagina = 1;
@@ -151,33 +151,41 @@ if(!isset ($_SESSION['usuario'])){
         p.precio_producto, p.img_producto, p.unidad_medida, p.cantidad_min, p.cantidad_max 
         FROM tbl_producto p INNER JOIN tbl_categoria c on p.id_categoria = c.id_categoria ORDER BY p.id_producto ASC LIMIT $desde,$por_pagina;
         ");
-
-
-        
+   
         $result = mysqli_num_rows($query);
         if($result > 0){ 
 
             while($data = mysqli_fetch_array($query)){
-                $img_producto = $data['img_producto'];
+              if($data['img_producto'] != 'Imagen.PNG'){
+                $foto = 'productos/img/uploads/'.$data['img_producto'];
+                //$foto = "<img width='100' src='data:image/jpg;base64,".base64_encode($img_producto)."'>";
+              }else{
+                $foto = 'productos/img/uploads/'.$data['img_producto'];
+                
+                //$foto = "<img width='100' src='data:image/jpg;base64,".base64_encode($img_producto)."'>";
 
-                $valor = "<img width='100' src='data:image/jpg;base64,".base64_encode($img_producto)."'>";
-
+                //$foto = 'img/'.$data['foto'];
+              }
                 
         ?>
         
         <tr>
-            <td><?php echo $data["id_producto"] ?></td>
             <td><?php echo $data["nombre_categoria"] ?></td>
             <td><?php echo $data["nombre_producto"] ?></td>
             <td><?php echo $data["descripcion_producto"] ?></td>
             <td>L. <?php echo $data["precio_producto"] ?></td>
-            <td> <?php echo $valor?></td>
+            <td><img width="110" src="<?php echo $foto; ?>" class="card-img-top" alt="<?php echo $data["nombre_producto"] ?>"></td> 
             <td><?php echo $data["unidad_medida"] ?></td>
             <td><?php echo $data["cantidad_min"] ?></td>
             <td> <?php echo $data["cantidad_max"] ?></td>
            <td>
             <a class="link_cantidad" href="./productos/agregarcantidad.php?id=<?php echo $data["id_producto"]; ?>"><i class='bx bx-package'></i></a>
            </td>
+           <td>
+           <a class="link_promociones" href="./productos/tablapromocion.php?id=<?php echo $data["id_producto"]; ?>"><i class='bx bx-low-vision'></i></a>
+            <a class="link_agregarpromocion" href="./productos/productopromocion.php?id=<?php echo $data["id_producto"]; ?>"><i class='bx bx-add-to-queue'></i></a>
+            <a class="link_promociones" href="./productos/promocion.php"><i class='bx bxs-purchase-tag-alt'></i></a>
+          </td>
             <td>
               <!--  <a class="link_factura" href="#"><i class='bx bx-check-double'></i></i></a>-->
                 <a class="link_edit" href="./productos/editarproducto.php?id=<?php echo $data["id_producto"]; ?>"><i class='bx bx-edit'></i></a>

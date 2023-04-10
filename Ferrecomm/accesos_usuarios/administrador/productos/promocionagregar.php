@@ -1,4 +1,76 @@
+<?php
+session_start();
+if (!isset($_SESSION['usuario'])) {
+    echo '
+    <script>
+    alert("Por favor, debe iniciar seccion");
+    window.location= "index.php";
+    </script>
+    ';
+    //header("localitation: index.php");
+    session_destroy();
+    die();
+}
+?>
 
+
+<?php
+
+include '../conex.php';
+include '../../../php/bitacora.php';
+
+
+
+if (!empty($_POST)) {
+
+    if (empty($_POST['nombre_promocion']) || empty($_POST['fecha_inicio']) || empty($_POST['fecha_final'])
+    || empty($_POST['precio_venta'])|| empty($_POST['id_estado_prom']))  //Si van vacios nos muestra el mensaje de erro, sino capturalos datos
+    {
+        echo '<script>
+            alert("Todos los campos son obligatorios");
+            window.location.href= "promocionagregar.php";
+            </script>
+            ';
+    } else {
+
+        $nombre_promocion =$_POST['nombre_promocion'];
+        $fecha_inicio = $_POST['fecha_inicio'];
+        $fecha_final = $_POST['fecha_final'];
+        $precio_venta = $_POST['precio_venta'];
+        $id_estado_prom = $_POST['id_estado_prom'];
+
+            $query_insert = mysqli_query($conex, "INSERT INTO tbl_promociones(nombre_promocion,fecha_inicio,
+                                                   fecha_final,precio_venta,id_estado_prom)
+            VALUES('$nombre_promocion','$fecha_inicio','$fecha_final','$precio_venta','$id_estado_prom')");
+
+            if ($query_insert) {
+                echo
+                '<script>
+                alert("Promocion agregada correctamente");
+                window.location= "promocion.php";
+                </script>
+                ';
+                $codigoObjeto=7;
+                $accion='Registro';
+                $descripcion= 'Se agrego una promocion nueva con Exito';
+                bitacora($codigoObjeto, $accion,$descripcion);
+            } else {
+                echo
+                '<script>
+                alert("Error al añadir la promocion");
+                window.location= "promocionagregar.php";
+                </script>
+                ';
+            }
+        }
+    }
+
+
+
+
+
+
+?>
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -155,84 +227,74 @@
 }
   </style>
   <section class="home-section"></br>
-      <h2>  Añadir nuevo producto <i class='bx bx-shopping-bag'></i></h2>
-            <form action="./agregar.php" method="POST" enctype="multipart/form-data" id="formulario">
-            <label for="id_categoria">Categoria</label></br>
-                <select name="id_categoria" id="id_categoria">
-                    <option value="1">Construccion</option>
-                    <option value="2">Industrial</option>
-                    <option value="3">Plomeria</option>
-                </select>
+      <h2>  Añadir nueva promoción <i class='bx bxs-purchase-tag-alt'></i></h2>
+            <form action="" method="POST" enctype="multipart/form-data" id="">
 
 
-                <div class="formulario__grupo" id="grupo__nombre_producto">
-				<label for="nombre_producto" class="formulario__label">Nombre producto</label>
+                <div class="formulario__grupo" id="grupo__nombre_promocion">
+				<label for="nombre_promocion" class="formulario__label">Promocion</label>
 				<div class="formulario__grupo-input">
-					<input type="text" class="field"  name="nombre_producto" id="nombre_producto" style="text-transform:uppercase;" onblur="cambiarAMayusculas(this);" required >
-					<i class="formulario__validacion-estado fas fa-times-circle"></i>
-				</div>
-				<p class="formulario__input-error">El nombre del producto tiene que contener letras y contener 3 a 16 de las mismas</p>
-			    </div>
-
-                <div class="formulario__grupo" id="grupo__descripcion_producto">
-				<label for="descripcion_producto" class="formulario__label">Descripcion</label>
-				<div class="formulario__grupo-input">
-					<input type="text" class="field"  name="descripcion_producto" id="descripcion_producto" style="text-transform:uppercase;" onblur="cambiarAMayusculas(this);" required >
+					<input type="text" class="field"  name="nombre_promocion" id="nombre_promocion" style="text-transform:uppercase;" onblur="cambiarAMayusculas(this);" required >
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
 				<p class="formulario__input-error">La descripcion del producto debe de tener 4 a 16 letras, solo puede contener numeros Y letras.</p>
 			    </div>
 
-                <div class="formulario__grupo" id="grupo__precio_producto">
-				<label for="precio_producto" class="formulario__label">Precio</label>
+                <div class="formulario__grupo" id="grupo__fecha_inicio">
+				<label for="fecha_inicio" class="formulario__label">Fecha de inicio</label>
 				<div class="formulario__grupo-input">
-					<input type="number" class="field"  name="precio_producto" id="precio_producto" required >
+					<input type="date" class="field"  name="fecha_inicio" id="fecha_inicio" required >
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">El precio solo puede contener numeros y puntos</p>
+				<p class="formulario__input-error">La fecha de inicio debe ser menor a la fecha final</p>
 			    </div>
 
-            <p class="input-file-wrapper">
-            <label for="upload">Imagen del producto:</label></br>
-            <input type="file" name="img_producto" id="img_producto" accept=".jpg, .png, .gif">
-            </p>
-
-            <div class="formulario__grupo" id="grupo__unidad_medida">
-				<label for="unidad_medida" class="formulario__label">Unidad medida</label>
+                <div class="formulario__grupo" id="grupo__fecha_final">
+				<label for="fecha_final" class="formulario__label">Fecha final</label>
 				<div class="formulario__grupo-input">
-					<input type="text" class="field"  name="unidad_medida" id="unidad_medida" style="text-transform:uppercase;" onblur="cambiarAMayusculas(this);" required>
+					<input type="date" class="field"  name="fecha_final" id="fecha_final" required >
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">Solo puede contener numeros y letras</p>
+				<p class="formulario__input-error">La fecha final debe ser mayor a la fecha de inicio</p>
 			    </div>
 
-                <div class="formulario__grupo" id="grupo__cantidad_min">
-				<label for="cantidad_min" class="formulario__label">Cantidad minima:</label>
+                <div class="formulario__grupo" id="grupo__precio_venta">
+				<label for="precio_venta" class="formulario__label">Precio de venta</label>
 				<div class="formulario__grupo-input">
-					<input type="number" class="field"  name="cantidad_min" id="cantidad_min" required >
+					<input type="number" class="field"  name="precio_venta" id="precio_venta" style="text-transform:uppercase;" onblur="cambiarAMayusculas(this);" required>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">Solo puede contener numeros y debe ser menor que la Cantidad Maxima</p>
+				<p class="formulario__input-error">Solo puede contener numeros</p>
 			    </div>
 
-                <div class="formulario__grupo" id="grupo__cantidad_max">
-				<label for="cantidad_max" class="formulario__label">Cantidad maxima:</label>
-				<div class="formulario__grupo-input">
-					<input type="number" class="field"  name="cantidad_max" id="cantidad_max" required>
-					<i class="formulario__validacion-estado fas fa-times-circle"></i>
-				</div>
-				<p class="formulario__input-error">Solo puede contener numeros y debe ser mayos que la Cantidad Minima </p>
-			    </div>
-
-            </br>
+                <label for="id_estado_prom">Estado promocion</label></br>
+                
+                <?php
+           $query_prom = mysqli_query($conex,"SELECT * from tbl_estado_promociones");
+           $result_prom = mysqli_num_rows($query_prom)
+        ?>
             
-            <div class="formulario__mensaje" id="formulario__mensaje">
-				<p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor llene todos los campos correctamente </p>
-			</div>
+                <select name="id_estado_prom" id="id_estado_prom">
+                   <?php
+                     echo $option;
+                      if($result_prom > 0){
+                        while ($promo= mysqli_fetch_array($query_prom)) {
+                        
+                   ?>
+                   <option value="<?php echo $promo["id_estado_prom"]; ?>"><?php echo $promo["estado_promocion"]?> </option>
+                   <?php
+                   }
+                   }
+
+                   ?>
+                </select>
+
+            </br></br>
+            
 
       <button type="submit" class="btn_agregar">Guardar</button>
       <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado exitosamente!</p>
-      <button type="reset" onclick="location.href='../Productos.php'" class="btn_cancelar">Cancelar</button>
+      <button type="reset" onclick="location.href='promocion.php'" class="btn_cancelar">Cancelar</button>
 
             </form>
 

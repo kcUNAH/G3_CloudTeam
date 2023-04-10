@@ -33,12 +33,53 @@ const validarFormulario = (e) => {
 			validarCampo(expresiones.unidad_medida, e.target, 'unidad_medida');
 		break;
 		case "cantidad_min":
-			validarCampo(expresiones.cantidad_min, e.target, 'cantidad_min');
+			validarMenor();
+			validarMayor();
 		break;
 		case "cantidad_max":
-			validarCampo(expresiones.cantidad_max, e.target, 'cantidad_max');
+			validarMenor();
+			validarMayor();
 		break;
 	}
+}
+
+
+function validarMenor(){
+	var inputMenor = document.getElementById('cantidad_min').value;
+	var inputMayor = document.getElementById('cantidad_max').value;
+
+	if (inputMenor > inputMayor || inputMenor == 0 || inputMenor === inputMayor) {
+		document.getElementById(`grupo__cantidad_min`).classList.add('formulario__grupo-incorrecto');
+		document.getElementById(`grupo__cantidad_min`).classList.remove('formulario__grupo-correcto');
+		document.querySelector(`#grupo__cantidad_min .formulario__input-error`).classList.add('formulario__input-error-activo');
+		campos['cantidad_min'] = false;
+	} else {
+		document.getElementById(`grupo__cantidad_min`).classList.remove('formulario__grupo-incorrecto');
+		document.getElementById(`grupo__cantidad_min`).classList.add('formulario__grupo-correcto');
+		document.querySelector(`#grupo__cantidad_min .formulario__input-error`).classList.remove('formulario__input-error-activo');
+		campos['cantidad_min'] = true;
+
+	}
+
+}
+
+function validarMayor(){
+	var inputMenor = document.getElementById('cantidad_min').value;
+	var inputMayor = document.getElementById('cantidad_max').value;
+
+	if ( inputMayor < inputMenor || inputMenor == 0 || inputMayor === inputMenor ) {
+		document.getElementById(`grupo__cantidad_max`).classList.add('formulario__grupo-incorrecto');
+		document.getElementById(`grupo__cantidad_max`).classList.remove('formulario__grupo-correcto');
+		document.querySelector(`#grupo__cantidad_max .formulario__input-error`).classList.add('formulario__input-error-activo');
+		campos['cantidad_max'] = false;
+	} else {
+		document.getElementById(`grupo__cantidad_max`).classList.remove('formulario__grupo-incorrecto');
+		document.getElementById(`grupo__cantidad_max`).classList.add('formulario__grupo-correcto');
+		document.querySelector(`#grupo__cantidad_max .formulario__input-error`).classList.remove('formulario__input-error-activo');
+		campos['cantidad_max'] = true;
+
+	}
+
 }
 
 const validarCampo = (expresion, input, campo) => {
