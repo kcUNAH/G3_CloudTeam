@@ -44,56 +44,56 @@ include '../../../php/bitacora.php';
     </div>
     <ul class="nav-list">
         <li>
-            <a href="Menu.php">
+            <a href="../Menu.php">
                 <i class='bx bxs-home' ></i>
                 <span class="links_name">Inicio</span>
             </a>
             <span class="tooltip">Inicio</span>
         </li>
         <li>
-            <a href="Facturacion.php">
+            <a href="../Facturacion.php">
                 <i class='bx bx-money'></i>
                 <span class="links_name">Facturación</span>
             </a>
             <span class="tooltip">Facturación</span>
         </li>
         <li>
-            <a href="Compras.php">
+            <a href="../Compras.php">
                 <i class='bx bxs-cart'></i>
                 <span class="links_name">Compras</span>
             </a>
             <span class="tooltip">Compras</span>
         </li>
         <li>
-            <a href="Productos.php">
+            <a href="../Productos.php">
                 <i class='bx bx-shopping-bag'></i>
                 <span class="links_name">Productos</span>
             </a>
             <span class="tooltip">Productos</span>
         </li>
         <li>
-            <a href="Seguridad.php">
+            <a href="../Seguridad.php">
                 <i class='bx bx-shield-quarter'></i>
                 <span class="links_name">Seguridad</span>
             </a>
             <span class="tooltip">Seguridad</span>
         </li>
         <li>
-            <a href="Proveedores.php">
+            <a href="../Proveedores.php">
                 <i class='bx bxs-user'></i>
                 <span class="links_name">Proveedores</span>
             </a>
             <span class="tooltip">Proveedores</span>
         </li>
         <li>
-            <a href="Inventario.php">
+            <a href="../Inventario.php">
                 <i class='bx bx-package'></i>
                 <span class="links_name">Inventario</span>
             </a>
             <span class="tooltip">Inventario</span>
         </li>
         
-        <a href="../../php/Cerrar_Seccion.php">
+        <a href="../../../php/Cerrar_Seccion.php">
      <li class="profile">
          <i class='bx bx-log-out' id="log_out" ></i>
          <div class="Salir">Cerrar Sesión</div>
