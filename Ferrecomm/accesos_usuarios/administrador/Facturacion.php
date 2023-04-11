@@ -1,115 +1,150 @@
-<?php
-session_start();
-
-
-if(!isset ($_SESSION['usuario'])){
-    echo '
-    <script>
-    alert("Por favor, debe iniciar seccion");
-    window.location= "index.php";
-    </script>
-    ';
-    //header("localitation: index.php");
-    session_destroy();
-    die();
-}
-
-
-?>
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
+
+<head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../../accesos/CSS/EstiloMenu.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../accesos/CSS/Facturacion.css">
+    <link rel="stylesheet" href="../../accesos/CSS/tablaproducto.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   </head>
+    <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php include "Header.php"; ?>
+</head>
+
 <body>
-  <div class="sidebar">
-    <div class="logo-details">
-        <i class='bx bxs-factory icon'></i>
-        <div class="logo_name">FERRECOMM</div>
-        <i class='bx bx-menu' id="btn" ></i>
-    </div>
-    <ul class="nav-list">
-        <li>
-            <a href="Menu.php">
-                <i class='bx bxs-home' ></i>
-                <span class="links_name">Inicio</span>
-            </a>
-            <span class="tooltip">Inicio</span>
-        </li>
-        <li>
-            <a href="Facturacion.php">
-                <i class='bx bx-money'></i>
-                <span class="links_name">Facturación</span>
-            </a>
-            <span class="tooltip">Facturación</span>
-        </li>
-        <li>
-            <a href="Compras.php">
-                <i class='bx bxs-cart'></i>
-                <span class="links_name">Compras</span>
-            </a>
-            <span class="tooltip">Compras</span>
-        </li>
-        <li>
-            <a href="Productos.php">
-                <i class='bx bx-shopping-bag'></i>
-                <span class="links_name">Productos</span>
-            </a>
-            <span class="tooltip">Productos</span>
-        </li>
-        <li>
-            <a href="Seguridad.php">
-                <i class='bx bx-shield-quarter'></i>
-                <span class="links_name">Seguridad</span>
-            </a>
-            <span class="tooltip">Seguridad</span>
-        </li>
-        <li>
-            <a href="Proveedores.php">
-                <i class='bx bxs-user'></i>
-                <span class="links_name">Proveedores</span>
-            </a>
-            <span class="tooltip">Proveedores</span>
-        </li>
-        <li>
-            <a href="Inventario.php">
-                <i class='bx bx-package'></i>
-                <span class="links_name">Inventario</span>
-            </a>
-            <span class="tooltip">Inventario</span>
-        </li>
-        <a href="index.php">
-     <li class="profile">
-         <i class='bx bx-log-out' id="log_out" ></i>
-         <div class="Salir">Cerrar Sesión</div>
-     </li>
-    </a>
-    </ul>
-  </div>
-  <section class="home-section">
-      <div class="text">Formulario Facturacion</div>
-  </section>
-  <script>
-  let sidebar = document.querySelector(".sidebar");
-  let closeBtn = document.querySelector("#btn");
-  let searchBtn = document.querySelector(".bx-search");
 
-  closeBtn.addEventListener("click", ()=>{
-    sidebar.classList.toggle("open");
-    menuBtnChange();
-  });
 
-  function menuBtnChange() {
-   if(sidebar.classList.contains("open")){
-     closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");
-   }else {
-     closeBtn.classList.replace("bx-menu-alt-right","bx-menu");
-   }
-  }
-  </script>
+    <section class="home-section">
+
+        <center>
+            <div class="title_page">
+                <h1> </br> Facturacion <i class='fas fa-cube'></i></h1>
+            </div>
+        </center>
+
+        <center>
+            <div class="Datos_cliente">
+                <div class="Clientes_boton">
+
+                    <h4>Datos del Cliente  <a href="#" class="btn_new_cliente"> <i class="fas fa-plus"></i> nuevo cliente</a></h4>
+                    
+                    <br>
+
+                </div>
+                <form name="form_new_cliente_venta" id="form_new_cliente_venta" class="datos">
+                    <input type="hidden" name="action" id= "action" value="addCliente">
+                    <input type="hidden" id="idcliente" name="idcliente" value="" required>
+                    <div class="wd30 inputbox">
+                        <input type="number"  required="required"  name="nit_cliente" id="nit_cliente">
+                        <span>DNI</span>
+                        <i></i>
+                    </div>
+                    <div class="wd30">
+                        <Label> Nombre </Layel>
+                            <input type="text" name="nom_cliente" id="nom_cliente" disabled required>
+                    </div>
+                    <div class="wd30">
+                        <label>Teléfono</label>
+                        <input type="number" name="tel_cliente" id="tel_cliente" disabled required>
+                    </div>
+                    <div class="wd100" id="wd100">
+                        <label class="textright">Dirección</label>
+                        <input type="text" name="dir_cliente" id="dir_cliente" disabled required>
+                    </div>
+                    <div id="div_registro_cliente" class="wd100">
+                        <br>    
+                        <button class="boton-buscar" name="boton-buscar" id="boton-buscar"> <i class="far fa-save fa-lg"></i>
+                            Guardar</button>
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="datos_venta">
+                <h4>Datos de venta</h4>
+                <div class="datos">
+                    <div class="w50">
+                        <label>Vendedor</label>
+                        <p><?php echo $_SESSION['usuario']['nombre']. " "?></p>
+                    </div>
+                    <div class="w50">
+                        <label> Acciones <br><br></label>
+
+                        <div class="acciones_venta">
+                            <a href="#" class="btn_anular" id="btn_anular_venta"> <i class="fas fa-ban"></i> Anular</a>
+                            <a href="#" class="btn_accion" id="btn_facturar_venta" style="display : none;"> <i class="fas fa-edit"></i> Procesar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <table class="tbl_venta">
+                <thead>
+                    <tr>
+                        <th width="100px">Codigo</th>
+                        <th width="100px">Descripcion</th>
+                        <th width="100px">Existencia</th>
+                        <th width="100px">Cantidad</th>
+                        <th class="textright">Precio</th>
+                        <th class="textright">Precio Total</th>
+                        <th>Accion</th>
+                    </tr> 
+                    <tr>
+                        <td><input type="text" name="txt_cod_producto" id="txt_cod_producto"></td>
+                        <td id="txt_descripcion">----</td>
+                        <td id="txt_existencia">---</td>
+                        <td><input type="text" name="txt_cant_producto" id="txt_cant_producto" value="0" min="1" disabled></td>
+                        <td id="txt_Precio" class="textright">0.00</td>
+                        <td id="txt_Precio_total" class="textright">0.00</td>
+                        <td><a href="#" class="btn_accion" id="add_product_venta"><i class="fas fa-plus"></i>AGR</a></td>
+                    </tr>
+                    <tr>
+                        <th>Codigo</th>
+                        <th colspan="2">Descripcion</th>
+                        <th>Cantidad</th>
+                        <th class="textright">Precio</th>
+                        <th class="textright">Precio Total</th>
+                        <th>Accion</th>
+                    </tr>
+                </thead>
+
+                <tbody id="detalle_venta">
+                    <!-- Se utilizara contenido Ajax para llenar la tabla -->
+                </tbody>
+
+                <tfoot id = "detalle_totales">
+                    <!-- Se utilizara contenido Ajax para llenar la tabla -->
+                </tfoot>
+            </table>
+
+
+
+
+
+
+
+
+
+
+        </center>
+    </section>
+    <script src="../../accesos/JS/jquery-3.6.4.min.js"> </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script src="../../accesos/JS/Funciones_Facturacion.js"> </script>
+
+    <script type= "text/javascript">
+        $(document).ready(function () {
+            var usuarioid = <?php echo $_SESSION['id_usuario']; ?>;
+            searchfordetalle(usuarioid);
+        });
+    
+    </script>
+    
+
 </body>
+
 </html>
