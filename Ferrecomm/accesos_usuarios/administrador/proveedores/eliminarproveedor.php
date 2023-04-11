@@ -146,12 +146,12 @@ if(empty($_GET['id'])){
         </li>
        
         
-        <a href="../../../index.php">
-     <li class="profile">
-         <i class='bx bx-log-out' id="log_out" ></i>
-         <div class="Salir">Cerrar Sesión</div>
-     </li>
-    </a>
+        <a href="../../php/Cerrar_Seccion.php">
+        <li class="profile">
+          <i class='bx bx-log-out' id="log_out"></i>
+          <div class="Salir">Cerrar Sesión</div>
+        </li>
+      </a>
     </ul>
   </div>
   <style>

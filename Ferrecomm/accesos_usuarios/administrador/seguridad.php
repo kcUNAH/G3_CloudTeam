@@ -278,7 +278,7 @@ button[type="submit"] {
     
 	<a class="btn" href = "GestionUsuarios.php"><i class='bx bx-user'> Usuarios</i></a>
     <a class="btn3" href = "seguridad/mostrarbitacora.php "><i class='bx bx-note'> Bitacora</i></a>
-    <a class="btn1" href = " "><i class='bx bxs-notepad'> Parametros</i></a>
+    <a class="btn1" href = "seguridad/parametros.php "><i class='bx bxs-notepad'> Parametros</i></a>
    
 
     <a class="btn4" href = "roles/Roles.php">  <i class='bx bx-user-check'>Roles </i></a>

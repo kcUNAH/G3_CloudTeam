@@ -2,7 +2,6 @@
 session_start();
 
 
-
 if(!isset ($_SESSION['usuario'])){
     echo '
     <script>
@@ -17,10 +16,11 @@ if(!isset ($_SESSION['usuario'])){
 
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../../../accesos/CSS/EstiloMenu.css">
     <link rel="stylesheet" href="../../../accesos/CSS/tablaproducto.css">
@@ -96,58 +96,70 @@ if(!isset ($_SESSION['usuario'])){
     </ul>
   </div>
   <section class="home-section">
-  <h1> Bitacora <i class='bx bx-note'></i></h1>
+  <h1> Parametros <i class='bx bxs-notepad'></i></h1>
 
 
-    <?php include '../conex.php'; ?>
-    <section id="container">
-
-
+  <section class="home-section">  
     
 
+    <!-- Aqui inicia el formulario-->
+  
+                    
+                      
+                     </div>
 
-       
-      <section id="container"  >
-      <form action=" buscarbitacora.php" method="get" style="background-color:#DCFFFE ;">
+ 
+ <form action=" buscarbitacora.php" method="get" style="background-color:#DCFFFE ;">
   <input type="text" name="busqueda" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
   <button type="submit" class="boton-buscar">Buscar</button>
   
-  
+  <a href="agg_parametro.php" class="btn_newproducto" style="margin-left: 350px" > Agregar Parametro<i id="icon_nuevo"  class='bx bxs-notepad'></i></a>
+  <a href="#" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
 
-        </form>
+</form>
+                    
 
-
-
-
-        <?php include '../conex.php'; ?>
+    <head>
+    
+    <link rel="stylesheet" href="./fontawesome-free/css/all.min.css">
+    <div class="container-fluid" style=" background-image: URL(..\..\accesos\Imagenes\Logo.jpeg);"></div> 
+</head>
+<?php include '../conex.php'; ?>
         <section id="container">
 
-      <table>
+
+   
+    <table>
       <thead>
         <tr>
-            <th>Id</th>
-            <th>fecha</th>
-            <th>id_usuario</th>
-            <th>id_objeto</th>
-            <th>accion</th>
-            <th>descripcion</th>
-          
+        <th>id parametro</th>
+        <th>Parametro</th>
+        <th>Valor</th>
+        <th>Fecha creación</th>
+        <th>Fecha modificacion</th>
+        <th>Modificado por</th>
+        <th>id usuario</th>
 
+        <th>Acción 
+          
             
+        </th>
         </tr>
        </thead>
-        <?php
+   
+      <tr>
+        
+      <?php
        /* include 'php/conexion.php';*/
-       include '../conex.php';
+       include '../conex.php'; 
+      
         //Paginador
-       $sql_register =mysqli_query($conex,"SELECT COUNT(*) as total_registro FROM tbl_bitacora");
-       $result_register = mysqli_fetch_array($sql_register);
-       $total_registro = $result_register['total_registro'];
-
-       $por_pagina = 10;
-
-       if(empty($_GET['pagina'])){
+        $sql_register =mysqli_query($conex,"SELECT COUNT(*) as total_registro FROM tbl_ms_parametros");
+        $result_register = mysqli_fetch_array($sql_register);
+        $total_registro = $result_register['total_registro'];
+        $por_pagina = 10;
+        if(empty($_GET['pagina'])){
           $pagina = 1;
        }else{
           $pagina = $_GET['pagina'];
@@ -155,26 +167,30 @@ if(!isset ($_SESSION['usuario'])){
 
        $desde = ($pagina-1) * $por_pagina;
        $total_paginas = ceil($total_registro / $por_pagina);
-       $query = mysqli_query($conex,"SELECT p.id_bitacora, p.fecha, c.id_usuario, a.id_objeto, p.accion, p.descripcion 
-       FROM tbl_bitacora p 
-       INNER JOIN tbl_ms_usuario c ON p.id_usuario = c.id_usuario 
-       INNER JOIN tbl_ms_objetos a ON p.id_objeto = a.id_objeto 
-       ORDER BY p.id_bitacora ASC 
-       LIMIT $desde, $por_pagina");
-         $result = mysqli_num_rows($query);
+
+        $query = mysqli_query($conex,"SELECT id_parametro, parametro, valor, Fecha_creacion, Fecha_modificacion,creado_por
+       Modificado_por, id_usuario FROM tbl_ms_parametros  ORDER BY id_parametro ASC LIMIT $desde,$por_pagina;");
+
+     
+        $result = mysqli_num_rows($query);
         if($result > 0){ //si hay registros
 
             while($data = mysqli_fetch_array($query)){
         ?>
-        
-        <tr>
-            <td><?php echo $data["id_bitacora"] ?></td>
-            <td><?php echo $data["fecha"] ?></td>
+         <tr>
+            <td><?php echo $data["id_parametro"] ?></td>
+            <td><?php echo $data["parametro"] ?></td>
+            <td><?php echo $data["valor"] ?></td>
+            <td><?php  echo $data["Fecha_creacion"] ?></td>
+            <td><?php echo $data["Fecha_modificacion"] ?></td>
+            <td><?php echo $data["Modificado_por"] ?></td>
             <td><?php echo $data["id_usuario"] ?></td>
-            <td><?php echo $data["id_objeto"] ?></td>
-            <td><?php echo $data["accion"] ?></td>
-            <td> <?php echo $data["descripcion"] ?></td>
+            <td> <a type="button" class="link_edit" href=" "><i class='bx bx-edit'></i></a>
            
+            <a type="button"class="link_delete" href=" "><i class='bx bxs-trash'></i></a>
+           
+
+             </td>
         </tr>
         <?php
             }
@@ -184,6 +200,7 @@ if(!isset ($_SESSION['usuario'])){
 
       </table>
 
+     
       <div class="paginador">
      <ul>
       <?php
@@ -210,28 +227,13 @@ if(!isset ($_SESSION['usuario'])){
      </ul>
 </div>
 
-      
-  </section>
+  
 
+      </section>
+    
+</div>
+ 
 
-  <script>
-  let sidebar = document.querySelector(".sidebar");
-  let closeBtn = document.querySelector("#btn");
-  let searchBtn = document.querySelector(".bx-search");
-
-  closeBtn.addEventListener("click", ()=>{
-    sidebar.classList.toggle("open");
-    menuBtnChange();
-  });
-
-  function menuBtnChange() {
-   if(sidebar.classList.contains("open")){
-     closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");
-   }else {
-     closeBtn.classList.replace("bx-menu-alt-right","bx-menu");
-   }
-  }
-  </script>
 <!--diseño buscar-->
 <style type="text/css">
 form {
@@ -292,10 +294,6 @@ table td:first-child {
     width: 200px;
   }
   
-  .link_delete{
-    color: red;
-    font-size: 25px;
-}
 
 
 /*Tamaño de los th de la tabla*/
@@ -339,6 +337,7 @@ table tr:nth-child(){
 table td {
     padding: 10px;
 }
+
 
 /*-----------Paginador------------*/
 .paginador ul{
@@ -392,14 +391,58 @@ table td {
     font-size: 30pt;
     
 } 
+.link_edit{
+    color: green;
+    font-size: 25px;
+}
+
+.link_delete{
+    color: red;
+    font-size: 25px;
+}
 </style>
 
 
 
-</style>
+</div>
+    
+</div>
+  
+</div>
 
-</body>
+      
+</section>
 
-</style>
-</body>
-</html>
+  </script>
+
+   
+    <!-- Aqui termina el formularios-->
+  </section>
+  <script>
+  let sidebar = document.querySelector(".sidebar");
+  let closeBtn = document.querySelector("#btn");
+  let searchBtn = document.querySelector(".bx-search");
+
+  closeBtn.addEventListener("click", ()=>{
+    sidebar.classList.toggle("open");
+    menuBtnChange();
+  });
+
+  function menuBtnChange() {
+   if(sidebar.classList.contains("open")){
+     closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+   }else {
+     closeBtn.classList.replace("bx-menu-alt-right","bx-menu");
+   }
+  }
+  </script>
+<!--Funciones js -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+
+
+
+
+
+</script>
+
+  </html>

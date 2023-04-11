@@ -81,12 +81,12 @@ if(!isset ($_SESSION['usuario'])){
         </li>
         <li>
         
-        <a href="../../../index.php">
-     <li class="profile">
-         <i class='bx bx-log-out' id="log_out" ></i>
-         <div class="Salir">Cerrar Sesión</div>
-     </li>
-    </a>
+        <a href="../../php/Cerrar_Seccion.php">
+        <li class="profile">
+          <i class='bx bx-log-out' id="log_out"></i>
+          <div class="Salir">Cerrar Sesión</div>
+        </li>
+      </a>
     </ul>
   </div>
 </body>
@@ -107,7 +107,7 @@ if(!isset ($_SESSION['usuario'])){
   <input type="text" name="busqueda" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
   <button type="submit" class="boton-buscar">Buscar</button>
   <a href="./proveedores/agregar_proveedores.php" class="btn_newproducto" style="margin-left: 350px" > Agregar Proveedor<i id="icon_nuevo"  class='bx bxs-user-plus'></i></a>
-  <a href="#" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
+  <a href="../../fpdf/reporteproveedor.php" target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
 
 </form>
@@ -118,7 +118,9 @@ if(!isset ($_SESSION['usuario'])){
     <link rel="stylesheet" href="./fontawesome-free/css/all.min.css">
     <div class="container-fluid" style=" background-image: URL(..\..\accesos\Imagenes\Logo.jpeg);"></div> 
 </head>
-<?php include'conex.php';?>
+<?php 
+include'conex.php';
+?>
       <section id="container">
 
 
@@ -150,7 +152,7 @@ if(!isset ($_SESSION['usuario'])){
         $sql_register =mysqli_query($conex,"SELECT COUNT(*) as total_registro FROM tbl_proveedores");
         $result_register = mysqli_fetch_array($sql_register);
         $total_registro = $result_register['total_registro'];
-        $por_pagina = 4;
+        $por_pagina = 10;
         if(empty($_GET['pagina'])){
           $pagina = 1;
        }else{
@@ -173,7 +175,7 @@ if(!isset ($_SESSION['usuario'])){
             <td><?php echo $data["id_proveedor"] ?></td>
             <td><?php echo $data["nombre_proveedor"] ?></td>
             <td><?php echo $data["rtn_proveedor"] ?></td>
-            <td><?php echo $data["telefono_proveedor"] ?></td>
+            <td><?php  echo $data["telefono_proveedor"] ?></td>
             <td><?php echo $data["correo_proveedor"] ?></td>
             <td><?php echo $data["direccion_proveedor"] ?></td>
             <td> <a type="button" class="link_edit" href="./proveedores/editarproveedores.php?id=<?php echo $data["id_proveedor"]; ?>"><i class='bx bx-edit'></i></a>
@@ -248,10 +250,6 @@ button[type="submit"] {
   padding: 8px 16px;
   font-size: 16px;
 }
-.ventana{
-
-}
-
 
 </style>
 

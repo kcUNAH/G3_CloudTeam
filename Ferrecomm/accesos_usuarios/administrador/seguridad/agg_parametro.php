@@ -1,7 +1,10 @@
 
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../../../accesos/CSS/EstiloMenu.css">
     <link rel="stylesheet" href="../../../accesos/CSS/tablaproducto.css">
@@ -31,7 +34,7 @@
             <span class="tooltip">Facturación</span>
         </li>
         <li>
-            <a href="../Compras.php">
+            <a href="../../../compras.php">
                 <i class='bx bxs-cart'></i>
                 <span class="links_name">Compras</span>
             </a>
@@ -45,15 +48,22 @@
             <span class="tooltip">Productos</span>
         </li>
         <li>
-            <a href="../Seguridad.php">
+            <a href="../seguridad.php">
                 <i class='bx bx-shield-quarter'></i>
                 <span class="links_name">Seguridad</span>
             </a>
             <span class="tooltip">Seguridad</span>
         </li>
-       
         <li>
-            <a href="../Inventario.php">
+            
+            <a href="../Proveedores.php">
+            <i class='bx bx-id-card'></i>
+                <span class="links_name">Proveedores</span>
+            </a>
+            <span class="tooltip">Proveedores</span>
+        </li>
+        <li>
+            <a href="../../../inventario.php">
                 <i class='bx bx-package'></i>
                 <span class="links_name">Inventario</span>
             </a>
@@ -61,14 +71,26 @@
         </li>
        
         
-        <a href="../../php/Cerrar_Seccion.php">
-        <li class="profile">
-          <i class='bx bx-log-out' id="log_out"></i>
-          <div class="Salir">Cerrar Sesión</div>
-        </li>
+        <a href="../../../index.php">
+     <li class="profile">
+         <i class='bx bx-log-out' id="log_out" ></i>
+         <div class="Salir">Cerrar Sesión</div>
+         </li>
       </a>
     </ul>
   </div>
+  <section class="home-section">
+  
+
+  <section class="home-section">  
+    
+
+    <!-- Aqui inicia el formulario-->
+  
+                    
+                      
+</div>
+
   <div>
   <style>
    form{
@@ -149,25 +171,25 @@
 }
   </style>
   <section class="home-section"></br>
-      <h2>  Añadir nuevo proveedor <i class='bx bx-id-card'></i></h2>
+      <h2>  Añadir nuevo parametro <i class='bx bx-id-card'></i></h2>
       <div>
             <form action="registro_proveedores.php" method="POST" enctype="multipart/form-data" id="formulario">
             
 
 
                 <div class="formulario__grupo" id="grupo__nombre_proveedor">
-				<label for="nombre_proveedor" class="formulario__label" >Nombre del proveedor</label>
+				<label for="nombre_proveedor" class="formulario__label" >parametro</label>
 				<div class="formulario__grupo-input">
-					<input type="text"  style="text-transform:uppercase;" class="field"  name="nombre_proveedor" id="nombre_proveedor" >
+					<input type="text"  style="text-transform:uppercase;" class="field"  name="nombre_proveedor" id="parametro" >
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
 				<p class="formulario__input-error">El nombre del producto tiene que contener letras y contener 3 a 25 de las mismas</p>
 			    </div>
 
                 <div class="formulario__grupo" id="grupo__rtn_proveedor">
-				<label for="rtn_proveedor" class="formulario__label">RTN Proveedor:</label>
+				<label for="rtn_proveedor" class="formulario__label">Valor:</label>
 				<div class="formulario__grupo-input">
-			    <input type="text" class="field"  name="rtn_proveedor" id="rtn_proveedor" maxlength="14"  pattern="[0-9]+" required >
+			    <input type="text" class="field"  name="rtn_proveedor" id="rtn_proveedor"   pattern="[0-9]+" required >
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
 				<p class="formulario__input-error">El RTN solo puede contener numeros</p>
@@ -175,31 +197,16 @@
 
             
             <div class="formulario__grupo" id="grupo__telefono">
-				<label for="telefono" class="formulario__label">Telefono:</label>
+				<label for="telefono" class="formulario__label">fecha creacion:</label>
 				<div class="formulario__grupo-input">
-			<input type="text" class="field"  name="telefono" id="telefono"  maxlength="8" value="+504:"  >
+			<input type="text" class="field"  name="telefono" id="telefono"    >
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
 				<p class="formulario__input-error">El telefono solo puede contener numeros</p>
 			    </div>
 
-                <div class="formulario__grupo" id="grupo__email">
-                        <label for="email" class="formulario__label">Correo Electrónico:</label>
-                        <div class="formulario__grupo-input">
-                            <input type="email" class="field"  name="email" id="email" placeholder="correo@correo.com">
-                            <i class="formulario__validacion-estado fas fa-times-circle"></i>
-                        </div>
-                        <p class="formulario__input-error">El correo debe de contener letras, numeros, puntos,arrobas, guiones y guion bajo.</p>
-                    </div>
+            
 
-                   <div class="formulario__grupo" id="grupo__direccion">
-				<label for="direccion" class="formulario__label">Dirección</label>
-				<div class="formulario__grupo-input">
-					<input type="text" class="field"  name="direccion" id="direccion" style="text-transform:uppercase;">
-					<i class="formulario__validacion-estado fas fa-times-circle"></i>
-				</div>
-				<p class="formulario__input-error">La direccion debe de conter mas de 3 letras</p>
-			    </div>
 
             </br>
             

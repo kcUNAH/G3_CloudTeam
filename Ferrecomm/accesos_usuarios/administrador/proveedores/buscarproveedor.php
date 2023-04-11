@@ -91,12 +91,12 @@ if(!isset ($_SESSION['usuario'])){
             <span class="tooltip">Usuarios</span>
         </li>
         
-        <a href="../../../index.php">
-     <li class="profile">
-         <i class='bx bx-log-out' id="log_out" ></i>
-         <div class="Salir">Cerrar Sesión</div>
-     </li>
-    </a>
+        <a href="../../php/Cerrar_Seccion.php">
+        <li class="profile">
+          <i class='bx bx-log-out' id="log_out"></i>
+          <div class="Salir">Cerrar Sesión</div>
+        </li>
+      </a>
     </ul>
   </div>
   <section class="home-section">
@@ -168,7 +168,7 @@ if(!isset ($_SESSION['usuario'])){
        $result_register = mysqli_fetch_array($sql_register);
        $total_registro = $result_register['total_registro'];
 
-       $por_pagina = 4;
+       $por_pagina = 10;
 
        if(empty($_GET['pagina'])){
           $pagina = 1;
@@ -358,9 +358,6 @@ button[type="submit"] {
   cursor: pointer;
   padding: 8px 16px;
   font-size: 16px;
-}
-.ventana{
-
 }
 
 

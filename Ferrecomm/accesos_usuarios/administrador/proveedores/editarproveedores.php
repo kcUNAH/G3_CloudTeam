@@ -174,12 +174,12 @@ if(!isset ($_SESSION['usuario'])){
             <span class="tooltip">Inventario</span>
         </li>
         
-        <a href="../../../index.php">
-     <li class="profile">
-         <i class='bx bx-log-out' id="log_out" ></i>
-         <div class="Salir">Cerrar Sesión</div>
-     </li>
-    </a>
+        <a href="../../php/Cerrar_Seccion.php">
+        <li class="profile">
+          <i class='bx bx-log-out' id="log_out"></i>
+          <div class="Salir">Cerrar Sesión</div>
+        </li>
+      </a>
     </ul>
   </div>
   <div>
@@ -266,40 +266,52 @@ if(!isset ($_SESSION['usuario'])){
       <div>
             <form action=" " method="POST" enctype="multipart/form-data" id="formulario">
 
-            <input type="hidden"   name=" id_proveedor" id=" $id_proveedor "  value="<?php echo  $id_proveedor;?>">
+            <input type="hidden"   name=" id_proveedor" id=" $id_proveedor "  value="<?php echo  $id_proveedor;?>" >
 
                 <p>Nombre del proveedor:
 				
-		      <input type="text" class="field"  name="nombre_proveedor" id="nombre_proveedor"  value="<?php echo $nombre_proveedor;?>">
+		      <input type="text" class="field"  name="nombre_proveedor" id="nombre_proveedor" style="text-transform:uppercase;" value="<?php echo $nombre_proveedor;?>">
                 </p>
 
                     <p>RTN proveedor:
 			<input type="text" class="field"  name="rtn_proveedor" id="rtn_proveedor"  min ="0" maxlength="14"  value="<?php echo $rtn_proveedor;?>" required pattern="[0-9]+">
                     </p>
                     <p>Telefono:
-                   
-			<input type="text" class="field"  name="telefono" id="telefono"  min="0"  maxlength="8"      value="<?php echo $telefono_proveedor;?>">
+         
+			<input type="text" class="field"  name="telefono" id="telefono"  maxlength="8"  pattern="[0-9]+"  value="+504:<?php echo $telefono_proveedor;?>" >
+				
 					
                     </p>
                     <p>correo: 
-                            <input type="email" class="field"  name="email" id="email"   placeholder="correo@correo.com" value="<?php echo $correo_proveedor;?>">
+                        
+              
+                            <input type="email" class="field"  name="email" id="email" placeholder="correo@correo.com"  value="<?php echo $correo_proveedor;?>">
+                       
                     </p> 
 
               <p>direccion:
-					<input type="text" class="field"  name="direccion" id="direccion"  value="<?php echo $direccion_proveedor;?>">
-               </p>
+                
             
+                    <input type="text" class="field"  name="direccion" id="direccion"  value="<?php echo $direccion_proveedor;?>" style="text-transform:uppercase;">
+				
+				
+               </p>
+              
+
+
 
     <button class="btn_agregar">Actualizar</button>
       <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado exitosamente!</p>
       <button type="reset" onclick="location.href='../proveedores.php'" class="btn_cancelar">Cancelar</button>
+      </form>
+     
 
-            </form>
 
-                  
 
-                    
-              
-</from>
+
+
+</form>
+</form>
+
 </body>
 </html>

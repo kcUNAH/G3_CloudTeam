@@ -165,7 +165,7 @@ if(empty($_GET['id'])){
     font-size: 15px;
    }
    input, textarea{
-    border: ;
+    
     outline: none;
 
    }
@@ -228,7 +228,7 @@ if(empty($_GET['id'])){
 
 span{
     background: #ffff;
-    border: ;
+
     outline: none;
     border: solid 1px #ccc;
     padding: 6px;
