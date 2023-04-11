@@ -242,8 +242,7 @@ switch ($_GET["op"]){
  				"1"=>$reg->nombre_producto,
  				"2"=>$reg->nombre_categoria ,
  			
- 				"3"=>$reg->cantidad_max,
- 				"4"=>"<img width='100' src='data:image/jpg;base64,".base64_encode($reg->img_producto)."'>"
+ 				"3"=>$reg->cantidad_max
  				);
  		}
  		$results = array(

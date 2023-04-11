@@ -243,7 +243,6 @@ if(!isset ($_SESSION['usuario'])){
                             <th>Categoría</th>
 
                             <th>Stock</th>
-                            <th>Imagen</th>
                         </thead>
                         <tbody>
 
