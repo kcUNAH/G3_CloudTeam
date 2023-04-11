@@ -1,0 +1,356 @@
+/*                                          Usuarios Lista*/
+#container h1¨{
+    font-size: 35px;
+    display: inline-block;
+    color: rgba(255, 102, 0, 0.911);
+  }
+  
+  h1{
+    color:rgba(255, 102, 0, 0.911);
+    margin-left: 20px;
+    text-align: center;
+    font-size: 30pt;
+    
+  } 
+  h2 {
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: rgba(255, 102, 0, 0.911);
+    
+    margin:auto;
+  }
+  
+  table{
+    border-collapse: collapse;
+    font-size: 10pt;
+    font-family: Arial;
+    margin-left: 40px;
+    margin-right: 5px;
+    background-color: #fff;
+    
+  }
+  
+  thead{
+  background-color: rgba(255, 102, 0, 0.911);
+  border-bottom: solid 5px;
+  color: rgb(0, 0, 0);
+  }
+  
+  
+  table td:first-child {
+    width: 10px;
+  }
+  table td:nth-child(2){
+    width: 10px;
+  }
+  table td:nth-child(3){
+    width: 200px;
+  }
+  table td:nth-child(4){
+    width: 100px;
+  }
+  table td:nth-child(5){
+    width: 15px;
+  }
+  table td:nth-child(6){
+    width: 100px;
+  }
+  table td:nth-child(7){
+    width: 250px;
+  }
+  table td:nth-child(8){
+    width: 70px;
+  }
+  
+  
+  /*Tamaño de los th de la tabla*/
+  table th:first-child {
+  width: 10px;
+  }
+  table th:nth-child(2){
+  width: 10px;
+  }
+  table th:nth-child(3){
+  width: 100px;
+  }
+  table th:nth-child(4){
+  width: 10px;
+  }
+  table th:nth-child(5){
+  width: 100px;
+  }
+  table th:nth-child(6){
+  width: 100px;
+  }
+  table th:nth-child(7){
+  width: 50px;
+  }
+  table th:nth-child(8){
+  width: 70px;
+  }
+  table th:nth-child(9){
+  width: 70px;
+  }
+  
+  table td:last-child {
+    width: 100px;
+  }
+  
+  .table .th{
+    text-align: left;
+    padding: 10px;
+    background: #ffffff;
+    color: #181212;
+    
+  }
+  
+  
+  table tr:nth-child(){
+    background: #fff;
+  }
+  table td {
+    padding: 10px;
+  }
+  
+  .link_factura{
+    color: rgb(35, 54, 230);
+    font-size: 25px;
+  }
+  
+  .link_cantidad{
+  color: rgb(226, 230, 12);
+  font-size: 25px;
+  }
+  
+  
+  .link_edit{
+    color: green;
+    font-size: 25px;
+  }
+  
+  .link_delete{
+    color: red;
+    font-size: 25px;
+  }
+  
+  .btn_newproducto{
+    display: inline-block;
+    background: #306fe6;
+    color:rgb(255, 255, 255);
+    padding: 5px 25px;
+    border-radius: 10px;
+    margin: 20px;
+    text-decoration: none;
+  
+  } 
+  
+  .btn_pdf{
+    display: inline-block;
+    background-color: rgba(255, 102, 0, 0.911);
+    color:rgb(255, 255, 255);
+    padding: 5px 25px;
+    border-radius: 10px;
+    margin: 20px;
+    text-decoration: none;
+  
+  } 
+  .btn_inactivo{
+  display: inline-block;
+  background-color: rgba(255, 0, 0, 0.911);
+  color:rgb(255, 255, 255);
+  padding: 5px 25px;
+  border-radius: 10px;
+  margin: 20px;
+  text-decoration: none;
+  
+  } 
+  .btn_activo{
+  display: inline-block;
+  background-color: green;
+  color:rgb(255, 255, 255);
+  padding: 5px 25px;
+  border-radius: 10px;
+  margin: 20px;
+  text-decoration: none;
+  
+  } 
+  
+  form{
+  background: #d1d40a;
+  }
+  
+  
+  .formulario__input-error {
+  font-size: 12px;
+  margin-bottom: 0;
+  display: none;
+  color: #bb2929;
+  }
+  
+  .formulario__input-error-activo {
+  display: block;
+  }
+  
+  .formulario__validacion-estado {
+  position: absolute;
+  right: 10px;
+  bottom: 15px;
+  z-index: 100;
+  font-size: 16px;
+  opacity: 0;
+  }
+  
+  .formulario__checkbox {
+  margin-right: 10px;
+  }
+  
+  .formulario__grupo-terminos, 
+  .formulario__mensaje,
+  .formulario__grupo-btn-enviar {
+  grid-column: span 2;
+  }
+  
+  .formulario__mensaje {
+  height: 45px;
+  line-height: 45px;
+  background: #F66060;
+  padding: 0 15px;
+  border-radius: 3px;
+  display: none;
+  }
+  
+  .formulario__mensaje-activo {
+  display: block;
+  }
+  
+  .formulario__mensaje p {
+  margin: 0;
+  }
+  
+  .formulario__grupo-btn-enviar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  }
+  
+  .formulario__btn {
+  height: 45px;
+  line-height: 45px;
+  width: 30%;
+  background: #2ad313;
+  color: #000000;
+  font-weight: bold;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: .1s ease all;
+  }
+  
+  .formulario__btncancelar{
+  height: 45px;
+  line-height: 45px;
+  width: 30%;
+  background: #e7d807;
+  color: #000000;
+  font-weight: bold;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: .1s ease all;
+  }
+  
+  
+  .formulario__btn:hover {
+  box-shadow: 3px 0px 30px rgba(163,163,163, 1);
+  }
+  
+  .formulario__mensaje-exito {
+  font-size: 14px;
+  color: #119200;
+  display: none;
+  }
+  
+  .formulario__mensaje-exito-activo {
+  display: block;
+  }
+  
+  /* ----- -----  Estilos para Validacion ----- ----- */
+  .formulario__grupo-correcto .formulario__validacion-estado {
+  color: #1ed12d;
+  opacity: 1;
+  }
+  
+  .formulario__grupo-incorrecto .formulario__label {
+  color: #bb2929;
+  }
+  
+  .formulario__grupo-incorrecto .formulario__validacion-estado {
+  color: #bb2929;
+  opacity: 1;
+  }
+  
+  .formulario__grupo-incorrecto .formulario__input {
+  border: 3px solid #bb2929;
+  }
+  .btn_anterior{
+  display: inline-block;
+  background: #fdfdfd;
+  color:rgb(42, 22, 223);
+  padding: 5px 25px;
+  border-radius: 10px;
+  margin: 20px;
+  text-decoration: none;
+  
+  }
+  
+  
+  /*-----------Paginador------------*/
+  .paginador ul{
+  padding: 15px;
+  list-style: none;
+  background: #DCFFFE;
+  margin-top: 15px;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  
+  }
+  
+  .paginador a, .pageSelected{
+  color: #428bca;
+  border: 1px solid #ddd;
+  padding: 5px;
+  display: inline-block;
+  font-size: 14px;
+  text-align: center;
+  width: 35px;
+  text-decoration: none;
+  }
+  
+  
+  .paginador a:hover{
+  background: #ddd;
+  }
+  
+  .pageSelected{
+  color: #fff;
+  background: #428bca;
+  border: 1px solid #428bca;
+  }
+  
+  /*-------Promociones-------------*/
+  
+  .link_agregarpromocion{
+    color: rgb(37, 50, 224);
+    font-size: 25px;
+    }
+  
+    .link_promociones{
+      color: rgb(37, 50, 224);
+      font-size: 25px;
+      }
+  
+  

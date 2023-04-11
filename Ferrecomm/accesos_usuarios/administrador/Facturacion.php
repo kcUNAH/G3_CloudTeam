@@ -43,7 +43,7 @@
                     </div>
                     <div class="wd30">
                         <Label> Nombre </Layel>
-                            <input type="text" name="nom_cliente" id="nom_cliente" disabled required>
+                            <input type="text" style="text-transform:uppercase;" onblur="cambiarAMayusculas(this);" name="nom_cliente" id="nom_cliente" disabled required>
                     </div>
                     <div class="wd30">
                         <label>Teléfono</label>
@@ -51,7 +51,7 @@
                     </div>
                     <div class="wd100" id="wd100">
                         <label class="textright">Dirección</label>
-                        <input type="text" name="dir_cliente" id="dir_cliente" disabled required>
+                        <input type="text" style="text-transform:uppercase;" onblur="cambiarAMayusculas(this);" name="dir_cliente" id="dir_cliente" disabled required>
                     </div>
                     <div id="div_registro_cliente" class="wd100">
                         <br>    
