@@ -113,6 +113,7 @@ if(!isset ($_SESSION['usuario'])){
       <table>
         <thead>
         <tr >
+           <th >Codigo</th>
            <th >Categoría</th>
            <th >Nombre</th>
            <th >Descripción</th>
@@ -170,6 +171,7 @@ if(!isset ($_SESSION['usuario'])){
         ?>
         
         <tr>
+            <td><?php echo $data["id_producto"] ?></td>
             <td><?php echo $data["nombre_categoria"] ?></td>
             <td><?php echo $data["nombre_producto"] ?></td>
             <td><?php echo $data["descripcion_producto"] ?></td>

@@ -130,6 +130,7 @@ if(!isset ($_SESSION['usuario'])){
       <table>
         <thead>
         <tr >
+           <th >Codigo</th>
            <th >Categoría</th>
            <th >Nombre</th>
            <th >Descripción</th>
@@ -225,6 +226,7 @@ if(!isset ($_SESSION['usuario'])){
         ?>
         
         <tr>
+            <td><?php echo $data["id_producto"] ?></td>
             <td><?php echo $data["nombre_categoria"] ?></td>
             <td><?php echo $data["nombre_producto"] ?></td>
             <td><?php echo $data["descripcion_producto"] ?></td>
@@ -239,6 +241,7 @@ if(!isset ($_SESSION['usuario'])){
            <td>
             <a class="link_agregarpromocion" href="productopromocion.php?id=<?php echo $data["id_producto"]; ?>"><i class='bx bx-add-to-queue'></i></a>
             <a class="link_promociones" href="promocion.php"><i class='bx bx-low-vision'></i></a>
+            <a class="link_promociones" href="promocion.php"><i class='bx bxs-purchase-tag-alt'></i></a>
           </td>
             <td>
               <!--  <a class="link_factura" href="#"><i class='bx bx-check-double'></i></i></a>-->
