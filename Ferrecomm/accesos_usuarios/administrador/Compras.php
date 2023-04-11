@@ -256,7 +256,7 @@ margin-left: -3px;">
     <main class="app-content" style="background-color: #DCFFFE;">
     <div class="center">    
   <a href="nueva_compra.php" class="btn_newproducto">Nueva Compra<i id="icon_nuevo" class='bx bxs-cart-add'></i></a>
-  <a href="registro.php" class="btn_pdf">Generar PDF<i id="" class=''></i></a>
+  <a href="../../fpdf/Reportecompras.php" target="_blank" class="btn_pdf">Generar PDF<i id="" class=''></i></a>
 </div>
 
       <div class="row">
