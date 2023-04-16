@@ -93,9 +93,25 @@ $i = 0;
 $pdf->SetFont('Arial', '', 12);
 $pdf->SetDrawColor(163, 163, 163); //colorBorde
 
-$consulta_reporte_producto = $conexion->query(" SELECT p.id_producto, c.nombre_categoria, p.nombre_producto, p.descripcion_producto, 
-p.precio_producto, p.img_producto, p.unidad_medida, p.cantidad_min, p.cantidad_max 
-FROM tbl_producto p INNER JOIN tbl_categoria c on p.id_categoria = c.id_categoria ORDER BY p.id_producto ASC ");
+$busqueda = strtolower($_REQUEST['buscar']);
+if(empty($busqueda))
+{
+ header("location: ../productos.php");
+}
+
+$consulta_reporte_producto = $conexion->query("SELECT p.id_producto, c.nombre_categoria, p.nombre_producto, 
+p.precio_producto, p.unidad_medida, p.cantidad_min, p.cantidad_max 
+FROM tbl_producto p INNER JOIN tbl_categoria c on p.id_categoria = c.id_categoria 
+                                              WHERE (p.id_producto LIKE '%$busqueda%' OR
+                                                     p.nombre_producto LIKE '%$busqueda%' OR
+                                                     p.precio_producto LIKE '%$busqueda%' OR
+                                                     p.unidad_medida LIKE '%$busqueda%' OR
+                                                     p.cantidad_min LIKE '%$busqueda%' OR
+                                                     p.cantidad_max  LIKE '%$busqueda%' OR
+                                                     c.nombre_categoria LIKE '%$busqueda%' ) 
+                                              
+                                              ORDER BY p.id_producto ASC
+");
 
 // AnchoCelda,AltoCelda,titulo,borde(1-0),saltoLinea(1-0),posicion(L-C-R),ColorFondo(1-0)
 

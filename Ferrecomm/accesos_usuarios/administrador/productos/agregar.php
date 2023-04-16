@@ -18,7 +18,12 @@ if (!isset($_SESSION['usuario'])) {
 
 include '../conex.php';
 include '../../../php/bitacora.php';
+$host = "localhost";
+$user = "root";
+$password = "";
+$db = "ferrecomm_db";
 
+$conectar = @mysqli_connect($host, $user, $password,$db);
 
 
 if (!empty($_POST)) {
@@ -62,21 +67,32 @@ if (!empty($_POST)) {
 
 
        // $img_producto = $_POST['img_producto'];
-            $query_insert = mysqli_query($conex, "INSERT INTO tbl_producto(id_categoria,nombre_producto,descripcion_producto,
-                                                   precio_producto,img_producto,unidad_medida,cantidad_min,cantidad_max)
-            VALUES('$categoria','$nombre_producto','$descripcion_producto','$precio_producto','$imgProducto',
-            '$unidad_medida','$cantidad_min','$cantidad_max')");
+           
+$sql = "INSERT INTO tbl_producto(id_categoria,nombre_producto,descripcion_producto,
+precio_producto,img_producto,unidad_medida,cantidad_min,cantidad_max)
+VALUES('$categoria','$nombre_producto','$descripcion_producto','$precio_producto','$imgProducto',
+'$unidad_medida','$cantidad_min','$cantidad_max')";
 
-            if ($query_insert) {
+ $query=mysqli_query($conex,$sql);
+
+$ultimo_id= mysqli_insert_id($conex);
+            
+            
+            if ($query) {
                 if($nombre_foto != ''){
                 move_uploaded_file($url_temp,$src);
             }
+            $cantidad=0;
+            
+            $query_insert2 = mysqli_query($conex, "INSERT INTO tbl_inventario(id_producto,cantidad)
+            VALUES('$ultimo_id','$cantidad')");
                 echo
                 '<script>
                 alert("Producto agregado correctamente");
                 window.location= "../Productos.php";
-                </script>
-                ';
+                </script>';
+                
+                
                 $codigoObjeto=7;
                 $accion='Registro';
                 $descripcion= 'Se agrego un producto con Exito';

@@ -119,7 +119,7 @@ if(!isset ($_SESSION['usuario'])){
   <input type="text" name="busqueda" style="text-transform:uppercase; margin-left: 40px" id="busqueda" placeholder="Buscar..." value="<?php echo $busqueda; ?>">
   <button type="submit" class="boton-buscar">Buscar</button>
   <a href= "agregarproducto.php" class="btn_newproducto" style="margin-left: 350px"> Nuevo producto<i id="icon_nuevo" class='bx bxs-cart-add'></i></a>
-    <a href="../../../fpdf/Reporteproductos.php" target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
+    <a href="../../../fpdf/Reportebuscarproducto.php?buscar=<?php echo $busqueda ?>"   target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
 
 </form>
@@ -139,7 +139,6 @@ if(!isset ($_SESSION['usuario'])){
            <th >Unidad medida</th>
            <th >Cantidad minima</th>
            <th >Cantidad máxima</th>
-           <th >Agregar cantidad</th>
            <th >Promociones</th>
            <th >Acción</th>
         </tr>
@@ -235,9 +234,6 @@ if(!isset ($_SESSION['usuario'])){
             <td><?php echo $data["unidad_medida"] ?></td>
             <td><?php echo $data["cantidad_min"] ?></td>
             <td> <?php echo $data["cantidad_max"] ?></td>
-            <td>
-            <a class="link_cantidad" href="./productos/agregarcantidad.php?id=<?php echo $data["id_producto"]; ?>"><i class='bx bx-package'></i></a>
-           </td>
            <td>
             <a class="link_agregarpromocion" href="productopromocion.php?id=<?php echo $data["id_producto"]; ?>"><i class='bx bx-add-to-queue'></i></a>
             <a class="link_promociones" href="promocion.php"><i class='bx bx-low-vision'></i></a>

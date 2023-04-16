@@ -122,7 +122,6 @@ if(!isset ($_SESSION['usuario'])){
            <th >Unidad medida</th>
            <th >Cantidad minima</th>
            <th >Cantidad máxima</th>
-           <th >Agregar cantidad</th>
            <th >Promociones</th>
            <th >Acción</th>
            
@@ -180,9 +179,6 @@ if(!isset ($_SESSION['usuario'])){
             <td><?php echo $data["unidad_medida"] ?></td>
             <td><?php echo $data["cantidad_min"] ?></td>
             <td> <?php echo $data["cantidad_max"] ?></td>
-           <td>
-            <a class="link_cantidad" href="./productos/agregarcantidad.php?id=<?php echo $data["id_producto"]; ?>"><i class='bx bx-package'></i></a>
-           </td>
            <td>
            <a class="link_promociones" href="./productos/tablapromocion.php?id=<?php echo $data["id_producto"]; ?>"><i class='bx bx-low-vision'></i></a>
             <a class="link_agregarpromocion" href="./productos/productopromocion.php?id=<?php echo $data["id_producto"]; ?>"><i class='bx bx-add-to-queue'></i></a>
