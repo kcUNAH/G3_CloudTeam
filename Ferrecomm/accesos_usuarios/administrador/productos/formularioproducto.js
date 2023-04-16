@@ -5,8 +5,8 @@ const expresiones = {
     descripcion_producto: /^[a-zA-Z0-9áéíóúÁÉÍÓÚ\_\-\s]/,
     precio_producto: /[0-9\.\d\d?]{1,100}$/,
 	unidad_medida: /\S[a-zA-Z0-9\.\,]{1,100}$/,
-	cantidad_min: /[0-9]{1,100}$/,
-	cantidad_max: /[0-9]{1,100}$/,
+	cantidad_min: /^[0-9]+$/,
+	cantidad_max: /^[0-9]+$/,
 }
 
 const campos = {
@@ -45,8 +45,8 @@ const validarFormulario = (e) => {
 
 
 function validarMenor(){
-	var inputMenor = document.getElementById('cantidad_min').value;
-	var inputMayor = document.getElementById('cantidad_max').value;
+	var inputMenor = Number(document.getElementById('cantidad_min').value);
+	var inputMayor = Number(document.getElementById('cantidad_max').value);
 
 	if (inputMenor > inputMayor || inputMenor == 0 || inputMenor === inputMayor) {
 		document.getElementById(`grupo__cantidad_min`).classList.add('formulario__grupo-incorrecto');
@@ -64,8 +64,8 @@ function validarMenor(){
 }
 
 function validarMayor(){
-	var inputMenor = document.getElementById('cantidad_min').value;
-	var inputMayor = document.getElementById('cantidad_max').value;
+	var inputMenor = Number(document.getElementById('cantidad_min').value);
+	var inputMayor = Number(document.getElementById('cantidad_max').value);
 
 	if ( inputMayor < inputMenor || inputMenor == 0 || inputMayor === inputMenor ) {
 		document.getElementById(`grupo__cantidad_max`).classList.add('formulario__grupo-incorrecto');
