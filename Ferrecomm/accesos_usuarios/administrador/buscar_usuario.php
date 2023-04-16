@@ -87,13 +87,7 @@ if (!isset($_SESSION['usuario'])) {
         </a>
         <span class="tooltip">Inventario</span>
       </li>
-      <li>
-        <a href="GestionUsuarios.php">
-          <i class='bx bx-package'></i>
-          <span class="links_name">Usuarios</span>
-        </a>
-        <span class="tooltip">Usuarios</span>
-      </li>
+      
 
       <a href="../../php/Cerrar_Seccion.php">
         <li class="profile">
@@ -104,7 +98,7 @@ if (!isset($_SESSION['usuario'])) {
     </ul>
   </div>
   <section class="home-section">
-    <div class="text">Bienvedio a la Gestión de Usuarios</div>
+    <div class="text">Bienvenido a la Gestión de Usuarios</div>
 
 
     <?php include 'conex.php'; ?>
@@ -139,8 +133,7 @@ if (!isset($_SESSION['usuario'])) {
               class='bx bxs-cart-add'></i></a>
           <a href="usuario_nuevo.php" class="btn_nuevorpoducto">Usuarios Nuevos<i id="icon_nuevo" class='bx bxs-cart-add'></i></a>
               
-        <a href="../../../fpdf/ReporteBuscarUsuario.php?buscar=<?php echo $busqueda ?>"   target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
-
+          <a href="../../fpdf/ReporteInventarioBuscar.php?"   target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
         </form>
 

@@ -94,11 +94,14 @@ $i = 0;
 $pdf->SetFont('Arial', '', 12);
 $pdf->SetDrawColor(163, 163, 163); //colorBorde
 
-$busqueda = strtolower($_REQUEST['buscar']);
-if(empty($busqueda))
-{
- header("location: ../Inventario.php");
-}
+
+$busqueda = strtolower($_REQUEST['busqueda']);
+      if(empty($busqueda))
+      {
+        header("Location: Inventario.php");
+      }
+      
+
 
 
 $consulta_reporte_producto = $conexion->query("SELECT i.id_inventario, p.id_producto, p.nombre_producto, c.nombre_categoria, p.unidad_medida,

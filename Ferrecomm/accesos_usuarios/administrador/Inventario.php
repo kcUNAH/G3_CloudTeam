@@ -147,7 +147,11 @@ if (!isset($_SESSION['usuario'])) {
             <?php
             /* include 'php/conexion.php';*/
             include 'conex.php';
-          
+          if(['cantidad']  <= ['cantidad_min']){
+            $color = 'Red';
+          }else{
+            $clase = 'correcto';
+          }
             //Paginador
             // $sqlregistre = mysqli_query($conex, "SELECT COUNT(*) AS total_registro FROM tbl_ms_usuario WHERE estado_usuario = 1");
             $sqlregistre = mysqli_query($conex, "SELECT COUNT(*) AS total_registro FROM tbl_inventario");
