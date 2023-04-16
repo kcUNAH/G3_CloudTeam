@@ -50,7 +50,7 @@ class PDF extends FPDF
       $this->SetTextColor(228, 100, 0);
       $this->Cell(90); // mover a la derecha
       $this->SetFont('Arial', 'B', 15);
-      $this->Cell(100, 10, utf8_decode("Reporte de productos "), 0, 1, 'C', 0);
+      $this->Cell(100, 10, utf8_decode("Reporte de Inventario "), 0, 1, 'C', 0);
       $this->Ln(7);
 
       /* CAMPOS DE LA TABLA */
@@ -62,11 +62,11 @@ class PDF extends FPDF
       $this->Cell(70,10, utf8_decode('Nombre'), 1, 0, 'C', 1);
       $this->Cell(70, 10, utf8_decode('Categoria'), 1, 0, 'C', 1);
      // $this->Cell(40, 10, utf8_decode('Descripcion'), 1, 0, 'C', 1);
-      $this->Cell(40, 10, utf8_decode('Medida'), 1, 0, 'C', 1);
+      $this->Cell(50, 10, utf8_decode('Medida'), 1, 0, 'C', 1);
       //$this->Cell(30, 10, utf8_decode('Imagen'), 1, 0, 'C', 1);
      // $this->Cell(40, 10, utf8_decode('Cantidad Minima'), 1, 0, 'C', 1);
       //$this->Cell(40, 10, utf8_decode('Cantidad Maxima'), 1, 0, 'C', 1);
-      $this->Cell(40, 10, utf8_decode('Cantidad Existencia'), 1, 0, 'C', 1);
+      $this->Cell(50, 10, utf8_decode('Cantidad Existencia'), 1, 0, 'C', 1);
       $this->Cell(40, 10, utf8_decode('Precio'), 1, 1, 'C', 1);
    }
 
@@ -108,10 +108,10 @@ while ($datos_reporte = $consulta_reporte_producto->fetch_object()) {
 $pdf->Cell(70, 10, utf8_decode($datos_reporte->nombre_producto), 1, 0, 'C', 0);
 $pdf->Cell(70, 10, utf8_decode($datos_reporte->nombre_categoria), 1, 0, 'C', 0);
 //$pdf->Multicell(20, 7, utf8_decode($datos_reporte->descripcion_producto), 1, 'J', false);
-$pdf->Cell(40, 10, utf8_decode($datos_reporte->unidad_medida), 1, 0, 'C', 0);
+$pdf->Cell(50, 10, utf8_decode($datos_reporte->unidad_medida), 1, 0, 'C', 0);
 //$pdf->Cell(40, 10, utf8_decode($datos_reporte->cantidad_min), 1, 0, 'C', 0);
 //$pdf->Cell(40, 10, utf8_decode($datos_reporte->cantidad_max), 1, 0, 'C', 0);
-$pdf->Cell(40, 10, utf8_decode($datos_reporte->cantidad), 1, 0, 'C', 0);
+$pdf->Cell(50, 10, utf8_decode($datos_reporte->cantidad), 1, 0, 'C', 0);
 $pdf->Cell(40, 10, utf8_decode($datos_reporte->precio_producto), 1, 1, 'C', 0);
    }
 $i = $i + 1;
