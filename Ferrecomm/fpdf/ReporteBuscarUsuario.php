@@ -50,7 +50,7 @@ class PDF extends FPDF
       $this->SetTextColor(228, 100, 0);
       $this->Cell(90); // mover a la derecha
       $this->SetFont('Arial', 'B', 15);
-      $this->Cell(100, 10, utf8_decode("Reporte de productos "), 0, 1, 'C', 0);
+      $this->Cell(100, 10, utf8_decode("Reporte de Usuarios "), 0, 1, 'C', 0);
       $this->Ln(7);
 
       /* CAMPOS DE LA TABLA */
@@ -99,8 +99,8 @@ $pdf->SetDrawColor(163, 163, 163); //colorBorde
 $busqueda = strtolower($_REQUEST['busqueda']);
 if(empty($busqueda))
 {
-header("location: ../GestionUsuarios.php");
-} 
+  header("Location: ../GestionUsuarios.php");
+}
              
 
 $consulta_reporte_producto = $conexion->query("SELECT u.id_usuario, u.usuario, u.nombre_usuario, u.estado_usuario,  r.rol, 

@@ -147,7 +147,7 @@ if (!isset($_SESSION['usuario'])) {
             <?php
             /* include 'php/conexion.php';*/
             include 'conex.php';
-
+          
             //Paginador
             // $sqlregistre = mysqli_query($conex, "SELECT COUNT(*) AS total_registro FROM tbl_ms_usuario WHERE estado_usuario = 1");
             $sqlregistre = mysqli_query($conex, "SELECT COUNT(*) AS total_registro FROM tbl_inventario");
@@ -168,7 +168,7 @@ if (!isset($_SESSION['usuario'])) {
 
              
             $query = mysqli_query($conex, "SELECT i.id_inventario, p.id_producto, p.nombre_producto, c.nombre_categoria, p.unidad_medida,
-            i.cantidad,
+            p.cantidad_min, p.cantidad_max, i.cantidad,
             p.precio_producto
             FROM tbl_inventario i 
             INNER JOIN tbl_producto p on i.id_producto = p.id_producto 
@@ -204,7 +204,7 @@ if (!isset($_SESSION['usuario'])) {
                     <?php echo $data["unidad_medida"] ?>
                   </td>
                   <td>
-                    <?php echo $data["cantidad"] ?>
+                    <?php echo $data["cantidad"]?>
                   </td>
                   <td>
                     <?php echo $data["precio_producto"] ?>

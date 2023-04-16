@@ -129,7 +129,7 @@ if (!isset($_SESSION['usuario'])) {
       </head>
       <section id="container">
         <form action="buscar_usuario.php" method="get" class="form_search" style="background-color:#DCFFFE ;">
-          <input type="text" name="busqueda" style="text-transform:uppercase;" style="text-transform:uppercase;" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
+        <input type="text" name="busqueda" style="text-transform:uppercase; margin-left: 40px" id="busqueda" placeholder="Buscar..." value="<?php echo $busqueda; ?>">
           <button type="submit" value="Buscar" class="boton-buscar">Buscar</button>
           <a href="registro.php" class="btn_newproducto"> Crear usuario<i id="icon_nuevo"
               class='bx bxs-cart-add'></i></a>
@@ -137,10 +137,9 @@ if (!isset($_SESSION['usuario'])) {
               class='bx bxs-cart-add'></i></a>
           <a href="usuario_inactivo.php" class="btn_inactivo">Usuarios Inactivos<i id="icon_nuevo"
               class='bx bxs-cart-add'></i></a>
-          <a href="usuario_nuevo.php" class="btn_nuevorpoducto">Usuarios Nuevos<i id="icon_nuevo"
-              class='bx bxs-cart-add'></i></a>
+          <a href="usuario_nuevo.php" class="btn_nuevorpoducto">Usuarios Nuevos<i id="icon_nuevo" class='bx bxs-cart-add'></i></a>
               
-              <a href="../../fpdf/ReporteBuscarUsuario.php?buscar=<?php echo $busqueda ?>"   target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
+        <a href="../../../fpdf/ReporteBuscarUsuario.php?buscar=<?php echo $busqueda ?>"   target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
 
         </form>
