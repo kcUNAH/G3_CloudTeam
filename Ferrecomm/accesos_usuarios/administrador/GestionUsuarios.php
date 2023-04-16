@@ -98,7 +98,7 @@ if (!isset($_SESSION['usuario'])) {
     </ul>
   </div>
   <section class="home-section">
-    <div class="text">Bienvedio a la Gestión de Usuarios</div>
+  <h1>  Bienvenido a la Gestión de Usuarios <i class='bx bxs-user'></i></h1>
 
 
     <?php include 'conex.php'; ?>

@@ -25,7 +25,7 @@ if (!isset($_SESSION['usuario'])) {
   <meta charset="UTF-8">
   <link rel="stylesheet" href="../../accesos/CSS/EstiloMenu.css">
   <link rel="stylesheet" href="../../accesos/CSS/tablas.css">
-  <link rel="stylesheet" href="../../accesos/CSS/tablaproducto.css">
+  <link rel="stylesheet" href="../../accesos/CSS/tabla_inventario.css">
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -98,7 +98,7 @@ if (!isset($_SESSION['usuario'])) {
     </ul>
   </div>
   <section class="home-section">
-    <div class="text">INVENTARIO</div>
+  <h1>  Inventario <i class='bx bx-package'></i></h1>
 
 
     <?php include 'conex.php'; ?>
@@ -117,7 +117,7 @@ if (!isset($_SESSION['usuario'])) {
           <button type="submit" value="Buscar" class="boton-buscar">Buscar</button>
   
   <form action="./agregar_inventario.php" method="POST" enctype="multipart/form-data" id="formulario">
-  <a href="../../fpdf/ReporteInventario.php" class="pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
+  <a href="../../fpdf/ReporteInventario.php" target="_blank" class="pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
         </form>
 
@@ -139,6 +139,7 @@ if (!isset($_SESSION['usuario'])) {
                 
                 <th>Existencia</th>
                 <th>Precio </th>
+                <th>Acciones </th>
                 
 
 

@@ -106,12 +106,11 @@ if(empty($busqueda))
 $consulta_reporte_producto = $conexion->query("SELECT u.id_usuario, u.usuario, u.nombre_usuario, u.estado_usuario,  r.rol, 
 u.fecha_ultima_conexion,  u.fecha_vencimiento, u.correo_electronico, u.creado_por, 
 u.fecha_creacion, u.fecha_modificacion FROM tbl_ms_usuario u INNER JOIN tbl_ms_rol r on u.id_rol = r.id_rol
-WHERE (u.id_usuario LIKE '%$busqueda%' OR
+WHERE  (u.id_usuario LIKE '%$busqueda%' OR
                                   u.nombre_usuario LIKE '%$busqueda%' OR
-                                  u.estado_usuario LIKE '%$busqueda%' OR
                                   u.correo_electronico LIKE '%$busqueda%' OR
-                                  r.rol LIKE '%$busqueda%')
-                                   
+                                  r.rol LIKE '%$busqueda%' OR
+                                  u.estado_usuario ='ACTIVO')
                                   ");
 
 // AnchoCelda,AltoCelda,titulo,borde(1-0),saltoLinea(1-0),posicion(L-C-R),ColorFondo(1-0)

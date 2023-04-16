@@ -25,7 +25,7 @@ if (!isset($_SESSION['usuario'])) {
   <meta charset="UTF-8">
   <link rel="stylesheet" href="../../accesos/CSS/EstiloMenu.css">
   <link rel="stylesheet" href="../../accesos/CSS/tablas.css">
-  <link rel="stylesheet" href="../../accesos/CSS/tablaproducto.css">
+  <link rel="stylesheet" href="../../accesos/CSS/tabla_inventario.css">
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -98,7 +98,7 @@ if (!isset($_SESSION['usuario'])) {
     </ul>
   </div>
   <section class="home-section">
-    <div class="text">INVENTARIO</div>
+  <h1>  Inventario <i class='bx bx-package'></i></h1>
 
 
     <?php include 'conex.php'; ?>
@@ -122,7 +122,7 @@ if (!isset($_SESSION['usuario'])) {
       <form action="buscar_inventario.php" method="get" class="form_search" style="background-color:#DCFFFE ;">
           <input type="text" name="busqueda" style="text-transform:uppercase;" style="text-transform:uppercase;" style="margin-left: 40px" id="busqueda" placeholder="Buscar..." value="<?php echo $busqueda; ?>">
           <button type="submit" value="Buscar" class="boton-buscar">Buscar</button>
-          <a href="fpdf/InventarioBuscar.php?buscar=<?php echo $busqueda ?>"   target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
+          <a href="../../fpdf/InventarioBuscar.php?buscar=<?php echo $busqueda ?>"   target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
  
   
@@ -141,8 +141,7 @@ if (!isset($_SESSION['usuario'])) {
                 <th>Nombre Producto</th>
                 <th>Categoria</th>
                 <th>Medida</th>
-                <th>Cantidad Minima</th>
-                <th>Cantidad Maxima</th>
+                
                 <th>Existencia</th>
                 <th>Precio </th>
                 
@@ -242,12 +241,6 @@ if($busqueda == 'Construccion'){
                   </td>
                   <td>
                     <?php echo $data["unidad_medida"] ?>
-                  </td>
-                  <td>
-                    <?php echo $data["cantidad_min"] ?>
-                  </td>
-                  <td>
-                    <?php echo $data["cantidad_max"] ?>
                   </td>
                   <td>
                     <?php echo $data["cantidad"] ?>

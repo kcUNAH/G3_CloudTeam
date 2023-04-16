@@ -64,8 +64,8 @@ class PDF extends FPDF
      // $this->Cell(40, 10, utf8_decode('Descripcion'), 1, 0, 'C', 1);
       $this->Cell(40, 10, utf8_decode('Medida'), 1, 0, 'C', 1);
       //$this->Cell(30, 10, utf8_decode('Imagen'), 1, 0, 'C', 1);
-      $this->Cell(40, 10, utf8_decode('Cantidad Minima'), 1, 0, 'C', 1);
-      $this->Cell(40, 10, utf8_decode('Cantidad Maxima'), 1, 0, 'C', 1);
+      //$this->Cell(40, 10, utf8_decode('Cantidad Minima'), 1, 0, 'C', 1);
+      //$this->Cell(40, 10, utf8_decode('Cantidad Maxima'), 1, 0, 'C', 1);
       $this->Cell(40, 10, utf8_decode('Cantidad Existencia'), 1, 0, 'C', 1);
       $this->Cell(40, 10, utf8_decode('Precio'), 1, 1, 'C', 1);
    }
@@ -95,7 +95,7 @@ $pdf->SetFont('Arial', '', 12);
 $pdf->SetDrawColor(163, 163, 163); //colorBorde
 
 
-$busqueda = strtolower($_REQUEST['busqueda']);
+$busqueda = strtolower($_REQUEST['buscar']);
       if(empty($busqueda))
       {
         header("Location: Inventario.php");
@@ -125,8 +125,8 @@ $pdf->Cell(40, 10, utf8_decode($datos_reporte->nombre_producto), 1, 0, 'C', 0);
 $pdf->Cell(40, 10, utf8_decode($datos_reporte->nombre_categoria), 1, 0, 'C', 0);
 //$pdf->Multicell(20, 7, utf8_decode($datos_reporte->descripcion_producto), 1, 'J', false);
 $pdf->Cell(40, 10, utf8_decode($datos_reporte->unidad_medida), 1, 0, 'C', 0);
-$pdf->Cell(40, 10, utf8_decode($datos_reporte->cantidad_min), 1, 0, 'C', 0);
-$pdf->Cell(40, 10, utf8_decode($datos_reporte->cantidad_max), 1, 0, 'C', 0);
+//$pdf->Cell(40, 10, utf8_decode($datos_reporte->cantidad_min), 1, 0, 'C', 0);
+//$pdf->Cell(40, 10, utf8_decode($datos_reporte->cantidad_max), 1, 0, 'C', 0);
 $pdf->Cell(40, 10, utf8_decode($datos_reporte->cantidad), 1, 0, 'C', 0);
 $pdf->Cell(40, 10, utf8_decode($datos_reporte->precio_producto), 1, 1, 'C', 0);
    }

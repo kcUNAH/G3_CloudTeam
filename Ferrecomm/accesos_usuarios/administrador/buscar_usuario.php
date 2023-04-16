@@ -98,7 +98,7 @@ if (!isset($_SESSION['usuario'])) {
     </ul>
   </div>
   <section class="home-section">
-    <div class="text">Bienvenido a la Gestión de Usuarios</div>
+  <h1>  Bienvenido a la Gestión de Usuarios <i class='bx bxs-user'></i></h1>
 
 
     <?php include 'conex.php'; ?>
@@ -133,7 +133,7 @@ if (!isset($_SESSION['usuario'])) {
               class='bx bxs-cart-add'></i></a>
           <a href="usuario_nuevo.php" class="btn_nuevorpoducto">Usuarios Nuevos<i id="icon_nuevo" class='bx bxs-cart-add'></i></a>
               
-          <a href="../../fpdf/ReporteInventarioBuscar.php?"   target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
+          <a href="../../fpdf/ReporteBuscarUsuario.php?buscar=<?php echo $busqueda ?>"  target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
         </form>
 
@@ -146,7 +146,7 @@ if (!isset($_SESSION['usuario'])) {
           <table>
             <thead>
               <tr>
-                <th>Id</th>
+                
                 <th>Usuario</th>
                 <th>Nombre</th>
                 <th>Rol</th>
@@ -220,9 +220,7 @@ if (!isset($_SESSION['usuario'])) {
                 ?>
 
                 <tr>
-                  <td>
-                    <?php echo $data["id_usuario"] ?>
-                  </td>
+                  
                   <td>
                     <?php echo $data["usuario"] ?>
                   </td>

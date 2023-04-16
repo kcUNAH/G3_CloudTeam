@@ -334,7 +334,7 @@ if (!empty($_POST)) {
 
         <div class="form_register">
             
-            <hr>
+          
             <div class="alert">
                 <?php echo isset($alert) ? $alert : ''; ?>
             </div>
