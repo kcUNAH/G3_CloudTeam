@@ -126,16 +126,17 @@ if (!isset($_SESSION['usuario'])) {
 
         <?php include 'conex.php'; ?>
         <section id="container">
+          <br>
+          
 
-          <table>
+          <table style="text-align:center;">
             <thead>
               <tr>
                 
                 <th>Nombre Producto</th>
                 <th>Categoria</th>
                 <th>Medida</th>
-                <th>Cantidad Minima</th>
-                <th>Cantidad Maxima</th>
+                
                 <th>Existencia</th>
                 <th>Precio </th>
                 
@@ -167,7 +168,7 @@ if (!isset($_SESSION['usuario'])) {
 
              
             $query = mysqli_query($conex, "SELECT i.id_inventario, p.id_producto, p.nombre_producto, c.nombre_categoria, p.unidad_medida,
-            p.cantidad_min, p.cantidad_max, i.cantidad,
+            i.cantidad,
             p.precio_producto
             FROM tbl_inventario i 
             INNER JOIN tbl_producto p on i.id_producto = p.id_producto 
@@ -201,12 +202,6 @@ if (!isset($_SESSION['usuario'])) {
                   </td>
                   <td>
                     <?php echo $data["unidad_medida"] ?>
-                  </td>
-                  <td>
-                    <?php echo $data["cantidad_min"] ?>
-                  </td>
-                  <td>
-                    <?php echo $data["cantidad_max"] ?>
                   </td>
                   <td>
                     <?php echo $data["cantidad"] ?>

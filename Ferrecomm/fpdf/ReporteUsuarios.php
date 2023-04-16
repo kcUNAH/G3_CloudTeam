@@ -24,25 +24,25 @@ class PDF extends FPDF
       /* UBICACION */
       $this->Cell(10);  // mover a la derecha
       $this->SetFont('Arial', 'B', 10);
-      $this->Cell(96, 10, utf8_decode("Ubicación : "), 0, 0, '', 0);
+      $this->Cell(96, 10, utf8_decode("Ubicación : Los Planes Santa Maria, Carretera CA-7 "), 0, 0, '', 0);
       $this->Ln(5);
 
       /* TELEFONO */
       $this->Cell(10);  // mover a la derecha
       $this->SetFont('Arial', 'B', 10);
-      $this->Cell(59, 10, utf8_decode("Teléfono : "), 0, 0, '', 0);
+      $this->Cell(59, 10, utf8_decode("Teléfono : 9825-5333 "), 0, 0, '', 0);
       $this->Ln(5);
 
       /* COREEO */
       $this->Cell(10);  // mover a la derecha
       $this->SetFont('Arial', 'B', 10);
-      $this->Cell(85, 10, utf8_decode("Correo : "), 0, 0, '', 0);
+      $this->Cell(85, 10, utf8_decode("Correo : cloudteamg3@gmail.com "), 0, 0, '', 0);
       $this->Ln(5);
 
       /* TELEFONO */
       $this->Cell(10);  // mover a la derecha
       $this->SetFont('Arial', 'B', 10);
-      $this->Cell(85, 10, utf8_decode("Sucursal : "), 0, 0, '', 0);
+      $this->Cell(85, 10, utf8_decode("Sucursal : 1 "), 0, 0, '', 0);
       $this->Ln(10);
 
       /* TITULO DE LA TABLA */
@@ -50,7 +50,7 @@ class PDF extends FPDF
       $this->SetTextColor(228, 100, 0);
       $this->Cell(90); // mover a la derecha
       $this->SetFont('Arial', 'B', 15);
-      $this->Cell(100, 10, utf8_decode("Reporte de Usuarios "), 0, 1, 'C', 0);
+      $this->Cell(100, 10, utf8_decode("Reporte Usuarios "), 0, 1, 'C', 0);
       $this->Ln(7);
 
       /* CAMPOS DE LA TABLA */

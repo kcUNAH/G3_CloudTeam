@@ -24,25 +24,25 @@ class PDF extends FPDF
       /* UBICACION */
       $this->Cell(10);  // mover a la derecha
       $this->SetFont('Arial', 'B', 10);
-      $this->Cell(96, 10, utf8_decode("Ubicación : "), 0, 0, '', 0);
+      $this->Cell(96, 10, utf8_decode("Ubicación : Los Planes Santa Maria, Carretera CA-7 "), 0, 0, '', 0);
       $this->Ln(5);
 
       /* TELEFONO */
       $this->Cell(10);  // mover a la derecha
       $this->SetFont('Arial', 'B', 10);
-      $this->Cell(59, 10, utf8_decode("Teléfono : "), 0, 0, '', 0);
+      $this->Cell(59, 10, utf8_decode("Teléfono : 9825-5333 "), 0, 0, '', 0);
       $this->Ln(5);
 
       /* COREEO */
       $this->Cell(10);  // mover a la derecha
       $this->SetFont('Arial', 'B', 10);
-      $this->Cell(85, 10, utf8_decode("Correo : "), 0, 0, '', 0);
+      $this->Cell(85, 10, utf8_decode("Correo : cloudteamg3@gmail.com "), 0, 0, '', 0);
       $this->Ln(5);
 
       /* TELEFONO */
       $this->Cell(10);  // mover a la derecha
       $this->SetFont('Arial', 'B', 10);
-      $this->Cell(85, 10, utf8_decode("Sucursal : "), 0, 0, '', 0);
+      $this->Cell(85, 10, utf8_decode("Sucursal : 1 "), 0, 0, '', 0);
       $this->Ln(10);
 
       /* TITULO DE LA TABLA */
@@ -50,7 +50,7 @@ class PDF extends FPDF
       $this->SetTextColor(228, 100, 0);
       $this->Cell(90); // mover a la derecha
       $this->SetFont('Arial', 'B', 15);
-      $this->Cell(100, 10, utf8_decode("Reporte de Usuarios Activos"), 0, 1, 'C', 0);
+      $this->Cell(100, 10, utf8_decode("Reporte de productos "), 0, 1, 'C', 0);
       $this->Ln(7);
 
       /* CAMPOS DE LA TABLA */
@@ -86,7 +86,7 @@ class PDF extends FPDF
    }
 }
 
-include '../php/conexion.php';
+include '../php/conex.php';
 
 $pdf = new PDF();
 $pdf->AddPage("landscape"); /* aqui entran dos para parametros (horientazion,tamaño)V->portrait H->landscape tamaño (A3.A4.A5.letter.legal) */
@@ -95,12 +95,24 @@ $pdf->AliasNbPages(); //muestra la pagina / y total de paginas
 $i = 0;
 $pdf->SetFont('Arial', '', 9);
 $pdf->SetDrawColor(163, 163, 163); //colorBorde
+    
+$busqueda = strtolower($_REQUEST['busqueda']);
+if(empty($busqueda))
+{
+header("location: ../GestionUsuarios.php");
+} 
+             
 
-$consulta_reporte_producto = $conexion->query(" SELECT u.id_usuario, u.usuario, u.nombre_usuario, u.estado_usuario,  r.rol, 
+$consulta_reporte_producto = $conexion->query("SELECT u.id_usuario, u.usuario, u.nombre_usuario, u.estado_usuario,  r.rol, 
 u.fecha_ultima_conexion,  u.fecha_vencimiento, u.correo_electronico, u.creado_por, 
 u.fecha_creacion, u.fecha_modificacion FROM tbl_ms_usuario u INNER JOIN tbl_ms_rol r on u.id_rol = r.id_rol
-WHERE estado_usuario ='INACTIVO'
-ORDER BY u.id_usuario ASC");
+WHERE (u.id_usuario LIKE '%$busqueda%' OR
+                                  u.nombre_usuario LIKE '%$busqueda%' OR
+                                  u.estado_usuario LIKE '%$busqueda%' OR
+                                  u.correo_electronico LIKE '%$busqueda%' OR
+                                  r.rol LIKE '%$busqueda%')
+                                   
+                                  ");
 
 // AnchoCelda,AltoCelda,titulo,borde(1-0),saltoLinea(1-0),posicion(L-C-R),ColorFondo(1-0)
 
@@ -121,4 +133,4 @@ $i = $i + 1;
 
 
 
-$pdf->Output('ReporteUsuariosActivos.pdf', 'I');//nombreDescarga, Visor(I->visualizar - D->descargar)
+$pdf->Output('ReporteBuscarUsuarios.pdf', 'I');//nombreDescarga, Visor(I->visualizar - D->descargar)

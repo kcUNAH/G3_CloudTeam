@@ -114,7 +114,7 @@ if (!isset($_SESSION['usuario'])) {
 
       <head>
 
-       <a href="Productos.php"></a>
+       
         <link rel="stylesheet" href="./fontawesome-free/css/all.min.css">
         <div class="container-fluid" style=" background-image: URL(Ferrecomm\accesos\Imagenes\Logo.jpeg);"></div>
       </head>
@@ -124,7 +124,7 @@ if (!isset($_SESSION['usuario'])) {
           <button type="submit" value="Buscar" class="boton-buscar">Buscar</button>
   
   <form action="./agregar_inventario.php" method="POST" enctype="multipart/form-data" id="formulario">
-  <a href="../../fpdf/ReporteInventarioBuscar.php" class="pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
+  <a href="../../../fpdf/ReporteInventarioBuscar.php?buscar=<?php echo $busqueda ?>"   target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
         </form>
 

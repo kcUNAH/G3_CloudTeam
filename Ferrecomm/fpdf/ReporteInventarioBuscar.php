@@ -24,25 +24,25 @@ class PDF extends FPDF
       /* UBICACION */
       $this->Cell(10);  // mover a la derecha
       $this->SetFont('Arial', 'B', 10);
-      $this->Cell(96, 10, utf8_decode("Ubicación : "), 0, 0, '', 0);
+      $this->Cell(96, 10, utf8_decode("Ubicación : Los Planes Santa Maria, Carretera CA-7 "), 0, 0, '', 0);
       $this->Ln(5);
 
       /* TELEFONO */
       $this->Cell(10);  // mover a la derecha
       $this->SetFont('Arial', 'B', 10);
-      $this->Cell(59, 10, utf8_decode("Teléfono : "), 0, 0, '', 0);
+      $this->Cell(59, 10, utf8_decode("Teléfono : 9825-5333 "), 0, 0, '', 0);
       $this->Ln(5);
 
       /* COREEO */
       $this->Cell(10);  // mover a la derecha
       $this->SetFont('Arial', 'B', 10);
-      $this->Cell(85, 10, utf8_decode("Correo : "), 0, 0, '', 0);
+      $this->Cell(85, 10, utf8_decode("Correo : cloudteamg3@gmail.com "), 0, 0, '', 0);
       $this->Ln(5);
 
       /* TELEFONO */
       $this->Cell(10);  // mover a la derecha
       $this->SetFont('Arial', 'B', 10);
-      $this->Cell(85, 10, utf8_decode("Sucursal : "), 0, 0, '', 0);
+      $this->Cell(85, 10, utf8_decode("Sucursal : 1 "), 0, 0, '', 0);
       $this->Ln(10);
 
       /* TITULO DE LA TABLA */
@@ -50,7 +50,7 @@ class PDF extends FPDF
       $this->SetTextColor(228, 100, 0);
       $this->Cell(90); // mover a la derecha
       $this->SetFont('Arial', 'B', 15);
-      $this->Cell(100, 10, utf8_decode("Reporte de Inventario "), 0, 1, 'C', 0);
+      $this->Cell(100, 10, utf8_decode("Reporte Inventario "), 0, 1, 'C', 0);
       $this->Ln(7);
 
       /* CAMPOS DE LA TABLA */
@@ -94,13 +94,26 @@ $i = 0;
 $pdf->SetFont('Arial', '', 12);
 $pdf->SetDrawColor(163, 163, 163); //colorBorde
 
-$consulta_reporte_producto = $conexion->query(" SELECT i.id_inventario, p.id_producto, p.nombre_producto, c.nombre_categoria, p.unidad_medida,
-p.cantidad_min, p.cantidad_max, i.cantidad, 
+$busqueda = strtolower($_REQUEST['buscar']);
+if(empty($busqueda))
+{
+ header("location: ../Inventario.php");
+}
+
+
+$consulta_reporte_producto = $conexion->query("SELECT i.id_inventario, p.id_producto, p.nombre_producto, c.nombre_categoria, p.unidad_medida,
+p.cantidad_min, p.cantidad_max, i.cantidad,
 p.precio_producto
-            FROM tbl_inventario i 
-            INNER JOIN tbl_producto p on i.id_producto = p.id_producto 
-            INNER JOIN tbl_categoria c on p.id_categoria = c.id_categoria 
-            ORDER BY i.id_inventario ASC ");
+FROM tbl_inventario i 
+INNER JOIN tbl_producto p on i.id_producto = p.id_producto 
+INNER JOIN tbl_categoria c on p.id_categoria = c.id_categoria 
+WHERE (p.nombre_producto LIKE '%$busqueda%' OR
+        p.unidad_medida LIKE '%$busqueda%' OR
+        p.cantidad_min LIKE '%$busqueda%' OR
+        p.cantidad_max  LIKE '%$busqueda%' OR
+        p.precio_producto LIKE '%$busqueda%' OR
+        c.nombre_categoria LIKE '%$busqueda%')
+         ");
 
 // AnchoCelda,AltoCelda,titulo,borde(1-0),saltoLinea(1-0),posicion(L-C-R),ColorFondo(1-0)
 

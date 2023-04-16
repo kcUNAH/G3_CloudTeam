@@ -24,25 +24,25 @@ class PDF extends FPDF
       /* UBICACION */
       $this->Cell(10);  // mover a la derecha
       $this->SetFont('Arial', 'B', 10);
-      $this->Cell(96, 10, utf8_decode("Ubicación : "), 0, 0, '', 0);
+      $this->Cell(96, 10, utf8_decode("Ubicación : Los Planes Santa Maria, Carretera CA-7 "), 0, 0, '', 0);
       $this->Ln(5);
 
       /* TELEFONO */
       $this->Cell(10);  // mover a la derecha
       $this->SetFont('Arial', 'B', 10);
-      $this->Cell(59, 10, utf8_decode("Teléfono : "), 0, 0, '', 0);
+      $this->Cell(59, 10, utf8_decode("Teléfono : 9825-5333 "), 0, 0, '', 0);
       $this->Ln(5);
 
       /* COREEO */
       $this->Cell(10);  // mover a la derecha
       $this->SetFont('Arial', 'B', 10);
-      $this->Cell(85, 10, utf8_decode("Correo : "), 0, 0, '', 0);
+      $this->Cell(85, 10, utf8_decode("Correo : cloudteamg3@gmail.com "), 0, 0, '', 0);
       $this->Ln(5);
 
       /* TELEFONO */
       $this->Cell(10);  // mover a la derecha
       $this->SetFont('Arial', 'B', 10);
-      $this->Cell(85, 10, utf8_decode("Sucursal : "), 0, 0, '', 0);
+      $this->Cell(85, 10, utf8_decode("Sucursal : 1 "), 0, 0, '', 0);
       $this->Ln(10);
 
       /* TITULO DE LA TABLA */
@@ -50,7 +50,7 @@ class PDF extends FPDF
       $this->SetTextColor(228, 100, 0);
       $this->Cell(90); // mover a la derecha
       $this->SetFont('Arial', 'B', 15);
-      $this->Cell(100, 10, utf8_decode("Reporte de Inventario "), 0, 1, 'C', 0);
+      $this->Cell(100, 10, utf8_decode("Reporte de productos "), 0, 1, 'C', 0);
       $this->Ln(7);
 
       /* CAMPOS DE LA TABLA */
@@ -59,13 +59,13 @@ class PDF extends FPDF
       $this->SetTextColor(255, 255, 255); //colorTexto
       $this->SetDrawColor(163, 163, 163); //colorBorde
       $this->SetFont('Arial', 'B', 11);
-      $this->Cell(40,10, utf8_decode('Nombre'), 1, 0, 'C', 1);
-      $this->Cell(40, 10, utf8_decode('Categoria'), 1, 0, 'C', 1);
+      $this->Cell(70,10, utf8_decode('Nombre'), 1, 0, 'C', 1);
+      $this->Cell(70, 10, utf8_decode('Categoria'), 1, 0, 'C', 1);
      // $this->Cell(40, 10, utf8_decode('Descripcion'), 1, 0, 'C', 1);
       $this->Cell(40, 10, utf8_decode('Medida'), 1, 0, 'C', 1);
       //$this->Cell(30, 10, utf8_decode('Imagen'), 1, 0, 'C', 1);
-      $this->Cell(40, 10, utf8_decode('Cantidad Minima'), 1, 0, 'C', 1);
-      $this->Cell(40, 10, utf8_decode('Cantidad Maxima'), 1, 0, 'C', 1);
+     // $this->Cell(40, 10, utf8_decode('Cantidad Minima'), 1, 0, 'C', 1);
+      //$this->Cell(40, 10, utf8_decode('Cantidad Maxima'), 1, 0, 'C', 1);
       $this->Cell(40, 10, utf8_decode('Cantidad Existencia'), 1, 0, 'C', 1);
       $this->Cell(40, 10, utf8_decode('Precio'), 1, 1, 'C', 1);
    }
@@ -95,7 +95,7 @@ $pdf->SetFont('Arial', '', 12);
 $pdf->SetDrawColor(163, 163, 163); //colorBorde
 
 $consulta_reporte_producto = $conexion->query(" SELECT i.id_inventario, p.id_producto, p.nombre_producto, c.nombre_categoria, p.unidad_medida,
-p.cantidad_min, p.cantidad_max, i.cantidad, 
+i.cantidad, 
 p.precio_producto
             FROM tbl_inventario i 
             INNER JOIN tbl_producto p on i.id_producto = p.id_producto 
@@ -105,12 +105,12 @@ p.precio_producto
 // AnchoCelda,AltoCelda,titulo,borde(1-0),saltoLinea(1-0),posicion(L-C-R),ColorFondo(1-0)
 
 while ($datos_reporte = $consulta_reporte_producto->fetch_object()) {  
-$pdf->Cell(40, 10, utf8_decode($datos_reporte->nombre_producto), 1, 0, 'C', 0);
-$pdf->Cell(40, 10, utf8_decode($datos_reporte->nombre_categoria), 1, 0, 'C', 0);
+$pdf->Cell(70, 10, utf8_decode($datos_reporte->nombre_producto), 1, 0, 'C', 0);
+$pdf->Cell(70, 10, utf8_decode($datos_reporte->nombre_categoria), 1, 0, 'C', 0);
 //$pdf->Multicell(20, 7, utf8_decode($datos_reporte->descripcion_producto), 1, 'J', false);
 $pdf->Cell(40, 10, utf8_decode($datos_reporte->unidad_medida), 1, 0, 'C', 0);
-$pdf->Cell(40, 10, utf8_decode($datos_reporte->cantidad_min), 1, 0, 'C', 0);
-$pdf->Cell(40, 10, utf8_decode($datos_reporte->cantidad_max), 1, 0, 'C', 0);
+//$pdf->Cell(40, 10, utf8_decode($datos_reporte->cantidad_min), 1, 0, 'C', 0);
+//$pdf->Cell(40, 10, utf8_decode($datos_reporte->cantidad_max), 1, 0, 'C', 0);
 $pdf->Cell(40, 10, utf8_decode($datos_reporte->cantidad), 1, 0, 'C', 0);
 $pdf->Cell(40, 10, utf8_decode($datos_reporte->precio_producto), 1, 1, 'C', 0);
    }

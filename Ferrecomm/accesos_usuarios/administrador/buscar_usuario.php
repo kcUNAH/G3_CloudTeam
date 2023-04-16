@@ -140,7 +140,7 @@ if (!isset($_SESSION['usuario'])) {
           <a href="usuario_nuevo.php" class="btn_nuevorpoducto">Usuarios Nuevos<i id="icon_nuevo"
               class='bx bxs-cart-add'></i></a>
               
-          <a href="#" class="btn_pdf"> PDF <i class='bx bxs-file-pdf'></i></a>
+              <a href="../../fpdf/ReporteBuscarUsuario.php?buscar=<?php echo $busqueda ?>"   target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
 
         </form>

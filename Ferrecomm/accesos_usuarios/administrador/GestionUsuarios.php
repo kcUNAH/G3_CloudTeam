@@ -119,7 +119,7 @@ if (!isset($_SESSION['usuario'])) {
   <a href="usuario_activo.php" class="btnactivo" > Usuarios Activos<i id="icon_nuevo" class='bx bx-user-check'></i></a>
   <a href="usuario_inactivo.php" class="btninactivo">Usuarios Inactivos<i id="icon_nuevo" class='bx bx-user-x'></i></a>
   <a href="usuario_nuevo.php" class="btn_nuevorpoducto" >Usuarios Nuevos<i id="icon_nuevo" class='bx bxs-user-plus'></i></a>
-  <a href="../../fpdf/ReporteUsuarios.php" class="pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
+   <a href="../../fpdf/ReporteUsuarios.php?"   target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
 
 
@@ -130,7 +130,7 @@ if (!isset($_SESSION['usuario'])) {
 
         <?php include 'conex.php'; ?>
         <section id="container">
-
+<br>
           <table>
             <thead>
               <tr>
