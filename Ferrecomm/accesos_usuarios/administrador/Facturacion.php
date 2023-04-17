@@ -98,7 +98,7 @@
                         <td><input type="text" name="txt_cant_producto" id="txt_cant_producto" value="0" min="1" disabled></td>
                         <td id="txt_Precio" class="textright">0.00</td>
                         <td id="txt_Precio_total" class="textright">0.00</td>
-                        <td><a href="#" class="btn_accion" id="add_product_venta"><i class="fas fa-plus"></i>AGR</a></td>
+                        <td><a href="#" class="btn_accion" id="add_product_venta"><i class="fas fa-plus"></i></a></td>
                     </tr>
                     <tr>
                         <th>Codigo</th>

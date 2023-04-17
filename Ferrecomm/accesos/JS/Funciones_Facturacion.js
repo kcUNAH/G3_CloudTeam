@@ -26,7 +26,6 @@ $(document).ready(function () {
             data: { action: action, cliente: cl },
 
             success: function (response) {
-                console.log(response);
 
                 if (response == 0) {
                     $('#idcliente').val('');
@@ -263,28 +262,27 @@ $(document).ready(function () {
 
 
     //anular venta 
-    $('#btn_anular_venta').click(function (e){
+    $('#btn_anular_venta').click(function (e) {
         e.preventDefault();
 
         var rows = $('#detalle_venta tr').length;
-        if(rows > 0)
-        {
+        if (rows > 0) {
             var action = 'anularVenta';
 
             $.ajax({
                 url: '../../accesos_usuarios/administrador/ajax.php',
                 type: "POST",
                 async: true,
-                data: { action: action},
-    
+                data: { action: action },
+
                 success: function (response) {
                     if (response != 'error') {
-                        location.reload(); 
+                        location.reload();
                     }
-                     
+
                 },
                 error: function (error) {
-    
+
                 }
             });
 
@@ -292,56 +290,105 @@ $(document).ready(function () {
         }
 
 
-    }) 
+    })
 
+    //btn_facturar_venta
+    $('#btn_facturar_venta').click(function (e) {
+        e.preventDefault();
+
+        var rows = $('#detalle_venta tr').length;
+        if (rows > 0) {
+            var action = 'procesar_venta';
+            var codcliente = $('#idcliente').val();
+            var today = new Date();
+
+            var fecha = new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString();
+
+            $.ajax({
+                url: '../../accesos_usuarios/administrador/ajax.php',
+                type: "POST",
+                async: true,
+                data: { action: action, codcliente: codcliente, fecha: fecha },
+
+                success: function (response) {
+                    if (response != 'error') {
+                        var info = JSON.parse(response);
+                        generarPDF(info.id_cliente, info.numero_factura)
+                        location.reload();
+
+                    } else {
+                        console.log('no data')
+                    }
+
+                },
+                error: function (error) {
+
+                }
+            });
+
+
+        }
+
+
+    })
 
 
 
     //fin del ready 
 });
 
+// funcion imprimir factura 
+function generarPDF(cliente, factura) {
+    var ancho = 1000;
+    var alto = 800;
+    var x = parseInt((window.screen.width / 2) - (ancho/2));
+    var y = parseInt((window.screen.height / 2) - (alto/2));
+    $url = '../../factura/generaFactura.php?cl='+cliente+'&f='+factura;
+    window.open($url, "Factura","left="+x+",top="+y+",height="+alto+",width="+ancho+",scrollbar=si,location=no,resizable=si,menubar=no");
+}
+
 
 
 //funcion eliminar producto
-function del_product_detalle(id_venta_detalle){
-    var action = 'delProducDetalle'; 
-    var id_detalle = id_venta_detalle; 
+function del_product_detalle(id_venta_detalle) {
+    var action = 'delProducDetalle';
+    var id_detalle = id_venta_detalle;
 
 
     $.ajax({
         url: '../../accesos_usuarios/administrador/ajax.php',
         type: "POST",
         async: true,
-        data: { action: action, id_detalle : id_detalle},
+        data: { action: action, id_detalle: id_detalle },
 
         success: function (response) {
             if (response != 'error') {
-            var info = JSON.parse(response);
-            $('#detalle_venta').html(info.detalle);
-            $('#detalle_totales').html(info.totales);
-             // vaciar campos 
-             $('#txt_cod_producto').val('');
-             $('#txt_descripcion').html('--');
-             $('#txt_cant_producto').val('0');
-             $('#txt_Precio').html('0.00');
-             $('#txt_Precio_total').html('0.00');
-             $('#txt_existencia').html('--');
+                var info = JSON.parse(response);
+                $('#detalle_venta').html(info.detalle);
+                $('#detalle_totales').html(info.totales);
+                // vaciar campos 
+                $('#txt_cod_producto').val('');
+                $('#txt_descripcion').html('--');
+                $('#txt_cant_producto').val('0');
+                $('#txt_Precio').html('0.00');
+                $('#txt_Precio_total').html('0.00');
+                $('#txt_existencia').html('--');
 
-             // bloquear impunt 
-             $('#txt_cant_producto').attr('disabled', 'disabled');
+                // bloquear impunt 
+                $('#txt_cant_producto').attr('disabled', 'disabled');
 
-             //ocultar boton agregar 
-             $('#add_product_venta').slideUp();
+                //ocultar boton agregar 
+                $('#add_product_venta').slideUp();
 
-            }else{
-            $('#detalle_venta').html('');
-            $('#detalle_totales').html('');
+            } else {
+                $('#detalle_venta').html('');
+                $('#detalle_totales').html('');
 
             }
 
             viewProcesar();
- 
-            
+
+
         },
         error: function (error) {
 
@@ -355,26 +402,26 @@ function del_product_detalle(id_venta_detalle){
 
 
 //mostrar/ ocultar boton procesar 
-function viewProcesar(){
-    if($('#detalle_venta tr').length > 0){
+function viewProcesar() {
+    if ($('#detalle_venta tr').length > 0) {
         $('#btn_facturar_venta').show();
-    }else{
+    } else {
         $('#btn_facturar_venta').hide();
     }
 }
 
 
 // funcion donde mostrara los detalles de la factura 
-function searchfordetalle(id){
+function searchfordetalle(id) {
     var action = 'searchfordetalle';
-    var user = id; 
+    var user = id;
 
 
     $.ajax({
         url: '../../accesos_usuarios/administrador/ajax.php',
         type: "POST",
         async: true,
-        data: { action: action, user : user},
+        data: { action: action, user: user },
 
         success: function (response) {
             if (response != 'error') {
@@ -393,7 +440,4 @@ function searchfordetalle(id){
 
 
 }
-
-
-
 
