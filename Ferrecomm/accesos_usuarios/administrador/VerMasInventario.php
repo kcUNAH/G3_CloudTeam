@@ -117,7 +117,7 @@ if (!isset($_SESSION['usuario'])) {
           <button type="submit" value="Buscar" class="boton-buscar">Buscar</button>
           
   <form action="./agregar_inventario.php" method="POST" enctype="multipart/form-data" id="formulario">
-  <a href="../../fpdf/ReporteInventario.php" target="_blank" class="pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
+  <a href="../../fpdf/Reporte_Historial_Inventario.php" target="_blank" class="pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
         </form>
 
