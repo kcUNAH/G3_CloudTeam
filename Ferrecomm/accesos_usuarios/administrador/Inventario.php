@@ -140,7 +140,7 @@ if (!isset($_SESSION['usuario'])) {
                 <th>Existencia</th>
                 <th>Precio </th>
                 <th>Acciones </th>
-                
+                <th>Historial</th>
 
 
               </tr>
@@ -229,16 +229,11 @@ if (!isset($_SESSION['usuario'])) {
                   <td>
                     <?php echo $color ?>
                   </td>
-                 
-                  <!--  
                   <td>
-                     <a class="link_factura" href="#"><i class='bx bx-check-double'></i></i></a>
-                    <a class="link_edit" href="editar.php?id=<?php echo $data["id_inventario"]; ?>"><i
-                        class='bx bx-edit'></i></a>
-                    <a class="link_delete" href="elim_usuario.php?id=<?php echo $data["id_inventario"]; ?>"><i
-                        class='bx bxs-trash'></i></a>
-                  </td>
-                  -->
+                  <a href="VerMasInventario.php" class="btn_inventario" > Ver Más<i id="" class='b'></i></a>
+                </td>
+                 
+                 
 
                   <!--  <a class="link_edit" href="editar.php?id=<// echo $data["id_usuario"]; ?>">Editar</a> -->
                   <!--   <a class="link_delete" href="elim_usuario.php?id=<// echo $data["id_usuario"]; ?>">Eliminar</a>-->
@@ -357,6 +352,17 @@ button[type="submit"] {
 .navigation .page-number {
   margin: 0 0px;
   font-size: 10px;
+}
+.btn_inventario{
+  display: inline-block;
+    background: #306fe6;
+    color:rgb(255, 255, 255);
+    padding: 1px 5px;
+    border-radius: 10px;
+    margin: 3px;
+    text-decoration: none;
+
+
 }
 .btn_nuevorpoducto{
     display: inline-block;
