@@ -216,11 +216,11 @@ if (!isset($_SESSION['usuario'])) {
                   </td>
                   <?php 
                   
-                  if($data["cantidad"] >= $data["cantidad_max"] ){
+                  if($data["cantidad"] > $data["cantidad_max"] ){
                       $color = "<i style='background-color: #4CAF50'> Sobre paso </i>";
-                  }elseif($data["cantidad"] > $data["cantidad_min"] && $data["cantidad"] < $data["cantidad_max"]  ){
+                  }elseif($data["cantidad"] >= $data["cantidad_min"] && $data["cantidad"] <= $data["cantidad_max"]  ){
                     $color = "<i style='background-color: #FFFF00'> Esta en el rango </i>";
-                  }elseif($data["cantidad"] <= $data["cantidad_min"] ){
+                  }elseif($data["cantidad"] < $data["cantidad_min"] ){
                     $color = "<i style='background-color: #ff0000'> Deficiente </i>";
                   }
  
