@@ -346,9 +346,39 @@ if (!empty($_POST)) {
 
     }
 
+    //precesar Venta
+    if ($_POST['action'] == 'procesar_venta'){
+        if(empty($_POST['codcliente'])){
+            $codcliente = 1; 
+        }else{
+            $codcliente = $_POST['codcliente']; 
+        }
 
+        $token = md5($_SESSION['id_usuario']);
+        $cod_usuario = $_SESSION['id_usuario'];
+        $fecha = $_POST['fecha'];
 
+        $query = mysqli_query($conexion,"SELECT * FROM tbl_venta_detalle_temp WHERE token_usuario = '$token'  "); 
+        $result = mysqli_num_rows($query); 
+
+        if($result > 0 ){
+            $query_procesar = mysqli_query($conexion, "CALL procesar_venta($cod_usuario, $codcliente, '$token', '$fecha')");
+            $Result_detalle = mysqli_num_rows($query_procesar);
+
+            if ($Result_detalle > 0){
+                $data = mysqli_fetch_assoc($query_procesar);
+                echo json_encode($data, JSON_UNESCAPED_UNICODE);
+            }else{
+                echo 'error';
+            }
+        }else{
+            echo 'error';
+        }
+        mysqli_close($conexion);
+        exit;
+    }
 
 
 }
 exit;
+?>
