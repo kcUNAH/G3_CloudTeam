@@ -98,27 +98,34 @@ if (!isset($_SESSION['usuario'])) {
     </ul>
   </div>
   <section class="home-section">
-  <h1>Historial de Inventario <i class='bx bx-package'></i></h1>
+  <h1>  Historial de Inventario <i class='bx bx-package'></i></h1>
 
 
     <?php include 'conex.php'; ?>
     <section id="container">
-
+<!--  Botón busqueda de usuarios --> 
+<?php
+      $busqueda = strtolower($_REQUEST['busqueda']);
+      if(empty($busqueda))
+      {
+        header("Location: buscar_historial_inventario.php");
+      }
+      ?>
 
       <head>
 
-       <a href="Inventario.php"></a>
+       
         <link rel="stylesheet" href="./fontawesome-free/css/all.min.css">
         <div class="container-fluid" style=" background-image: URL(Ferrecomm\accesos\Imagenes\Logo.jpeg);"></div>
       </head>
       <section id="container"  >
-      <form action="buscar_historial_inventario.php" method="get" class="form_search" style="background-color:#DCFFFE ;">
-          <input type="text" name="busqueda" style="text-transform:uppercase;" style="text-transform:uppercase;" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
+      <form action="buscar_inventario.php" method="get" class="form_search" style="background-color:#DCFFFE ;">
+          <input type="text" name="busqueda" style="text-transform:uppercase;" style="text-transform:uppercase;" style="margin-left: 40px" id="busqueda" placeholder="Buscar..." value="<?php echo $busqueda; ?>">
           <button type="submit" value="Buscar" class="boton-buscar">Buscar</button>
-          
-  <form action="./agregar_inventario.php" method="POST" enctype="multipart/form-data" id="formulario">
-  <a href="../../fpdf/ReporteInventario.php" target="_blank" class="pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
+          <a href="../../fpdf/InventarioBuscar.php?buscar=<?php echo $busqueda ?>"   target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
+ 
+  
         </form>
 
 
@@ -126,12 +133,10 @@ if (!isset($_SESSION['usuario'])) {
 
         <?php include 'conex.php'; ?>
         <section id="container">
-          <br>
-          
 
-          <table style="text-align:center;">
+          <table>
             <thead>
-              <tr>
+            <tr>
                 <th> Producto</th>
                 <th> Usuario</th>
                 <th> Cantidad en Movimiento</th>
@@ -144,13 +149,44 @@ if (!isset($_SESSION['usuario'])) {
             <?php
             /* include 'php/conexion.php';*/
             include 'conex.php';
-         
+
             //Paginador
             // $sqlregistre = mysqli_query($conex, "SELECT COUNT(*) AS total_registro FROM tbl_ms_usuario WHERE estado_usuario = 1");
-            $sqlregistre = mysqli_query($conex, "SELECT COUNT(*) AS total_registro FROM tbl_mov_inventario");
-            $result_registre = mysqli_fetch_array($sqlregistre);
-            $total_registro = $result_registre['total_registro'];
+           // $sqlregistre = mysqli_query($conex, "SELECT COUNT(*) AS total_registro FROM tbl_inventario");
+           // $result_registre = mysqli_fetch_array($sqlregistre);
+           // $total_registro = $result_registre['total_registro'];
+//BUSQUEDA
+$movimiento = '';
+if($busqueda == 'Compra'){
 
+    $movimiento = "OR id_tipo_mov_invt LIKE '%1%' ";
+
+}else if($busqueda == 'Venta'){
+ 
+    $movimiento = "OR id_tipo_mov_invt LIKE '%2%' ";
+
+}else if($busqueda == 'Anular Venta'){
+ 
+    $movimiento = "OR id_tipo_mov_invt LIKE '%3%' ";
+   
+}else if($busqueda == 'Anuelar Compra'){
+
+    $movimiento = "OR id_tipo_mov_invt LIKE '%4%' ";
+
+}
+            
+    $sql_register =mysqli_query($conex,"SELECT COUNT(*) as total_registro FROM tbl_mov_inventario
+        WHERE (id_producto LIKE '%$busqueda%' OR
+                id_usuario LIKE '%$busqueda%' OR
+                cantidad_mov LIKE '%$busqueda%' OR
+                fecha_mov  LIKE '%$busqueda%' OR
+                comentario  LIKE '%$busqueda%'
+                $movimiento )  ");
+    $result_register = mysqli_fetch_array($sql_register);
+    $total_registro = $result_register['total_registro'];
+            
+            
+            
             $por_pagina = 10;
 
             if (empty($_GET['pagina'])) {
@@ -165,14 +201,29 @@ if (!isset($_SESSION['usuario'])) {
 
              
             $query = mysqli_query($conex, "SELECT m.id_mov_invent, p.id_producto,p.nombre_producto, u.id_usuario, u.nombre_usuario, 
-             m.cantidad_mov, h.id_tipo_mov_invt, h.movimiento, m.fecha_mov, m.comentario
-            FROM tbl_mov_inventario m 
-            INNER JOIN tbl_producto p on m.id_producto = p.id_producto 
-            INNER JOIN tbl_tipo_mov_invt h on m.id_tipo_mov_invt = h.id_tipo_mov_invt
-            INNER JOIN tbl_ms_usuario u on m.id_usuario = u.id_usuario
+            m.cantidad_mov, h.id_tipo_mov_invt, h.movimiento, m.fecha_mov, m.comentario
+           FROM tbl_mov_inventario m 
+           INNER JOIN tbl_producto p on m.id_producto = p.id_producto 
+           INNER JOIN tbl_tipo_mov_invt h on m.id_tipo_mov_invt = h.id_tipo_mov_invt
+           INNER JOIN tbl_ms_usuario u on m.id_usuario = u.id_usuario 
+            WHERE (p.nombre_producto LIKE '%$busqueda%' OR
+                    u.nombre_usuario LIKE '%$busqueda%' OR
+                    m.cantidad_mov LIKE '%$busqueda%' OR
+                    m.fecha_mov  LIKE '%$busqueda%' OR
+                    m.comentario  LIKE '%$busqueda%' OR
+                    h.movimiento LIKE '%$busqueda%')
             ORDER BY m.id_mov_invent ASC
             LIMIT $desde,$por_pagina");
 
+
+
+      //  $query = mysqli_query($conex,"SELECT p.id_producto, i.id_inventario, c.nombre_categoria, p.nombre_producto, p.descripcion_producto, 
+      //  p.precio_producto, p.img_producto, p.unidad_medida, p.cantidad_min, p.cantidad_max 
+       // FROM tbl_producto p 
+      //  INNER JOIN tbl_inventario i on p.id_inventario = p.id_inventario
+      //  INNER JOIN tbl_categoria c on p.id_categoria = c.id_categoria 
+       // ORDER BY p.id_producto ASC LIMIT $desde,$por_pagina;
+       // ");
 
             $result = mysqli_num_rows($query);
             if ($result > 0) { //si hay registros
@@ -182,7 +233,7 @@ if (!isset($_SESSION['usuario'])) {
 
                 <tr>
                   
-                  <td>
+                <td>
                     <?php echo $data["nombre_producto"] ?>
                   </td>
                   <td>
@@ -200,11 +251,9 @@ if (!isset($_SESSION['usuario'])) {
                   <td>
                     <?php echo $data["comentario"] ?>
                 </td>
+                  
                  
-                 
-
-                  <!--  <a class="link_edit" href="editar.php?id=<// echo $data["id_usuario"]; ?>">Editar</a> -->
-                  <!--   <a class="link_delete" href="elim_usuario.php?id=<// echo $data["id_usuario"]; ?>">Eliminar</a>-->
+                
 
                 </tr>
                 <?php
@@ -214,14 +263,20 @@ if (!isset($_SESSION['usuario'])) {
             ?>
 
           </table>
+   
+          <?php
+          if($total_registro !=0){
+
+          
+?>
           <div class="paginador">
             <ul>
             <?php
             if($pagina != 1) //Si la pagina es distinta a 1
             {
             ?>
-              <li><a href="?pagina=<?php echo 1;?>">|<</a></li>
-              <li><a href="?pagina=<?php echo $pagina -1;?>"><<</a></li>
+              <li><a href="?pagina=<?php echo 1;?>&busqueda=<?php echo $busqueda;?>">|<</a></li>
+              <li><a href="?pagina=<?php echo $pagina -1;?>&busqueda=<?php echo $busqueda;?>"><<</a></li>
               <?php
               }
               for ($i = 1; $i <= $total_paginas; $i++) {
@@ -229,18 +284,21 @@ if (!isset($_SESSION['usuario'])) {
                 if($i == $pagina){
                   echo '<li class="pageSelected">'.$i.'</a></li>';
                 }else{
-                  echo '<li><a href="?pagina='.$i.'">'.$i.'</a></li>';
+                  echo '<li><a href="?pagina='.$i.'&busqueda='.$busqueda.'">'.$i.'</a></li>';
                 }
               }
             if($pagina != $total_paginas){
             ?>
-              <li><a href="?pagina=<?php echo  $pagina + 1; ?>">>></a></li>
-              <li><a href="?pagina=<?php echo $total_paginas;?>">>|</a></li>
+              <li><a href="?pagina=<?php echo  $pagina + 1; ?>&busqueda=<?php echo $busqueda;?>">>></a></li>
+              <li><a href="?pagina=<?php echo $total_paginas;?>&busqueda=<?php echo $busqueda;?>">>|</a></li>
               <?php 
             } 
             ?>
             </ul>
           </div>
+          <?php
+          }
+          ?>
 
         </section>
 
@@ -320,17 +378,6 @@ button[type="submit"] {
 .navigation .page-number {
   margin: 0 0px;
   font-size: 10px;
-}
-.btn_inventario{
-  display: inline-block;
-    background: #306fe6;
-    color:rgb(255, 255, 255);
-    padding: 1px 5px;
-    border-radius: 10px;
-    margin: 3px;
-    text-decoration: none;
-
-
 }
 .btn_nuevorpoducto{
     display: inline-block;
