@@ -115,7 +115,7 @@ if (!isset($_SESSION['usuario'])) {
       <form action="buscar_inventario.php" method="get" class="form_search" style="background-color:#DCFFFE ;">
           <input type="text" name="busqueda" style="text-transform:uppercase;" style="text-transform:uppercase;" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
           <button type="submit" value="Buscar" class="boton-buscar">Buscar</button>
-  
+          
   <form action="./agregar_inventario.php" method="POST" enctype="multipart/form-data" id="formulario">
   <a href="../../fpdf/ReporteInventario.php" target="_blank" class="pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
@@ -132,13 +132,13 @@ if (!isset($_SESSION['usuario'])) {
           <table style="text-align:center;">
             <thead>
               <tr>
-                <th>Producto</th>
-                <th>Usuario</th>
-                <th>Cantidad de Movimiento</th>
+                <th> Producto</th>
+                <th> Usuario</th>
+                <th> Cantidad en Movimiento</th>
                 
-                <th>Tipo de movimiento</th>
-                <th>Fecha de movimiento </th>
-                <th>Comentario </th>
+                <th> Tipo de movimiento</th>
+                <th> Fecha de movimiento </th>
+                <th> Comentario </th>
               </tr>
             </thead>
             <?php
@@ -164,11 +164,12 @@ if (!isset($_SESSION['usuario'])) {
 
 
              
-            $query = mysqli_query($conex, "SELECT m.id_mov_invent, p.id_producto,p.nombre_producto, 
-             m.cantidad_mov, t.id_tipo_mov_invt, m.fecha_mov, m.comentario
+            $query = mysqli_query($conex, "SELECT m.id_mov_invent, p.id_producto,p.nombre_producto, u.id_usuario, u.nombre_usuario, 
+             m.cantidad_mov, h.id_tipo_mov_invt, m.fecha_mov, m.comentario
             FROM tbl_mov_inventario m 
             INNER JOIN tbl_producto p on m.id_producto = p.id_producto 
-            INNER JOIN tbl_tipo_mov_invt t on m.id_tipo_mov_invt = t.id_tipo_mov_invt
+            INNER JOIN tbl_tipo_mov_invt h on m.id_tipo_mov_invt = h.id_tipo_mov_invt
+            INNER JOIN tbl_ms_usuario u on m.id_usuario = u.id_usuario
             ORDER BY m.id_mov_invent ASC
             LIMIT $desde,$por_pagina");
 

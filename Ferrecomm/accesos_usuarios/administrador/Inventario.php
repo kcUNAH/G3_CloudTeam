@@ -115,7 +115,7 @@ if (!isset($_SESSION['usuario'])) {
       <form action="buscar_inventario.php" method="get" class="form_search" style="background-color:#DCFFFE ;">
           <input type="text" name="busqueda" style="text-transform:uppercase;" style="text-transform:uppercase;" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
           <button type="submit" value="Buscar" class="boton-buscar">Buscar</button>
-  
+          <a href="VerMasInventario.php" class="btn_nuevorpoducto" > Historial de Inventario<i id="" class='bx bx-package'></i></a>
   <form action="./agregar_inventario.php" method="POST" enctype="multipart/form-data" id="formulario">
   <a href="../../fpdf/ReporteInventario.php" target="_blank" class="pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
