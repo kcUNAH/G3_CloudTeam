@@ -155,7 +155,7 @@ if(!isset ($_SESSION['usuario'])){
                                 <select name="tipo_comprobante" id="tipo_comprobante" class="form-control selectpicker"
                                     required="">
                                     <option value="Boleta">Boleta</option>
-                                    <option value="Factura">Factura</option>
+                                    <option selected value="Factura">Factura</option>
                                     <option value="Ticket">Ticket</option>
                                 </select>
                             </div>
@@ -167,7 +167,7 @@ if(!isset ($_SESSION['usuario'])){
                             </div>
                             <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
                                 <label>Impuesto:</label>
-                                <input type="text" class="form-control" name="impuesto" id="impuesto">
+                                <input type="text" class="form-control" name="impuesto" id="impuesto" readonly >
                             </div>
                             <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                 <a data-toggle="modal" href="#myModal">
@@ -186,10 +186,11 @@ if(!isset ($_SESSION['usuario'])){
                                         <th>Cantidad</th>
                                         <th>Precio Compra</th>
                                         <th> subtotal</th>
-                                        <th>Total</th>
+                                        <th>ISV</th>
                                     </thead>
                                     <tfoot>
                                         <th>TOTAL</th>
+                                        <th></th>
                                         <th></th>
                                         <th></th>
                                         <th></th>

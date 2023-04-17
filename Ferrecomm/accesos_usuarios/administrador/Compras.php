@@ -97,13 +97,7 @@ margin-left: -3px;">
                           <option value="Ticket">Ticket</option>
                         </select>
                       </div>
-                      <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        <label>Estado de compra:</label>
-                        <select id="estadoc" name="estadoc" class="form-control selectpicker"
-                          data-live-search="true"   >
-
-                        </select>
-                      </div>
+                
 
                       <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
                         <label>Nº Compra:</label>
@@ -138,6 +132,7 @@ margin-left: -3px;">
                             <th></th>
                             <th></th>
                             <th></th>
+                            
                             <th>
                               <h4 id="total">L. 0.00</h4><input type="hidden" name="total_compra" id="total_compra">
                             </th>
@@ -149,12 +144,7 @@ margin-left: -3px;">
                       </div>
 
                       <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <button class="btn btn-primary" onclick="guardaryeditar()" type="submit" id="btnGuardar"><i
-                            class="fa fa-save"></i>
-                          Guardar</button>
-                          <button class="btn btn-primary" onclick="actualizar()" type="submit" id="btnact"><i
-                            class="fa fa-save"></i>
-                          Actualizar compra</button>
+                    
                           <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                       </div>
                     </form>
@@ -256,7 +246,7 @@ margin-left: -3px;">
     <main class="app-content" style="background-color: #DCFFFE;">
     <div class="center">    
   <a href="nueva_compra.php" class="btn_newproducto">Nueva Compra<i id="icon_nuevo" class='bx bxs-cart-add'></i></a>
-  <a href="../../fpdf/Reportecompras.php" target="_blank" class="btn_pdf">Generar PDF<i id="" class=''></i></a>
+  <a onclick="generarpdf()" target="_blank" class="btn_pdf">Generar PDF<i id="" class=''></i></a>
 </div>
 
       <div class="row">
