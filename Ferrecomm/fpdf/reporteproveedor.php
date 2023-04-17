@@ -24,25 +24,25 @@ class PDF extends FPDF
       /* UBICACION */
       $this->Cell(10);  // mover a la derecha
       $this->SetFont('Arial', 'B', 10);
-      $this->Cell(96, 10, utf8_decode("Ubicación : "), 0, 0, '', 0);
+      $this->Cell(96, 10, utf8_decode("Ubicación : Los Planes Santa Maria, Carretera CA-7 "), 0, 0, '', 0);
       $this->Ln(5);
 
       /* TELEFONO */
       $this->Cell(10);  // mover a la derecha
       $this->SetFont('Arial', 'B', 10);
-      $this->Cell(59, 10, utf8_decode("Teléfono : "), 0, 0, '', 0);
+      $this->Cell(59, 10, utf8_decode("Teléfono : 9825-5333 "), 0, 0, '', 0);
       $this->Ln(5);
 
       /* COREEO */
       $this->Cell(10);  // mover a la derecha
       $this->SetFont('Arial', 'B', 10);
-      $this->Cell(85, 10, utf8_decode("Correo : "), 0, 0, '', 0);
+      $this->Cell(85, 10, utf8_decode("Correo : cloudteamg3@gmail.com "), 0, 0, '', 0);
       $this->Ln(5);
 
       /* TELEFONO */
       $this->Cell(10);  // mover a la derecha
       $this->SetFont('Arial', 'B', 10);
-      $this->Cell(85, 10, utf8_decode("Sucursal : "), 0, 0, '', 0);
+      $this->Cell(85, 10, utf8_decode("Sucursal : 1 "), 0, 0, '', 0);
       $this->Ln(10);
 
       /* TITULO DE LA TABLA */
@@ -52,21 +52,7 @@ class PDF extends FPDF
       $this->SetFont('Arial', 'B', 15);
       $this->Cell(100, 10, utf8_decode("Reporte de proveedores "), 0, 1, 'C', 0);
       $this->Ln(7);
-
-      /* CAMPOS DE LA TABLA */
-      //color
-      $this->SetFillColor(228, 100, 0); //colorFondo
-      $this->SetTextColor(255, 255, 255); //colorTexto
-      $this->SetDrawColor(163, 163, 163); //colorBorde
-      $this->SetFont('Arial', 'B', 11);
-      $this->Cell(50,10, utf8_decode('Nombre proveedor'), 1, 0, 'C', 1);
-      $this->Cell(50, 10, utf8_decode('RTN'), 1, 0, 'C', 1);
-     // $this->Cell(40, 10, utf8_decode('Descripcion'), 1, 0, 'C', 1);
-      $this->Cell(50, 10, utf8_decode('Telefono'), 1, 0, 'C', 1);
-      //$this->Cell(30, 10, utf8_decode('Imagen'), 1, 0, 'C', 1);
-      $this->Cell(50, 10, utf8_decode('correo'), 1, 0, 'C', 1);
-      $this->Cell(50, 10, utf8_decode('dirreccion'), 1, 1, 'C', 1);
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
       
    }
 
@@ -83,7 +69,7 @@ class PDF extends FPDF
       $this->Cell(540, 10, utf8_decode($hoy), 0, 0, 'C'); // pie de pagina(fecha de pagina)
    }
 }
-
+                                                                                                                                                                                                                                                                                                
 include '../php/conexion.php';
 
 $pdf = new PDF();

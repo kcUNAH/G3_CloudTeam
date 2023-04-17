@@ -128,7 +128,7 @@ include'conex.php';
     <table>
       <thead>
         <tr>
-        <th>id proveedor</th>
+        <th style="display: none;">id proveedor</th>
         <th>Nombre del proveedor</th>
         <th>RTN</th>
         <th>Teléfono</th>
@@ -172,7 +172,7 @@ include'conex.php';
             while($data = mysqli_fetch_array($query)){
         ?>
          <tr>
-            <td><?php echo $data["id_proveedor"] ?></td>
+         <td style="display: none;"><?php echo $data["id_proveedor"] ?></td>
             <td><?php echo $data["nombre_proveedor"] ?></td>
             <td><?php echo $data["rtn_proveedor"] ?></td>
             <td><?php  echo $data["telefono_proveedor"] ?></td>

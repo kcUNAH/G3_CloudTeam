@@ -121,8 +121,8 @@ if(!isset ($_SESSION['usuario'])){
 <form action="buscarproveedor.php" method="get" style="background-color:#DCFFFE ;">
   <input type="text" name="busqueda" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
   <button type="submit" class="boton-buscar">Buscar</button>
-  <a href="./proveedores/agregar_proveedores.php" class="btn_newproducto" style="margin-left: 350px" > Agregar Proveedor<i id="icon_nuevo"  class='bx bxs-user-plus'></i></a>
-  <a href="#" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
+  <a href="agregar_proveedores.php" class="btn_newproducto" style="margin-left: 350px" > Agregar Proveedor<i id="icon_nuevo"  class='bx bxs-user-plus'></i></a>
+  <a href="../../../fpdf/reporte_proveedorbuscar.php?buscar=<?php echo $busqueda ?>"   target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a>
 
 
 </form>
@@ -134,7 +134,7 @@ if(!isset ($_SESSION['usuario'])){
        <table>
       <thead>
         <tr>
-        <th>id proveedor</th>
+        <th style="display: none;">id proveedor</th>
         <th>Nombre del proveedor</th>
         <th>RTN</th>
         <th>Teléfono</th>
@@ -196,7 +196,7 @@ if(!isset ($_SESSION['usuario'])){
         ?>
         
         <tr>
-            <td><?php echo $data["id_proveedor"] ?></td>
+        <td style="display: none;"><?php echo $data["id_proveedor"] ?></td>
             <td><?php echo $data["nombre_proveedor"] ?></td>
             <td><?php echo $data["rtn_proveedor"] ?></td>
             <td><?php echo $data["telefono_proveedor"] ?></td>

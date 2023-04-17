@@ -133,7 +133,7 @@ if(!isset ($_SESSION['usuario'])){
        <table>
       <thead>
         <tr>
-            <th>Id</th>
+        <td style="display: none;">Id</th>
             <th>fecha</th>
             <th>id_usuario</th>
             <th>id_objeto</th>
@@ -191,7 +191,7 @@ if(!isset ($_SESSION['usuario'])){
         ?>
         
         <tr>
-           <td><?php echo $data["id_bitacora"] ?></td>
+        <td style="display: none;"><?php echo $data["id_bitacora"] ?></td>
             <td><?php echo $data["fecha"] ?></td>
             <td><?php echo $data["id_usuario"] ?></td>
             <td><?php echo $data["id_objeto"] ?></td>

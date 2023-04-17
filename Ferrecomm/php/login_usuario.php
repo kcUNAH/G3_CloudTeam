@@ -76,7 +76,7 @@ if (isset($_COOKIE["block" . $usuario])) {
         $_SESSION['id_usuario']=$va_id;
 
 
-        if($va_primer_ingreso =='NO'){
+        if($va_primer_ingreso =='NUEVO'){
             header("location:pregunta.php");
           exit();
           }

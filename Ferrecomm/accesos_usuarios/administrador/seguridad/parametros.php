@@ -109,12 +109,14 @@ if(!isset ($_SESSION['usuario'])){
                      </div>
 
  
- <form action=" buscarbitacora.php" method="get" style="background-color:#DCFFFE ;">
+
+ <section id="container"  >
+      <form action="buscar_parametro.php" method="get" style="background-color:#DCFFFE ;">
   <input type="text" name="busqueda" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
   <button type="submit" class="boton-buscar">Buscar</button>
   
-  <a href="agg_parametro.php" class="btn_newproducto" style="margin-left: 350px" > Agregar Parametro<i id="icon_nuevo"  class='bx bxs-notepad'></i></a>
-  <a href="#" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
+  
+  <a href="../../../fpdf/reporteparametros.php" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
 
 </form>
@@ -131,13 +133,14 @@ if(!isset ($_SESSION['usuario'])){
 
    
     <table>
-      <thead>
+      <thead> 
         <tr>
-        <th>id parametro</th>
+       <th style="display: none;">id_parametro</th>
         <th>Parametro</th>
         <th>Valor</th>
         <th>Fecha creación</th>
         <th>Fecha modificacion</th>
+        <th>creado por</th>
         <th>Modificado por</th>
         <th>id usuario</th>
 
@@ -168,8 +171,8 @@ if(!isset ($_SESSION['usuario'])){
        $desde = ($pagina-1) * $por_pagina;
        $total_paginas = ceil($total_registro / $por_pagina);
 
-        $query = mysqli_query($conex,"SELECT id_parametro, parametro, valor, Fecha_creacion, Fecha_modificacion,creado_por
-       Modificado_por, id_usuario FROM tbl_ms_parametros  ORDER BY id_parametro ASC LIMIT $desde,$por_pagina;");
+        $query = mysqli_query($conex,"SELECT id_parametro, parametro, valor, fecha_creacion, fecha_modificacion,creado_por,
+       modificado_por, id_usuario FROM tbl_ms_parametros  ORDER BY id_parametro ASC LIMIT $desde,$por_pagina;");
 
      
         $result = mysqli_num_rows($query);
@@ -177,17 +180,19 @@ if(!isset ($_SESSION['usuario'])){
 
             while($data = mysqli_fetch_array($query)){
         ?>
+        
          <tr>
-            <td><?php echo $data["id_parametro"] ?></td>
+         <td style="display: none;"><?php echo $data["id_parametro"] ?></td>
             <td><?php echo $data["parametro"] ?></td>
             <td><?php echo $data["valor"] ?></td>
-            <td><?php  echo $data["Fecha_creacion"] ?></td>
-            <td><?php echo $data["Fecha_modificacion"] ?></td>
-            <td><?php echo $data["Modificado_por"] ?></td>
+            <td><?php  echo $data["fecha_creacion"] ?></td>
+            <td><?php echo $data["fecha_modificacion"] ?></td>
+            <td><?php echo $data["creado_por"] ?></td>
+            <td><?php echo $data["modificado_por"] ?></td>
             <td><?php echo $data["id_usuario"] ?></td>
-            <td> <a type="button" class="link_edit" href=" "><i class='bx bx-edit'></i></a>
+            <td> <a type="button" class="link_edit" href="editarparametros.php?id=<?php echo $data["id_parametro"]; ?>"><i class='bx bx-edit'></i></a>
            
-            <a type="button"class="link_delete" href=" "><i class='bx bxs-trash'></i></a>
+           
            
 
              </td>

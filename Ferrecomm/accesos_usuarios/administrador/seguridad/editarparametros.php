@@ -22,18 +22,19 @@ if(!isset ($_SESSION['usuario'])){
         include '../../../php/bitacora.php';
         if (!empty($_POST)){
             $alert="";
-            if (empty($_POST['nombre_proveedor']) || empty($_POST['rtn_proveedor']) || empty($_POST['telefono'])  || empty($_POST['email']) || empty($_POST['direccion'])) //Si van vacios nos muestra el mensaje de erro, sino capturalos datos
+            if (empty($_POST['valor'])|| empty($_POST['fecha_modificacion']))  //Si van vacios nos muestra el mensaje de erro, sino capturalos datos
             {
                 $alert= '<p class= "msg_error"> Todos los campos son obligatorios.</p>';    
             }else{
-             $id_proveedor = $_POST['id_proveedor'];
-             $nombre_proveedor = $_POST['nombre_proveedor'];
-            $rtn_proveedor = $_POST['rtn_proveedor'];
-            $telefono_proveedor = $_POST['telefono'];
-            $correo_proveedor= $_POST['email'];
-                $direccion_proveedor = $_POST['direccion'];
-
-            $query = mysqli_query($conex,"SELECT * FROM tbl_proveedores WHERE (nombre_proveedor = ' $nombre_proveedor' AND id_proveedor != $id_proveedor) or (correo_proveedor = ' $correo_proveedor' AND id_proveedor != $id_proveedor)");
+             $id_parametro = $_POST['id_parametro'];
+             $parametro = $_POST['parametro'];
+            $valor = $_POST['valor'];
+            $fecha_creacion = $_POST['fecha_creacion'];
+            $fecha_modificacion= $_POST['fecha_modificacion'];
+            $creado_por = $_POST['creado_por'];
+            $modificado_por=$_POST['modificado_por'];
+            $id_usuario=$_POST['id_usuario'];
+            $query = mysqli_query($conex,"SELECT * FROM tbl_ms_parametros WHERE (parametro = ' $parametro' AND id_parametro != $id_parametro)");
 
             $result = mysqli_fetch_array($query); //Almacena datos
 
@@ -42,8 +43,8 @@ if(!isset ($_SESSION['usuario'])){
             }else{
 
                
-                    $sql_update = mysqli_query($conex,"UPDATE tbl_proveedores SET nombre_proveedor='$nombre_proveedor',rtn_proveedor='$rtn_proveedor',telefono_proveedor=' $telefono_proveedor',correo_proveedor='$correo_proveedor', 
-                    direccion_proveedor='$direccion_proveedor' WHERE id_proveedor = $id_proveedor");
+                    $sql_update = mysqli_query($conex,"UPDATE bl_ms_parametros SET parametro='$parametro',valor='$valor',fecha_creacion=' $fecha_creacion',fecha_modificacion='$fecha_modificacion', 
+                   creado_por='$creado_por',modificado_por='$modificado_por', id_usuario='$id_usuario' WHERE id_parametro = $id_parametro");
 
                     if($sql_update){
                        // $alert= '<p class= "msg_save">El usuario se ha actualizado correctamente.</p>';
@@ -83,9 +84,9 @@ if(!isset ($_SESSION['usuario'])){
         mysqli_close($conex);
     }
 
-    $idproveedor  = $_REQUEST['id'];
+    $idparametro  = $_REQUEST['id'];
 
-    $sql = mysqli_query($conex,"SELECT * FROM tbl_proveedores WHERE id_proveedor = $idproveedor");
+    $sql = mysqli_query($conex,"SELECT * FROM tbl_ms_parametros WHERE id_parametro = $idparametro");
    
     $result_sql = mysqli_num_rows($sql);
 
@@ -96,13 +97,14 @@ if(!isset ($_SESSION['usuario'])){
     }else{
         $option = ' ';
         while ($data = mysqli_fetch_array($sql)){
-                $id_proveedor = $data["id_proveedor"];
-                $nombre_proveedor = $data['nombre_proveedor'];
-                $rtn_proveedor = $data['rtn_proveedor'];
-                $telefono_proveedor = $data['telefono_proveedor'];
-                $correo_proveedor = $data['correo_proveedor'];
-                $direccion_proveedor = $data['direccion_proveedor'];  
-           
+                $id_parametro = $data['id_parametro'];
+                $parametro = $data['parametro'];
+                $valor = $data['valor'];
+                $fecha_creacion = $data['fecha_creacion'];
+            $fecha_modificacion= $data['fecha_modificacion'];
+            $creado_por = $data['creado_por'];
+            $modificado_por=$data['modificado_por'];
+            $id_usuario=$data['id_usuario'];
            
     
 
@@ -112,7 +114,6 @@ if(!isset ($_SESSION['usuario'])){
     }
     
 ?>
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -244,65 +245,57 @@ if(!isset ($_SESSION['usuario'])){
       padding-top: 20px;
    }
 
-
-   @media screen and (max-width: 800px) {
-	.formulario {
-		grid-template-columns: 1fr;
-	}
-
-	.formulario__grupo-terminos, 
-	.formulario__mensaje,
-	.formulario__grupo-btn-enviar {
-		grid-column: 1;
-	}
-
-	.formulario__btn {
-		width: 100%;
-	}
-}
   </style>
   <section class="home-section"></br>
-      <h2>  Editar proveedores <i class='bx bx-edit'></i></h2>
+      <h2>  Editar parametros <i class='bx bx-edit'></i></h2>
       <div>
             <form action=" " method="POST" enctype="multipart/form-data" id="formulario">
 
-            <input type="hidden"   name=" id_proveedor" id=" $id_proveedor "  value="<?php echo  $id_proveedor;?>" >
+            <input type="hidden" name=" id_parametro" id="id_parametro "  value="<?php echo $id_parametro;?>" >
 
-                <p>Nombre del proveedor:
+                <p>Nombre del parametro:
 				
-		      <input type="text" class="field"  name="nombre_proveedor" id="nombre_proveedor" style="text-transform:uppercase;" value="<?php echo $nombre_proveedor;?>"  required>>
+                <input type="text"  class="field"   name="parametro" id=" parametro "  value="<?php echo  $parametro;?>" disabled>
                 </p>
 
-                    <p>RTN proveedor:
-			<input type="text" class="field"  name="rtn_proveedor" id="rtn_proveedor"  min ="0" maxlength="15"  value="<?php echo $rtn_proveedor;?>" required pattern="[0-9]+">
+                    <p>Valor parametro:
+			<input type="text" class="field"  name="$valor " value="<?php echo $valor?>" required >
                     </p>
-                    <p>Telefono:
-         
-			<input type="text" class="field"  name="telefono" id="telefono"  maxlength="8"   value="<?php echo $telefono_proveedor;?>"required  >
+                    <p>fecha de creacion:
+        
+			<input type="text" class="field"  name="fecha_creacion" value="<?php echo $fecha_creacion;?>" disabled>
 				
 					
                     </p>
-                    <p>correo: 
+                    <p>Fecha de modificación: 
                         
               
-                            <input type="email" class="field"  name="email" id="email" placeholder="correo@correo.com"  value="<?php echo $correo_proveedor;?>">
+                            <input type="date" class="field"  name="fecha_modificación" id="fecha_modificacion"   value="<?php echo $fecha_modificacion;?>">
                        
                     </p> 
 
-              <p>direccion:
-                
-            
-                    <input type="text" class="field"  name="direccion" id="direccion"  value="<?php echo $direccion_proveedor;?>" style="text-transform:uppercase;">
-				
+              <p>Creado por:
+                    <input type="text" class="field"  name="creado_por" id="creado_por"  value="<?php echo $creado_por;?>" disabled>
 				
                </p>
-              
+               <p>Modificado por:
+            
+               <input type="text" class="field"  name="modificado_por" id="modificado_por"  value="<?php echo $modificado_por;?>"disabled>
+				
+				
+                </p>
+                </p>
+                 
+                <p>id_usuario:
+                 <input type="text" class="field"  name="id_usaurio" id="id_usaurio"  value="<?php echo $id_usuario;?>"disabled>
+                  
+                  
+                  </p>
 
 
-
-    <button class="btn_agregar">Actualizar</button>
+    <button class="btn_agregar" href="editarparametros.php">Actualizar</button>
       <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado exitosamente!</p>
-      <button type="reset" onclick="location.href='../proveedores.php'" class="btn_cancelar">Cancelar</button>
+      <button type="reset" onclick="location.href='parametros.php'" class="btn_cancelar">Cancelar</button>
       </form>
      
 
@@ -310,8 +303,7 @@ if(!isset ($_SESSION['usuario'])){
 
 
 
-</form>
-</form>
+
 
 </body>
 </html>

@@ -1,45 +1,41 @@
 <?php
 session_start();
-include 'conexion.php';
+include 'conexion2.php';
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Sanitizar entrada del usuario
+    $usuario = mysqli_real_escape_string($conn, $_SESSION['usuario']['user']);
+    $contrasenia_actual = mysqli_real_escape_string($conn, $_POST['contras']);
+    $nueva_contrasenia = mysqli_real_escape_string($conn, $_POST['contra']);
+    $confirmar_contrasenia = mysqli_real_escape_string($conn, $_POST['password2']);
 
-if (isset($_POST['cambiar_clave'])){
-  $usuario = $_SESSION['usuario']['user'];
-  $contrasenia_nueva = $_POST['contra'];
-  $validar_contrasenia = mysqli_query($conexion, "SELECT * FROM tbl_ms_usuario WHERE usuario = '$usuario'
-                                ");
-  
-  if (mysqli_num_rows($validar_contrasenia) > 0){
-    $sql = "UPDATE tbl_ms_usuario SET contrasenia  = '$contrasenia_nueva' WHERE usuario = '$usuarios'";
-    
-    
-    $EJECUTAR = mysqli_query($conexion, $sql);
-    session_destroy();  
-    echo '
-    <script>
-    alert("Contraseña actualizada con exito!! Por favor ingrese de nuevo ");
-    window.location= "../index.php";
-    </script>
-    ';
-        exit();
-  
-  
-  
-  }else{
-    echo '
-    <script>
-    alert("Contraseña incorrecta, por favor pruebe de nuevo ");
-    </script>
-    ';
-  }
+//encriptamiento de la contraseña
+$contrasenia_actual = hash('sha512', $contra);
+$nueva_contrasenia  = hash('sha512', $contra);
+    // Verificar si la contraseña actual es correcta
+    $validar_contrasenia ="SELECT contrasenia = '$contrasenia_actual'  FROM tbl_ms_usuario WHERE  usuario = '$usuario'";
+    $enviar = mysqli_query($conn, $validar_contrasenia);
+
+    if (mysqli_num_rows($enviar) == 0) {
+        // Contraseña actual incorrecta
+        echo '<script>alert("La contraseña actual es incorrecta"); window.location= "contrarnueva.php";</script>';
+
+         
+        } else{if(mysqli_num_rows($enviar) > 0){
+          $sql = "UPDATE tbl_ms_usuario SET contrasenia = '$nueva_contrasenia' WHERE usuario = '$usuario'";
+          $ejecutar = mysqli_query($conn, $sql);
+
+          if ($ejecutar) {
+              // Contraseña actualizada con éxito
+              echo '<script>alert("Contraseña actualizada con éxito"); window.location= "../index.php";</script>';
+           
+
+            }
+           }
+        }
+         
 
 }
-
-
-
-
-
-
 ?>
 
 
@@ -56,23 +52,28 @@ if (isset($_POST['cambiar_clave'])){
   </head>
  
 <body>
+
+
     <div class="row align-items-center justify-content-center mt-5 pt-4" >
+      
           <div class="col-md-5 rounded" style="width: 23rem;" >
             <div  class="card">
               <div class="card-body"> <!--action que  manda al archivo donde estan las validaciones,acuerdensen de poner el method="POST"! -->
-            <center><h4 style="font-style: italic; font-size: 20px; ">Cambiar la contraseña Asignada</h4></center>
+            <center><h4 style="font-style: italic; font-size: 20px; ">Cambiar la contraseña Asignada por el Administrador</h4></center>
               <hr style="color: #999; background-color: green ; height: 2px; border: none;">
 
               <form  method="POST" action="" class="formulario__registro" id="formulario"> 
 
-                 
-
-                  
-
-
+        
                     <!-- Grupo: Contraseña -->
                     <div class="formulario__grupo" id="grupo__contra">
-                    <label for="password" class="formulario__label">Contraseña nueva</label>
+                    <label for="password" class="formulario__label">introducir Contraseña Aactual</label>
+                        <div class="formulario__grupo-input">
+                            <input type="password" class="formulario__input" name="contras" id="contras">
+                            <i class="formulario__validacion-estado fa-solid fa-eye" id="Ojito1"></i>
+                        </div>
+                    <div class="formulario__grupo" id="grupo__contra">
+                    <label for="password" class="formulario__label">Nueva contraseña</label>
                         <div class="formulario__grupo-input">
                             <input type="password" class="formulario__input" name="contra" id="contra">
                             <i class="formulario__validacion-estado fa-solid fa-eye" id="Ojito"></i>
@@ -82,7 +83,7 @@ if (isset($_POST['cambiar_clave'])){
                     
                     <!-- Grupo: Contraseña 2 -->
                     <div class="formulario__grupo" id="grupo__password2">
-                        <label for="password2" class="formulario__label">Repetir Contraseña</label>
+                        <label for="password2" class="formulario__label">confirmar contraseña</label>
                         <div class="formulario__grupo-input">
                             <input type="password" class="formulario__input" name="password2" id="password2">
                             <i class="formulario__validacion-estado fa-solid fa-eye" id="Ojito2"></i>

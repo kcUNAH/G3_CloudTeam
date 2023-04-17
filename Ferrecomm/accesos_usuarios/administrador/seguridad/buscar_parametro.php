@@ -101,7 +101,7 @@ if(!isset ($_SESSION['usuario'])){
   </div>
   <section class="home-section">
 </br>
-      <h1> Bitacora </h1>
+      <h1> parametro</h1>
       <?php include '../conex.php';?>
 
       <section id="container"  >
@@ -118,7 +118,7 @@ if(!isset ($_SESSION['usuario'])){
 
 
 
-<form action="buscarbitacora.php" method="get" style="background-color:#DCFFFE ;">
+<form action="buscar_parametro.php" method="get" style="background-color:#DCFFFE ;">
   <input type="text" name="busqueda" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
   <button type="submit" class="boton-buscar">Buscar</button>
 
@@ -131,17 +131,26 @@ if(!isset ($_SESSION['usuario'])){
 
 &nbsp;&nbsp;&nbsp; 
        <table>
-      <thead>
+       <table>
+      <thead> 
         <tr>
-            <th>Id</th>
-            <th>fecha</th>
-            <th>id_usuario</th>
-            <th>id_objeto</th>
-            <th>accion</th>
-            <th>descripcion</th>
+       <th style="display: none;">id_parametro</th>
+        <th>Parametro</th>
+        <th>Valor</th>
+        <th>Fecha creación</th>
+        <th>Fecha modificacion</th>
+        <th>creado por</th>
+        <th>Modificado por</th>
+        <th>id usuario</th>
+
+        <th>Acción 
+          
             
+        </th>
         </tr>
        </thead>
+   
+      <tr>
    
        &nbsp;&nbsp;&nbsp; 
         
@@ -153,14 +162,16 @@ if(!isset ($_SESSION['usuario'])){
        //Paginador
 
       
-       $sql_register =mysqli_query($conex,"SELECT COUNT(*) as total_registro FROM tbl_bitacora WHERE 
-                                                                (id_bitacora LIKE '%$busqueda%' OR
-                                                                 fecha LIKE '%$busqueda%' OR
-                                                                 id_usuario LIKE '%$busqueda%' OR
-                                                                 id_objeto LIKE '%$busqueda%' OR
-                                                                 accion LIKE '%$busqueda%' OR
-                                                                 descripcion LIKE '%$busqueda%')");
-       $result_register = mysqli_fetch_array($sql_register);
+       $sql =mysqli_query($conex,"SELECT COUNT(*) as total_registro FROM tbl_ms_parametros WHERE 
+                                                                (id_parametro LIKE '%$busqueda%' OR
+                                                                 parametro LIKE '%$busqueda%' OR
+                                                                valor LIKE '%$busqueda%' OR
+                                                                 fecha_creacion LIKE '%$busqueda%' OR
+                                                                fecha_modificacion LIKE '%$busqueda%' OR
+                                                                creado_por LIKE '%$busqueda%')OR
+                                                                modificado_por LIKE '%$busqueda%')OR
+                                                               id_usuario LIKE '%$busqueda% ')");           
+       $result_register = mysqli_fetch_array($sql);
        $total_registro = $result_register['total_registro'];
 
        $por_pagina = 10;
@@ -174,13 +185,17 @@ if(!isset ($_SESSION['usuario'])){
        $desde = ($pagina-1) * $por_pagina;
        $total_paginas = ceil($total_registro / $por_pagina);
 
-        $query = mysqli_query($conex,"SELECT id_bitacora,fecha,id_usuario,id_objeto,accion,descripcion
-        FROM tbl_bitacora   WHERE (id_bitacora LIKE '%$busqueda%' OR
-                                                                 fecha LIKE '%$busqueda%' OR
-                                                                 id_usuario LIKE '%$busqueda%' OR
-                                                                 id_objeto LIKE '%$busqueda%' OR
-                                                                 accion LIKE '%$busqueda%' OR
-                                                                 descripcion LIKE '%$busqueda%')ORDER BY id_bitacora ASC LIMIT $desde,$por_pagina;");
+        $query = mysqli_query($conex,"SELECT id_parametro,parametro,valor,fecha_creacion,fecha_modificacion,creado_por,modificado_por_id_usuario
+        FROM tbl_ms_parametros  WHERE (id_parametro LIKE '%$busqueda%' OR
+                                                                 parametro LIKE '%$busqueda%' OR
+                                                                valor LIKE '%$busqueda%' OR
+                                                                 fecha_creacion LIKE '%$busqueda%' OR
+                                                                fecha_modificacion LIKE '%$busqueda%' OR
+                                                                creado_por LIKE '%$busqueda%')OR
+                                                                modificado_por LIKE '%$busqueda%')OR
+                                                               id_usuario LIKE '%$busqueda%')ORDER BY id_parametro ASC LIMIT $desde,$por_pagina;");
+                                        
+                                                               
         $result = mysqli_num_rows($query);
         if($result > 0){ 
 
@@ -191,15 +206,20 @@ if(!isset ($_SESSION['usuario'])){
         ?>
         
         <tr>
-           <td><?php echo $data["id_bitacora"] ?></td>
-            <td><?php echo $data["fecha"] ?></td>
+         <td style="display: none;"><?php echo $data["id_parametro"] ?></td>
+            <td><?php echo $data["parametro"] ?></td>
+            <td><?php echo $data["valor"] ?></td>
+            <td><?php  echo $data["fecha_creacion"] ?></td>
+            <td><?php echo $data["fecha_modificacion"] ?></td>
+            <td><?php echo $data["creado_por"] ?></td>
+            <td><?php echo $data["modificado_por"] ?></td>
             <td><?php echo $data["id_usuario"] ?></td>
-            <td><?php echo $data["id_objeto"] ?></td>
-            <td><?php echo $data["accion"] ?></td>
-            <td> <?php echo $data["descripcion"] ?></td>
-          
-    
+            <td> <a type="button" class="link_edit" href="editarparametros.php?id=<?php echo $data["id_parametro"]; ?>"><i class='bx bx-edit'></i></a>
            
+           
+           
+
+             </td>
         </tr>
         <?php
             }

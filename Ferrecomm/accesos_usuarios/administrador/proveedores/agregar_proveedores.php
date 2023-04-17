@@ -158,7 +158,7 @@
                 <div class="formulario__grupo" id="grupo__nombre_proveedor">
 				<label for="nombre_proveedor" class="formulario__label" >Nombre del proveedor</label>
 				<div class="formulario__grupo-input">
-					<input type="text"  style="text-transform:uppercase;" class="field"  name="nombre_proveedor" id="nombre_proveedor" >
+					<input type="text"  style="text-transform:uppercase;" class="field"  style="text-transform:uppercase;" onblur="cambiarAMayusculas(this);"  name="nombre_proveedor"  id="nombre_proveedor">
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
 				<p class="formulario__input-error">El nombre del producto tiene que contener letras y contener 3 a 25 de las mismas</p>
@@ -195,7 +195,7 @@
                    <div class="formulario__grupo" id="grupo__direccion">
 				<label for="direccion" class="formulario__label">Dirección</label>
 				<div class="formulario__grupo-input">
-					<input type="text" class="field"  name="direccion" id="direccion" style="text-transform:uppercase;">
+					<input type="text" class="field"  style="text-transform:uppercase;" onblur="cambiarAMayusculas(this);"   name="direccion" id="direccion">
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
 				<p class="formulario__input-error">La direccion debe de conter mas de 3 letras</p>
@@ -206,7 +206,12 @@
             <div class="formulario__mensaje" id="formulario__mensaje">
 				<p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor llene todos los campos correctamente </p>
 			</div>
-
+            <script>
+                    function cambiarAMayusculas(elemento) {
+                        let texto = elemento.value;
+                        elemento.value = texto.toUpperCase();
+                    }
+                </script>
       <button type="submit" class="btn_agregar">Agregar</button>
       <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado exitosamente!</p>
       <button type="reset" onclick="location.href='../proveedores.php'" class="btn_cancelar">Cancelar</button>
