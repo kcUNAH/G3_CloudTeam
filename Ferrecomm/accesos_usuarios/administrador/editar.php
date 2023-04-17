@@ -23,7 +23,7 @@ if(!isset ($_SESSION['usuario'])){
     
         if (!empty($_POST)){
             
-            if(empty($_POST['usuario']) || empty($_POST['nombre_usuario']) || empty($_POST['contrasenia']) )  //Si van vacios nos muestra el mensaje de erro, sino capturalos datos
+            if(empty($_POST['usuario']) || empty($_POST['nombre_usuario'])  )  //Si van vacios nos muestra el mensaje de erro, sino capturalos datos
             {
                 $alert= '<p class= "msg_error"> Todos los campos son obligatorios.</p>';    
         
@@ -33,7 +33,7 @@ if(!isset ($_SESSION['usuario'])){
                 $usuario = $_POST['usuario'];
                 $nombre_usuario = $_POST['nombre_usuario'];
                 $estado_usuario = $_POST['estado_usuario'];
-                $contrasenia = $_POST['contrasenia'];
+                //$contrasenia = $_POST['contrasenia'];
                 $rol = $_POST['id_rol'];
                // $fecha_vencimiento = $_POST['fecha_vencimiento'];
                 $correo_electronico = $_POST['correo_electronico'];
@@ -62,7 +62,7 @@ if(!isset ($_SESSION['usuario'])){
 
                
                     $sql_update = mysqli_query($conex,"UPDATE tbl_ms_usuario
-                    SET nombre_usuario='$nombre_usuario', estado_usuario='$estado_usuario',contrasenia='$contrasenia', id_rol='$rol', 
+                    SET nombre_usuario='$nombre_usuario', estado_usuario='$estado_usuario', id_rol='$rol', 
                     correo_electronico='$correo_electronico',
                     fecha_modificacion='$fecha_modificacion'
                     WHERE id_usuario = $id_usuario");
@@ -128,7 +128,7 @@ if(!isset ($_SESSION['usuario'])){
             $usuario = $data['usuario'];
             $nombre_usuario = $data['nombre_usuario'];
             $estado_usuario = $data['estado_usuario'];
-            $contrasenia = $data['contrasenia'];
+            //$contrasenia = $data['contrasenia'];
            // $rol = $data['id_rol'];
            // $id_rol = $data['id_rol'];
            // $fecha_vencimiento = $data['fecha_vencimiento'];
@@ -341,9 +341,7 @@ if(!isset ($_SESSION['usuario'])){
                 <option value="1">ACTIVO</option>
                 <option value="2">INACTIVO</option>
             </select>
-            <label for="contrasenia">Contraseña</label>
-            <input type="password" name="contrasenia" id="contrasenia" placeholder="contrasenia" value="<?php echo $contrasenia; ?>">
-
+            
             <label for="id_rol">ROL</label>
             <select name="id_rol" id="id_rol">
                 <option value="1">Administrador</option>
