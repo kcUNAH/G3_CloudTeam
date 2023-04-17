@@ -122,7 +122,7 @@ if (!isset($_SESSION['usuario'])) {
       <form action="buscar_inventario.php" method="get" class="form_search" style="background-color:#DCFFFE ;">
           <input type="text" name="busqueda" style="text-transform:uppercase;" style="text-transform:uppercase;" style="margin-left: 40px" id="busqueda" placeholder="Buscar..." value="<?php echo $busqueda; ?>">
           <button type="submit" value="Buscar" class="boton-buscar">Buscar</button>
-          <a href="../../fpdf/InventarioBuscar.php?buscar=<?php echo $busqueda ?>"   target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
+          <a href="../../fpdf/Reporte_Historial_Buscar.php?buscar=<?php echo $busqueda ?>"   target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
  
   
@@ -476,6 +476,8 @@ button[type="submit"] {
     border: 1px solid: #428bca;
   }
 </style>
+
+<a href="VerMasInventario.php" class="btn_pdf">Atrás</a>
 </body>
 
 </html>

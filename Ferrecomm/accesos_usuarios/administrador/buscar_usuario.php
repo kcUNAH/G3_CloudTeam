@@ -452,6 +452,7 @@ if (!isset($_SESSION['usuario'])) {
 
 }
 </style>
+<a href="GestionUsuarios.php" class="btn_pdf">Atrás</a>
 </body>
 
 </html>

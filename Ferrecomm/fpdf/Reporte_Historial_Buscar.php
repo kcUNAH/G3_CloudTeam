@@ -50,7 +50,7 @@ class PDF extends FPDF
       $this->SetTextColor(228, 100, 0);
       $this->Cell(90); // mover a la derecha
       $this->SetFont('Arial', 'B', 15);
-      $this->Cell(100, 10, utf8_decode("Reporte Inventario "), 0, 1, 'C', 0);
+      $this->Cell(100, 10, utf8_decode("Reporte Historial de Inventario "), 0, 1, 'C', 0);
       $this->Ln(7);
 
       /* CAMPOS DE LA TABLA */
@@ -59,15 +59,15 @@ class PDF extends FPDF
       $this->SetTextColor(255, 255, 255); //colorTexto
       $this->SetDrawColor(163, 163, 163); //colorBorde
       $this->SetFont('Arial', 'B', 11);
-      $this->Cell(75,10, utf8_decode('Nombre'), 1, 0, 'C', 1);
-      $this->Cell(70, 10, utf8_decode('Categoria'), 1, 0, 'C', 1);
+      $this->Cell(40,10, utf8_decode('Producto'), 1, 0, 'C', 1);
+      $this->Cell(40, 10, utf8_decode('Usuario'), 1, 0, 'C', 1);
      // $this->Cell(40, 10, utf8_decode('Descripcion'), 1, 0, 'C', 1);
-      $this->Cell(50, 10, utf8_decode('Medida'), 1, 0, 'C', 1);
+      $this->Cell(50, 10, utf8_decode('Cantidad en Movimiento'), 1, 0, 'C', 1);
       //$this->Cell(30, 10, utf8_decode('Imagen'), 1, 0, 'C', 1);
-      //$this->Cell(40, 10, utf8_decode('Cantidad Minima'), 1, 0, 'C', 1);
-      //$this->Cell(40, 10, utf8_decode('Cantidad Maxima'), 1, 0, 'C', 1);
-      $this->Cell(50, 10, utf8_decode('Cantidad Existencia'), 1, 0, 'C', 1);
-      $this->Cell(40, 10, utf8_decode('Precio'), 1, 1, 'C', 1);
+     // $this->Cell(40, 10, utf8_decode('Cantidad Minima'), 1, 0, 'C', 1);
+      $this->Cell(45, 10, utf8_decode('Tipo de Movimiento'), 1, 0, 'C', 1);
+      $this->Cell(45, 10, utf8_decode('Fecha de Movimiento'), 1, 0, 'C', 1);
+      $this->Cell(60, 10, utf8_decode('Comentario'), 1, 1, 'C', 1);
    }
 
    // Pie de página
@@ -94,45 +94,42 @@ $i = 0;
 $pdf->SetFont('Arial', '', 12);
 $pdf->SetDrawColor(163, 163, 163); //colorBorde
 
-
 $busqueda = strtolower($_REQUEST['buscar']);
       if(empty($busqueda))
       {
-        header("Location: Inventario.php");
+        header("Location: buscar_historial_inventario.php");
       }
       
-
-
-
-$consulta_reporte_producto = $conexion->query("SELECT i.id_inventario, p.id_producto, p.nombre_producto, c.nombre_categoria, p.unidad_medida,
-p.cantidad_min, p.cantidad_max, i.cantidad,
-p.precio_producto
-FROM tbl_inventario i 
-INNER JOIN tbl_producto p on i.id_producto = p.id_producto 
-INNER JOIN tbl_categoria c on p.id_categoria = c.id_categoria 
+$consulta_reporte_producto = $conexion->query("SELECT m.id_mov_invent, p.id_producto,p.nombre_producto, u.id_usuario, u.nombre_usuario, 
+m.cantidad_mov, h.id_tipo_mov_invt, h.movimiento, m.fecha_mov, m.comentario
+FROM tbl_mov_inventario m 
+INNER JOIN tbl_producto p on m.id_producto = p.id_producto 
+INNER JOIN tbl_tipo_mov_invt h on m.id_tipo_mov_invt = h.id_tipo_mov_invt
+INNER JOIN tbl_ms_usuario u on m.id_usuario = u.id_usuario 
 WHERE (p.nombre_producto LIKE '%$busqueda%' OR
-        p.unidad_medida LIKE '%$busqueda%' OR
-        p.cantidad_min LIKE '%$busqueda%' OR
-        p.cantidad_max  LIKE '%$busqueda%' OR
-        p.precio_producto LIKE '%$busqueda%' OR
-        c.nombre_categoria LIKE '%$busqueda%')
+        u.nombre_usuario LIKE '%$busqueda%' OR
+        m.cantidad_mov LIKE '%$busqueda%' OR
+        m.fecha_mov  LIKE '%$busqueda%' OR
+        m.comentario  LIKE '%$busqueda%' OR
+        h.movimiento LIKE '%$busqueda%')
          ");
 
 // AnchoCelda,AltoCelda,titulo,borde(1-0),saltoLinea(1-0),posicion(L-C-R),ColorFondo(1-0)
 
 while ($datos_reporte = $consulta_reporte_producto->fetch_object()) {  
-$pdf->Cell(75, 10, utf8_decode($datos_reporte->nombre_producto), 1, 0, 'C', 0);
-$pdf->Cell(70, 10, utf8_decode($datos_reporte->nombre_categoria), 1, 0, 'C', 0);
+$pdf->Cell(40, 10, utf8_decode($datos_reporte->nombre_producto), 1, 0, 'C', 0);
+$pdf->Cell(40, 10, utf8_decode($datos_reporte->nombre_usuario), 1, 0, 'C', 0);
 //$pdf->Multicell(20, 7, utf8_decode($datos_reporte->descripcion_producto), 1, 'J', false);
-$pdf->Cell(50, 10, utf8_decode($datos_reporte->unidad_medida), 1, 0, 'C', 0);
+$pdf->Cell(50, 10, utf8_decode($datos_reporte->cantidad_mov), 1, 0, 'C', 0);
 //$pdf->Cell(40, 10, utf8_decode($datos_reporte->cantidad_min), 1, 0, 'C', 0);
 //$pdf->Cell(40, 10, utf8_decode($datos_reporte->cantidad_max), 1, 0, 'C', 0);
-$pdf->Cell(50, 10, utf8_decode($datos_reporte->cantidad), 1, 0, 'C', 0);
-$pdf->Cell(40, 10, utf8_decode($datos_reporte->precio_producto), 1, 1, 'C', 0);
+$pdf->Cell(45, 10, utf8_decode($datos_reporte->movimiento), 1, 0, 'C', 0);
+$pdf->Cell(45, 10, utf8_decode($datos_reporte->fecha_mov), 1, 0, 'C', 0);
+$pdf->Cell(60, 10, utf8_decode($datos_reporte->comentario), 1, 1, 'C', 0);
    }
 $i = $i + 1;
 /* TABLA */
 
 
 
-$pdf->Output('ReporteInventario.pdf', 'I');//nombreDescarga, Visor(I->visualizar - D->descargar)
+$pdf->Output('ReporteHistorialInventario.pdf', 'I');//nombreDescarga, Visor(I->visualizar - D->descargar)
