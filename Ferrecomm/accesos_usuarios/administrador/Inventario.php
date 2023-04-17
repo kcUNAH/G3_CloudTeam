@@ -140,7 +140,7 @@ if (!isset($_SESSION['usuario'])) {
                 <th>Existencia</th>
                 <th>Precio </th>
                 <th>Acciones </th>
-                <th>Historial</th>
+                
 
 
               </tr>
@@ -229,10 +229,11 @@ if (!isset($_SESSION['usuario'])) {
                   <td>
                     <?php echo $color ?>
                   </td>
+                  <!-- 
                   <td>
                   <a href="VerMasInventario.php" class="btn_inventario" > Ver Más<i id="" class='b'></i></a>
                 </td>
-                 
+                 -->
                  
 
                   <!--  <a class="link_edit" href="editar.php?id=<// echo $data["id_usuario"]; ?>">Editar</a> -->
