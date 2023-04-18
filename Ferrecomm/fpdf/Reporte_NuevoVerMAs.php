@@ -86,6 +86,8 @@ class PDF extends FPDF
 
 include '../php/conexion.php';
 
+
+
 $pdf = new PDF();
 $pdf->AddPage("landscape"); /* aqui entran dos para parametros (horientazion,tamaño)V->portrait H->landscape tamaño (A3.A4.A5.letter.legal) */
 $pdf->AliasNbPages(); //muestra la pagina / y total de paginas
@@ -94,38 +96,34 @@ $i = 0;
 $pdf->SetFont('Arial', '', 12);
 $pdf->SetDrawColor(163, 163, 163); //colorBorde
 
-$busqueda = strtolower($_REQUEST['buscar']);
-      if(empty($busqueda))
-      {
-        header("Location: VerMas_Producto.php");
-      }
+
+
       
-$consulta_reporte_producto = $conexion->query("SELECT m.id_mov_invent, p.id_producto,p.nombre_producto, u.id_usuario, u.nombre_usuario, 
-m.cantidad_mov, h.id_tipo_mov_invt, h.movimiento, m.fecha_mov, m.comentario
-FROM tbl_mov_inventario m 
-INNER JOIN tbl_producto p on m.id_producto = p.id_producto 
-INNER JOIN tbl_tipo_mov_invt h on m.id_tipo_mov_invt = h.id_tipo_mov_invt
-INNER JOIN tbl_ms_usuario u on m.id_usuario = u.id_usuario 
-WHERE (p.nombre_producto LIKE '%$busqueda%' OR
-        u.nombre_usuario LIKE '%$busqueda%' OR
-        m.cantidad_mov LIKE '%$busqueda%' OR
-        m.fecha_mov  LIKE '%$busqueda%' OR
-        m.comentario  LIKE '%$busqueda%' OR
-        h.movimiento LIKE '%$busqueda%')
-         ");
+$busqueda = strtolower($_GET['buscar']);
+
+
+$query = mysqli_query($conexion, "SELECT m.id_mov_invent, p.id_producto,p.nombre_producto, u.id_usuario, u.nombre_usuario, 
+            m.cantidad_mov, h.id_tipo_mov_invt, h.movimiento, m.fecha_mov, m.comentario
+            FROM tbl_mov_inventario m 
+            INNER JOIN tbl_producto p on m.id_producto = p.id_producto 
+            INNER JOIN tbl_tipo_mov_invt h on m.id_tipo_mov_invt = h.id_tipo_mov_invt
+            INNER JOIN tbl_ms_usuario u on m.id_usuario = u.id_usuario
+            WHERE p.id_producto = $busqueda 
+            ORDER BY m.id_mov_invent ASC
+            ");
 
 // AnchoCelda,AltoCelda,titulo,borde(1-0),saltoLinea(1-0),posicion(L-C-R),ColorFondo(1-0)
 
-while ($datos_reporte = $consulta_reporte_producto->fetch_object()) {  
-   $pdf->Cell(70, 10, utf8_decode($datos_reporte->nombre_producto), 1, 0, 'C', 0);
-   $pdf->Cell(70, 10, utf8_decode($datos_reporte->nombre_usuario), 1, 0, 'C', 0);
-   //$pdf->Multicell(20, 7, utf8_decode($datos_reporte->descripcion_producto), 1, 'J', false);
-   $pdf->Cell(50, 10, utf8_decode($datos_reporte->cantidad_mov), 1, 0, 'C', 0);
-   //$pdf->Cell(40, 10, utf8_decode($datos_reporte->cantidad_min), 1, 0, 'C', 0);
-   //$pdf->Cell(40, 10, utf8_decode($datos_reporte->cantidad_max), 1, 0, 'C', 0);
-   $pdf->Cell(45, 10, utf8_decode($datos_reporte->movimiento), 1, 0, 'C', 0);
-   $pdf->Cell(45, 10, utf8_decode($datos_reporte->fecha_mov), 1, 1, 'C', 0);
-   //$pdf->Cell(60, 10, utf8_decode($datos_reporte->comentario), 1, 1, 'C', 0);
+while ($datos_reporte = $query->fetch_object()) {  
+$pdf->Cell(70, 10, utf8_decode($datos_reporte->nombre_producto), 1, 0, 'C', 0);
+$pdf->Cell(70, 10, utf8_decode($datos_reporte->nombre_usuario), 1, 0, 'C', 0);
+//$pdf->Multicell(20, 7, utf8_decode($datos_reporte->descripcion_producto), 1, 'J', false);
+$pdf->Cell(50, 10, utf8_decode($datos_reporte->cantidad_mov), 1, 0, 'C', 0);
+//$pdf->Cell(40, 10, utf8_decode($datos_reporte->cantidad_min), 1, 0, 'C', 0);
+//$pdf->Cell(40, 10, utf8_decode($datos_reporte->cantidad_max), 1, 0, 'C', 0);
+$pdf->Cell(45, 10, utf8_decode($datos_reporte->movimiento), 1, 0, 'C', 0);
+$pdf->Cell(45, 10, utf8_decode($datos_reporte->fecha_mov), 1, 1, 'C', 0);
+//$pdf->Cell(60, 10, utf8_decode($datos_reporte->comentario), 1, 1, 'C', 0);
    }
 $i = $i + 1;
 /* TABLA */
