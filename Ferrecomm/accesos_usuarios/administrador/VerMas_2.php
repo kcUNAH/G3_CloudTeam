@@ -115,7 +115,13 @@ if (!isset($_SESSION['usuario'])) {
       <form action="buscar_historial_inventario.php" method="get" class="form_search" style="background-color:#DCFFFE ;">
           <input type="text" name="busqueda" style="text-transform:uppercase;" style="text-transform:uppercase;" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
           <button type="submit" value="Buscar" class="boton-buscar">Buscar</button>
-          <?php
+          
+  <form action="./agregar_inventario.php" method="POST" enctype="multipart/form-data" id="formulario">
+  <a href="../../fpdf/Reporte_VerMas_2.php?buscar=<?php echo $busqueda ?>" target="_blank" class="pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
+
+        </form>
+
+        <?php
        
        $busqueda = strtolower($_GET['id']);
        if(empty($busqueda))
@@ -123,14 +129,7 @@ if (!isset($_SESSION['usuario'])) {
         header('Location: Inventario.php');
        }
       
-      ?> 
-  <form action="./agregar_inventario.php" method="POST" enctype="multipart/form-data" id="formulario">
-  <a href="../../fpdf/Reporte_VerMas_2.php?buscar=<?php echo $busqueda ?>" target="_blank" class="pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
-
-  
-        </form>
-
-      
+      ?>
 
 
 
