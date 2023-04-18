@@ -125,7 +125,7 @@ if (!isset($_SESSION['usuario'])) {
       
       ?> 
   <form action="./agregar_inventario.php" method="POST" enctype="multipart/form-data" id="formulario">
-  <a href="../../fpdf/Reporte_VerMas_2.php?buscar=<?php echo $busqueda ?>" target="_blank" class="pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
+  <a href="../../fpdf/Reporte_Historial_VerMas.php?buscar=<?php echo $busqueda ?>" target="_blank" class="pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
   
         </form>
