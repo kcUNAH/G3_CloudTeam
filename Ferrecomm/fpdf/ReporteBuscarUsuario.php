@@ -43,7 +43,16 @@ class PDF extends FPDF
       $this->Cell(10);  // mover a la derecha
       $this->SetFont('Arial', 'B', 10);
       $this->Cell(85, 10, utf8_decode("Sucursal : 1 "), 0, 0, '', 0);
-      $this->Ln(10);
+      $this->Ln(7);
+
+      date_default_timezone_set('America/Tegucigalpa');
+      $fecha_modificacion =date("Y-m-d H:i:s");
+
+      /* HORA */
+      $this->Cell(10);  // mover a la derecha
+      $this->SetFont('Arial', 'B', 10);
+      $this->Cell(190,6,utf8_decode("Fecha y Hora impresión: " .$fecha_modificacion),0);
+      $this->Ln(5);
 
       /* TITULO DE LA TABLA */
       //color
