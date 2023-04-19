@@ -13,49 +13,43 @@ if(!isset ($_SESSION['usuario'])){
     die();
 }
 
-?>
+include_once "../conex.php";
+include '../../../php/bitacora.php';
+//Mostrar datos
+
+if(empty($_GET['id'])){
+    header('Location: promocion.php');
+}
+ $id_parametro = $_GET['id'];
+ $sql = mysqli_query($conex, "SELECT id_parametro, parametro , valor, fecha_creacion, fecha_modificacion, creado_por,
+ modificado_por, id_usuario
+FROM tbl_ms_parametros
+WHERE id_parametro = $id_parametro;");
+ $result_sql = mysqli_num_rows($sql);
+
+ if($result_sql == 0){
+    header('Location: Productos.php');
+ }else{
+    $option = '';
+    while ($data = mysqli_fetch_array($sql)){
+       $id_parametro = $data['id_parametro'];
+       $parametro= $data['parametro'];
+       $valor = $data['valor'];
+       $fecha_creacion = $data['fecha_creacion'];
+       $fecha_modificacion = $data['fecha_modificacion'];
+       $creado_por = $data['creado_por'];
+       $modificado_por = $data['modificado_por'];
+       $id_usuario = $data['id_usuario'];
 
 
-<?php
-        
-        include '../conex.php';
-        include '../../../php/bitacora.php';
-        if(empty($_GET['id']))
-        {
-            header('Location: ../../administrador/seguridad/parametros.php');
-            mysqli_close($conex);
-        }
-    
-        $id_parametro  = $_GET['id'];
-    
-        $sql = mysqli_query($conex,"SELECT * FROM tbl_ms_parametros WHERE id_parametro = $id_parametro");
-       
-        $result_sql = mysqli_num_rows($sql);
-    
-    //Si es igual a cero no hay registro
-        if($result_sql == 0)
-        {
-            header('Location: ./parametros.php');
-        }else{
-            $option = ' ';
-            while ($data = mysqli_fetch_array($sql)){
-                    $id_parametro = $data['id_parametro'];
-                    $parametro = $data['parametro'];
-                    $valor = $data['valor'];
-                    $fecha_creacion = $data['fecha_creacion'];
-                $fecha_modificacion= $data['fecha_modificacion'];
-                $creado_por = $data['creado_por'];
-                $modificado_por=$data['modificado_por'];
-                $id_usuario=$data['id_usuario'];
-               
-        
-    
-          
-        }
-    
-        }
+    }
+ }
 
-//Si no existe el usuario me redirecciona a gestion de usuario QUITAR EL !
+
+
+ 
+
+
 if (!empty($_POST)) {
 
     if (empty($_POST['valor']))  
@@ -64,12 +58,12 @@ if (!empty($_POST)) {
     } else {
         $id_parametro = $_POST['id_parametro'];
         $valor = $_POST['valor'];
-
+        
         date_default_timezone_set('America/Tegucigalpa');
-            $fecha_modificacion = date("Y-m-d H:i:s");
+            $fecha_modificacion =date("Y-m-d H:i:s");
             
                
-            $query_update = mysqli_query($conexion, "UPDATE tbl_ms_parametros SET valor = '$valor',
+            $query_update = mysqli_query($conex, "UPDATE tbl_ms_parametros SET valor = '$valor',
             fecha_modificacion = '$fecha_modificacion'
             WHERE id_parametro = $id_parametro "); 
                 
@@ -95,8 +89,10 @@ if (!empty($_POST)) {
             }
     }
 
-    
+
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -143,13 +139,33 @@ if (!empty($_POST)) {
             <span class="tooltip">Productos</span>
         </li>
         <li>
+            <a href="../categoria.php">
+            <i class='bx bxs-category'></i>
+                <span class="links_name">Categorias</span>
+            </a>
+            <span class="tooltip">Categorias</span>
+        </li>
+        <li>
+            <a href="./promocion.php">
+            <i class='bx bxs-purchase-tag-alt'></i>
+                <span class="links_name">Promociones</span>
+            </a>
+            <span class="tooltip">Promociones</span>
+        </li>
+        <li>
             <a href="../Seguridad.php">
                 <i class='bx bx-shield-quarter'></i>
                 <span class="links_name">Seguridad</span>
             </a>
             <span class="tooltip">Seguridad</span>
         </li>
-       
+        <li>
+            <a href="../Proveedores.php">
+                <i class='bx bxs-user'></i>
+                <span class="links_name">Proveedores</span>
+            </a>
+            <span class="tooltip">Proveedores</span>
+        </li>
         <li>
             <a href="../Inventario.php">
                 <i class='bx bx-package'></i>
@@ -157,16 +173,15 @@ if (!empty($_POST)) {
             </a>
             <span class="tooltip">Inventario</span>
         </li>
-        
-        <a href="../../php/Cerrar_Seccion.php">
-        <li class="profile">
-          <i class='bx bx-log-out' id="log_out"></i>
-          <div class="Salir">Cerrar Sesión</div>
-        </li>
-      </a>
+      
+        <a href="../../../index.php">
+     <li class="profile">
+         <i class='bx bx-log-out' id="log_out" ></i>
+         <div class="Salir">Cerrar Sesión</div>
+     </li>
+    </a>
     </ul>
   </div>
-  <div>
   <style>
    form{
     background-color: #db881a;
@@ -182,12 +197,6 @@ if (!empty($_POST)) {
 
    }
    .field{
-    border: solid 1px #ccc;
-    padding: 6px;
-    width: 450px;
-   }
-
-   .formulario_input{
     border: solid 1px #ccc;
     padding: 6px;
     width: 450px;
@@ -220,66 +229,130 @@ if (!empty($_POST)) {
     width: 227px;
    }
 
-   .warnings{
-      width: 200px;
-      text-align: center;
-      margin: auto;
-      color: #B06AB3;
-      padding-top: 20px;
-   }
+   .alert{
+    width: 100%;
+    background: #d82606;
+    border-radius: 6px;
+    margin: 20px auto;
+}
+
+.msg_error{
+    color: black;
+}
+
+.msg_save{
+    color: greenyellow;
+}
+
+.alert p{
+    padding: 10px;
+}
 
   </style>
   <section class="home-section"></br>
-      <h2>  Editar parametros <i class='bx bx-edit'></i></h2>
-      <div>
-            <form action=" " method="POST" enctype="multipart/form-data" id="">
 
-            <input type="hidden" name=" id_parametro" id="id_parametro "  value="<?php echo $id_parametro;?>" >
+      <h2>  Editar promoción <i class='bx bx-edit'></i></h2>
+      
+      <form action="" method="POST" enctype="multipart/form-data">
+        <div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
+      <input type="hidden" name="id_parametro" value="<?php echo $id_parametro;?>">
+      <label for="nombre_promocion" class="formulario__label">Parametro:</label>
+				<div class="formulario__grupo-input">
+					<input type="text" class="field"  name="parametro" id="parametro" style="text-transform:uppercase;" value="<?php echo $parametro;?>" onblur="cambiarAMayusculas(this);" disabled>
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">La descripcion del producto debe de tener 4 a 16 letras, solo puede contener numeros Y letras.</p>
+			    </div>
+      <div class="formulario__grupo" id="grupo__nombre_promocion">
+				<label for="nombre_promocion" class="formulario__label">Valor</label>
+				<div class="formulario__grupo-input">
+					<input type="text" class="field"  name="valor" id="valor" style="text-transform:uppercase;" value="<?php echo $valor;?>" onblur="cambiarAMayusculas(this);" required >
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">La descripcion del producto debe de tener 4 a 16 letras, solo puede contener numeros Y letras.</p>
+			    </div>
 
-                    <p>Valor parametro:
-			<input type="text" class="field"  name="valor " id="valor" value="<?php echo $valor?>" required >
-                    </p>
-                    <p>fecha de creacion:
-        
-			<input type="text" class="field"  name="fecha_creacion" id="fecha_creacion" value="<?php echo $fecha_creacion;?>" disabled>
-				
-					
-                    </p>
-                    <p>Fecha de modificación: 
-                        
-              
-                            <input type="date" class="field"  name="fecha_modificacion" id="fecha_modificacion"   value="<?php echo $fecha_modificacion;?>" disabled>
-                       
-                    </p> 
+                <div class="formulario__grupo" id="grupo__fecha_inicio">
+				<label for="fecha_inicio" class="formulario__label">Fecha de creacion</label>
+				<div class="formulario__grupo-input">
+					<input type="date" class="field"  name="fecha_creacion" id="fecha_creacion" value="<?php echo date('Y-m-d', strtotime($fecha_creacion)) ?>" disabled >
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">La fecha de inicio debe ser menor a la fecha final</p>
+			    </div>
 
-              <p>Creado por:
-                    <input type="text" class="field"  name="creado_por" id="creado_por"  value="<?php echo $creado_por;?>" disabled>
-				
-               </p>
-               <p>Modificado por:
+                <div class="formulario__grupo" id="grupo__fecha_inicio">
+				<label for="fecha_inicio" class="formulario__label">Fecha de modificacion</label>
+				<div class="formulario__grupo-input">
+					<input type="date" class="field"  name="fecha_modificacion" id="fecha_modificacion" value="<?php echo date('Y-m-d', strtotime($fecha_modificacion)) ?>" disabled >
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">La fecha de inicio debe ser menor a la fecha final</p>
+			    </div>
+
+                <label for="nombre_promocion" class="formulario__label">Creado por:</label>
+				<div class="formulario__grupo-input">
+					<input type="text" class="field"  name="creado_por" id="creado_por" style="text-transform:uppercase;" value="<?php echo $creado_por;?>" onblur="cambiarAMayusculas(this);" disabled>
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">La descripcion del producto debe de tener 4 a 16 letras, solo puede contener numeros Y letras.</p>
+			    </div>
+
+                <label for="nombre_promocion" class="formulario__label">Modificado por:</label>
+				<div class="formulario__grupo-input">
+					<input type="text" class="field"  name="modificado_por" id="modificado_por" style="text-transform:uppercase;" value="<?php echo $modificado_por;?>" onblur="cambiarAMayusculas(this);" disabled>
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">La descripcion del producto debe de tener 4 a 16 letras, solo puede contener numeros Y letras.</p>
+			    </div>
+
+                <label for="nombre_promocion" class="formulario__label">Usuario:</label>
+				<div class="formulario__grupo-input">
+					<input type="text" class="field"  name="id_usuario" id="id_usuario" style="text-transform:uppercase;" value="<?php echo $id_usuario;?>" onblur="cambiarAMayusculas(this);" disabled>
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">La descripcion del producto debe de tener 4 a 16 letras, solo puede contener numeros Y letras.</p>
+			    </div>
+
+
+
+                
             
-               <input type="text" class="field"  name="modificado_por" id="modificado_por"  value="<?php echo $modificado_por;?>"disabled>
-				
-				
-                </p>
-                </p>
-                 
-                <p>id_usuario:
-                 <input type="text" class="field"  name="id_usuario" id="id_usuario"  value="<?php echo $id_usuario;?>"disabled>
-                  
-                  
-                  </p>
-
-
-                  <button type="submit" class="btn_agregar">Actualizar</button>
+      <button class="btn_agregar">Actualizar</button>
       <button type="reset" onclick="location.href='parametros.php'" class="btn_cancelar">Cancelar</button>
-      </form>
-     
 
 
 
+                    <script>
+                        function cambiarAMayusculas(elemento) {
+                            let texto = elemento.value;
+                            elemento.value = texto.toUpperCase();
+                        }
+                    </script>
 
+                    
+                </form>
+<script src="formularioproducto.js"></script>
 
+      
+  <script>
+  let sidebar = document.querySelector(".sidebar");
+  let closeBtn = document.querySelector("#btn");
+  let searchBtn = document.querySelector(".bx-search");
+
+  closeBtn.addEventListener("click", ()=>{
+    sidebar.classList.toggle("open");
+    menuBtnChange();
+  });
+
+  function menuBtnChange() {
+   if(sidebar.classList.contains("open")){
+     closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+   }else {
+     closeBtn.classList.replace("bx-menu-alt-right","bx-menu");
+   }
+  }
+  </script>
 
 
 </body>
