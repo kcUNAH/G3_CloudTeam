@@ -147,8 +147,7 @@
                             </div>
                             <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
                                 <label>Impuesto:</label>
-                                <input type="text" class="form-control" name="impuesto" id="impuesto" required=""
-                                value="15%" disabled>
+                                <input type="text" class="form-control" name="impuesto" id="impuesto" required="">
                             </div>
                             <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                 <a data-toggle="modal" href="#myModal">
@@ -166,8 +165,8 @@
                                         <th>Producto</th>
                                         <th>Cantidad</th>
                                         <th>Precio Compra</th>
-                                        <th>subtotal</th>
-                                        <th>ISV</th>
+                                        <th> subtotal</th>
+                                        <th>Total</th>
                                     </thead>
                                     <tfoot>
                                         <th>TOTAL</th>

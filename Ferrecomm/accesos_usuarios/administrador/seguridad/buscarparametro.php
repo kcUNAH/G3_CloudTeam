@@ -2,12 +2,11 @@
 session_start();
 
 
-
 if(!isset ($_SESSION['usuario'])){
     echo '
     <script>
     alert("Por favor, debe iniciar seccion");
-    window.location= "index.php";
+    window.location= "../../../index.php";
     </script>
     ';
     //header("localitation: index.php");
@@ -50,7 +49,7 @@ if(!isset ($_SESSION['usuario'])){
             <span class="tooltip">Facturación</span>
         </li>
         <li>
-            <a href="../../../compras.php">
+            <a href="../Compras.php">
                 <i class='bx bxs-cart'></i>
                 <span class="links_name">Compras</span>
             </a>
@@ -64,28 +63,13 @@ if(!isset ($_SESSION['usuario'])){
             <span class="tooltip">Productos</span>
         </li>
         <li>
-            <a href="../categoria.php">
-            <i class='bx bxs-category'></i>
-                <span class="links_name">Categorias</span>
-            </a>
-            <span class="tooltip">Categorias</span>
-        </li>
-        <li>
-            <a href="../productos/promocion.php">
-            <i class='bx bxs-purchase-tag-alt'></i>
-                <span class="links_name">Promociones</span>
-            </a>
-            <span class="tooltip">Promociones</span>
-        </li>
-        <li>
-            <a href="../seguridad.php">
+            <a href="../Seguridad.php">
                 <i class='bx bx-shield-quarter'></i>
                 <span class="links_name">Seguridad</span>
             </a>
             <span class="tooltip">Seguridad</span>
         </li>
         <li>
-            
             <a href="../Proveedores.php">
             <i class='bx bx-id-card'></i>
                 <span class="links_name">Proveedores</span>
@@ -93,51 +77,60 @@ if(!isset ($_SESSION['usuario'])){
             <span class="tooltip">Proveedores</span>
         </li>
         <li>
-            <a href="../../../inventario.php">
+            <a href="../Inventario.php">
                 <i class='bx bx-package'></i>
                 <span class="links_name">Inventario</span>
             </a>
             <span class="tooltip">Inventario</span>
         </li>
-       
+        <li>
+            <a href="../GestionUsuarios.php">
+            <i class='bx bxs-user'></i>
+                <span class="links_name">Usuarios</span>
+            </a>
+            <span class="tooltip">Usuarios</span>
+        </li>
         
         <a href="../../../index.php">
      <li class="profile">
          <i class='bx bx-log-out' id="log_out" ></i>
          <div class="Salir">Cerrar Sesión</div>
-         </li>
-      </a>
+     </li>
+    </a>
     </ul>
   </div>
   <section class="home-section">
-  <h1> Bitacora <i class='bx bx-note'></i></h1>
+</br>
+      <h1> Bitacora </h1>
+      <?php include '../conex.php';?>
 
-
-    <?php include '../conex.php'; ?>
-    <section id="container">
-
-
-    
-
-
-       
       <section id="container"  >
-      <form action=" buscarbitacora.php" method="get" style="background-color:#DCFFFE ;">
+
+      <?php
+       
+       $busqueda = strtolower($_REQUEST['busqueda']);
+       if(empty($busqueda))
+       {
+        header("location: mostrarbitacora.php");
+       }
+      
+      ?>
+
+
+
+<form action="buscarbitacora.php" method="get" style="background-color:#DCFFFE ;">
   <input type="text" name="busqueda" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
   <button type="submit" class="boton-buscar">Buscar</button>
-  
-  
+
+ 
+  &nbsp;&nbsp;&nbsp; 
+</form>
 
 
-        </form>
+&nbsp;&nbsp;&nbsp; 
 
-
-
-
-        <?php include '../conex.php'; ?>
-        <section id="container">
-
-      <table>
+&nbsp;&nbsp;&nbsp; 
+       <table>
       <thead>
         <tr>
             <th>Id</th>
@@ -146,16 +139,27 @@ if(!isset ($_SESSION['usuario'])){
             <th>id_objeto</th>
             <th>accion</th>
             <th>descripcion</th>
-          
-
             
         </tr>
        </thead>
+   
+       &nbsp;&nbsp;&nbsp; 
+        
         <?php
        /* include 'php/conexion.php';*/
        include '../conex.php';
-        //Paginador
-       $sql_register =mysqli_query($conex,"SELECT COUNT(*) as total_registro FROM tbl_bitacora");
+
+
+       //Paginador
+
+      
+       $sql_register =mysqli_query($conex,"SELECT COUNT(*) as total_registro FROM tbl_bitacora WHERE 
+                                                                (id_bitacora LIKE '%$busqueda%' OR
+                                                                 fecha LIKE '%$busqueda%' OR
+                                                                 id_usuario LIKE '%$busqueda%' OR
+                                                                 id_objeto LIKE '%$busqueda%' OR
+                                                                 accion LIKE '%$busqueda%' OR
+                                                                 descripcion LIKE '%$busqueda%')");
        $result_register = mysqli_fetch_array($sql_register);
        $total_registro = $result_register['total_registro'];
 
@@ -169,25 +173,32 @@ if(!isset ($_SESSION['usuario'])){
 
        $desde = ($pagina-1) * $por_pagina;
        $total_paginas = ceil($total_registro / $por_pagina);
-       $query = mysqli_query($conex,"SELECT p.id_bitacora, p.fecha, c.id_usuario, a.id_objeto, p.accion, p.descripcion 
-       FROM tbl_bitacora p 
-       INNER JOIN tbl_ms_usuario c ON p.id_usuario = c.id_usuario 
-       INNER JOIN tbl_ms_objetos a ON p.id_objeto = a.id_objeto 
-       ORDER BY p.id_bitacora ASC 
-       LIMIT $desde, $por_pagina");
-         $result = mysqli_num_rows($query);
-        if($result > 0){ //si hay registros
+
+        $query = mysqli_query($conex,"SELECT id_bitacora,fecha,id_usuario,id_objeto,accion,descripcion
+        FROM tbl_bitacora   WHERE (id_bitacora LIKE '%$busqueda%' OR
+                                                                 fecha LIKE '%$busqueda%' OR
+                                                                 id_usuario LIKE '%$busqueda%' OR
+                                                                 id_objeto LIKE '%$busqueda%' OR
+                                                                 accion LIKE '%$busqueda%' OR
+                                                                 descripcion LIKE '%$busqueda%')ORDER BY id_bitacora ASC LIMIT $desde,$por_pagina;");
+        $result = mysqli_num_rows($query);
+        if($result > 0){ 
 
             while($data = mysqli_fetch_array($query)){
+               
+
+                
         ?>
         
         <tr>
-            <td><?php echo $data["id_bitacora"] ?></td>
+           <td><?php echo $data["id_bitacora"] ?></td>
             <td><?php echo $data["fecha"] ?></td>
             <td><?php echo $data["id_usuario"] ?></td>
             <td><?php echo $data["id_objeto"] ?></td>
             <td><?php echo $data["accion"] ?></td>
             <td> <?php echo $data["descripcion"] ?></td>
+          
+    
            
         </tr>
         <?php
@@ -197,37 +208,45 @@ if(!isset ($_SESSION['usuario'])){
         ?>
 
       </table>
-
-      <div class="paginador">
+      &nbsp;&nbsp;&nbsp; 
+   <?php
+   
+   if($total_registro !=0){
+   
+   ?>
+ <div class="paginador">
      <ul>
       <?php
         if($pagina !=1)
         {
       ?>
-      <li><a href="?pagina=<?php echo 1; ?>">|<</a></li>
-      <li><a href="?pagina=<?php echo $pagina-1; ?>"><<</a></li>
+      <li><a href="?pagina=<?php echo 1; ?>&busqueda=<?php echo $busqueda; ?>">|<</a></li>
+      <li><a href="?pagina=<?php echo $pagina-1; ?>&busqueda=<?php echo $busqueda; ?>"><<</a></li>
       <?php 
         }
        for($i=1; $i <= $total_paginas; $i++){
           if($i == $pagina){
             echo '<li class="pageSelected">'.$i.'</li>';
           }else{
-            echo '<li><a href="?pagina='.$i.'">'.$i.'</a></li>';
+            echo '<li><a href="?pagina='.$i.'&busqueda='.$busqueda.'">'.$i.'</a></li>';
           }
        }
        if($pagina != $total_paginas)
        {
        ?>
-      <li><a href="?pagina=<?php echo $pagina + 1; ?>">>></a></li>
-      <li><a href="?pagina=<?php echo $total_paginas; ?>">>|</a></li>
+      <li><a href="?pagina=<?php echo $pagina + 1; ?>&busqueda=<?php echo $busqueda; ?>">>></a></li>
+      <li><a href="?pagina=<?php echo $total_paginas; ?>&busqueda=<?php echo $busqueda; ?>">>|</a></li>
        <?php } ?>
      </ul>
 </div>
+<?php 
+} 
+?>
 
-      
+</style>
+
+
   </section>
-
-
   <script>
   let sidebar = document.querySelector(".sidebar");
   let closeBtn = document.querySelector("#btn");
@@ -345,7 +364,14 @@ table th:nth-child(6){
     color: #181212;
     
 }
-
+.h2 {
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: rgba(255, 102, 0, 0.911);
+    
+    margin:auto;
+}
 
 table tr:nth-child(){
     background: #fff;
@@ -399,21 +425,8 @@ table td {
     text-decoration: none;
 
 } 
-.h1{
-    color:rgba(255, 102, 0, 0.911);
-    margin-left: 20px;
-    text-align: center;
-    font-size: 30pt;
-    
-} 
 </style>
+<!--Codigo java ventana flotante-->
 
-
-
-</style>
-
-</body>
-
-</style>
-</body>
 </html>
+

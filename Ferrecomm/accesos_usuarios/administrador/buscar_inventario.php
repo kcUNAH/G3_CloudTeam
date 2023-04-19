@@ -514,7 +514,6 @@ button[type="submit"] {
     border: 1px solid: #428bca;
   }
 </style>
-<a href="Inventario.php" class="btn_pdf">Atrás</a>
 </body>
 
 </html>

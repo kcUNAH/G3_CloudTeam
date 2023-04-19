@@ -43,14 +43,14 @@ if (!empty($_POST)) {
             // $alert= '<p class= "msg_error">El usuario ya existe.</p>';
             echo
                 '<script>
-                alert("El proveedor ya existe");
+                alert("El usuario ya existe");
                 window.location= "../proveedores.php";
                 </script>
                 ';
             $codigoObjeto = 7;
             $accion = 'Registro';
             $descripcion = 'intento ingresar un proveedor ya existente';
-            bitacora($codigoObjeto, $accion, $descripcion);
+            bitacora2($codigoObjeto, $accion, $descripcion);
         } else {
            
             $sql="INSERT INTO tbl_proveedores(nombre_proveedor,rtn_proveedor,telefono_proveedor,correo_proveedor,direccion_proveedor)
@@ -62,7 +62,7 @@ if (!empty($_POST)) {
                 //  $alert= '<p class= "msg_save">El usuario se ha creado.</p>';
                 echo
                 '<script>
-                alert("Proveedor creado correctamente");
+                alert("Usuario creado correctamente");
                 window.location= "../proveedores.php";
                 </script>
                 ';
@@ -74,7 +74,7 @@ if (!empty($_POST)) {
                 // $alert= '<p class= "msg_error">Error al crear el usario.</p>';
                 echo
                 '<script>
-                alert("Error al crear el proveedor");
+                alert("Error al crear el usario");
                 window.location= "../proveedores.php";
                 </script>
                 ';

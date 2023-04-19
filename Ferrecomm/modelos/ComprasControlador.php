@@ -50,28 +50,6 @@ switch ($_GET["op"]){
 			$num_elementos=$num_elementos + 1;
 		}
 
-			// Recuperar los detalles de la compra
-			$sql_detalles_compra = "SELECT id_producto, cantidad_compra FROM tbl_detall_compra WHERE id_compra = '$id_compra'";
-			$resultado_detalles_compra = $conn->query($sql_detalles_compra);
-
-			// Actualizar el inventario para cada producto comprado
-			while ($fila = $resultado_detalles_compra->fetch_assoc()) {
-				$id_producto = $fila['id_producto'];
-				$cantidad_compra = $fila['cantidad_compra'];
-
-				// Recuperar la cantidad actual en el inventario
-				$sql_inventario = "SELECT cantidad FROM tbl_inventario WHERE id_producto = '$id_producto'";
-				$resultado_inventario = $conn->query($sql_inventario);
-				$fila_inventario = $resultado_inventario->fetch_assoc();
-				$cantidad_actual = $fila_inventario['cantidad'];
-
-				// Actualizar la cantidad en el inventario
-				$cantidad_nueva = $cantidad_actual + $cantidad_compra;
-				$sql_actualizar_inventario = "UPDATE tbl_inventario SET cantidad = '$cantidad_nueva' WHERE id_producto = '$id_producto'";
-				$resultado_actualizar_inventario = $conn->query($sql_actualizar_inventario);
-}
-
-
 		/////
 		echo $num_elementos ? "Compra registrada con exito" : "No se pudieron registrar todos los datos de la compra";
 		/////

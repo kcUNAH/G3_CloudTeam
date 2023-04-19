@@ -11,6 +11,7 @@
     <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php include "Header.php"; ?>
+
 </head>
 
 <body>
@@ -82,6 +83,7 @@
 
             <table class="tbl_venta">
                 <thead>
+                <th colspan="7">BUSCAR PRODUCTOS</th>
                     <tr>
                         <th width="100px">Codigo</th>
                         <th width="100px">Descripcion</th>
@@ -100,6 +102,52 @@
                         <td id="txt_Precio_total" class="textright">0.00</td>
                         <td><a href="#" class="btn_accion" id="add_product_venta"><i class="fas fa-plus"></i></a></td>
                     </tr>
+                    <br><br>
+                    <th colspan="7">BUSCAR PROMOCIONES</th>
+                    <tr>
+                        <th width="100px">Codigo</th>
+                        <th width="100px">Descripcion</th>
+                        <th width="100px">Existencia</th>
+                        <th width="100px">Cantidad</th>
+                        <th class="textright">Precio</th>
+                        <th class="textright">Precio Total</th>
+                        <th>Accion</th>
+                    </tr> 
+                    <tr>
+                        
+                        <td>
+                        <?php
+                        include 'conex.php';
+           $query_prom = mysqli_query($conex,"SELECT * from tbl_producto");
+           $result_prom = mysqli_num_rows($query_prom)
+                ?>
+            
+                <select name="txt_cod_producto" id="txt_cod_producto">
+                   <?php
+                     echo $option;
+                      if($result_prom > 0){
+                        while ($promo= mysqli_fetch_array($query_prom)) {
+                        
+                   ?>
+                   <option value="<?php echo $promo["id_producto"]; ?>"><?php echo $promo["nombre_producto"]?> </option>
+                   <?php
+                   }
+                   }
+
+                   ?>
+                </select>
+                    
+                       </td>
+                            
+                        <td id="txt_descripcion">----</td>
+                        <td id="txt_existencia">---</td>
+                        <td><input type="text" name="txt_cant_producto" id="txt_cant_producto" value="0" min="1" disabled></td>
+                        <td id="txt_Precio" class="textright">0.00</td>
+                        <td id="txt_Precio_total" class="textright">0.00</td>
+                        <td><a href="#" class="btn_accion" id="add_product_venta"><i class="fas fa-plus"></i></a></td>
+                    </tr>
+
+
                     <tr>
                         <th>Codigo</th>
                         <th colspan="2">Descripcion</th>
@@ -118,15 +166,6 @@
                     <!-- Se utilizara contenido Ajax para llenar la tabla -->
                 </tfoot>
             </table>
-
-
-
-
-
-
-
-
-
 
         </center>
     </section>

@@ -43,16 +43,7 @@ class PDF extends FPDF
       $this->Cell(10);  // mover a la derecha
       $this->SetFont('Arial', 'B', 10);
       $this->Cell(85, 10, utf8_decode("Sucursal : 1 "), 0, 0, '', 0);
-      $this->Ln(7);
-
-      date_default_timezone_set('America/Tegucigalpa');
-      $fecha_modificacion =date("Y-m-d H:i:s");
-
-      /* HORA */
-      $this->Cell(10);  // mover a la derecha
-      $this->SetFont('Arial', 'B', 10);
-      $this->Cell(190,6,utf8_decode("Fecha y Hora impresión: " .$fecha_modificacion),0);
-      $this->Ln(5);
+      $this->Ln(10);
 
       /* TITULO DE LA TABLA */
       //color
@@ -68,16 +59,15 @@ class PDF extends FPDF
       $this->SetTextColor(255, 255, 255); //colorTexto
       $this->SetDrawColor(163, 163, 163); //colorBorde
       $this->SetFont('Arial', 'B', 11);
-      $this->Cell(60,10, utf8_decode('Nombre'), 1, 0, 'C', 1);
-      $this->Cell(50, 10, utf8_decode('Categoria'), 1, 0, 'C', 1);
+      $this->Cell(75,10, utf8_decode('Nombre'), 1, 0, 'C', 1);
+      $this->Cell(70, 10, utf8_decode('Categoria'), 1, 0, 'C', 1);
      // $this->Cell(40, 10, utf8_decode('Descripcion'), 1, 0, 'C', 1);
       $this->Cell(50, 10, utf8_decode('Medida'), 1, 0, 'C', 1);
       //$this->Cell(30, 10, utf8_decode('Imagen'), 1, 0, 'C', 1);
-     // $this->Cell(40, 10, utf8_decode('Cantidad Minima'), 1, 0, 'C', 1);
+      //$this->Cell(40, 10, utf8_decode('Cantidad Minima'), 1, 0, 'C', 1);
       //$this->Cell(40, 10, utf8_decode('Cantidad Maxima'), 1, 0, 'C', 1);
       $this->Cell(50, 10, utf8_decode('Cantidad Existencia'), 1, 0, 'C', 1);
-      $this->Cell(30, 10, utf8_decode('Precio'),1, 0, 'C', 1);
-      $this->Cell(40, 10, utf8_decode('Acciones'), 1, 1, 'C', 1);
+      $this->Cell(40, 10, utf8_decode('Precio'), 1, 1, 'C', 1);
    }
 
    // Pie de página
@@ -131,24 +121,14 @@ WHERE (p.nombre_producto LIKE '%$busqueda%' OR
 // AnchoCelda,AltoCelda,titulo,borde(1-0),saltoLinea(1-0),posicion(L-C-R),ColorFondo(1-0)
 
 while ($datos_reporte = $consulta_reporte_producto->fetch_object()) {  
-
-   if($datos_reporte->cantidad > $datos_reporte->cantidad_max ){
-      $color = ' Sobre paso '.$pdf->SetFillColor(0, 255, 0);
-   }elseif($datos_reporte->cantidad >= $datos_reporte->cantidad_min && $datos_reporte->cantidad <= $datos_reporte->cantidad_max  ){
-    $color = " Esta en el rango ".$pdf->SetFillColor(255, 255, 0);
-   }elseif($datos_reporte->cantidad < $datos_reporte->cantidad_min ){
-    $color = " Deficiente ".$pdf->SetFillColor(255, 0, 0);
-   }  
-$pdf->Cell(60, 10, utf8_decode($datos_reporte->nombre_producto), 1, 0, 'C', 0);
-$pdf->Cell(50, 10, utf8_decode($datos_reporte->nombre_categoria), 1, 0, 'C', 0);
+$pdf->Cell(75, 10, utf8_decode($datos_reporte->nombre_producto), 1, 0, 'C', 0);
+$pdf->Cell(70, 10, utf8_decode($datos_reporte->nombre_categoria), 1, 0, 'C', 0);
 //$pdf->Multicell(20, 7, utf8_decode($datos_reporte->descripcion_producto), 1, 'J', false);
 $pdf->Cell(50, 10, utf8_decode($datos_reporte->unidad_medida), 1, 0, 'C', 0);
 //$pdf->Cell(40, 10, utf8_decode($datos_reporte->cantidad_min), 1, 0, 'C', 0);
 //$pdf->Cell(40, 10, utf8_decode($datos_reporte->cantidad_max), 1, 0, 'C', 0);
 $pdf->Cell(50, 10, utf8_decode($datos_reporte->cantidad), 1, 0, 'C', 0);
-$pdf->Cell(30, 10, utf8_decode($datos_reporte->precio_producto),  1, 0, 'C', 0);
-//$pdf->SetFillColor(255, 0, 0);
-$pdf->Cell(40, 10, utf8_decode($color), 1, 1, 'C', 1);
+$pdf->Cell(40, 10, utf8_decode($datos_reporte->precio_producto), 1, 1, 'C', 0);
    }
 $i = $i + 1;
 /* TABLA */

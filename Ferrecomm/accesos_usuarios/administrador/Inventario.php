@@ -155,7 +155,7 @@ if (!isset($_SESSION['usuario'])) {
                 <th>Existencia</th>
                 <th>Precio </th>
                 <th>Acciones </th>
-                <th>Ver Más </th>
+                
 
 
               </tr>
@@ -238,15 +238,17 @@ if (!isset($_SESSION['usuario'])) {
                   }elseif($data["cantidad"] < $data["cantidad_min"] ){
                     $color = "<i style='background-color: #ff0000'> Deficiente </i>";
                   }
+ 
+
                   ?>
                   <td>
                     <?php echo $color ?>
                   </td>
+                  <!-- 
                   <td>
-                  <a href='VerMas_Producto.php?id=<?php echo $data["id_producto"]; ?>' class='btn_inventario' > Ver Más<i id='' class='b'></i></a>
-                  
+                  <a href="VerMasInventario.php" class="btn_inventario" > Ver Más<i id="" class='b'></i></a>
                 </td>
-                
+                 -->
                  
 
                   <!--  <a class="link_edit" href="editar.php?id=<// echo $data["id_usuario"]; ?>">Editar</a> -->

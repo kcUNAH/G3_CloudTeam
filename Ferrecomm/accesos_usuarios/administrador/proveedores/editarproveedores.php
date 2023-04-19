@@ -96,7 +96,7 @@ if(!isset ($_SESSION['usuario'])){
     }else{
         $option = ' ';
         while ($data = mysqli_fetch_array($sql)){
-                $id_proveedor = $data["id_proveedor"];
+                $id_proveedor = $data['id_proveedor'];
                 $nombre_proveedor = $data['nombre_proveedor'];
                 $rtn_proveedor = $data['rtn_proveedor'];
                 $telefono_proveedor = $data['telefono_proveedor'];
@@ -290,15 +290,15 @@ if(!isset ($_SESSION['usuario'])){
 
                 <p>Nombre del proveedor:
 				
-		      <input type="text" class="field"  name="nombre_proveedor" id="nombre_proveedor" style="text-transform:uppercase;" value="<?php echo $nombre_proveedor;?>"  required>>
+		      <input type="text" class="field"  name="nombre_proveedor" id="nombre_proveedor" style="text-transform:uppercase;" value="<?php echo $nombre_proveedor;?>">
                 </p>
 
                     <p>RTN proveedor:
-			<input type="text" class="field"  name="rtn_proveedor" id="rtn_proveedor"  min ="0" maxlength="15"  value="<?php echo $rtn_proveedor;?>" required pattern="[0-9]+">
+			<input type="text" class="field"  name="rtn_proveedor" id="rtn_proveedor"  min ="0" maxlength="14"  value="<?php echo $rtn_proveedor;?>" required pattern="[0-9]+">
                     </p>
                     <p>Telefono:
          
-			<input type="text" class="field"  name="telefono" id="telefono"  maxlength="8"   value="<?php echo $telefono_proveedor;?>"required  >
+			<input type="text" class="field"  name="telefono" id="telefono"  maxlength="8"  pattern="[0-9]+"  value="+504:<?php echo $telefono_proveedor;?>" >
 				
 					
                     </p>
