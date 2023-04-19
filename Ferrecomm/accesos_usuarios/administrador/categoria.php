@@ -77,7 +77,7 @@ if(!isset ($_SESSION['usuario'])){
             <span class="tooltip">Promociones</span>
         </li>
         <li>
-            <a href="../Seguridad.php">
+            <a href="./Seguridad.php">
                 <i class='bx bx-shield-quarter'></i>
                 <span class="links_name">Seguridad</span>
             </a>

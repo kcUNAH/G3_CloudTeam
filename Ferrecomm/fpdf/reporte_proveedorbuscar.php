@@ -43,8 +43,16 @@ class PDF extends FPDF
       $this->Cell(10);  // mover a la derecha
       $this->SetFont('Arial', 'B', 10);
       $this->Cell(85, 10, utf8_decode("Sucursal : 1 "), 0, 0, '', 0);
-      $this->Ln(10);
+      $this->Ln(7);
 
+      date_default_timezone_set('America/Tegucigalpa');
+      $fecha_modificacion =date("Y-m-d H:i:s");
+ 
+      /* HORA */
+      $this->Cell(10);  // mover a la derecha
+      $this->SetFont('Arial', 'B', 10);
+      $this->Cell(190,6,utf8_decode("Fecha y Hora impresión: " .$fecha_modificacion),0);
+      $this->Ln(5);
       /* TITULO DE LA TABLA */
       //color
       $this->SetTextColor(228, 100, 0);
@@ -59,13 +67,13 @@ class PDF extends FPDF
       $this->SetTextColor(255, 255, 255); //colorTexto
       $this->SetDrawColor(163, 163, 163); //colorBorde
       $this->SetFont('Arial', 'B', 11);
-      $this->Cell(50,20, utf8_decode('nombre_proveedor'), 1, 0, 'C', 1);
-      $this->Cell(70, 20, utf8_decode('rtn_proveedor'), 1, 0, 'C', 1);
+      $this->Cell(70,20, utf8_decode('nombre_proveedor'), 1, 0, 'C', 1);
+      $this->Cell(60, 20, utf8_decode('rtn_proveedor'), 1, 0, 'C', 1);
      // $this->Cell(40, 10, utf8_decode('Descripcion'), 1, 0, 'C', 1);
-      $this->Cell(30, 20, utf8_decode('telefono_proveedor'), 1, 0, 'C', 1);
+      $this->Cell(50, 20, utf8_decode('telefono_proveedor'), 1, 0, 'C', 1);
       //$this->Cell(30, 10, utf8_decode('Imagen'), 1, 0, 'C', 1);
-      $this->Cell(40, 20, utf8_decode('correo_proveedor'), 1, 0, 'C', 1);
-      $this->Cell(40, 20, utf8_decode('direccion_proveedor'), 1, 0, 'C', 1);
+      $this->Cell(50, 20, utf8_decode('correo_proveedor'), 1, 0, 'C', 1);
+      $this->Cell(50, 20, utf8_decode('direccion_proveedor'), 1, 1, 'C', 1);
                                         
    }
 
@@ -99,25 +107,23 @@ if(empty($busqueda))
  header("location: ../proveedores.php");
 }
 
-$consulta_reporte_proveedor =$conexion->query("SELECT COUNT(*) as total_registro FROM tbl_proveedores WHERE 
-                                                               (id_proveedor LIKE '%$busqueda%' OR
-                                                                 nombre_proveedor LIKE '%$busqueda%' OR
-                                                                 rtn_proveedor LIKE '%$busqueda%' OR
-                                                                 telefono_proveedor LIKE '%$busqueda%' OR
-                                                                 correo_proveedor LIKE '%$busqueda%' OR
-                                                                 direccion_proveedor LIKE '%$busqueda%')
-                                              
-                                                          ORDER BY id_proveedor ASC
+$consulta_reporte_proveedor =$conexion->query("SELECT id_proveedor,nombre_proveedor,rtn_proveedor,telefono_proveedor,correo_proveedor,direccion_proveedor 
+FROM tbl_proveedores   WHERE (id_proveedor LIKE '%$busqueda%' OR
+                            nombre_proveedor LIKE '%$busqueda%' OR
+                           rtn_proveedor LIKE '%$busqueda%'OR
+                          telefono_proveedor LIKE '%$busqueda%' OR
+                           correo_proveedor LIKE '%$busqueda%' OR
+                           direccion_proveedor LIKE '%$busqueda%') ORDER BY id_proveedor 
 ");
 
 // AnchoCelda,AltoCelda,titulo,borde(1-0),saltoLinea(1-0),posicion(L-C-R),ColorFondo(1-0)
 
 while ($datos_reporte = $consulta_reporte_proveedor->fetch_object()) {  
-   $pdf->Cell(50, 20, utf8_decode($datos_reporte->nombre_proveedor), 1, 0, 'C', 0);
-   $pdf->Cell(70, 20, utf8_decode($datos_reporte->rtn_proveedor), 1, 0, 'C', 0);
-   $pdf->Cell(30, 20, utf8_decode($datos_reporte->telefono_proveedor), 1, 0, 'C', 0);
-   $pdf->Cell(40, 20, utf8_decode($datos_reporte->correo_proveedor), 1, 0, 'C', 0);
-   $pdf->Cell(40, 20, utf8_decode($datos_reporte->direccion_proveedor), 1, 1, 'C', 0);
+   $pdf->Cell(70, 20, utf8_decode($datos_reporte->nombre_proveedor), 1, 0, 'C', 0);
+   $pdf->Cell(60, 20, utf8_decode($datos_reporte->rtn_proveedor), 1, 0, 'C', 0);
+   $pdf->Cell(50, 20, utf8_decode($datos_reporte->telefono_proveedor), 1, 0, 'C', 0);
+   $pdf->Cell(50, 20, utf8_decode($datos_reporte->correo_proveedor), 1, 0, 'C', 0);
+   $pdf->Cell(50, 20, utf8_decode($datos_reporte->direccion_proveedor), 1, 1, 'C', 0);
 
    // Move down one line
   

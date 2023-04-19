@@ -124,7 +124,7 @@ if(!isset ($_SESSION['usuario'])){
 <h1>  Proveedores<i class='bx bxs-group icon'></i></h1>
  
   <form action="./proveedores/buscarproveedor.php" method="get" style="background-color:#DCFFFE ;">
-  <input type="text" name="busqueda" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
+  <input type="text" name="busqueda" style="text-transform:uppercase; margin-left: 40px"  id="busqueda" placeholder="Buscar...">
   <button type="submit" class="boton-buscar">Buscar</button>
   <a href="./proveedores/agregar_proveedores.php" class="btn_newproducto" style="margin-left: 350px" > Agregar Proveedor<i id="icon_nuevo"  class='bx bxs-user-plus'></i></a>
   <a href="../../fpdf/reporteproveedor.php" target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
