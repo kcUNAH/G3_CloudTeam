@@ -48,13 +48,7 @@ WHERE id_producto = $id_producto;");
         $cantidad_min = $data['cantidad_min'];
         $cantidad_max = $data['cantidad_max'];
 
-        if($id_categoria == 1){
             $option = '<option value="'.$id_categoria.'"select>'.$categoria.'</option>';
-        }else if($id_categoria == 2){
-            $option = '<option value="'.$id_categoria.'"select>'.$categoria.'</option>';
-        }else if($id_categoria == 3){
-            $option = '<option value="'.$id_categoria.'"select>'.$categoria.'</option>';
-        }
 
             if($data['img_producto'] != 'Imagen.PNG')
             {

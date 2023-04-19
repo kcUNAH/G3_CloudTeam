@@ -63,6 +63,20 @@ if(!isset ($_SESSION['usuario'])){
             <span class="tooltip">Productos</span>
         </li>
         <li>
+            <a href="categoria.php">
+            <i class='bx bxs-category'></i>
+                <span class="links_name">Categorias</span>
+            </a>
+            <span class="tooltip">Categorias</span>
+        </li>
+        <li>
+            <a href="productos/promocion.php">
+            <i class='bx bxs-purchase-tag-alt'></i>
+                <span class="links_name">Promociones</span>
+            </a>
+            <span class="tooltip">Promociones</span>
+        </li>
+        <li>
             <a href="Seguridad.php">
                 <i class='bx bx-shield-quarter'></i>
                 <span class="links_name">Seguridad</span>
@@ -101,8 +115,8 @@ if(!isset ($_SESSION['usuario'])){
       <form action="./productos/buscarproducto.php" method="get" style="background-color:#DCFFFE ;">
   <input type="text" name="busqueda" style="text-transform:uppercase; margin-left: 40px" id="busqueda" placeholder="Buscar...">
   <button type="submit" class="boton-buscar">Buscar</button>
-  <a href= "./productos/agregarproducto.php" class="btn_newproducto" style="margin-left: 350px"> Nuevo producto<i id="icon_nuevo" class='bx bxs-cart-add'></i></a>
-    <a href="../../fpdf/Reporteproductos.php" target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
+  <a href= "./productos/agregarproducto.php" class="btn_newproducto" style="margin-left: 50px"> Nuevo producto<i id="icon_nuevo" class='bx bxs-cart-add'></i></a>
+<a href="../../fpdf/Reporteproductos.php" target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
 
 </form>
@@ -180,10 +194,9 @@ if(!isset ($_SESSION['usuario'])){
             <td><?php echo $data["cantidad_min"] ?></td>
             <td> <?php echo $data["cantidad_max"] ?></td>
            <td>
-           <a class="link_promociones" href="./productos/tablapromocion.php?id=<?php echo $data["id_producto"]; ?>"><i class='bx bx-low-vision'></i></a>
             <a class="link_agregarpromocion" href="./productos/productopromocion.php?id=<?php echo $data["id_producto"]; ?>"><i class='bx bx-add-to-queue'></i></a>
-            <a class="link_promociones" href="./productos/promocion.php"><i class='bx bxs-purchase-tag-alt'></i></a>
-          </td>
+            <a class="link_promociones" href="./productos/tablapromocion.php?id=<?php echo $data["id_producto"]; ?>"><i class='bx bx-low-vision'></i></a>
+             </td>
             <td>
               <!--  <a class="link_factura" href="#"><i class='bx bx-check-double'></i></i></a>-->
                 <a class="link_edit" href="./productos/editarproducto.php?id=<?php echo $data["id_producto"]; ?>"><i class='bx bx-edit'></i></a>

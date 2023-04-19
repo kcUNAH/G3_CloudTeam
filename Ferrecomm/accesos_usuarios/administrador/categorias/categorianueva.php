@@ -1,7 +1,6 @@
 <?php
 session_start();
-
-if(!isset ($_SESSION['usuario'])){
+if (!isset($_SESSION['usuario'])) {
     echo '
     <script>
     alert("Por favor, debe iniciar seccion");
@@ -12,9 +11,61 @@ if(!isset ($_SESSION['usuario'])){
     session_destroy();
     die();
 }
-include '../conex.php';
 ?>
 
+
+<?php
+
+include '../conex.php';
+include '../../../php/bitacora.php';
+
+
+
+if (!empty($_POST)) {
+
+    if (empty($_POST['nombre_categoria']) || empty($_POST['presentacion']))  //Si van vacios nos muestra el mensaje de erro, sino capturalos datos
+    {
+        echo '<script>
+            alert("Todos los campos son obligatorios");
+            window.location.href= "promocionagregar.php";
+            </script>
+            ';
+    } else {
+
+        $nombre_categoria =$_POST['nombre_categoria'];
+        $presentacion = $_POST['presentacion'];
+
+            $query_insert = mysqli_query($conex, "INSERT INTO tbl_categoria(nombre_categoria,presentacion)
+            VALUES('$nombre_categoria','$presentacion')");
+
+            if ($query_insert) {
+                echo
+                '<script>
+                alert("Categoria agregada correctamente");
+                window.location= "../categoria.php";
+                </script>
+                ';
+                $codigoObjeto=7;
+                $accion='Registro';
+                $descripcion= 'Se agrego una categoria nueva con Exito';
+                bitacora($codigoObjeto, $accion,$descripcion);
+            } else {
+                echo
+                '<script>
+                alert("Error al añadir la caategoria");
+                window.location= "categorianueva.php";
+                </script>
+                ';
+            }
+        }
+    }
+
+
+
+
+
+
+?>
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -171,99 +222,36 @@ include '../conex.php';
 }
   </style>
   <section class="home-section"></br>
-      <h2>  Añadir nuevo producto <i class='bx bx-shopping-bag'></i></h2>
-            <form action="./agregar.php" method="POST" enctype="multipart/form-data" id="formulario">
-            <label for="id_estado_prom">Categoria</label></br>
-                
-                <?php
-           $query_prom = mysqli_query($conex,"SELECT * from tbl_categoria");
-           $result_prom = mysqli_num_rows($query_prom)
-        ?>
+      <h2>  Añadir nueva categoria <i class='bx bxs-category'></i></h2>
+            <form action="" method="POST" enctype="multipart/form-data" id="formulario">
+
+
+                <div class="formulario__grupo" id="grupo__nombre_categoria">
+				<label for="nombre_categoria" class="formulario__label">Nombre de la categoria</label>
+				<div class="formulario__grupo-input">
+					<input type="text" class="field"  name="nombre_categoria" id="nombre_categoria" style="text-transform:uppercase;" onblur="cambiarAMayusculas(this);" required >
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">Solo puede contener letras</p>
+			    </div>
+
+                <div class="formulario__grupo" id="grupo__presentacion">
+				<label for="presentacion" class="formulario__label">Presentacion</label>
+				<div class="formulario__grupo-input">
+					<input type="text" class="field"  name="presentacion" id="presentacion" style="text-transform:uppercase;" onblur="cambiarAMayusculas(this);" required >
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">Solo puede contener letras y numeros</p>
+			    </div>
+                </br>
             
-                <select name="id_categoria" id="id_categoria">
-                   <?php
-                     echo $option;
-                      if($result_prom > 0){
-                        while ($promo= mysqli_fetch_array($query_prom)) {
-                        
-                   ?>
-                   <option value="<?php echo $promo["id_categoria"]; ?>"><?php echo $promo["nombre_categoria"]?> </option>
-                   <?php
-                   }
-                   }
-
-                   ?>
-                </select>
-
-
-                <div class="formulario__grupo" id="grupo__nombre_producto">
-				<label for="nombre_producto" class="formulario__label">Nombre producto</label>
-				<div class="formulario__grupo-input">
-					<input type="text" class="field"  name="nombre_producto" id="nombre_producto" style="text-transform:uppercase;" onblur="cambiarAMayusculas(this);" required >
-					<i class="formulario__validacion-estado fas fa-times-circle"></i>
-				</div>
-				<p class="formulario__input-error">El nombre del producto tiene que iniciar con letras y contener 2 a 16 de las mismas</p>
-			    </div>
-
-                <div class="formulario__grupo" id="grupo__descripcion_producto">
-				<label for="descripcion_producto" class="formulario__label">Descripcion</label>
-				<div class="formulario__grupo-input">
-					<input type="text" class="field"  name="descripcion_producto" id="descripcion_producto" style="text-transform:uppercase;" onblur="cambiarAMayusculas(this);" required >
-					<i class="formulario__validacion-estado fas fa-times-circle"></i>
-				</div>
-				<p class="formulario__input-error">La descripcion del producto debe de tener 4 a 16 letras, solo puede contener numeros Y letras.</p>
-			    </div>
-
-                <div class="formulario__grupo" id="grupo__precio_producto">
-				<label for="precio_producto" class="formulario__label">Precio</label>
-				<div class="formulario__grupo-input">
-					<input type="number" class="field"  name="precio_producto" id="precio_producto" required >
-					<i class="formulario__validacion-estado fas fa-times-circle"></i>
-				</div>
-				<p class="formulario__input-error">El precio solo puede contener numeros y puntos</p>
-			    </div>
-
-            <p class="input-file-wrapper">
-            <label for="upload">Imagen del producto:</label></br>
-            <input type="file" name="img_producto" id="img_producto" accept=".jpg, .png, .gif">
-            </p>
-
-            <div class="formulario__grupo" id="grupo__unidad_medida">
-				<label for="unidad_medida" class="formulario__label">Unidad medida</label>
-				<div class="formulario__grupo-input">
-					<input type="text" class="field"  name="unidad_medida" id="unidad_medida" style="text-transform:uppercase;" onblur="cambiarAMayusculas(this);" required>
-					<i class="formulario__validacion-estado fas fa-times-circle"></i>
-				</div>
-				<p class="formulario__input-error">Solo puede contener numeros y letras</p>
-			    </div>
-
-                <div class="formulario__grupo" id="grupo__cantidad_min">
-				<label for="cantidad_min" class="formulario__label">Cantidad minima:</label>
-				<div class="formulario__grupo-input">
-					<input type="number" class="field"  name="cantidad_min" id="cantidad_min" required >
-					<i class="formulario__validacion-estado fas fa-times-circle"></i>
-				</div>
-				<p class="formulario__input-error">Solo puede contener numeros y debe ser menor que la Cantidad Maxima</p>
-			    </div>
-
-                <div class="formulario__grupo" id="grupo__cantidad_max">
-				<label for="cantidad_max" class="formulario__label">Cantidad maxima:</label>
-				<div class="formulario__grupo-input">
-					<input type="number" class="field"  name="cantidad_max" id="cantidad_max" required>
-					<i class="formulario__validacion-estado fas fa-times-circle"></i>
-				</div>
-				<p class="formulario__input-error">Solo puede contener numeros y debe ser mayos que la Cantidad Minima </p>
-			    </div>
-
-            </br>
-            
-            <div class="formulario__mensaje" id="formulario__mensaje">
+                <div class="formulario__mensaje" id="formulario__mensaje">
 				<p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor llene todos los campos correctamente </p>
 			</div>
 
       <button type="submit" class="btn_agregar">Guardar</button>
       <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado exitosamente!</p>
-      <button type="reset" onclick="location.href='../Productos.php'" class="btn_cancelar">Cancelar</button>
+      <button type="reset" onclick="location.href='../categoria.php'" class="btn_cancelar">Cancelar</button>
 
             </form>
 
@@ -287,7 +275,7 @@ include '../conex.php';
                     ?>
                 </form>
       </form>
- <script src="formularioproducto.js"></script>
+ <script src="formulariocategoria.js"></script>
 
   <script>
   let sidebar = document.querySelector(".sidebar");

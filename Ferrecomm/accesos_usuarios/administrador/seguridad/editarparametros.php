@@ -20,98 +20,81 @@ if(!isset ($_SESSION['usuario'])){
         
         include '../conex.php';
         include '../../../php/bitacora.php';
-        if (!empty($_POST)){
-            $alert="";
-            if (empty($_POST['valor'])|| empty($_POST['fecha_modificacion']))  //Si van vacios nos muestra el mensaje de erro, sino capturalos datos
-            {
-                $alert= '<p class= "msg_error"> Todos los campos son obligatorios.</p>';    
-            }else{
-             $id_parametro = $_POST['id_parametro'];
-             $parametro = $_POST['parametro'];
-            $valor = $_POST['valor'];
-            $fecha_creacion = $_POST['fecha_creacion'];
-            $fecha_modificacion= $_POST['fecha_modificacion'];
-            $creado_por = $_POST['creado_por'];
-            $modificado_por=$_POST['modificado_por'];
-            $id_usuario=$_POST['id_usuario'];
-            $query = mysqli_query($conex,"SELECT * FROM tbl_ms_parametros WHERE (parametro = ' $parametro' AND id_parametro != $id_parametro)");
-
-            $result = mysqli_fetch_array($query); //Almacena datos
-
-            if($result > 0){ //Si ya existe manda eel mensaje 
-                $alert= '<p class= "msg_error">El proveedor ya existe.</p>';
-            }else{
-
+        if(empty($_GET['id']))
+        {
+            header('Location: ../../administrador/seguridad/parametros.php');
+            mysqli_close($conex);
+        }
+    
+        $id_parametro  = $_GET['id'];
+    
+        $sql = mysqli_query($conex,"SELECT * FROM tbl_ms_parametros WHERE id_parametro = $id_parametro");
+       
+        $result_sql = mysqli_num_rows($sql);
+    
+    //Si es igual a cero no hay registro
+        if($result_sql == 0)
+        {
+            header('Location: ./parametros.php');
+        }else{
+            $option = ' ';
+            while ($data = mysqli_fetch_array($sql)){
+                    $id_parametro = $data['id_parametro'];
+                    $parametro = $data['parametro'];
+                    $valor = $data['valor'];
+                    $fecha_creacion = $data['fecha_creacion'];
+                $fecha_modificacion= $data['fecha_modificacion'];
+                $creado_por = $data['creado_por'];
+                $modificado_por=$data['modificado_por'];
+                $id_usuario=$data['id_usuario'];
                
-                    $sql_update = mysqli_query($conex,"UPDATE bl_ms_parametros SET parametro='$parametro',valor='$valor',fecha_creacion=' $fecha_creacion',fecha_modificacion='$fecha_modificacion', 
-                   creado_por='$creado_por',modificado_por='$modificado_por', id_usuario='$id_usuario' WHERE id_parametro = $id_parametro");
-
-                    if($sql_update){
-                       // $alert= '<p class= "msg_save">El usuario se ha actualizado correctamente.</p>';
-                        
-                       echo '<script>
-                        alert("El usuario se ha actualizado correctamente");
-                        window.location= "../../administrador/proveedores.php";
-                        </script>
-                        ';
-                        $codigoObjeto=3;
-                        $accion='Actualizar';
-                        $descripcion= 'proveedor Actualizo ';
-                        bitacora($codigoObjeto, $accion,$descripcion);
-                    }else{
-                        //$alert= '<p class= "msg_error">Error al actualizar el usario.</p>';
-                        echo '<script>
-                        alert("Error al actualizar el usario");
-                        window.location= "editarproveedores.php";
-                        </script>
-                        ';
-                        $codigoObjeto=3;
-                        $accion='Actualizar';
-                        $descripcion= 'Se produjo un error al  Actualizo el  proveedor';
-                        bitacora($codigoObjeto, $accion,$descripcion);
-                    }
-                
-                
-            }
-            }
         
-    }
+    
+          
+        }
+    
+        }
 
 //Si no existe el usuario me redirecciona a gestion de usuario QUITAR EL !
-    if(empty($_REQUEST['id']))
-    {
-        header('Location: ../../administrador/proveedores.php');
-        mysqli_close($conex);
+if (!empty($_POST)) {
+
+    if (empty($_POST['valor']))  
+        {
+            $alert= '<p class= "msg_error"> Todos los campos son obligatorios.</p>';
+    } else {
+        $id_parametro = $_POST['id_parametro'];
+        $valor = $_POST['valor'];
+
+        date_default_timezone_set('America/Tegucigalpa');
+            $fecha_modificacion = date("Y-m-d H:i:s");
+            
+               
+            $query_update = mysqli_query($conexion, "UPDATE tbl_ms_parametros SET valor = '$valor',
+            fecha_modificacion = '$fecha_modificacion'
+            WHERE id_parametro = $id_parametro "); 
+                
+            if ($query_update) {
+                echo
+                '<script>
+                alert("Parametro actualizado correctamente");
+                window.location= "parametros.php";
+                </script>
+                ';
+                $codigoObjeto=3;
+              $accion='Actualizar';
+              $descripcion= 'Actualizo el parametro';
+              bitacora($codigoObjeto, $accion,$descripcion);
+            } else {
+                echo
+                '<script>
+                alert("Error al actualizar el parametro");
+                window.location= "editarparametros.php";
+                </script>
+                ';
+            }
+            }
     }
 
-    $idparametro  = $_REQUEST['id'];
-
-    $sql = mysqli_query($conex,"SELECT * FROM tbl_ms_parametros WHERE id_parametro = $idparametro");
-   
-    $result_sql = mysqli_num_rows($sql);
-
-//Si es igual a cero no hay registro
-    if($result_sql == 0)
-    {
-        header('Location: ../Proveedor.php');
-    }else{
-        $option = ' ';
-        while ($data = mysqli_fetch_array($sql)){
-                $id_parametro = $data['id_parametro'];
-                $parametro = $data['parametro'];
-                $valor = $data['valor'];
-                $fecha_creacion = $data['fecha_creacion'];
-            $fecha_modificacion= $data['fecha_modificacion'];
-            $creado_por = $data['creado_por'];
-            $modificado_por=$data['modificado_por'];
-            $id_usuario=$data['id_usuario'];
-           
-    
-
-      
-    }
-
-    }
     
 ?>
 <!DOCTYPE html>
@@ -249,28 +232,23 @@ if(!isset ($_SESSION['usuario'])){
   <section class="home-section"></br>
       <h2>  Editar parametros <i class='bx bx-edit'></i></h2>
       <div>
-            <form action=" " method="POST" enctype="multipart/form-data" id="formulario">
+            <form action=" " method="POST" enctype="multipart/form-data" id="">
 
             <input type="hidden" name=" id_parametro" id="id_parametro "  value="<?php echo $id_parametro;?>" >
 
-                <p>Nombre del parametro:
-				
-                <input type="text"  class="field"   name="parametro" id=" parametro "  value="<?php echo  $parametro;?>" disabled>
-                </p>
-
                     <p>Valor parametro:
-			<input type="text" class="field"  name="$valor " value="<?php echo $valor?>" required >
+			<input type="text" class="field"  name="valor " id="valor" value="<?php echo $valor?>" required >
                     </p>
                     <p>fecha de creacion:
         
-			<input type="text" class="field"  name="fecha_creacion" value="<?php echo $fecha_creacion;?>" disabled>
+			<input type="text" class="field"  name="fecha_creacion" id="fecha_creacion" value="<?php echo $fecha_creacion;?>" disabled>
 				
 					
                     </p>
                     <p>Fecha de modificación: 
                         
               
-                            <input type="date" class="field"  name="fecha_modificacion" id="fecha_modificacion"   value="<?php echo $fecha_modificacion;?>">
+                            <input type="date" class="field"  name="fecha_modificacion" id="fecha_modificacion"   value="<?php echo $fecha_modificacion;?>" disabled>
                        
                     </p> 
 
@@ -287,14 +265,13 @@ if(!isset ($_SESSION['usuario'])){
                 </p>
                  
                 <p>id_usuario:
-                 <input type="text" class="field"  name="id_usaurio" id="id_usaurio"  value="<?php echo $id_usuario;?>"disabled>
+                 <input type="text" class="field"  name="id_usuario" id="id_usuario"  value="<?php echo $id_usuario;?>"disabled>
                   
                   
                   </p>
 
 
-    <button class="btn_agregar" href="editarparametros.php">Actualizar</button>
-      <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado exitosamente!</p>
+                  <button type="submit" class="btn_agregar">Actualizar</button>
       <button type="reset" onclick="location.href='parametros.php'" class="btn_cancelar">Cancelar</button>
       </form>
      

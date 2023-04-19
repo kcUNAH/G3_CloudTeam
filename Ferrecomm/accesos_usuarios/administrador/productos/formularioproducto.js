@@ -1,7 +1,7 @@
 const formulario = document.getElementById('formulario');
 const inputs = document.querySelectorAll('#formulario input');
 const expresiones = {
-    nombre_producto: /[a-zA-ZáéíóúÁÉÍÓÚ\S]{3,16}$/,// Letras, numeros, guion y guion_bajo
+    nombre_producto: /^[a-zA-ZÀ-ÿ0-9\s]{2,40}$/,// Letras, numeros, guion y guion_bajo
     descripcion_producto: /^[a-zA-Z0-9áéíóúÁÉÍÓÚ\_\-\s]/,
     precio_producto: /[0-9\.\d\d?]{1,100}$/,
 	unidad_medida: /\S[a-zA-Z0-9\.\,]{1,100}$/,
@@ -28,6 +28,7 @@ const validarFormulario = (e) => {
 		break;
         case "precio_producto":
 			validarCampo(expresiones.precio_producto, e.target, 'precio_producto');
+			validarPrecio();
 		break;
         case "unidad_medida":
 			validarCampo(expresiones.unidad_medida, e.target, 'unidad_medida');
@@ -77,6 +78,24 @@ function validarMayor(){
 		document.getElementById(`grupo__cantidad_max`).classList.add('formulario__grupo-correcto');
 		document.querySelector(`#grupo__cantidad_max .formulario__input-error`).classList.remove('formulario__input-error-activo');
 		campos['cantidad_max'] = true;
+
+	}
+
+}
+
+function validarPrecio(){
+	var inputPrecio = Number(document.getElementById('precio_producto').value);
+
+	if ( inputPrecio == 0  ) {
+		document.getElementById(`grupo__precio_producto`).classList.add('formulario__grupo-incorrecto');
+		document.getElementById(`grupo__precio_producto`).classList.remove('formulario__grupo-correcto');
+		document.querySelector(`#grupo__precio_producto .formulario__input-error`).classList.add('formulario__input-error-activo');
+		campos['precio_producto'] = false;
+	} else {
+		document.getElementById(`grupo__precio_producto`).classList.remove('formulario__grupo-incorrecto');
+		document.getElementById(`grupo__precio_producto`).classList.add('formulario__grupo-correcto');
+		document.querySelector(`#grupo__precio_producto .formulario__input-error`).classList.remove('formulario__input-error-activo');
+		campos['precio_producto'] = true;
 
 	}
 
