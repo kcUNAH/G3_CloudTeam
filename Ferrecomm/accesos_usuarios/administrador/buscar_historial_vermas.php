@@ -108,7 +108,7 @@ if (!isset($_SESSION['usuario'])) {
       $busqueda = strtolower($_REQUEST['busqueda']);
       if(empty($busqueda))
       {
-        header("Location: VerMasInventario.php");
+        header("Location: VerMas_Producto.php");
       }
       ?>
 
@@ -119,12 +119,20 @@ if (!isset($_SESSION['usuario'])) {
         <div class="container-fluid" style=" background-image: URL(Ferrecomm\accesos\Imagenes\Logo.jpeg);"></div>
       </head>
       <section id="container"  >
-      <form action="buscar_historial_inventario.php" method="get" class="form_search" style="background-color:#DCFFFE ;">
+      <form action="buscar_historial_vermas.php" method="get" class="form_search" style="background-color:#DCFFFE ;">
           <input type="text" name="busqueda" style="text-transform:uppercase;" style="text-transform:uppercase;" style="margin-left: 40px" id="busqueda" placeholder="Buscar..." value="<?php echo $busqueda; ?>">
           <button type="submit" value="Buscar" class="boton-buscar">Buscar</button>
           <a href="../../fpdf/Reporte_Historial_Buscar.php?buscar=<?php echo $busqueda ?>"   target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
  
+          <?php
+          $busqueda = strtolower($_GET['id']);
+       if(empty($busqueda))
+       {
+        header('Location: VerMas_Producto.php');
+       }
+      
+      ?> 
   
         </form>
 
@@ -176,11 +184,12 @@ if($busqueda == 'Compra'){
 }
             
     $sql_register =mysqli_query($conex,"SELECT COUNT(*) as total_registro FROM tbl_mov_inventario
-        WHERE (id_producto LIKE '%$busqueda%' OR
+        WHERE (
                 id_usuario LIKE '%$busqueda%' OR
                 cantidad_mov LIKE '%$busqueda%' OR
                 fecha_mov  LIKE '%$busqueda%' OR
-                comentario  LIKE '%$busqueda%'
+                comentario  LIKE '%$busqueda%'OR
+                id_producto = $busqueda
                 $movimiento )  ");
     $result_register = mysqli_fetch_array($sql_register);
     $total_registro = $result_register['total_registro'];
