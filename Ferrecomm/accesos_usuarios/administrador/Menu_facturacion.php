@@ -39,19 +39,22 @@
                     </a>
                     <button class="card2">
                     <h4>clientes</h4>
-                    <h1> <i class="fa-solid fa-user"></i></h1>
+                    <h1> <i class="fa-solid fa-users"></i> </h1>
                     </button>
                 </div>
                 <div class="down">
                     <button class="card3">
                     <h4>descuentos</h4>
-                    <h1> <i class="fa-solid fa-tags"></i></h1>
+                    <h1> <i class="fa-solid fa-percent"></i></h1>
                     </button>
+
+                    <a href="Historial_Facturas.php">
                     <button class="card4" >
-                    <h4>descuentos</h4>
-                    <h1> <i class='fa-solid fa-cart-shopping'></i></h1>
-                    
+                    <h4>Historial</h4>
+                    <h1> <i class="fa-solid fa-clipboard"></i></h1>
                     </button>
+                    </a>
+
                 </div>
             </div>
             </div>
@@ -132,7 +135,7 @@
             border: none;
             background: white;
             border-radius: 30px 30px 30px 120px;
-            box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(50, 0, 0, 0.3) 0px 1px 3px -1px;
             transition: .2s ease-in-out;
         }
 
@@ -161,7 +164,7 @@
         .card1:hover {
             cursor: pointer;
             scale: 1.1;
-            background-color: #cc39a4;
+            background-color: #f19c4d;
         }
 
         .card1:hover .instagram {
@@ -171,7 +174,7 @@
         .card2:hover {
             cursor: pointer;
             scale: 1.1;
-            background-color: #03A9F4;
+            background-color: #f19c4d;
         }
 
         .card2:hover .twitter {
@@ -181,11 +184,11 @@
         .card3:hover {
             cursor: pointer;
             scale: 1.1;
-            background-color: black;
+            background-color: #f19c4d;
         }
 
         .card3:hover .github {
-            fill: white;
+            fill: red;
         }
 
         .divx {
@@ -202,7 +205,7 @@
         .card4:hover {
             cursor: pointer;
             scale: 1.1;
-            background-color: #8c9eff;
+            background-color: #f19c4d;
         }
 
         .card4:hover .discord {

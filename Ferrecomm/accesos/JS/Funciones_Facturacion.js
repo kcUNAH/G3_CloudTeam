@@ -188,6 +188,9 @@ $(document).ready(function () {
     });
 
 
+   
+
+
     // validar cantidad del producto  
     $('#txt_cant_producto').keyup(function (e) {
         e.preventDefault();
@@ -346,6 +349,89 @@ function generarPDF(cliente, factura) {
     $url = '../../pdf_prueba/generar_factura.php?cl='+cliente+'&f='+factura;
     window.open($url, "Factura","left="+x+",top="+y+",height="+alto+",width="+ancho+",scrollbar=si,location=no,resizable=si,menubar=no");
 }
+
+
+ //buscar producto select 
+ const producto = document.querySelector('#selec_producto');
+
+ producto.addEventListener('change', (e) => {
+    var opcion = $('#selec_producto').val();
+    console.log(opcion);
+    
+    var producto = opcion;
+    var action = 'searchProducto';
+    $('#txt_cod_producto').val(producto);
+
+    $.ajax({
+        url: '../../accesos_usuarios/administrador/ajax.php',
+        type: "POST",
+        async: true,
+        data: { action: action, producto: producto },
+
+        success: function (response) {
+            if (response == 'error') {
+                //asignar valores a la tabla 
+                $('#txt_descripcion').html('--');
+                $('#txt_cant_producto').val('0');
+                $('#txt_Precio').html('0.00');
+                $('#txt_Precio_total').html('0.00');
+
+                //habilitar cantidad 
+                $('#txt_cant_producto').attr('disabled', 'disabled');
+
+                //ocultar boton agregar 
+                $('#add_product_venta').slideUp();
+
+            } else {
+                var inforProducto = JSON.parse(response);
+                //asignar valores a la tabla 
+                $('#txt_descripcion').html(inforProducto.nombre_producto);
+                $('#txt_cant_producto').val('1');
+                $('#txt_Precio').html(inforProducto.precio_producto);
+                $('#txt_Precio_total').html(inforProducto.precio_producto);
+                //habilitar cantidad 
+                $('#txt_cant_producto').removeAttr('disabled');
+                //mostrar bonton agregar 
+                $('#add_product_venta').slideDown();
+
+
+
+            }
+
+        },
+        error: function (error) {
+
+        }
+    });
+
+    var action = 'searchExistencia';
+
+    //existencia en inventario
+    $.ajax({
+        url: '../../accesos_usuarios/administrador/ajax.php',
+        type: "POST",
+        async: true,
+        data: { action: action, producto: producto },
+
+        success: function (response) {
+            if (response != 'error') {
+
+                var infoexistencia = JSON.parse(response);
+                $('#txt_existencia').html(infoexistencia.cantidad);
+            } else {
+                $('#txt_existencia').html('--');
+            }
+
+
+        },
+        error: function (error) {
+
+        }
+    });
+
+
+
+     });
 
 
 

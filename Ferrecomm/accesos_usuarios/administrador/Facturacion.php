@@ -71,6 +71,33 @@
                         <p><?php echo $_SESSION['usuario']['nombre']. " "?></p>
                     </div>
                     <div class="w50">
+                    <label>Tipo de pago <br></label>
+
+                      
+
+                    <?php
+                        include 'conex.php';
+           $query_prom = mysqli_query($conex,"SELECT * from tbl_forma_pago");
+           $result_prom = mysqli_num_rows($query_prom)
+                ?>
+            
+                <select name="selec_tipo_pago" id="selec_tipo_pago">
+                   <?php
+                     echo $option;
+                      if($result_prom > 0){
+                        while ($promo= mysqli_fetch_array($query_prom)) {
+                        
+                   ?>
+                   <option value="<?php echo $promo["id_pago"]; ?>"><?php echo $promo["nombre_forma_pago"]?> </option>
+                   <?php
+                   }
+                   }
+
+                   ?>
+                </select>
+
+                    </div>
+                    <div class="w50">
                         <label> Acciones <br><br></label>
 
                         <div class="acciones_venta">
@@ -94,7 +121,29 @@
                         <th>Accion</th>
                     </tr> 
                     <tr>
-                        <td><input type="text" name="txt_cod_producto" id="txt_cod_producto"></td>
+                        <td> 
+                        <input type="hidden" name="txt_cod_producto" id= "txt_cod_producto" value="">
+                            
+                            <?php
+                        include 'conex.php';
+           $query_prom = mysqli_query($conex,"SELECT * from tbl_producto");
+           $result_prom = mysqli_num_rows($query_prom)
+                ?>
+            
+                <select name="selec_producto" id="selec_producto">
+                   <?php
+                     echo $option;
+                      if($result_prom > 0){
+                        while ($promo= mysqli_fetch_array($query_prom)) {
+                        
+                   ?>
+                   <option value="<?php echo $promo["id_producto"]; ?>"><?php echo $promo["nombre_producto"]?> </option>
+                   <?php
+                   }
+                   }
+
+                   ?>
+                </select></td>
                         <td id="txt_descripcion">----</td>
                         <td id="txt_existencia">---</td>
                         <td><input type="text" name="txt_cant_producto" id="txt_cant_producto" value="0" min="1" disabled></td>
@@ -118,18 +167,18 @@
                         <td>
                         <?php
                         include 'conex.php';
-           $query_prom = mysqli_query($conex,"SELECT * from tbl_producto");
+           $query_prom = mysqli_query($conex,"SELECT * from tbl_promociones");
            $result_prom = mysqli_num_rows($query_prom)
                 ?>
             
-                <select name="txt_cod_producto" id="txt_cod_producto">
+                <select name="selec_producto" id="selec_producto">
                    <?php
                      echo $option;
                       if($result_prom > 0){
                         while ($promo= mysqli_fetch_array($query_prom)) {
                         
                    ?>
-                   <option value="<?php echo $promo["id_producto"]; ?>"><?php echo $promo["nombre_producto"]?> </option>
+                   <option value="<?php echo $promo["id_promocion"]; ?>"><?php echo $promo["nombre_promocion"]?> </option>
                    <?php
                    }
                    }
