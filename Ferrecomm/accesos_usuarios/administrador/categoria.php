@@ -84,7 +84,7 @@ if(!isset ($_SESSION['usuario'])){
             <span class="tooltip">Seguridad</span>
         </li>
         <li>
-            <a href="../Proveedores.php">
+            <a href="./Proveedores.php">
                 <i class='bx bxs-user'></i>
                 <span class="links_name">Proveedores</span>
             </a>
