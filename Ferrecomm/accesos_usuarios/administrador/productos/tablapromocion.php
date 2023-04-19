@@ -117,7 +117,7 @@ include '../../../php/bitacora.php';
       ?>
       <form action="./productos/buscarproducto.php" method="get" style="background-color:#DCFFFE ;">
   <a href= "../productos.php" class="btn_productos" style="margin-left: 100px"> Regresar a Productos<i id="icon_nuevo" class='bx bx-shopping-bag'></i></i></a>
-  <a href="../../../fpdf/Reportepromocionbuscar.php?buscar=<?php echo $busqueda ?>"   target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
+  <a href="../../../fpdf/Reportepromocionproducto.php?buscar=<?php echo $busqueda ?>"   target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
    
 

@@ -52,14 +52,14 @@ class PDF extends FPDF
       $this->Cell(10);  // mover a la derecha
       $this->SetFont('Arial', 'B', 10);
       $this->Cell(190,6,utf8_decode("Fecha y Hora impresión: " .$fecha_modificacion),0);
-      $this->Ln(5);
+      $this->Ln(10);
 
       /* TITULO DE LA TABLA */
       //color
       $this->SetTextColor(228, 100, 0);
       $this->Cell(90); // mover a la derecha
       $this->SetFont('Arial', 'B', 15);
-      $this->Cell(100, 10, utf8_decode("Reporte de promociones "), 0, 1, 'C', 0);
+      $this->Cell(100, 10, utf8_decode("Reporte de promociones del producto "), 0, 1, 'C', 0);
       $this->Ln(7);
 
             /* CAMPOS DE LA TABLA */
@@ -68,11 +68,9 @@ class PDF extends FPDF
       $this->SetTextColor(255, 255, 255); //colorTexto
       $this->SetDrawColor(163, 163, 163); //colorBorde
       $this->SetFont('Arial', 'B', 11);
-      $this->Cell(70,10, utf8_decode('Promocion'), 1, 0, 'C', 1);
-      $this->Cell(50, 10, utf8_decode('Fecha inicio'), 1, 0, 'C', 1);
-      $this->Cell(50, 10, utf8_decode('Fecha final'), 1, 0, 'C', 1);
-      $this->Cell(50, 10, utf8_decode('Precio venta'), 1, 0, 'C', 1);
-      $this->Cell(50, 10, utf8_decode('Estado promocion'), 1, 1, 'C', 1);
+      $this->Cell(100,10, utf8_decode('Promocion'), 1, 0, 'C', 1);
+      $this->Cell(100, 10, utf8_decode('Producto'), 1, 0, 'C', 1);
+      $this->Cell(75, 10, utf8_decode('Cantidad'), 1, 1, 'C', 1);
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
       
    }
@@ -104,30 +102,23 @@ $pdf->SetDrawColor(163, 163, 163); //colorBorde
 $busqueda = strtolower($_REQUEST['buscar']);
 if(empty($busqueda))
 {
- header("location: ../productos.php");
+ header("location: ../promociones.php");
 }
 
-$consulta_reporte_producto = $conexion->query("SELECT p.id_promocion, e.estado_promocion, p.nombre_promocion, p.fecha_inicio,
-p.fecha_final, p.precio_venta
-FROM tbl_promociones p INNER JOIN tbl_estado_promociones e on p.id_estado_prom = e.id_estado_prom 
-                   WHERE(p.id_promocion LIKE '%$busqueda%' OR 
-                         e.estado_promocion LIKE '%$busqueda%' OR 
-                         p.nombre_promocion LIKE '%$busqueda%' OR 
-                         p.fecha_inicio LIKE '%$busqueda%' OR
-                         p.fecha_final LIKE '%$busqueda%' OR 
-                         p.precio_venta LIKE '%$busqueda%' OR
-                         e.estado_promocion LIKE '%$busqueda%' )
-ORDER BY p.id_promocion ASC
-");
+$consulta_reporte_producto = $conexion->query("SELECT p.id_promocion_producto, p.cantidad,
+(p.id_promocion) as id_promocion, (m.nombre_promocion) as promocion, (p.id_producto) as id_producto, (r.nombre_producto) as producto
+FROM tbl_promociones_producto p 
+INNER JOIN tbl_promociones m 
+on p.id_promocion = m.id_promocion
+INNER JOIN tbl_producto r 
+on p.id_producto = r.id_producto
+WHERE r.id_producto = '$busqueda' ");
 
 // AnchoCelda,AltoCelda,titulo,borde(1-0),saltoLinea(1-0),posicion(L-C-R),ColorFondo(1-0)
 while ($datos_reporte = $consulta_reporte_producto->fetch_object()) {  
-   $pdf->Cell(70, 10, utf8_decode($datos_reporte->nombre_promocion), 1, 0, 'C', 0);
-   $pdf->Cell(50, 10, utf8_decode($datos_reporte->fecha_inicio), 1, 0, 'C', 0);
-   $pdf->Cell(50, 10, utf8_decode($datos_reporte->fecha_final), 1, 0, 'C', 0);
-
-   $pdf->Cell(50, 10, utf8_decode($datos_reporte->precio_venta), 1, 0, 'C', 0);
-   $pdf->Cell(50, 10, utf8_decode($datos_reporte->estado_promocion), 1, 1, 'C', 0);
+   $pdf->Cell(100, 10, utf8_decode($datos_reporte->promocion), 1, 0, 'C', 0);
+   $pdf->Cell(100, 10, utf8_decode($datos_reporte->producto), 1, 0, 'C', 0);
+   $pdf->Cell(75, 10, utf8_decode($datos_reporte->cantidad), 1, 1, 'C', 0);
 
    // Move down one line
   
