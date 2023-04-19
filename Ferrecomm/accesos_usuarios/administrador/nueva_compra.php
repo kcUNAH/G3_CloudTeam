@@ -60,28 +60,28 @@ if(!isset ($_SESSION['usuario'])){
         </div>
         <ul class="nav-list">
             <li>
-                <a href="./Menu.php">
+                <a href="../Menu.php">
                     <i class='bx bxs-home'></i>
                     <span class="links_name">Inicio</span>
                 </a>
                 <span class="tooltip">Inicio</span>
             </li>
             <li>
-                <a href="./Facturacion.php">
+                <a href="../Facturacion.php">
                     <i class='bx bx-money'></i>
                     <span class="links_name">Facturación</span>
                 </a>
                 <span class="tooltip">Facturación</span>
             </li>
             <li>
-                <a href="./Compras.php">
+                <a href="../Compras.php">
                     <i class='bx bxs-cart'></i>
                     <span class="links_name">Compras</span>
                 </a>
                 <span class="tooltip">Compras</span>
             </li>
             <li>
-                <a href="./Productos.php">
+                <a href="../Productos.php">
                     <i class='bx bx-shopping-bag'></i>
                     <span class="links_name">Productos</span>
                 </a>
@@ -102,25 +102,32 @@ if(!isset ($_SESSION['usuario'])){
             <span class="tooltip">Promociones</span>
         </li>
             <li>
-                <a href="./Seguridad.php">
+                <a href="../Seguridad.php">
                     <i class='bx bx-shield-quarter'></i>
                     <span class="links_name">Seguridad</span>
                 </a>
                 <span class="tooltip">Seguridad</span>
             </li>
             <li>
-                <a href="./Proveedores.php">
+                <a href="../Proveedores.php">
                     <i class='bx bxs-user'></i>
                     <span class="links_name">Proveedores</span>
                 </a>
                 <span class="tooltip">Proveedores</span>
             </li>
             <li>
-                <a href="./Inventario.php">
+                <a href="../Inventario.php">
                     <i class='bx bx-package'></i>
                     <span class="links_name">Inventario</span>
                 </a>
                 <span class="tooltip">Inventario</span>
+            </li>
+            <li>
+                <a href="../GestionUsuarios.php">
+                    <i class='bx bx-package'></i>
+                    <span class="links_name">Usuarios</span>
+                </a>
+                <span class="tooltip">Usuarios</span>
             </li>
             <a href="../../../index.php">
                 <li class="profile">
@@ -162,7 +169,7 @@ if(!isset ($_SESSION['usuario'])){
                                 <select name="tipo_comprobante" id="tipo_comprobante" class="form-control selectpicker"
                                     required="">
                                     <option value="Boleta">Boleta</option>
-                                    <option value="Factura">Factura</option>
+                                    <option selected value="Factura">Factura</option>
                                     <option value="Ticket">Ticket</option>
                                 </select>
                             </div>
@@ -174,7 +181,7 @@ if(!isset ($_SESSION['usuario'])){
                             </div>
                             <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
                                 <label>Impuesto:</label>
-                                <input type="text" class="form-control" name="impuesto" id="impuesto">
+                                <input type="text" class="form-control" name="impuesto" id="impuesto" readonly >
                             </div>
                             <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                 <a data-toggle="modal" href="#myModal">
@@ -193,10 +200,11 @@ if(!isset ($_SESSION['usuario'])){
                                         <th>Cantidad</th>
                                         <th>Precio Compra</th>
                                         <th> subtotal</th>
-                                        <th>Total</th>
+                                        <th>ISV</th>
                                     </thead>
                                     <tfoot>
                                         <th>TOTAL</th>
+                                        <th></th>
                                         <th></th>
                                         <th></th>
                                         <th></th>

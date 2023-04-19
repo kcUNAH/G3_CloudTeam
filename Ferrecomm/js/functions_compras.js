@@ -1,7 +1,7 @@
 
 var tableRoles;
 var tableprod;
-
+$("#impuesto").val("15 %");
 document.addEventListener('DOMContentLoaded', function () {
 	listarArticulos()
     tableRoles = $('#tablePedidos').dataTable({
@@ -66,7 +66,7 @@ function limpiar()
 	$("#proveedor").val("");
 	$("#serie_comprobante").val("");
 	$("#num_comprobante").val("");
-	$("#impuesto").val("0");
+	$("#impuesto").val("15 %");
 
 	$("#total_compra").val("");
 	$(".filas").remove();
@@ -109,7 +109,13 @@ function mostrarform(flag)
 	}
 
 }
-
+//Función generar pdf
+function generarpdf() {
+	let buscador = $('.dataTables_filter input').val();
+	let url = '../../fpdf/Reportecompras.php?buscador=' + encodeURIComponent(buscador);
+	window.location.href = url;
+  }
+  
 //Función cancelarform
 function cancelarform()
 {
@@ -282,7 +288,7 @@ function anular(idingreso)
 
 //Declaración de variables necesarias para trabajar con las compras y
 //sus detalles
-var impuesto=18;
+var impuesto='15 %';
 var cont=0;
 var detalles=0;
 //$("#guardar").hide();
@@ -292,14 +298,10 @@ $("#tipo_comprobante").change(marcarImpuesto);
 function marcarImpuesto()
   {
   	var tipo_comprobante=$("#tipo_comprobante option:selected").text();
-  	if (tipo_comprobante=='Factura')
-    {
+ 
         $("#impuesto").val(impuesto); 
-    }
-    else
-    {
-        $("#impuesto").val("0"); 
-    }
+    
+    
   }
 
   function agregarDetalle(idarticulo, articulo) {
@@ -319,13 +321,15 @@ function marcarImpuesto()
 	
 	if (!encontrado) {
 	  // Si no se encontró, agrega una nueva fila
-	  var subtotal = cantidad * precio_venta;
+	  var subtotal = (cantidad * precio_venta);
 	  var fila = '<tr class="filas" id="fila'+cont+'">'+
 		'<td><button type="button" class="btn btn-danger" onclick="eliminarDetalle('+cont+')">X</button></td>'+
 		'<td><input type="hidden" name="idarticulo[]" style="width: 500px;" value="'+idarticulo+'">'+articulo+'</td>'+
 		'<td><input type="number" name="cantidad[]" id="cantidad[]" style="width: 50px;" value="'+cantidad+'" onkeyup="modificarSubototales()"></td>'+
 		'<td><input type="text" name="precio_venta[]" style="width: 200px;" value="'+precio_venta+'" onkeyup="modificarSubototales()"></td>'+
-		'<td><span name="subtotal" id="subtotal'+cont+'">'+subtotal+'</span></td>'+
+		
+		'<td><span name="subtotal" id="subtotal'+cont+'">'+ (subtotal * 0.15 ) + subtotal +'</span></td>'+
+		'<td><span name="ISV" id="ISV'+cont+'">'+ subtotal * 0.15 +'</span></td>'+
 	
 		'</tr>';
 	  cont++;
@@ -348,7 +352,11 @@ function marcarImpuesto()
 		  var inpS=sub[i];
   
 		  inpS.value=inpC.value * inpP.value;
-		  document.getElementsByName("subtotal")[i].innerHTML = inpS.value;
+		  document.getElementsByName("subtotal")[i].innerHTML = inpS.value * 0.15 + inpS.value ;
+		  document.getElementsByName("ISV")[i].innerHTML = inpS.value * 0.15;
+
+
+		
 	  }
 	  calcularTotales();
   }
@@ -357,8 +365,10 @@ function marcarImpuesto()
   	var total = 0.0;
 
   	for (var i = 0; i <sub.length; i++) {
-		total += document.getElementsByName("subtotal")[i].value;
+		total += (document.getElementsByName("subtotal")[i].value) *  0.15 + (document.getElementsByName("subtotal")[i].value);
+		
 	}
+	
 	$("#total").html("L. " + total);
     $("#total_compra").val(total);
     evaluar();

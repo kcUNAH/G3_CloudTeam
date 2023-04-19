@@ -24,26 +24,35 @@ class PDF extends FPDF
       /* UBICACION */
       $this->Cell(10);  // mover a la derecha
       $this->SetFont('Arial', 'B', 10);
-      $this->Cell(96, 10, utf8_decode("Ubicación : "), 0, 0, '', 0);
+      $this->Cell(96, 10, utf8_decode("Ubicación : Los Planes Santa Maria, Carretera CA-7"), 0, 0, '', 0);
       $this->Ln(5);
 
       /* TELEFONO */
       $this->Cell(10);  // mover a la derecha
       $this->SetFont('Arial', 'B', 10);
-      $this->Cell(59, 10, utf8_decode("Teléfono : "), 0, 0, '', 0);
+      $this->Cell(59, 10, utf8_decode("Teléfono : 9825-5333"), 0, 0, '', 0);
       $this->Ln(5);
 
       /* COREEO */
       $this->Cell(10);  // mover a la derecha
       $this->SetFont('Arial', 'B', 10);
-      $this->Cell(85, 10, utf8_decode("Correo : "), 0, 0, '', 0);
+      $this->Cell(85, 10, utf8_decode("Correo : cloudteamg3@gmail.com"), 0, 0, '', 0);
       $this->Ln(5);
 
-      /* TELEFONO */
+      /* SUCURSAL */
       $this->Cell(10);  // mover a la derecha
       $this->SetFont('Arial', 'B', 10);
-      $this->Cell(85, 10, utf8_decode("Sucursal : "), 0, 0, '', 0);
-      $this->Ln(10);
+      $this->Cell(85, 10, utf8_decode("Sucursal : 1 "), 0, 0, '', 0);
+      $this->Ln(7);
+
+      date_default_timezone_set('America/Tegucigalpa');
+      $fecha_modificacion =date("Y-m-d H:i:s");
+
+      /* HORA */
+      $this->Cell(10);  // mover a la derecha
+      $this->SetFont('Arial', 'B', 10);
+      $this->Cell(190,6,utf8_decode("Fecha y Hora impresión: " .$fecha_modificacion),0);
+      $this->Ln(5);
 
       /* TITULO DE LA TABLA */
       //color
@@ -91,10 +100,30 @@ $i = 0;
 $pdf->SetFont('Arial', '', 12);
 $pdf->SetDrawColor(163, 163, 163); //colorBorde
 
-$consulta_reporte_producto = $conexion->query(" SELECT c.id_compra, p.nombre_proveedor, c.fecha_compra, 
-c.total_compra, e.nombre_estad_compra
-FROM tbl_compras c INNER JOIN tbl_proveedores p on c.id_proveedor = p.id_proveedor 
-INNER JOIN tbl_estado_compras e on c.id_estado_compras = e.id_estado_compras ORDER BY c.id_compra ASC ");
+
+function dep($data)
+{
+    $format  = print_r('<pre>');
+    $format .= print_r($data);
+    $format .= print_r('</pre>');
+    return $format;
+}
+//dep($_GET['buscador']);
+//die();
+$valor_buscar=($_GET['buscador']); // reemplaza "valor_a_buscar" con el valor que quieras buscar
+
+$consulta_reporte_producto = $conexion->query("
+  SELECT c.id_compra, p.nombre_proveedor, c.fecha_compra, c.total_compra, e.nombre_estad_compra
+  FROM tbl_compras c 
+  INNER JOIN tbl_proveedores p ON c.id_proveedor = p.id_proveedor 
+  INNER JOIN tbl_estado_compras e ON c.id_estado_compras = e.id_estado_compras
+  WHERE c.id_compra LIKE '%$valor_buscar%' 
+     OR p.nombre_proveedor LIKE '%$valor_buscar%' 
+     OR c.fecha_compra LIKE '%$valor_buscar%' 
+     OR c.total_compra LIKE '%$valor_buscar%' 
+     OR e.nombre_estad_compra LIKE '%$valor_buscar%'
+  ORDER BY c.id_compra ASC
+");
 
 // AnchoCelda,AltoCelda,titulo,borde(1-0),saltoLinea(1-0),posicion(L-C-R),ColorFondo(1-0)
 
