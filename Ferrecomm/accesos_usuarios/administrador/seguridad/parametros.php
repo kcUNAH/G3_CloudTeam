@@ -126,7 +126,7 @@ if(!isset ($_SESSION['usuario'])){
 
  <section id="container"  >
       <form action="buscar_parametro.php" method="get" style="background-color:#DCFFFE ;">
-  <input type="text" name="busqueda" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
+  <input type="text" name="busqueda" style="text-transform:uppercase; margin-left: 40px"  id="busqueda" placeholder="Buscar...">
   <button type="submit" class="boton-buscar">Buscar</button>
   
   
