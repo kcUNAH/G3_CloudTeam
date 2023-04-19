@@ -270,7 +270,7 @@ if(!isset ($_SESSION['usuario'])){
                     <p>Fecha de modificación: 
                         
               
-                            <input type="date" class="field"  name="fecha_modificación" id="fecha_modificacion"   value="<?php echo $fecha_modificacion;?>">
+                            <input type="date" class="field"  name="fecha_modificacion" id="fecha_modificacion"   value="<?php echo $fecha_modificacion;?>">
                        
                     </p> 
 

@@ -108,7 +108,7 @@ if (!isset($_SESSION['usuario'])) {
       $busqueda = strtolower($_REQUEST['busqueda']);
       if(empty($busqueda))
       {
-        header("Location: buscar_historial_inventario.php");
+        header("Location: VerMasInventario.php");
       }
       ?>
 

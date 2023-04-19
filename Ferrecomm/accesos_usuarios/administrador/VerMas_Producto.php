@@ -120,7 +120,7 @@ if (!isset($_SESSION['usuario'])) {
        $busqueda = strtolower($_GET['id']);
        if(empty($busqueda))
        {
-        header('Location: Inventario.php');
+        header('Location: VerMas_Producto.php');
        }
       
       ?> 
