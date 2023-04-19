@@ -122,12 +122,10 @@ include '../../../php/bitacora.php';
 
       <section id="container"  > <?php
        
-      
-
-       $busqueda = strtolower($_GET['id']);
+       $busqueda = strtolower($_GET['busqueda']);
        if(empty($busqueda))
        {
-        header('Location: ../tablapromocion.php');
+        header('Location: ../productos.php');
        }
       
       ?>
@@ -188,7 +186,13 @@ include '../../../php/bitacora.php';
       on p.id_promocion = m.id_promocion
       INNER JOIN tbl_producto r 
       on p.id_producto = r.id_producto
-      WHERE r.id_producto = $busqueda;");
+      WHERE (p.id_promocion_producto LIKE '%$busqueda%' OR 
+                         p.cantidad LIKE '%$busqueda%' OR 
+                         p.id_promocion LIKE '%$busqueda%' OR 
+                         m.nombre_promocion LIKE '%$busqueda%' OR
+                         p.id_producto LIKE '%$busqueda%'  )
+ORDER BY p.id_promocion_producto ASC LIMIT $desde,$por_pagina;
+");
 
 
        
