@@ -117,7 +117,7 @@ if(!isset ($_SESSION['usuario'])){
   <button type="submit" class="boton-buscar">Buscar</button>
   <a href= "../productos.php" class="btn_productos" style="margin-left: 190px"> Productos<i id="icon_nuevo" class='bx bx-shopping-bag'></i></i></a>
   <a href= "promocionagregar.php" class="btn_newproducto" style="margin-left: 30px"> Nueva promocion<i id="icon_nuevo" class='bx bxs-folder-plus'></i></a>
-
+  <a href="../../../fpdf/Reportepromocion.php" target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
 </form>
 

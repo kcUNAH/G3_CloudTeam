@@ -106,11 +106,7 @@ include '../../../php/bitacora.php';
       <h1>  Promociones del producto <i class='bx bx-shopping-bag'></i></h1>
       <?php include '../conex.php';?>
 
-      <section id="container"  >
-      <form action="./productos/buscarproducto.php" method="get" style="background-color:#DCFFFE ;">
-  <a href= "../productos.php" class="btn_productos" style="margin-left: 100px"> Regresar a Productos<i id="icon_nuevo" class='bx bx-shopping-bag'></i></i></a>
-  
-    <?php
+      <section id="container"  > <?php
        
        $busqueda = strtolower($_GET['id']);
        if(empty($busqueda))
@@ -119,6 +115,11 @@ include '../../../php/bitacora.php';
        }
       
       ?>
+      <form action="./productos/buscarproducto.php" method="get" style="background-color:#DCFFFE ;">
+  <a href= "../productos.php" class="btn_productos" style="margin-left: 100px"> Regresar a Productos<i id="icon_nuevo" class='bx bx-shopping-bag'></i></i></a>
+  <a href="../../../fpdf/Reportepromocionbuscar.php?buscar=<?php echo $busqueda ?>"   target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
+
+   
 
 </form>
 
