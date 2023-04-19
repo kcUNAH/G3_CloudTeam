@@ -21,8 +21,8 @@ if(!isset ($_SESSION['usuario'])){
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../../../accesos/CSS/EstiloMenu.css">
-    <link rel="stylesheet" href="../../../accesos/CSS/tablapromocion.css">
+    <link rel="stylesheet" href="../../accesos/CSS/EstiloMenu.css">
+    <link rel="stylesheet" href="../../accesos/CSS/tablapromocion.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
    </head>
@@ -35,42 +35,42 @@ if(!isset ($_SESSION['usuario'])){
     </div>
     <ul class="nav-list">
         <li>
-            <a href="../Menu.php">
+            <a href="./Menu.php">
                 <i class='bx bxs-home' ></i>
                 <span class="links_name">Inicio</span>
             </a>
             <span class="tooltip">Inicio</span>
         </li>
         <li>
-            <a href="../Facturacion.php">
+            <a href="./Facturacion.php">
                 <i class='bx bx-money'></i>
                 <span class="links_name">Facturación</span>
             </a>
             <span class="tooltip">Facturación</span>
         </li>
         <li>
-            <a href="../Compras.php">
+            <a href="./Compras.php">
                 <i class='bx bxs-cart'></i>
                 <span class="links_name">Compras</span>
             </a>
             <span class="tooltip">Compras</span>
         </li>
         <li>
-            <a href="../Productos.php">
+            <a href="./Productos.php">
                 <i class='bx bx-shopping-bag'></i>
                 <span class="links_name">Productos</span>
             </a>
             <span class="tooltip">Productos</span>
         </li>
         <li>
-            <a href="../categoria.php">
+            <a href="./categoria.php">
             <i class='bx bxs-category'></i>
                 <span class="links_name">Categorias</span>
             </a>
             <span class="tooltip">Categorias</span>
         </li>
         <li>
-            <a href="./promocion.php">
+            <a href="productos/promocion.php">
             <i class='bx bxs-purchase-tag-alt'></i>
                 <span class="links_name">Promociones</span>
             </a>
@@ -108,15 +108,16 @@ if(!isset ($_SESSION['usuario'])){
   </div>
   <section class="home-section">
 </br>
-      <h1>  Promociones <i class='bx bxs-purchase-tag-alt'></i></h1>
-      <?php include '../conex.php';?>
+      <h1>  Categorias <i class='bx bxs-category'></i></h1>
+      <?php include './conex.php';?>
 
       <section id="container"  >
-      <form action="promocionbuscar.php" method="get" style="background-color:#DCFFFE ;">
+      <form action="./categorias/buscarcategoria.php" method="get" style="background-color:#DCFFFE ;">
   <input type="text" name="busqueda" style="text-transform:uppercase; margin-left: 40px" id="busqueda" placeholder="Buscar...">
   <button type="submit" class="boton-buscar">Buscar</button>
-  <a href= "../productos.php" class="btn_productos" style="margin-left: 190px"> Productos<i id="icon_nuevo" class='bx bx-shopping-bag'></i></i></a>
-  <a href= "promocionagregar.php" class="btn_newproducto" style="margin-left: 30px"> Nueva promocion<i id="icon_nuevo" class='bx bxs-folder-plus'></i></a>
+  <a href= "./productos.php" class="btn_productos" style="margin-left: 190px"> Productos<i id="icon_nuevo" class='bx bx-shopping-bag'></i></i></a>
+  <a href= "categorias/categorianueva.php" class="btn_newproducto" style="margin-left: 30px">Nueva Categoria<i id="icon_nuevo" class='bx bxs-category'></i></a>
+  <a href="" target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
 
 </form>
@@ -127,11 +128,8 @@ if(!isset ($_SESSION['usuario'])){
       <table>
         <thead>
         <tr >
-           <th >Promocion</th>
-           <th >Fecha inicio</th>
-           <th >Fecha final</th>
-           <th >Precio venta</th>
-           <th >Estado promocion</th>
+           <th >Categoria</th>
+           <th >Presentacion</th>
            <th >Acción</th>
            
         </tr>
@@ -139,9 +137,9 @@ if(!isset ($_SESSION['usuario'])){
         
         <?php
        /* include 'php/conexion.php';*/
-       include '../conex.php';
+       include './conex.php';
        //Paginador
-       $sql_register =mysqli_query($conex,"SELECT COUNT(*) as total_registro FROM tbl_promociones");
+       $sql_register =mysqli_query($conex,"SELECT COUNT(*) as total_registro FROM tbl_categoria");
        $result_register = mysqli_fetch_array($sql_register);
        $total_registro = $result_register['total_registro'];
 
@@ -156,9 +154,8 @@ if(!isset ($_SESSION['usuario'])){
        $desde = ($pagina-1) * $por_pagina;
        $total_paginas = ceil($total_registro / $por_pagina);
 
-        $query = mysqli_query($conex,"SELECT p.id_promocion, e.estado_promocion, p.nombre_promocion, p.fecha_inicio,
-        p.fecha_final, p.precio_venta
-        FROM tbl_promociones p INNER JOIN tbl_estado_promociones e on p.id_estado_prom = e.id_estado_prom ORDER BY p.id_promocion ASC LIMIT $desde,$por_pagina;
+        $query = mysqli_query($conex,"SELECT id_categoria, nombre_categoria, presentacion
+        FROM tbl_categoria ORDER BY id_categoria ASC LIMIT $desde,$por_pagina;
         ");
    
         $result = mysqli_num_rows($query);
@@ -169,15 +166,12 @@ if(!isset ($_SESSION['usuario'])){
         ?>
         
         <tr>
-            <td><?php echo $data["nombre_promocion"] ?></td>
-            <td><?php echo $data["fecha_inicio"] ?></td>
-            <td><?php echo $data["fecha_final"] ?></td>
-            <td><?php echo $data["precio_venta"] ?></td>
-            <td><?php echo $data["estado_promocion"] ?></td>
+            <td><?php echo $data["nombre_categoria"] ?></td>
+            <td><?php echo $data["presentacion"] ?></td>
             <td>
               <!--  <a class="link_factura" href="#"><i class='bx bx-check-double'></i></i></a>-->
-                <a class="link_edit" href="promocioneditar.php?id=<?php echo $data["id_promocion"]; ?>"><i class='bx bx-edit'></i></a>
-                <a class="link_delete" href="promocioneliminar.php?id=<?php echo $data["id_promocion"]; ?>"><i class='bx bxs-trash'></i></a>
+                <a class="link_edit" href="categorias/categoriaeditar.php?id=<?php echo $data["id_categoria"]; ?>"><i class='bx bx-edit'></i></a>
+                <a class="link_delete" href="categorias/eliminarcategoria.php?id=<?php echo $data["id_categoria"]; ?>"><i class='bx bxs-trash'></i></a>
             </td>
         </tr>
         <?php

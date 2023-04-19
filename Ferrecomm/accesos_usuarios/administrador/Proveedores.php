@@ -66,11 +66,32 @@ if(!isset ($_SESSION['usuario'])){
             <span class="tooltip">Productos</span>
         </li>
         <li>
+            <a href="./categoria.php">
+            <i class='bx bxs-category'></i>
+                <span class="links_name">Categorias</span>
+            </a>
+            <span class="tooltip">Categorias</span>
+        </li>
+        <li>
+            <a href="./productos/promocion.php">
+            <i class='bx bxs-purchase-tag-alt'></i>
+                <span class="links_name">Promociones</span>
+            </a>
+            <span class="tooltip">Promociones</span>
+        </li>
+        <li>
             <a href="Seguridad.php">
                 <i class='bx bx-shield-quarter'></i>
                 <span class="links_name">Seguridad</span>
             </a>
             <span class="tooltip">Seguridad</span>
+        </li>
+        <li>
+            <a href="Proveedores.php">
+                <i class='bx bxs-user'></i>
+                <span class="links_name">Proveedores</span>
+            </a>
+            <span class="tooltip">Proveedores</span>
         </li>
         <li>
             <a href="Inventario.php">
@@ -94,14 +115,13 @@ if(!isset ($_SESSION['usuario'])){
   <section class="home-section">  
     
 
-    <!-- Aqui inicia el formulario-->
-    <i class='bx bxs-group icon'></i> 
-    <div class="text">Proveedores</div>
-    <div class="d-grid gap-2">
+    <!-- Aqui inicia el formulario--> 
+    
+    
                     
                       
-                     </div>
-
+                     
+<h1>  Proveedores<i class='bx bxs-group icon'></i></h1>
  
   <form action="./proveedores/buscarproveedor.php" method="get" style="background-color:#DCFFFE ;">
   <input type="text" name="busqueda" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">

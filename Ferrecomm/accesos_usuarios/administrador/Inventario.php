@@ -66,6 +66,21 @@ if (!isset($_SESSION['usuario'])) {
         </a>
         <span class="tooltip">Productos</span>
       </li>
+      
+      <li>
+            <a href="./categoria.php">
+            <i class='bx bxs-category'></i>
+                <span class="links_name">Categorias</span>
+            </a>
+            <span class="tooltip">Categorias</span>
+        </li>
+        <li>
+            <a href="./productos/promocion.php">
+            <i class='bx bxs-purchase-tag-alt'></i>
+                <span class="links_name">Promociones</span>
+            </a>
+            <span class="tooltip">Promociones</span>
+        </li>
       <li>
         <a href="Seguridad.php">
           <i class='bx bx-shield-quarter'></i>
