@@ -130,7 +130,7 @@ if(!isset ($_SESSION['usuario'])){
   <button type="submit" class="boton-buscar">Buscar</button>
   
   
-  <a href="../../../fpdf/reporteparametros.php" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
+  <a href="../../../fpdf/reporteparametros.php" target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
 
 </form>

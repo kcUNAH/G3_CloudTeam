@@ -43,7 +43,16 @@ class PDF extends FPDF
      $this->Cell(10);  // mover a la derecha
      $this->SetFont('Arial', 'B', 10);
      $this->Cell(85, 10, utf8_decode("Sucursal : 1 "), 0, 0, '', 0);
-     $this->Ln(10);
+     $this->Ln(7);
+
+     date_default_timezone_set('America/Tegucigalpa');
+     $fecha_modificacion =date("Y-m-d H:i:s");
+
+     /* HORA */
+     $this->Cell(10);  // mover a la derecha
+     $this->SetFont('Arial', 'B', 10);
+     $this->Cell(190,6,utf8_decode("Fecha y Hora impresión: " .$fecha_modificacion),0);
+     $this->Ln(5);
 
      /* TITULO DE LA TABLA */
      //color
@@ -52,6 +61,20 @@ class PDF extends FPDF
      $this->SetFont('Arial', 'B', 15);
      $this->Cell(100, 10, utf8_decode("Reporte de parametros "), 0, 1, 'C', 0);
      $this->Ln(7);
+
+           /* CAMPOS DE LA TABLA */
+      //color
+      $this->SetFillColor(228, 100, 0); //colorFondo
+      $this->SetTextColor(255, 255, 255); //colorTexto
+      $this->SetDrawColor(163, 163, 163); //colorBorde
+      $this->SetFont('Arial', 'B', 11);
+      $this->Cell(50,10, utf8_decode('Parametro'), 1, 0, 'C', 1);
+      $this->Cell(80, 10, utf8_decode('Valor'), 1, 0, 'C', 1);
+     // $this->Cell(40, 10, utf8_decode('Descripcion'), 1, 0, 'C', 1);
+      $this->Cell(50, 10, utf8_decode('Fecha de creacion'), 1, 0, 'C', 1);
+      //$this->Cell(30, 10, utf8_decode('Imagen'), 1, 0, 'C', 1);
+      $this->Cell(50, 10, utf8_decode('Fecha de modificacion'), 1, 0, 'C', 1);
+      $this->Cell(50, 10, utf8_decode('Creado Por'), 1, 1, 'C', 1);
    }
 
    // Pie de página
@@ -84,13 +107,11 @@ fecha_modificacion, creado_por, modificado_por,id_usuario FROM tbl_ms_parametros
 // AnchoCelda,AltoCelda,titulo,borde(1-0),saltoLinea(1-0),posicion(L-C-R),ColorFondo(1-0)
 while ($datos_reporte = $consulta_reporte_producto->fetch_object()) {  
    $pdf->Cell(50, 10, utf8_decode($datos_reporte->parametro), 1, 0, 'C', 0);
-   $pdf->Cell(50, 10, utf8_decode($datos_reporte->valor), 1, 0, 'C', 0);
+   $pdf->Cell(80, 10, utf8_decode($datos_reporte->valor), 1, 0, 'C', 0);
    $pdf->Cell(50, 10, utf8_decode($datos_reporte->fecha_creacion), 1, 0, 'C', 0);
 
    $pdf->Cell(50, 10, utf8_decode($datos_reporte->fecha_modificacion), 1, 0, 'C', 0);
-   $pdf->Cell(50, 10, utf8_decode($datos_reporte->creado_por), 1, 0, 'C', 0);
-   $pdf->Cell(50, 10, utf8_decode($datos_reporte->modificado_por), 1, 0, 'C', 0);
-   $pdf->Cell(50, 10, utf8_decode($datos_reporte->id_usuario), 1, 1, 'C', 0);
+   $pdf->Cell(50, 10, utf8_decode($datos_reporte->creado_por), 1, 1, 'C', 0);
 
    // Move down one line
   

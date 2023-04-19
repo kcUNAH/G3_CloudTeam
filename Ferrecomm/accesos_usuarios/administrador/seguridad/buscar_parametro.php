@@ -101,7 +101,7 @@ if(!isset ($_SESSION['usuario'])){
   </div>
   <section class="home-section">
 </br>
-      <h1> parametro</h1>
+      <h1> Parametro</h1>
       <?php include '../conex.php';?>
 
       <section id="container"  >
@@ -111,7 +111,7 @@ if(!isset ($_SESSION['usuario'])){
        $busqueda = strtolower($_REQUEST['busqueda']);
        if(empty($busqueda))
        {
-        header("location: mostrarbitacora.php");
+        header("location: parametros.php");
        }
       
       ?>
@@ -168,9 +168,9 @@ if(!isset ($_SESSION['usuario'])){
                                                                 valor LIKE '%$busqueda%' OR
                                                                  fecha_creacion LIKE '%$busqueda%' OR
                                                                 fecha_modificacion LIKE '%$busqueda%' OR
-                                                                creado_por LIKE '%$busqueda%')OR
-                                                                modificado_por LIKE '%$busqueda%')OR
-                                                               id_usuario LIKE '%$busqueda% ')");           
+                                                                creado_por LIKE '%$busqueda%' OR
+                                                                modificado_por LIKE '%$busqueda%' OR
+                                                               id_usuario LIKE '%$busqueda%') ");           
        $result_register = mysqli_fetch_array($sql);
        $total_registro = $result_register['total_registro'];
 
@@ -185,15 +185,15 @@ if(!isset ($_SESSION['usuario'])){
        $desde = ($pagina-1) * $por_pagina;
        $total_paginas = ceil($total_registro / $por_pagina);
 
-        $query = mysqli_query($conex,"SELECT id_parametro,parametro,valor,fecha_creacion,fecha_modificacion,creado_por,modificado_por_id_usuario
+        $query = mysqli_query($conex,"SELECT id_parametro,parametro,valor,fecha_creacion,fecha_modificacion,creado_por,modificado_por, id_usuario
         FROM tbl_ms_parametros  WHERE (id_parametro LIKE '%$busqueda%' OR
                                                                  parametro LIKE '%$busqueda%' OR
                                                                 valor LIKE '%$busqueda%' OR
                                                                  fecha_creacion LIKE '%$busqueda%' OR
                                                                 fecha_modificacion LIKE '%$busqueda%' OR
-                                                                creado_por LIKE '%$busqueda%')OR
-                                                                modificado_por LIKE '%$busqueda%')OR
-                                                               id_usuario LIKE '%$busqueda%')ORDER BY id_parametro ASC LIMIT $desde,$por_pagina;");
+                                                                creado_por LIKE '%$busqueda%' OR
+                                                                modificado_por LIKE '%$busqueda%' OR
+                                                               id_usuario LIKE '%$busqueda%') ORDER BY id_parametro ASC LIMIT $desde,$por_pagina;");
                                         
                                                                
         $result = mysqli_num_rows($query);
