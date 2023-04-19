@@ -21,10 +21,15 @@ if(empty($_GET['id'])){
     header('Location: promocion.php');
 }
  $id_parametro = $_GET['id'];
- $sql = mysqli_query($conex, "SELECT id_parametro, parametro , valor, fecha_creacion, fecha_modificacion, creado_por,
- modificado_por, id_usuario
-FROM tbl_ms_parametros
+ $sql = mysqli_query($conex, "SELECT p.id_parametro, p.parametro , p.valor, p.fecha_creacion, p.fecha_modificacion, p.creado_por,
+ p.modificado_por, u.id_usuario, u.nombre_usuario as nombre_usuario,
+ (u.nombre_usuario) as nombre_usuario
+FROM tbl_ms_parametros p
+INNER JOIN tbl_ms_usuario u 
+on p.id_usuario = u.id_usuario 
 WHERE id_parametro = $id_parametro;");
+
+
  $result_sql = mysqli_num_rows($sql);
 
  if($result_sql == 0){
@@ -38,7 +43,7 @@ WHERE id_parametro = $id_parametro;");
        $fecha_creacion = $data['fecha_creacion'];
        $fecha_modificacion = $data['fecha_modificacion'];
        $creado_por = $data['creado_por'];
-       $modificado_por = $data['modificado_por'];
+       $modificado_por = $data['nombre_usuario'];
        $id_usuario = $data['id_usuario'];
 
 
@@ -52,19 +57,20 @@ WHERE id_parametro = $id_parametro;");
 
 if (!empty($_POST)) {
 
-    if (empty($_POST['valor']))  
+    if (empty($_POST['valor']) || empty($_POST['nombre_usuario']))  
         {
             $alert= '<p class= "msg_error"> Todos los campos son obligatorios.</p>';
     } else {
         $id_parametro = $_POST['id_parametro'];
         $valor = $_POST['valor'];
+        $modificado_por = $_POST['nombre_usuario'];
         
         date_default_timezone_set('America/Tegucigalpa');
             $fecha_modificacion =date("Y-m-d H:i:s");
             
                
             $query_update = mysqli_query($conex, "UPDATE tbl_ms_parametros SET valor = '$valor',
-            fecha_modificacion = '$fecha_modificacion'
+            fecha_modificacion = '$fecha_modificacion', modificado_por = '$modificado_por'
             WHERE id_parametro = $id_parametro "); 
                 
             if ($query_update) {
@@ -298,13 +304,7 @@ if (!empty($_POST)) {
 				<p class="formulario__input-error">La descripcion del producto debe de tener 4 a 16 letras, solo puede contener numeros Y letras.</p>
 			    </div>
 
-                <label for="nombre_promocion" class="formulario__label">Modificado por:</label>
-				<div class="formulario__grupo-input">
-					<input type="text" class="field"  name="modificado_por" id="modificado_por" style="text-transform:uppercase;" value="<?php echo $modificado_por;?>" onblur="cambiarAMayusculas(this);" disabled>
-					<i class="formulario__validacion-estado fas fa-times-circle"></i>
-				</div>
-				<p class="formulario__input-error">La descripcion del producto debe de tener 4 a 16 letras, solo puede contener numeros Y letras.</p>
-			    </div>
+                <input type="hidden" name="nombre_usuario" value="<?php echo $modificado_por;?>">
 
                 <label for="nombre_promocion" class="formulario__label">Usuario:</label>
 				<div class="formulario__grupo-input">
