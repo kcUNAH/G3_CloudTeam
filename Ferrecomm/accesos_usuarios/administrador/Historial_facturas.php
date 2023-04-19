@@ -29,6 +29,7 @@
             <div class="Datos_cliente">
                 <div class="Clientes_boton">
 
+                
                     <h4>Datos del Cliente  <a href="#" class="btn_new_cliente"> <i class="fas fa-plus"></i> nuevo cliente</a></h4>
                     
                     <br>

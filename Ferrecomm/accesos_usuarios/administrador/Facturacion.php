@@ -74,6 +74,7 @@
                     <label>Tipo de pago <br></label>
 
                       
+                    
 
                     <?php
                         include 'conex.php';
