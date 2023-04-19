@@ -155,6 +155,7 @@ if (!isset($_SESSION['usuario'])) {
                 <th>Existencia</th>
                 <th>Precio </th>
                 <th>Acciones </th>
+                <th>Ver Más </th>
                 
 
 
@@ -243,6 +244,9 @@ if (!isset($_SESSION['usuario'])) {
                   ?>
                   <td>
                     <?php echo $color ?>
+                  </td>
+                  <td>
+                  <a href='VerMas_Producto.php?id=<?php echo $data["id_producto"]; ?>' class='btn_inventario' > Ver Más<i id='' class='b'></i></a>
                   </td>
                   <!-- 
                   <td>
