@@ -242,7 +242,7 @@ if (!empty($_POST)) {
   </style>
   <section class="home-section"></br>
       <h2>  Añadir nueva promoción <i class='bx bxs-purchase-tag-alt'></i></h2>
-            <form action="" method="POST" enctype="multipart/form-data" id="">
+            <form action="" method="POST" enctype="multipart/form-data" id="formulario">
 
 
                 <div class="formulario__grupo" id="grupo__nombre_promocion">
@@ -251,7 +251,7 @@ if (!empty($_POST)) {
 					<input type="text" class="field"  name="nombre_promocion" id="nombre_promocion" style="text-transform:uppercase;" onblur="cambiarAMayusculas(this);" required >
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">La descripcion del producto debe de tener 4 a 16 letras, solo puede contener numeros Y letras.</p>
+				<p class="formulario__input-error">La promocion debe de tener 3 a 16 letras, solo puede contener numeros Y letras.</p>
 			    </div>
 
                 <div class="formulario__grupo" id="grupo__fecha_inicio">
@@ -278,7 +278,7 @@ if (!empty($_POST)) {
 					<input type="number" class="field"  name="precio_venta" id="precio_venta" style="text-transform:uppercase;" onblur="cambiarAMayusculas(this);" required>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">Solo puede contener numeros</p>
+				<p class="formulario__input-error">Solo puede contener numeros y no se acepta un pecrio de valor 0</p>
 			    </div>
 
                 <label for="id_estado_prom">Estado promocion</label></br>
@@ -305,10 +305,13 @@ if (!empty($_POST)) {
 
             </br></br>
             
+            <div class="formulario__mensaje" id="formulario__mensaje">
+				<p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor llene todos los campos correctamente </p>
+			</div>
 
       <button type="submit" class="btn_agregar">Guardar</button>
       <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado exitosamente!</p>
-      <button type="reset" onclick="location.href='promocion.php'" class="btn_cancelar">Cancelar</button>
+      <button type="reset" onclick="location.href='./promocion.php'" class="btn_cancelar">Cancelar</button>
 
             </form>
 
@@ -332,7 +335,7 @@ if (!empty($_POST)) {
                     ?>
                 </form>
       </form>
- <script src="formularioproducto.js"></script>
+ <script src="formulariopromocion.js"></script>
 
   <script>
   let sidebar = document.querySelector(".sidebar");
