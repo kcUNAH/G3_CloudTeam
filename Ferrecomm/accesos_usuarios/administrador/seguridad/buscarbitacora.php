@@ -134,8 +134,12 @@ if(!isset ($_SESSION['usuario'])){
 
 
 <form action="buscarbitacora.php" method="get" style="background-color:#DCFFFE ;">
-  <input type="text" name="busqueda" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
-  <button type="submit" class="boton-buscar">Buscar</button>
+<form action="buscarproveedor.php" method="get" style="background-color:#DCFFFE ;">
+<input type="text" name="busqueda" style="text-transform:uppercase; margin-left: 40px" id="busqueda" placeholder="Buscar..." value="<?php echo $busqueda; ?>"><button type="submit" class="boton-buscar">Buscar</button>
+  <a href="../../../fpdf/reportebuscarBitacora.php?buscar=<?php echo $busqueda ?>"   target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a>
+
+
+</form>
 
  
   &nbsp;&nbsp;&nbsp; 

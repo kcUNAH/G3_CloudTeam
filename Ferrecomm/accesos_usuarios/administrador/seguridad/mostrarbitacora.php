@@ -125,7 +125,8 @@ if(!isset ($_SESSION['usuario'])){
       <form action=" buscarbitacora.php" method="get" style="background-color:#DCFFFE ;">
   <input type="text" name="busqueda" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
   <button type="submit" class="boton-buscar">Buscar</button>
-  
+   
+  <a href="../../../fpdf/reportebitacora.php" target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
   
 
 

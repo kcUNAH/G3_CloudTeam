@@ -2,10 +2,12 @@ const formulario = document.getElementById('formulario');
 const inputs = document.querySelectorAll('#formulario input');
 const expresiones = {
     nombre_proveedor: /[ /^[a-zA-ZÀ-ÿ\s]{3,25}$/,// Letras, numeros, guion y guion_bajo
-	rtn_proveedor: /[0-20\.\d\d?]{1,15}$/,
-	telefono:/[0-9]{1,12}$/,
+	rtn_proveedor:/^(?=.*[1-9])[0-9.?\d]{1,14}$/,
+
+
+	telefono:/^(?=.*[1-9])[0-9.?\d]{1,8}$/,
 	email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-	direccion: /[ /^[a-zA-ZÀ-ÿ\s]{3,25}$/,
+	direccion: /[ /^[a-zA-ZÀ-ÿ\s]{3,100}$/,
 }
 
 const campos = {

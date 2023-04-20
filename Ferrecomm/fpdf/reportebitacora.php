@@ -8,10 +8,10 @@ class PDF extends FPDF
    // Cabecera de página
    function Header()
    {
-      include '../php/conexion.php';//llamamos a la conexion BD
-//traer los datos de la tabla parametros
-      $consulta_info = $conexion->query(" SELECT * FROM tbl_ms_parametros");//traemos datos de la empresa desde BD
-      $dato_info = $consulta_info->fetch_object();
+      //include '../php/conexion.php';//llamamos a la conexion BD
+
+      //$consulta_info = $conexion->query(" SELECT * FROM tbl_producto ");//traemos datos de la empresa desde BD
+      //$dato_info = $consulta_info->fetch_object();
       $this->Image('Logo.jpeg', 220, 5, 70); //logo de la empresa,moverDerecha,moverAbajo,tamañoIMG
       $this->SetFont('Arial', 'B', 19); //tipo fuente, negrita(B-I-U-BIU), tamañoTexto
       $this->Cell(83); // Movernos a la derecha
@@ -24,25 +24,25 @@ class PDF extends FPDF
      /* UBICACION */
      $this->Cell(10);  // mover a la derecha
      $this->SetFont('Arial', 'B', 10);
-     $this->Cell(96, 10, utf8_decode("Ubicación :  "), 0, 0, '', 0);
+     $this->Cell(96, 10, utf8_decode("Ubicación : Los Planes Santa Maria, Carretera CA-7 "), 0, 0, '', 0);
      $this->Ln(5);
 
      /* TELEFONO */
      $this->Cell(10);  // mover a la derecha
      $this->SetFont('Arial', 'B', 10);
-     $this->Cell(59, 10, utf8_decode("Teléfono :  "), 0, 0, '', 0);
+     $this->Cell(59, 10, utf8_decode("Teléfono : 9825-5333 "), 0, 0, '', 0);
      $this->Ln(5);
 
      /* COREEO */
      $this->Cell(10);  // mover a la derecha
      $this->SetFont('Arial', 'B', 10);
-     $this->Cell(85, 10, utf8_decode("Correo :  "), 0, 0, '', 0);
+     $this->Cell(85, 10, utf8_decode("Correo : cloudteamg3@gmail.com "), 0, 0, '', 0);
      $this->Ln(5);
 
      /* TELEFONO */
      $this->Cell(10);  // mover a la derecha
      $this->SetFont('Arial', 'B', 10);
-     $this->Cell(85, 10, utf8_decode("Sucursal :  "), 0, 0, '', 0);
+     $this->Cell(85, 10, utf8_decode("Sucursal : 1 "), 0, 0, '', 0);
      $this->Ln(7);
 
      date_default_timezone_set('America/Tegucigalpa');
@@ -59,7 +59,7 @@ class PDF extends FPDF
      $this->SetTextColor(228, 100, 0);
      $this->Cell(90); // mover a la derecha
      $this->SetFont('Arial', 'B', 15);
-     $this->Cell(100, 10, utf8_decode("Reporte de parametros "), 0, 1, 'C', 0);
+     $this->Cell(100, 10, utf8_decode("Reporte BItacora "), 0, 1, 'C', 0);
      $this->Ln(7);
 
            /* CAMPOS DE LA TABLA */
@@ -67,16 +67,16 @@ class PDF extends FPDF
       $this->SetFillColor(228, 100, 0); //colorFondo
       $this->SetTextColor(255, 255, 255); //colorTexto
       $this->SetDrawColor(163, 163, 163); //colorBorde
-      $this->SetFont('Arial', 'B', 10);
-      $this->Cell(50,10, utf8_decode('Parametro'), 1, 0, 'C', 1);
-      $this->Cell(95, 10, utf8_decode('Valor'), 1, 0, 'C', 1);
-     // $this->Cell(40, 10, utf8_decode('Descripcion'), 1, 0, 'C', 1);
-      $this->Cell(45, 10, utf8_decode('Fecha de creacion'), 1, 0, 'C', 1);
-      //$this->Cell(30, 10, utf8_decode('Imagen'), 1, 0, 'C', 1);
-      $this->Cell(45, 10, utf8_decode('Fecha de modificacion'), 1, 0, 'C', 1);
-      $this->Cell(50, 10, utf8_decode('Creado Por'), 1, 1, 'C', 1);
+      $this->SetFont('Arial', 'B', 11);
     
-   } 
+      $this->Cell(50,10, utf8_decode('fecha'), 1, 0, 'C', 1);
+      $this->Cell(20, 10, utf8_decode('id_usuario'), 1, 0, 'C', 1);
+     // $this->Cell(40, 10, utf8_decode('Descripcion'), 1, 0, 'C', 1);
+      $this->Cell(20, 10, utf8_decode('id_objeto'), 1, 0, 'C', 1);
+      //$this->Cell(30, 10, utf8_decode('Imagen'), 1, 0, 'C', 1);
+      $this->Cell(50, 10, utf8_decode('Accion'), 1, 0, 'C', 1);
+      $this->Cell(130, 10, utf8_decode('Descripción'), 1, 1, 'C', 1);
+   }
 
    // Pie de página
    function Footer()
@@ -102,18 +102,18 @@ $i = 0;
 $pdf->SetFont('Arial', '', 12);
 $pdf->SetDrawColor(163, 163, 163); //colorBorde
 
-$consulta_reporte_producto = $conexion->query("SELECT id_parametro, parametro,valor, fecha_creacion, 
-fecha_modificacion, creado_por, modificado_por,id_usuario FROM tbl_ms_parametros  ORDER BY id_parametro ASC");
+$consulta_reporte_producto = $conexion->query("SELECT id_bitacora, fecha,id_usuario,id_objeto, 
+accion, descripcion FROM tbl_bitacora  ORDER BY id_bitacora ASC");
 
 // AnchoCelda,AltoCelda,titulo,borde(1-0),saltoLinea(1-0),posicion(L-C-R),ColorFondo(1-0)
 while ($datos_reporte = $consulta_reporte_producto->fetch_object()) {  
-   $pdf->Cell(50, 10, utf8_decode($datos_reporte->parametro), 1, 0, 'C', 0);
-   $pdf->Cell(95, 10, utf8_decode($datos_reporte->valor), 1, 0, 'C', 0);
-   $pdf->Cell(45, 10, utf8_decode($datos_reporte->fecha_creacion), 1, 0, 'C', 0);
+   
+   $pdf->Cell(50, 10, utf8_decode($datos_reporte->fecha), 1, 0, 'C', 0);
+   $pdf->Cell(20, 10, utf8_decode($datos_reporte->id_usuario), 1, 0, 'C', 0);
+   $pdf->Cell(20, 10, utf8_decode($datos_reporte->id_objeto), 1, 0, 'C', 0);
 
-   $pdf->Cell(45, 10, utf8_decode($datos_reporte->fecha_modificacion), 1, 0, 'C', 0);
-   $pdf->Cell(50, 10, utf8_decode($datos_reporte->creado_por), 1, 1, 'C', 0);
-
+   $pdf->Cell(50, 10, utf8_decode($datos_reporte->accion), 1, 0, 'C', 0);
+   $pdf->Cell(130, 10, utf8_decode($datos_reporte->descripcion), 1, 1, 'C', 0);
 
    // Move down one line
   
@@ -124,4 +124,5 @@ $i = $i + 1;
 
 
 
-$pdf->Output('ReporteCompras.pdf', 'I');//nombreDescarga, Visor(I->visualizar - D->descargar)
+$pdf->Output('Reportebitacora.pdf', 'I');//nombreDescarga, Visor(I->visualizar - D->descargar)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           

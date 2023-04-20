@@ -61,34 +61,21 @@ if(!isset ($_SESSION['usuario'])){
                 <span class="links_name">Productos</span>
             </a>
             <span class="tooltip">Productos</span>
-        </li>        <li>
-            <a href="../categoria.php">
-            <i class='bx bxs-category'></i>
-                <span class="links_name">Categorias</span>
-            </a>
-            <span class="tooltip">Categorias</span>
         </li>
         <li>
-            <a href="../productos/promocion.php">
-            <i class='bx bxs-purchase-tag-alt'></i>
-                <span class="links_name">Promociones</span>
+            <a href="../Seguridad.php">
+                <i class='bx bx-shield-quarter'></i>
+                <span class="links_name">Seguridad</span>
             </a>
-            <span class="tooltip">Promociones</span>
+            <span class="tooltip">Seguridad</span>
         </li>
-      <li>
-        <a href="../Seguridad.php">
-          <i class='bx bx-shield-quarter'></i>
-          <span class="links_name">Seguridad</span>
-        </a>
-        <span class="tooltip">Seguridad</span>
-      </li>
-      <li>
-        <a href="../Proveedores.php">
-          <i class='bx bxs-user'></i>
-          <span class="links_name">Proveedores</span>
-        </a>
-        <span class="tooltip">Proveedores</span>
-      </li>
+        <li>
+            <a href="../Proveedores.php">
+            <i class='bx bx-id-card'></i>
+                <span class="links_name">Proveedores</span>
+            </a>
+            <span class="tooltip">Proveedores</span>
+        </li>
         <li>
             <a href="../Inventario.php">
                 <i class='bx bx-package'></i>
@@ -96,6 +83,14 @@ if(!isset ($_SESSION['usuario'])){
             </a>
             <span class="tooltip">Inventario</span>
         </li>
+        <li>
+            <a href="../GestionUsuarios.php">
+            <i class='bx bxs-user'></i>
+                <span class="links_name">Usuarios</span>
+            </a>
+            <span class="tooltip">Usuarios</span>
+        </li>
+        
         <a href="../../php/Cerrar_Seccion.php">
         <li class="profile">
           <i class='bx bx-log-out' id="log_out"></i>
@@ -106,7 +101,7 @@ if(!isset ($_SESSION['usuario'])){
   </div>
   <section class="home-section">
 </br>
-      <h1>  Proveedores <i class='bx bxs-group icon'></i></h1>
+      <h1>  Proveedores <i class='bx bx-shopping-bag'></i></h1>
       <?php include '../conex.php';?>
 
       <section id="container"  >
@@ -124,7 +119,8 @@ if(!isset ($_SESSION['usuario'])){
 
 
 <form action="buscarproveedor.php" method="get" style="background-color:#DCFFFE ;">
-<input type="text" name="busqueda" style="text-transform:uppercase; margin-left: 40px" id="busqueda" placeholder="Buscar..." value="<?php echo $busqueda; ?>"><button type="submit" class="boton-buscar">Buscar</button>
+  <input type="text" name="busqueda" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
+  <button type="submit" class="boton-buscar">Buscar</button>
   <a href="agregar_proveedores.php" class="btn_newproducto" style="margin-left: 350px" > Agregar Proveedor<i id="icon_nuevo"  class='bx bxs-user-plus'></i></a>
   <a href="../../../fpdf/reporte_proveedorbuscar.php?buscar=<?php echo $busqueda ?>"   target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a>
 

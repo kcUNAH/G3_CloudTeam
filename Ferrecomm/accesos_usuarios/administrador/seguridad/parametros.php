@@ -127,9 +127,10 @@ if(!isset ($_SESSION['usuario'])){
  <section id="container"  >
       <form action="buscar_parametro.php" method="get" style="background-color:#DCFFFE ;">
   <input type="text" name="busqueda" style="text-transform:uppercase; margin-left: 40px"  id="busqueda" placeholder="Buscar...">
+  
   <button type="submit" class="boton-buscar">Buscar</button>
   
-  
+  <a href="agg_parametro.php" class="btn_newproducto" style="margin-left: 350px" > Agregar Parametro<i id="icon_nuevo"  class='bx bxs-notepad'></i></a>
   <a href="../../../fpdf/reporteparametros.php" target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
 
@@ -140,7 +141,10 @@ if(!isset ($_SESSION['usuario'])){
     
     <link rel="stylesheet" href="./fontawesome-free/css/all.min.css">
     <div class="container-fluid" style=" background-image: URL(..\..\accesos\Imagenes\Logo.jpeg);"></div> 
-</head>
+
+
+
+  </head>
 <?php include '../conex.php'; ?>
         <section id="container">
 

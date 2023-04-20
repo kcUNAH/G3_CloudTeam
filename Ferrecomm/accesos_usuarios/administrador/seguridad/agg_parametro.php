@@ -1,5 +1,4 @@
 
-?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <!DOCTYPE html>
@@ -173,14 +172,14 @@
   <section class="home-section"></br>
       <h2>  Añadir nuevo parametro <i class='bx bx-id-card'></i></h2>
       <div>
-            <form action="registro_proveedores.php" method="POST" enctype="multipart/form-data" id="formulario">
+            <form action="registroagg_parametro.php" method="POST" enctype="multipart/form-data" id="formulario">
             
 
 
                 <div class="formulario__grupo" id="grupo__nombre_proveedor">
 				<label for="nombre_proveedor" class="formulario__label" >parametro</label>
 				<div class="formulario__grupo-input">
-					<input type="text"  style="text-transform:uppercase;" class="field"  name="nombre_proveedor" id="parametro" >
+					<input type="text"  style="text-transform:uppercase;" class="field"  onblur="cambiarAMayusculas(this);" name="nombre_parametro" id="parametro" >
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
 				<p class="formulario__input-error">El nombre del producto tiene que contener letras y contener 3 a 25 de las mismas</p>
@@ -189,22 +188,13 @@
                 <div class="formulario__grupo" id="grupo__rtn_proveedor">
 				<label for="rtn_proveedor" class="formulario__label">Valor:</label>
 				<div class="formulario__grupo-input">
-			    <input type="text" class="field"  name="rtn_proveedor" id="rtn_proveedor"   pattern="[0-9]+" required >
+			    <input type="text" class="field" onblur="cambiarAMayusculas(this);" name="parametro" id="parametros"   required >
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
 				<p class="formulario__input-error">El RTN solo puede contener numeros</p>
 			    </div>
 
-            
-            <div class="formulario__grupo" id="grupo__telefono">
-				<label for="telefono" class="formulario__label">fecha creacion:</label>
-				<div class="formulario__grupo-input">
-			<input type="text" class="field"  name="telefono" id="telefono"    >
-					<i class="formulario__validacion-estado fas fa-times-circle"></i>
-				</div>
-				<p class="formulario__input-error">El telefono solo puede contener numeros</p>
-			    </div>
-
+    
             
 
 
@@ -239,25 +229,7 @@
 ?>
 </form>
 </form>
-<script src="formularioproveedores.js"></script>
 
-<script>
-let sidebar = document.querySelector(".sidebar");
-let closeBtn = document.querySelector("#btn");
-let searchBtn = document.querySelector(".bx-search");
-
-closeBtn.addEventListener("click", ()=>{
-sidebar.classList.toggle("open");
-menuBtnChange();
-});
-
-function menuBtnChange() {
-if(sidebar.classList.contains("open")){
-closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");
-}else {
-closeBtn.classList.replace("bx-menu-alt-right","bx-menu");
-}
-}
 </script>
 
 </div>

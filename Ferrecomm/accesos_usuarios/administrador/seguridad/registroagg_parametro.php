@@ -1,11 +1,15 @@
-
 <?php
 session_start();
-if (!isset($_SESSION['usuario'])) {
+if (isset($_SESSION['id_usuario'])) {
+    // Si el usuario ha iniciado sesión, mostrar el campo de entrada con su ID de usuario
+    $usuarioinicio = $_SESSION['id_usuario'];
+    echo ' <input type="hidden"value="'.  $usuarioinicio.'" readonly>';
+} else {
+    // Si el usuario no ha iniciado sesión, mostrar un mensaje de error o redirigir a la página de inicio de sesión
     echo '
     <script>
     alert("Por favor, debe iniciar seccion");
-    window.location= "index.php";
+    window.location= "../index.php";
     </script>
     ';
     //header("localitation: index.php");
@@ -19,43 +23,47 @@ include '../conex.php';
 include '../../../php/bitacora.php';
 if (!empty($_POST)) {
 
-    if (empty($_POST['nombre_proveedor']) || empty($_POST['rtn_proveedor']) || empty($_POST['telefono']) || empty($_POST['pais']) || empty($_POST['email']) || empty($_POST['direccion'])) //Si van vacios nos muestra el mensaje de erro, sino capturalos datos
+    if (empty($_POST['nombre_parametro']) || empty($_POST['parametro']))
     {
         
         // $alert= '<p class= "msg_error"> Todos los campos son obligatorios.</p>';  
         echo '<script>
             alert("Todos los campos son obligatorios");
-            window.location= "agregar_proveedores.php";
+            window.location= "parametros.php";
             </script>
             ';
     } else {
 
-        $nombre_proveedor = $_POST['nombre_proveedor'];
-        $rtn_proveedor= $_POST['rtn_proveedor'];
-        $telefono = $_POST['telefono'];
-        $pais= $_POST['pais'];
-        $correo_proveedor = $_POST['email'];
-        $direccion_proveedor = $_POST['direccion'];
-        $telefono_final=$pais.$telefono;
-        $query = mysqli_query($conex, "SELECT * FROM tbl_proveedores WHERE nombre_proveedor = '$nombre_proveedor' or correo_proveedor = '$correo_proveedor' ");
-        $result = mysqli_fetch_array($query);
+        $parametroN = $_POST['nombre_parametro'];
+        $valor= $_POST['parametro'];
+      
+$d=strtotime("today");
+date("Y-m-d h:i:sa", $d);
 
+       
+        $ruta_archivo = 'registroagg_parametro.php'; // Ruta del archivo que quieres verificar
+     
+        $creado_por="ADMINISTRADOR";
+        $modificado_por="ADMINISTRADOR";
+        $id_usuario=$usuarioinicio;
+        $query = mysqli_query($conex, "SELECT parametro FROM tbl_ms_parametros WHERE parametro = '$parametroN' ");
+        $result = mysqli_fetch_array($query);
         if ($result > 0) {
             // $alert= '<p class= "msg_error">El usuario ya existe.</p>';
             echo
                 '<script>
-                alert("El proveedor ya existe");
-                window.location= "../proveedores.php";
+                alert("El parametro ya existe");
+                window.location= "parametros.php";
                 </script>
                 ';
             $codigoObjeto = 7;
             $accion = 'Registro';
-            $descripcion = 'intento ingresar un proveedor ya existente';
+            $descripcion = 'intento ingresar un parametro que existe';
             bitacora($codigoObjeto, $accion, $descripcion);
         } else {
            
-            $sql="INSERT INTO tbl_proveedores(nombre_proveedor,rtn_proveedor,telefono_proveedor,correo_proveedor,direccion_proveedor)
-                                      VALUES( '$nombre_proveedor', '$rtn_proveedor','$telefono_final',' $correo_proveedor ',' $direccion_proveedor')";
+            $sql="INSERT INTO tbl_ms_parametros(parametro,valor,fecha_creacion,fecha_modificacion,creado_por,modificado_por,id_usuario)
+                                      VALUES( '$parametroN', '$valor',CURTIME(),CURTIME(),'$creado_por',' $modificado_por','$id_usuario ')";
 
               $ejecuta=mysqli_query($conex, $sql);
 
@@ -63,8 +71,8 @@ if (!empty($_POST)) {
                 //  $alert= '<p class= "msg_save">El usuario se ha creado.</p>';
                 echo
                 '<script>
-                alert("Proveedor creado correctamente");
-                window.location= "../proveedores.php";
+                alert("Parametro creado correctamente");
+                window.location= "parametros.php";
                 </script>
                 ';
                 $codigoObjeto=7;
@@ -76,12 +84,12 @@ if (!empty($_POST)) {
                 echo
                 '<script>
                 alert("Error al crear el proveedor");
-                window.location= "../proveedores.php";
+                window.location= "agg_parametro.php";
                 </script>
                 ';
                 $codigoObjeto=7;
                 $accion='Registro';
-                $descripcion= 'Se intento registrar un proveedor';
+                $descripcion= 'Se intento registrar un parametro';
                 bitacora($codigoObjeto, $accion,$descripcion);
             }
      

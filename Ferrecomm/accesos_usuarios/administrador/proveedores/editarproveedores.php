@@ -30,9 +30,11 @@ if(!isset ($_SESSION['usuario'])){
              $nombre_proveedor = $_POST['nombre_proveedor'];
             $rtn_proveedor = $_POST['rtn_proveedor'];
             $telefono_proveedor = $_POST['telefono'];
+            $pais= $_POST['pais'];
             $correo_proveedor= $_POST['email'];
-                $direccion_proveedor = $_POST['direccion'];
-
+             $direccion_proveedor = $_POST['direccion'];
+             $telefono_final=$pais.$telefono_proveedor;
+           
             $query = mysqli_query($conex,"SELECT * FROM tbl_proveedores WHERE (nombre_proveedor = ' $nombre_proveedor' AND id_proveedor != $id_proveedor) or (correo_proveedor = ' $correo_proveedor' AND id_proveedor != $id_proveedor)");
 
             $result = mysqli_fetch_array($query); //Almacena datos
@@ -42,7 +44,7 @@ if(!isset ($_SESSION['usuario'])){
             }else{
 
                
-                    $sql_update = mysqli_query($conex,"UPDATE tbl_proveedores SET nombre_proveedor='$nombre_proveedor',rtn_proveedor='$rtn_proveedor',telefono_proveedor=' $telefono_proveedor',correo_proveedor='$correo_proveedor', 
+                    $sql_update = mysqli_query($conex,"UPDATE tbl_proveedores SET nombre_proveedor='$nombre_proveedor',rtn_proveedor='$rtn_proveedor',telefono_proveedor=' $telefono_final',correo_proveedor='$correo_proveedor', 
                     direccion_proveedor='$direccion_proveedor' WHERE id_proveedor = $id_proveedor");
 
                     if($sql_update){
@@ -96,14 +98,14 @@ if(!isset ($_SESSION['usuario'])){
     }else{
         $option = ' ';
         while ($data = mysqli_fetch_array($sql)){
-                $id_proveedor = $data['id_proveedor'];
+                $id_proveedor = $data["id_proveedor"];
                 $nombre_proveedor = $data['nombre_proveedor'];
                 $rtn_proveedor = $data['rtn_proveedor'];
                 $telefono_proveedor = $data['telefono_proveedor'];
                 $correo_proveedor = $data['correo_proveedor'];
                 $direccion_proveedor = $data['direccion_proveedor'];  
            
-           
+                $telefono_proveedor_corto = substr($telefono_proveedor, 7);
     
 
       
@@ -159,33 +161,13 @@ if(!isset ($_SESSION['usuario'])){
             <span class="tooltip">Productos</span>
         </li>
         <li>
-            <a href="../categoria.php">
-            <i class='bx bxs-category'></i>
-                <span class="links_name">Categorias</span>
+            <a href="../Seguridad.php">
+                <i class='bx bx-shield-quarter'></i>
+                <span class="links_name">Seguridad</span>
             </a>
-            <span class="tooltip">Categorias</span>
+            <span class="tooltip">Seguridad</span>
         </li>
-        <li>
-            <a href="../productos/promocion.php">
-            <i class='bx bxs-purchase-tag-alt'></i>
-                <span class="links_name">Promociones</span>
-            </a>
-            <span class="tooltip">Promociones</span>
-        </li>
-      <li>
-        <a href="../Seguridad.php">
-          <i class='bx bx-shield-quarter'></i>
-          <span class="links_name">Seguridad</span>
-        </a>
-        <span class="tooltip">Seguridad</span>
-      </li>
-      <li>
-        <a href="../Proveedores.php">
-          <i class='bx bxs-user'></i>
-          <span class="links_name">Proveedores</span>
-        </a>
-        <span class="tooltip">Proveedores</span>
-      </li>
+       
         <li>
             <a href="../Inventario.php">
                 <i class='bx bx-package'></i>
@@ -281,24 +263,60 @@ if(!isset ($_SESSION['usuario'])){
 	}
 }
   </style>
+                <style>
+  select#country {
+    width: 100px;
+    padding: 5px;
+    line-height: 1;
+  }
+  input#telefono {
+    width: 350px;
+    height: 30px;
+    padding: 8px;
+    font-size: 12px;
+    border-radius: 1px;
+    border: 1px solid #ccc;
+  }
+</style>
+
   <section class="home-section"></br>
       <h2>  Editar proveedores <i class='bx bx-edit'></i></h2>
       <div>
             <form action=" " method="POST" enctype="multipart/form-data" id="formulario">
-
+          
+        
             <input type="hidden"   name=" id_proveedor" id=" $id_proveedor "  value="<?php echo  $id_proveedor;?>" >
 
                 <p>Nombre del proveedor:
 				
-		      <input type="text" class="field"  name="nombre_proveedor" id="nombre_proveedor" style="text-transform:uppercase;" value="<?php echo $nombre_proveedor;?>">
+                <input type="text" class="field" name="nombre_proveedor" id="nombre_proveedor"  style="text-transform:uppercase;" min="3" value="<?php echo $nombre_proveedor;?>" required pattern="^[a-zA-Z\s]+$" title="Este campo no permite números.">
+
+
+
                 </p>
 
                     <p>RTN proveedor:
-			<input type="text" class="field"  name="rtn_proveedor" id="rtn_proveedor"  min ="0" maxlength="14"  value="<?php echo $rtn_proveedor;?>" required pattern="[0-9]+">
-                    </p>
-                    <p>Telefono:
+                    <input type="text" class="field" name="rtn_proveedor" id="rtn_proveedor" min="0" maxlength="15" value="<?php echo $rtn_proveedor;?>" required pattern="^(?!0)\d+$" title="El campo no puede consistir solo en dígitos 0.">
+
+
+    
+                    <label for="pais"  class="formulario__label">Telefono:</label>
+            <div class="formulario__grupo" id="grupo__telefono">
+				
+<div class="formulario__grupo-input">
+
+          
          
-			<input type="text" class="field"  name="telefono" id="telefono"  maxlength="8"  pattern="[0-9]+"  value="+504:<?php echo $telefono_proveedor;?>" >
+<select id="country" name="pais" id="country ">
+    
+        <option value="(+501)">BZ(+501)</option>
+        <option value="(+502)">GT(+502)</option>
+        <option value="(+503)">SV(+503)</option>
+        <option value="(+504)">HN(+504)</option>
+        <option value="(+505)">NI(+505)</option>
+        <option value="(+506)">CR(+506)</option>
+        <option value="(+507)">PA(+507)</option>
+			<input type="text" class="field"  name="telefono" id="telefono"  maxlength="8" placeholder="Ingresa tu número de teléfono" value="<?php echo $telefono_proveedor_corto ?>"required pattern="^(?!0)\d+$" title="El campo no puede consistir solo en dígitos 0.">
 				
 					
                     </p>

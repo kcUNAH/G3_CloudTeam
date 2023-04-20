@@ -121,6 +121,7 @@ if(!isset ($_SESSION['usuario'])){
 <form action="buscar_parametro.php" method="get" style="background-color:#DCFFFE ;">
 <input type="text" name="busqueda" style="text-transform:uppercase; margin-left: 40px" id="busqueda" placeholder="Buscar..." value="<?php echo $busqueda; ?>">
   <button type="submit" class="boton-buscar">Buscar</button>
+  <a href="agg_parametro.php" class="btn_newproducto" style="margin-left: 350px" > Agregar Parametro<i id="icon_nuevo"  class='bx bxs-notepad'></i></a>
   <a href="../../../fpdf/reportebuscarparametros.php?buscar=<?php echo $busqueda ?>" target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
 

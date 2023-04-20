@@ -23,6 +23,8 @@ if(empty($_GET['id'])){
     header('Location: ../../administrador/proveedores.php');
 }
  $id_proveedor = $_GET['id'];
+
+
  $sql = mysqli_query($conex, "SELECT id_proveedor,nombre_proveedor,rtn_proveedor,telefono_proveedor,correo_proveedor,direccion_proveedor FROM tbl_proveedores WHERE id_proveedor = $id_proveedor;");
  $result_sql = mysqli_num_rows($sql);
 
@@ -42,39 +44,58 @@ if(empty($_GET['id'])){
  }
 
    if(!empty($_POST)){
-        $id_producto=$_POST['id_proveedor'];
+    $id_proveedor = $_POST['id_proveedor'];
+    $consultarp = mysqli_query($conex, "SELECT COUNT(*) FROM tbl_compras WHERE id_proveedor = $id_proveedor");
+    $result_consultarp = mysqli_fetch_array($consultarp);
+    
+    if ($result_consultarp[0] > 0) {
+        // hay compras asociadas, no se puede eliminar el proveedor
+       
+    echo
+    '<script>
+    alert("Este proveedor no puede ser eliminado, porque tiene compras relacionadas");
+    window.location= "../../administrador/proveedores.php";
+    </script>
+    ';
+    $codigoObjeto=4;
+    $accion='Eliminar';
+    $descripcion= 'intento Eliminar un proveedor que tiene relación con compras';
+    bitacora($codigoObjeto, $accion,$descripcion);
+    }else{
 
-        
+ $query_delete = mysqli_query($conex,"DELETE FROM tbl_proveedores WHERE id_proveedor = $id_proveedor ");
+  
+if($query_delete){
+        // header("Location: GestionUsuarios.php");
+         
+         echo
+             '<script>
+             alert("Proveedor eliminado correctamente");
+             window.location= "../../administrador/proveedores.php";
+             </script>
+             ';
+      $codigoObjeto=4;
+     $accion='Eliminar';
+     $descripcion= 'Elimino Proveedor correctamente';
+     bitacora($codigoObjeto, $accion,$descripcion);
+         
+     }else{
+         echo
+             '<script>
+             alert("Error al eliminar el proveedor correctamente");
+             window.location= "../../administrador/proveedores.php";
+             </script>
+             ';
+            $codigoObjeto=4;
+         $accion='Eliminar';
+         $descripcion= 'El Usuario intento eliminar Un proveedor';
+         bitacora($codigoObjeto, $accion,$descripcion);
+     }
+}
 
-       $query_delete = mysqli_query($conex,"DELETE FROM tbl_proveedores WHERE id_proveedor = $id_proveedor ");
-       if($query_delete){
-           // header("Location: GestionUsuarios.php");
-            
-            echo
-                '<script>
-                alert("Proveedor eliminado correctamente");
-                window.location= "../../administrador/proveedores.php";
-                </script>
-                ';
-         $codigoObjeto=4;
-        $accion='Eliminar';
-        $descripcion= 'Elimino Proveedor correctamente';
-        bitacora($codigoObjeto, $accion,$descripcion);
-            
-        }else{
-            echo
-                '<script>
-                alert("Error al eliminar el proveedor correctamente");
-                window.location= "../../administrador/proveedores.php";
-                </script>
-                ';
-               $codigoObjeto=4;
-            $accion='Eliminar';
-            $descripcion= 'El Usuario intento eliminar Un proveedor';
-            bitacora($codigoObjeto, $accion,$descripcion);
-        }
-   }
+}
 
+      
 ?>
 
 
@@ -124,33 +145,19 @@ if(empty($_GET['id'])){
             <span class="tooltip">Productos</span>
         </li>
         <li>
-            <a href="../categoria.php">
-            <i class='bx bxs-category'></i>
-                <span class="links_name">Categorias</span>
+            <a href="../Seguridad.php">
+                <i class='bx bx-shield-quarter'></i>
+                <span class="links_name">Seguridad</span>
             </a>
-            <span class="tooltip">Categorias</span>
+            <span class="tooltip">Seguridad</span>
         </li>
         <li>
-            <a href="../productos/promocion.php">
-            <i class='bx bxs-purchase-tag-alt'></i>
-                <span class="links_name">Promociones</span>
+            <a href="../Proveedores.php">
+            <i class='bx bx-id-card'></i>
+                <span class="links_name">Proveedores</span>
             </a>
-            <span class="tooltip">Promociones</span>
+            <span class="tooltip">Proveedores</span>
         </li>
-      <li>
-        <a href="../Seguridad.php">
-          <i class='bx bx-shield-quarter'></i>
-          <span class="links_name">Seguridad</span>
-        </a>
-        <span class="tooltip">Seguridad</span>
-      </li>
-      <li>
-        <a href="../Proveedores.php">
-          <i class='bx bxs-user'></i>
-          <span class="links_name">Proveedores</span>
-        </a>
-        <span class="tooltip">Proveedores</span>
-      </li>
         <li>
             <a href="../Inventario.php">
                 <i class='bx bx-package'></i>
