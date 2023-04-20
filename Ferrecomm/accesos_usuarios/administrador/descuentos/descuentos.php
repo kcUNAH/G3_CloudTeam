@@ -126,11 +126,11 @@ if (!isset($_SESSION['usuario'])) {
         <div class="container-fluid" style=" background-image: URL(Ferrecomm\accesos\Imagenes\Logo.jpeg);"></div>
       </head>
       <section id="container"  >
-      <form action="" method="get" style="background-color:#DCFFFE ;">
+      <form action="./descuentobuscar.php" method="get" style="background-color:#DCFFFE ;">
   <input type="text" name="busqueda" style="text-transform:uppercase;" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
   <button type="submit" class="boton-buscar">Buscar</button>
-  <a href="descuentoagregar.php" class="btn_nuevorpoducto" > Añadir Descuento<i id="icon_nuevo" class='bx bxs-user-plus'></i></a>
-  <a href=""   target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
+  <a href="descuentoagregar.php" class="btn_nuevorpoducto" > Añadir Descuento<i id="icon_nuevo"  class='bx bxs-discount'></i></i></a>
+  <a href="../../../fpdf/Reportedescuentos.php"   target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
 
         </form>
