@@ -205,7 +205,7 @@ if (!isset($_SESSION['usuario'])) {
                     <!--  <a class="link_factura" href="#"><i class='bx bx-check-double'></i></i></a>-->
                     <a class="link_edit" href="editar_cliente.php?id=<?php echo $data["id_cliente"]; ?>"><i
                         class='bx bx-edit'></i></a>
-                    <a class="link_delete" href="elim_usuario.php?id=<?php echo $data["id_cliente"]; ?>"><i
+                    <a class="link_delete" href="eliminar_cliente.php?id=<?php echo $data["id_cliente"]; ?>"><i
                         class='bx bxs-trash'></i></a>
                   </td>
 
