@@ -131,8 +131,7 @@ if (!isset($_SESSION['usuario'])) {
   <input type="text" name="busqueda" style="text-transform:uppercase;" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
   <button type="submit" class="boton-buscar">Buscar</button>
   <a href="registro_cliente.php" class="btn_nuevorpoducto" > Añadir Cliente<i id="icon_nuevo" class='bx bxs-user-plus'></i></a>
-  <a href="../../../fpdf/Reporte_cliente.php?buscar=<?php echo $busqueda ?>"   target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
-
+  <a href="../../../fpdf/Reporte_cliente.php"   target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
 
         </form>
@@ -204,7 +203,7 @@ if (!isset($_SESSION['usuario'])) {
                   </td>
                   <td>
                     <!--  <a class="link_factura" href="#"><i class='bx bx-check-double'></i></i></a>-->
-                    <a class="link_edit" href="editar.php?id=<?php echo $data["id_cliente"]; ?>"><i
+                    <a class="link_edit" href="editar_cliente.php?id=<?php echo $data["id_cliente"]; ?>"><i
                         class='bx bx-edit'></i></a>
                     <a class="link_delete" href="elim_usuario.php?id=<?php echo $data["id_cliente"]; ?>"><i
                         class='bx bxs-trash'></i></a>
