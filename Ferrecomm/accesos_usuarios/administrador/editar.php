@@ -129,14 +129,16 @@ if(!isset ($_SESSION['usuario'])){
             $nombre_usuario = $data['nombre_usuario'];
             $estado_usuario = $data['estado_usuario'];
             //$contrasenia = $data['contrasenia'];
-           // $rol = $data['id_rol'];
-           // $id_rol = $data['id_rol'];
+           $rol = $data['rol'];
+           $id_rol = $data['id_rol'];
            // $fecha_vencimiento = $data['fecha_vencimiento'];
             $correo_electronico = $data['correo_electronico'];
             //Creacion automatica de fecha
             date_default_timezone_set('America/Mexico_City');
             $fecha_modificacion =date("Y-m-d H:i:s");
             
+            $option = '<option value="'.$id_rol.'"select>'.$rol.'</option>';
+
         if($estado_usuario == 1){
             $estado= 'ACTIVO';
         }else{
@@ -358,12 +360,27 @@ if(!isset ($_SESSION['usuario'])){
                 <option value="2">INACTIVO</option>
             </select>
             
-            <label for="id_rol">ROL</label>
-            <select name="id_rol" id="id_rol">
-                <option value="1">Administrador</option>
-                <option value="2">Vendedor</option>
-                <option value="3">Default</option>
-            </select>
+            <label for="id_rol">Rol</label></br>
+                
+                <?php
+           $query_prom = mysqli_query($conex,"SELECT * from tbl_ms_rol");
+           $result_prom = mysqli_num_rows($query_prom)
+        ?>
+            
+                <select name="id_rol" id="id_rol">
+                   <?php
+                     echo $option;
+                      if($result_prom > 0){
+                        while ($promo= mysqli_fetch_array($query_prom)) {
+                        
+                   ?>
+                   <option value="<?php echo $promo["id_rol"]; ?>"><?php echo $promo["rol"]?> </option>
+                   <?php
+                   }
+                   }
+
+                   ?>
+                </select>
             <label for="correo_electronico">Correo</label>
             <input type="correo_electronico" name="correo_electronico" id="correo_electronico" placeholder="correo_electronico" value="<?php echo $correo_electronico; ?>">
             

@@ -374,11 +374,26 @@ if (!empty($_POST)) {
                     <option value="2">INACTIVO</option>
                 </select>
 -->
-                <label for="id_rol">ROL</label>
+               <label for="id_rol">Rol</label></br>
+                
+                <?php
+           $query_prom = mysqli_query($conex,"SELECT * from tbl_ms_rol");
+           $result_prom = mysqli_num_rows($query_prom)
+        ?>
+            
                 <select name="id_rol" id="id_rol">
-                    <option value="1">Administrador</option>
-                    <option value="2">Vendedor</option>
-                    <option value="3">Default</option>
+                   <?php
+                     echo $option;
+                      if($result_prom > 0){
+                        while ($promo= mysqli_fetch_array($query_prom)) {
+                        
+                   ?>
+                   <option value="<?php echo $promo["id_rol"]; ?>"><?php echo $promo["rol"]?> </option>
+                   <?php
+                   }
+                   }
+
+                   ?>
                 </select>
 
                 <!-- Grupo: Correo Electronico -->
