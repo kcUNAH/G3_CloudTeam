@@ -20,12 +20,10 @@ const validarFormulario = (e) => {
 			validarCampo(expresiones.nombre_promocion, e.target, 'nombre_promocion');
 		break;
         case "fecha_inicio":
-            validarCampo(expresiones.fecha_inicio, e.target, 'fecha_inicio');
             validarInicio();
             validarFinal();
 		break;
         case "fecha_final":
-            validarCampo(expresiones.fecha_final, e.target, 'fecha_final');
             validarInicio();
             validarFinal();
 		break;
@@ -65,7 +63,7 @@ function validarInicio() {
     const fechaInicio = new Date(inputInicio.value);
     const fechaFinal = new Date(inputFinal.value);
     
-    if (fechaInicio > fechaFinal || fechaInicio.getTime() === 0 ) {
+    if (fechaInicio > fechaFinal || fechaInicio == 0   ) {
       // Si la fecha de inicio es mayor que la fecha final, o si es una fecha inválida o está en el futuro, se marca como incorrecto
       document.getElementById('grupo__fecha_inicio').classList.add('formulario__grupo-incorrecto');
       document.getElementById('grupo__fecha_inicio').classList.remove('formulario__grupo-correcto');
@@ -98,7 +96,7 @@ function validarInicio() {
     const fechaInicio = new Date(inputInicio.value);
     const fechaFinal = new Date(inputFinal.value);
     
-    if (fechaFinal < fechaInicio   || fechaFinal.getTime() === 0 ) {
+    if (fechaFinal < fechaInicio   || fechaFinal == 0 ) {
       // Si la fecha de inicio es mayor que la fecha final, o si es una fecha inválida o está en el futuro, se marca como incorrecto
       document.getElementById('grupo__fecha_final').classList.add('formulario__grupo-incorrecto');
       document.getElementById('grupo__fecha_final').classList.remove('formulario__grupo-correcto');
