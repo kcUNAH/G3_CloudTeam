@@ -130,7 +130,7 @@ if (!isset($_SESSION['usuario'])) {
       <form action=" buscar_cliente.php" method="get" style="background-color:#DCFFFE ;">
   <input type="text" name="busqueda" style="text-transform:uppercase;" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
   <button type="submit" class="boton-buscar">Buscar</button>
-  <a href=".php" class="btn_nuevorpoducto" > Añadir Cliente<i id="icon_nuevo" class='bx bxs-user-plus'></i></a>
+  <a href="registro_cliente.php" class="btn_nuevorpoducto" > Añadir Cliente<i id="icon_nuevo" class='bx bxs-user-plus'></i></a>
   <a href="../../../fpdf/Reporte_cliente.php?buscar=<?php echo $busqueda ?>"   target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
 
