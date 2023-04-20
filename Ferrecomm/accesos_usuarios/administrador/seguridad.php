@@ -295,7 +295,7 @@ button[type="submit"] {
     <a class="btn1" href = "seguridad/parametros.php "><i class='bx bxs-notepad'> Parametros</i></a>
    
 
-    <a class="btn4" href = "roles/Roles.php">  <i class='bx bx-user-check'>Roles </i></a>
+    <a class="btn4" href = "roles/rol.php">  <i class='bx bx-user-check'>Roles </i></a>
     <a ></a>
  
    
