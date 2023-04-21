@@ -127,7 +127,7 @@ WHERE id_producto = $id_producto;");
             <span class="tooltip">Inicio</span>
         </li>
         <li>
-            <a href="../Facturacion.php">
+            <a href="../Menu_facturacion.php">
                 <i class='bx bx-money'></i>
                 <span class="links_name">Facturación</span>
             </a>

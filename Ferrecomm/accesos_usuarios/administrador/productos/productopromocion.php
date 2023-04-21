@@ -132,7 +132,7 @@ if (!empty($_POST)) {
             <span class="tooltip">Inicio</span>
         </li>
         <li>
-            <a href="../Facturacion.php">
+            <a href="../Menu_facturacion.php">
                 <i class='bx bx-money'></i>
                 <span class="links_name">Facturación</span>
             </a>
@@ -151,6 +151,20 @@ if (!empty($_POST)) {
                 <span class="links_name">Productos</span>
             </a>
             <span class="tooltip">Productos</span>
+        </li>
+        <li>
+            <a href="../categoria.php">
+            <i class='bx bxs-category'></i>
+                <span class="links_name">Categorias</span>
+            </a>
+            <span class="tooltip">Categorias</span>
+        </li>
+        <li>
+            <a href="./promocion.php">
+            <i class='bx bxs-purchase-tag-alt'></i>
+                <span class="links_name">Promociones</span>
+            </a>
+            <span class="tooltip">Promociones</span>
         </li>
         <li>
             <a href="../Seguridad.php">

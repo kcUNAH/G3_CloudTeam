@@ -179,7 +179,7 @@ if (!empty($_POST)) {
             <span class="tooltip">Inicio</span>
         </li>
         <li>
-            <a href="../Facturacion.php">
+            <a href="../Menu_facturacion.php">
                 <i class='bx bx-money'></i>
                 <span class="links_name">Facturación</span>
             </a>
@@ -410,7 +410,7 @@ if (!empty($_POST)) {
 
             <button type="submit" class="btn_agregar">Actualizar</button>
       <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado exitosamente!</p>
-      <button type="reset" onclick="location.href='../categoria.php'" class="btn_cancelar">Cancelar</button>
+      <button type="reset" onclick="location.href='../productos.php'" class="btn_cancelar">Cancelar</button>
 
 
                     <script>
