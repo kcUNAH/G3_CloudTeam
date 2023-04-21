@@ -9,10 +9,10 @@ const expresiones = {
 }
 
 const campos = {
-    dni_cliente: false,
-	nombre_cliente: false,
-	telefono_cliente: false,
-	direccion_cliente: false,
+    dni_cliente: true,
+	nombre_cliente: true,
+	telefono_cliente: true,
+	direccion_cliente: true,
 
 }
 

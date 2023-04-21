@@ -2,17 +2,16 @@ const formulario = document.getElementById('formulario');
 const inputs = document.querySelectorAll('#formulario input');
 const expresiones = {
     
-	dni_cliente: /^(?=.*[1-9])[0-9.?\d]{1,13}$/,
-    nombre_cliente: /[ /^[a-zA-ZÀ-ÿ\s]{3,25}$/,// Letras, numeros, guion y guion_bajo
-	telefono_cliente:/^(?=.*[1-9])[0-9.?\d]{1,8}$/,
-	direccion_cliente: /[ /^[a-zA-ZÀ-ÿ\s]{3,25}$/,
+	
+    rol: /[ /^[a-zA-ZÀ-ÿ\s]{3,25}$/,// Letras, numeros, guion y guion_bajo
+	descripcion: /[ /^[a-zA-ZÀ-ÿ\s]{3,25}$/,// Letras, numeros, guion y guion_bajo
+	
 }
 
 const campos = {
-    dni_cliente: false,
-	nombre_cliente: false,
-	telefono_cliente: false,
-	direccion_cliente: false,
+    
+	rol: true,
+	descripcion: true,
 
 }
 
@@ -20,18 +19,12 @@ const validarFormulario = (e) => {
 	switch (e.target.name) {
 		
 		
-        case "dni_cliente":
-			validarCampo(expresiones.dni_cliente, e.target, 'dni_cliente');
+        case "rol":
+			validarCampo(expresiones.rol, e.target, 'rol');
 		break;
-        case "nombre_cliente":
-			validarCampo(expresiones.nombre_cliente, e.target, 'nombre_cliente');
-		break;
-        case "telefono_cliente":
-			validarCampo(expresiones.telefono_cliente, e.target, 'telefono_cliente');
-		break;
-		case "direccion_cliente":
-			validarCampo(expresiones.direccion_cliente, e.target, 'direccion_cliente');
-		break;
+		case "descripcion":
+        validarCampo(expresiones.descripcion, e.target, 'descripcion');
+        break;
 	}
 }
 
@@ -62,7 +55,7 @@ inputs.forEach((input) => {
 formulario.addEventListener('submit', (e) => {
 	e.preventDefault();
 
-	if ((campos.dni_cliente && campos.nombre_cliente &&  campos.telefono_cliente  && campos.direccion_cliente) ) {
+	if (( campos.rol &&  campos.descripcion) ) {
 		document.getElementById('formulario__mensaje-exito').classList.add('formulario__mensaje-exito-activo');
 		setTimeout(() => {
 			document.getElementById('formulario__mensaje-exito').classList.remove('formulario__mensaje-exito-activo');

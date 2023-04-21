@@ -294,7 +294,7 @@ if (!empty($_POST)) {
 			    <input type="text" class="field"  name="dni_cliente" id="dni_cliente" maxlength="13"  pattern="[0-9]+" required >
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">El DNI solo debe contener numeros, no ingresar guiones y espacios</p>
+				<p class="formulario__input-error">El DNI solo debe contener numeros pero que no todos sean ceros, no ingresar guiones y espacios</p>
 			    </div>
 
             <div class="formulario__grupo" id="grupo__nombre_cliente">
@@ -312,7 +312,7 @@ if (!empty($_POST)) {
 			<input type="text" class="field"  name="telefono_cliente" id="telefono_cliente"  maxlength="8"   >
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">El telefono solo puede contener numeros</p>
+				<p class="formulario__input-error">El telefono solo puede contener numeros, pero que no todos sean ceros</p>
 			    </div>
 
                    <div class="formulario__grupo" id="grupo__direccion_cliente">

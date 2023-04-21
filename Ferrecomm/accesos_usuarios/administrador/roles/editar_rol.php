@@ -303,7 +303,7 @@ if(!isset ($_SESSION['usuario'])){
       
   <div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
         
-        <form action="" method ="POST">
+        <form id="formulario" action="" method ="POST">
         <input type="hidden" name="id_rol" value="<?php echo $iduser;?>">
             
         <div class="formulario__grupo" id="grupo__rol">
@@ -315,7 +315,7 @@ if(!isset ($_SESSION['usuario'])){
 				<p class="formulario__input-error">El nombre del ROL tiene que contener letras y contener 3 a 25 de las mismas</p>
 			    </div>
 
-            <div class="formulario__grupo" id="grupo__nombre_cliente">
+            <div class="formulario__grupo" id="grupo__descripcion">
 				<label for="descripcion" class="formulario__label" >Descripcion</label>
 				<div class="formulario__grupo-input">
                 <input type="text" class="field"  name="descripcion" id="descripcion" style="text-transform:uppercase;" value="<?=$descripcion?>" onblur="cambiarAMayusculas(this);" required >
@@ -369,7 +369,7 @@ if(!isset ($_SESSION['usuario'])){
 
 
         </div>
-        <script src="formulariocliente.js"></script>
+        <script src="formulariorol_editar.js"></script>
 
 <script>
 let sidebar = document.querySelector(".sidebar");

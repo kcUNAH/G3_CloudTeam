@@ -286,7 +286,7 @@ if(!isset ($_SESSION['usuario'])){
       
   <div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
         
-        <form action="" method ="POST">
+        <form id="formulario" action="" method ="POST">
         <input type="hidden" name="id_cliente" value="<?php echo $iduser;?>">
             
             <div class="formulario__grupo" id="grupo__dni_cliente">
@@ -360,7 +360,7 @@ if(!isset ($_SESSION['usuario'])){
 
 
         </div>
-        <script src="formulariocliente.js"></script>
+        <script src="formulario_cliente_editar.js"></script>
 
 <script>
 let sidebar = document.querySelector(".sidebar");

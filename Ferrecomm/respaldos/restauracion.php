@@ -1,30 +1,34 @@
 <?php
 session_start();
-if(empty($_SESSION['usuario_login'])){
+if(empty($_SESSION['usuario'])){
     header("location:../index.php");
 }
 //Verificar permiso del rol
-include "../modelo/conexion.php";
-$usuario_rol=$_SESSION['usuario_login'];
+include "../php/conexion.php";
+$usuario_rol=$_SESSION['usuario'];
 //Sacar el id del usuario
-$sql=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario_rol'");
+$sql=mysqli_query($conexion, "SELECT id_usuario from tbl_ms_usuario where usuario='$usuario_rol'");
 $row=mysqli_fetch_array($sql);
 $id_usuario_base=$row[0];
 //Sacar el rol del usuario
-$sql=mysqli_query($conexion, "select id_rol from tbl_ms_usuario where usuario='$usuario_rol'");
+$sql=mysqli_query($conexion, "SELECT id_rol from tbl_ms_usuario where usuario='$usuario_rol'");
 $row=mysqli_fetch_array($sql);
-$id_rol=$row[0];
+//$id_rol=$row[0];
 //Sacar el permiso dependiendo del rol
-$sql=mysqli_query($conexion, "select permiso_visualizar from tbl_ms_permisos where id_rol='$id_rol' and id_objeto=25");
+$sql=mysqli_query($conexion, "SELECT permiso_consultar from tbl_ms_permisos where id_rol='$id_rol' and id_objeto=8");
 $row=mysqli_fetch_array($sql);
 $permiso=$row[0];
 
-if($permiso <> 'PERMITIR'){
-    echo '<script language="javascript">alert("Usuario sin permiso");;window.location.href="../vista/inicio/inicio.php"</script>';
+
+
+
+//if($permiso <> 'PERMITIR'){
+if($id_rol =! '1'){
+    echo '<script language="javascript">alert("Usuario sin permiso");;window.location.href="../accesos_usuarios/administrador/seguridad.php"</script>';
 }
 //include "../../modelo/conexion.php";
 $id_usuario=$id_usuario_base;    //Guardamos el id usuario desde el boton editar
-$sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuario ");
+$sql=$conexion->query("SELECT * from tbl_ms_usuario where id_usuario='$id_usuario' ");
 ?>
 
 <!DOCTYPE html>
@@ -69,7 +73,7 @@ $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuari
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button type="submit" class="btn btn-dark" name="btnrespaldo" value="ok">Respaldo</button>
             <button type="submit" class="btn btn-dark" name="btnimportar" value="ok">Restaurar</button>
-            <button type="button" class="btn btn-outline-danger" onclick="location.href='../vista/inicio/inicio.php'" >Cancelar</button>
+            <button type="button" class="btn btn-outline-danger" onclick="location.href='../accesos_usuarios/administrador/seguridad.php'" >Cancelar</button>
             </div>
           
     </form>

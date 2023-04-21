@@ -14,7 +14,7 @@ function campo_vacio($importar, &$validar){
 if (!empty($_POST["btnimportar"])) {
         
     $importar=$_POST["importar"];
-    $sesion_usuario=$_SESSION['usuario_login'];
+    $sesion_usuario=$_SESSION['usuario'];
     campo_vacio($importar, $validar);
     if($validar=true){
         $conn =new mysqli('localhost', 'root', '' , 'ferrecomm_db');
