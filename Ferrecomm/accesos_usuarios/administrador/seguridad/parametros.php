@@ -93,7 +93,7 @@ if(!isset ($_SESSION['usuario'])){
             <span class="tooltip">Proveedores</span>
         </li>
         <li>
-            <a href="../../../inventario.php">
+            <a href="../inventario.php">
                 <i class='bx bx-package'></i>
                 <span class="links_name">Inventario</span>
             </a>
