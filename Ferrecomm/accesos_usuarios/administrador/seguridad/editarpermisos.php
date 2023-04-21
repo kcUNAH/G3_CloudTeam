@@ -28,8 +28,6 @@ if(!isset ($_SESSION['usuario'])){
                 $alert= '<p class= "msg_error"> Todos los campos son obligatorios.</p>';    
             }else{
             $id_permisos = $_POST['id_permisos'];
-            $id_rol= $_POST['id_rol'];
-            $id_objeto = $_POST['id_objeto'];
             $permiso_insercion = $_POST['permiso_insercion'];
             $permiso_eliminacion= $_POST['permiso_eliminacion'];
             $permiso_actualizacion = $_POST['permiso_actualizacion'];
@@ -39,15 +37,15 @@ if(!isset ($_SESSION['usuario'])){
                 $d=strtotime("today");
                 date("Y-m-d h:i:sa", $d);
           
-                $sql_update = mysqli_query($conex,"UPDATE tbl_ms_permisos SET permiso_insercion='$permiso_insercion',permiso_eliminacion='$permiso_eliminacion',permiso_actualizacion='$permiso_actualizacion',permiso_consultar='$permiso_consultar',creado_por,='ADMINISTRADOR',  modificado_por='ADMINISTRADOR',fecha_creacion =CURTIME(),fecha_modificacion= CURTIME() WHERE id_permisos = $id_permisos");
+                $sql_update = mysqli_query($conex,"UPDATE tbl_ms_permisos SET permiso_insercion='$permiso_insercion',permiso_eliminacion='$permiso_eliminacion',permiso_actualizacion='$permiso_actualizacion',permiso_consultar='$permiso_consultar',creado_por='ADMINISTRADOR',  modificado_por='ADMINISTRADOR',fecha_creacion =CURTIME(),fecha_modificacion= CURTIME() WHERE id_permisos = $id_permisos");
 
 
                     if($sql_update){
                        // $alert= '<p class= "msg_save">El usuario se ha actualizado correctamente.</p>';
                         
                        echo '<script>
-                        alert("El usuario se ha actualizado correctamente");
-                        window.location= "../../administrador/proveedores.php";
+                        alert("El permiso se ha actualizado correctamente");
+                        window.location= "permiso.php";
                         </script>
                         ';
                         $codigoObjeto=3;

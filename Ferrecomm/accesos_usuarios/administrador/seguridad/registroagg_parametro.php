@@ -36,7 +36,7 @@ if (!empty($_POST)) {
 
         $parametroN = $_POST['nombre_parametro'];
         $valor= $_POST['parametro'];
-      
+        $id_objeto=12;
 $d=strtotime("today");
 date("Y-m-d h:i:sa", $d);
 
@@ -48,6 +48,11 @@ date("Y-m-d h:i:sa", $d);
         $id_usuario=$usuarioinicio;
         $query = mysqli_query($conex, "SELECT parametro FROM tbl_ms_parametros WHERE parametro = '$parametroN' ");
         $result = mysqli_fetch_array($query);
+        $usuarioprimero = "SELECT permiso_insercion FROM tbl_ms_permisos WHERE id_objeto= 12 ";
+        $obtener_primer_ingreso = mysqli_query($conex,$usuarioprimero);
+        $filai_primer = mysqli_fetch_array($obtener_primer_ingreso);
+        $va_primer_ingreso =$filai_primer ['permiso_insercion'];
+        if($va_primer_ingreso=="SI" && $id_objeto==12){
         if ($result > 0) {
             // $alert= '<p class= "msg_error">El usuario ya existe.</p>';
             echo
@@ -92,14 +97,22 @@ date("Y-m-d h:i:sa", $d);
                 $descripcion= 'Se intento registrar un parametro';
                 bitacora($codigoObjeto, $accion,$descripcion);
             }
-     
-       
         }
-            
+        }else{
+            if($va_primer_ingreso=="NO"){
+                echo
+                '<script>
+                alert("usted no tiene permisos para crear un proveedor");
+                window.location= "../seguridad/parametros.php";
+                </script>
+                ';
+        }
         
-    }
-}
-
-
-
-?>
+        }
+           
+                
+            }
+            
+        }
+        
+        ?>

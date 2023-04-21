@@ -45,7 +45,7 @@ WHERE id_parametro = $id_parametro;");
        $creado_por = $data['creado_por'];
        $modificado_por = $data['nombre_usuario'];
        $id_usuario = $data['id_usuario'];
-
+       $id_objeto=12;
 
     }
  }
@@ -72,7 +72,11 @@ if (!empty($_POST)) {
             $query_update = mysqli_query($conex, "UPDATE tbl_ms_parametros SET valor = '$valor',
             fecha_modificacion = '$fecha_modificacion', modificado_por = '$modificado_por'
             WHERE id_parametro = $id_parametro "); 
-                
+                  $usuarioprimero = "SELECT permiso_actualizacion FROM tbl_ms_permisos WHERE id_objeto = 11 ";
+                  $obtener_primer_ingreso = mysqli_query($conex,$usuarioprimero);
+                  $filai_primer = mysqli_fetch_array($obtener_primer_ingreso);
+                  $va_primer_ingreso =$filai_primer ['permiso_actualizacion'];
+                  if($va_primer_ingreso=="SI" && $id_objeto==12 ){
             if ($query_update) {
                 echo
                 '<script>
@@ -92,10 +96,20 @@ if (!empty($_POST)) {
                 </script>
                 ';
             }
-            }
+        
+        }else{
+           if($va_primer_ingreso=="NO" && $id_objeto==12){
+            echo
+            '<script>
+            alert("usted no tiene permisos para Editar el proveedor");
+            window.location= "../seguridad/proveedores.php";
+            </script>
+            ';
     }
-
-
+    
+    }
+}     
+} 
 
 ?>
 
