@@ -300,7 +300,7 @@ if (!isset($_SESSION['usuario'])) {
       <h2>  Añadir Descuento <i class='bx bxs-discount'></i></h2>  
       
         
-        <form action="" method ="POST">
+        <form action="" method ="POST" enctype="multipart/form-data" id="formulario">
             <div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
         <input type="hidden" name="id_descuento" value="<?php echo $id_descuento;?>">
             <div class="formulario__grupo" id="grupo__nombre_descuento">
@@ -357,7 +357,7 @@ if (!isset($_SESSION['usuario'])) {
 
         </div>
 
-        <script src="formulariodescuentos.js"></script>
+        <script src="formulariodescuentoseditar.js"></script>
 
 <script>
 let sidebar = document.querySelector(".sidebar");
