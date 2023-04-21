@@ -3,237 +3,283 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../../accesos/CSS/Facturacion.css">
-    <link rel="stylesheet" href="../../accesos/CSS/tablaproducto.css">
+    <link rel="stylesheet" href="../../accesos/CSS/EstiloMenu.css">
+    <link rel="stylesheet" href="../../accesos/CSS/tablahistorial.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <?php include "Header.php"; ?>
-
 </head>
 
 <body>
 
-
     <section class="home-section">
-
-        <center>
-            <div class="title_page">
-                <h1> </br> Facturacion <i class='fas fa-cube'></i></h1>
-            </div>
-        </center>
-
-        <center>
-            <div class="Datos_cliente">
-                <div class="Clientes_boton">
-
-                
-                    <h4>Datos del Cliente  <a href="#" class="btn_new_cliente"> <i class="fas fa-plus"></i> nuevo cliente</a></h4>
-                    
-                    <br>
-
-                </div>
-                <form name="form_new_cliente_venta" id="form_new_cliente_venta" class="datos">
-                    <input type="hidden" name="action" id= "action" value="addCliente">
-                    <input type="hidden" id="idcliente" name="idcliente" value="" required>
-                    <div class="wd30 inputbox">
-                        <input type="number"  required="required"  name="nit_cliente" id="nit_cliente">
-                        <span>DNI</span>
-                        <i></i>
-                    </div>
-                    <div class="wd30">
-                        <Label> Nombre </Layel>
-                            <input type="text" style="text-transform:uppercase;" onblur="cambiarAMayusculas(this);" name="nom_cliente" id="nom_cliente" disabled required>
-                    </div>
-                    <div class="wd30">
-                        <label>Teléfono</label>
-                        <input type="number" name="tel_cliente" id="tel_cliente" disabled required>
-                    </div>
-                    <div class="wd100" id="wd100">
-                        <label class="textright">Dirección</label>
-                        <input type="text" style="text-transform:uppercase;" onblur="cambiarAMayusculas(this);" name="dir_cliente" id="dir_cliente" disabled required>
-                    </div>
-                    <div id="div_registro_cliente" class="wd100">
-                        <br>    
-                        <button class="boton-buscar" name="boton-buscar" id="boton-buscar"> <i class="far fa-save fa-lg"></i>
-                            Guardar</button>
-                    </div>
+        <!-- 
+    <div class="modal">
+            <div class="bodyModal">
+                <form action="" method="$_POST" name="form_add_product" id="form_add_product">
+                    <h1>rrrrr</h1>
                 </form>
+            </div>
+        </div>
+        -->
+    </br>
+        <h1> HISTORIAL DE FACTURAS <i class='bx bx-shopping-bag'></i> </h1>
+        <?php include 'conex.php'; ?>
 
+        <section id="container">
+            <form action="buscarVenta.php" method="get" style="background-color:#DCFFFE ;">
+                <input type="text" name="busqueda" style="text-transform:uppercase; margin-left: 40px" id="busqueda" placeholder="No. Factura">
+                <button type="submit" class="boton-buscar">Buscar</button>
+                <a href="Facturacion.php" class="btn_newproducto" style="margin-left: 50px"> Nueva venta<i id="icon_nuevo" class='bx bxs-cart-add'></i></a>
+                <a href="#" target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf'></i></a>
+            </form>
+            <div>
+                <h5>Buscar por fecha </h5>
+                <form action="buscarVenta.php" method="get" class="form_search_date">
+                    <label for="">De: </label>
+                    <input type="date" name="fecha_de" id="fecha_de" required>
+                    <label for=""> A </label>
+                    <input type="date" name="fecha_a" id="fecha_a" required>
+                    <button type="submit" class="btn_view">Buscar</button>
+                </form>
             </div>
 
-            <div class="datos_venta">
-                <h4>Datos de venta</h4>
-                <div class="datos">
-                    <div class="w50">
-                        <label>Vendedor</label>
-                        <p><?php echo $_SESSION['usuario']['nombre']. " "?></p>
-                    </div>
-                    <div class="w50">
-                    <label>Tipo de pago <br></label>
 
-                      
+            &nbsp;&nbsp;&nbsp;
 
-                    <?php
-                        include 'conex.php';
-           $query_prom = mysqli_query($conex,"SELECT * from tbl_forma_pago");
-           $result_prom = mysqli_num_rows($query_prom)
-                ?>
-            
-                <select name="selec_tipo_pago" id="selec_tipo_pago">
-                   <?php
-                     echo $option;
-                      if($result_prom > 0){
-                        while ($promo= mysqli_fetch_array($query_prom)) {
-                        
-                   ?>
-                   <option value="<?php echo $promo["id_pago"]; ?>"><?php echo $promo["nombre_forma_pago"]?> </option>
-                   <?php
-                   }
-                   }
-
-                   ?>
-                </select>
-
-                    </div>
-                    <div class="w50">
-                        <label> Acciones <br><br></label>
-
-                        <div class="acciones_venta">
-                            <a href="#" class="btn_anular" id="btn_anular_venta"> <i class="fas fa-ban"></i> Anular</a>
-                            <a href="#" class="btn_accion" id="btn_facturar_venta" style="display : none;"> <i class="fas fa-edit"></i> Procesar</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <table class="tbl_venta">
+            <table>
                 <thead>
-                <th colspan="7">BUSCAR PRODUCTOS</th>
                     <tr>
-                        <th width="100px">Codigo</th>
-                        <th width="100px">Descripcion</th>
-                        <th width="100px">Existencia</th>
-                        <th width="100px">Cantidad</th>
-                        <th class="textright">Precio</th>
-                        <th class="textright">Precio Total</th>
-                        <th>Accion</th>
-                    </tr> 
-                    <tr>
-                        <td> 
-                        <input type="hidden" name="txt_cod_producto" id= "txt_cod_producto" value="">
-                            
-                            <?php
-                        include 'conex.php';
-           $query_prom = mysqli_query($conex,"SELECT * from tbl_producto");
-           $result_prom = mysqli_num_rows($query_prom)
-                ?>
-            
-                <select name="selec_producto" id="selec_producto">
-                   <?php
-                     echo $option;
-                      if($result_prom > 0){
-                        while ($promo= mysqli_fetch_array($query_prom)) {
-                        
-                   ?>
-                   <option value="<?php echo $promo["id_producto"]; ?>"><?php echo $promo["nombre_producto"]?> </option>
-                   <?php
-                   }
-                   }
+                        <th>No.</th>
+                        <th>Fecha/hora</th>
+                        <th>cliente</th>
+                        <th>Vendedor</th>
+                        <th>Estado</th>
+                        <th>Total factura</th>
+                        <th>Acciones</th>
 
-                   ?>
-                </select></td>
-                        <td id="txt_descripcion">----</td>
-                        <td id="txt_existencia">---</td>
-                        <td><input type="text" name="txt_cant_producto" id="txt_cant_producto" value="0" min="1" disabled></td>
-                        <td id="txt_Precio" class="textright">0.00</td>
-                        <td id="txt_Precio_total" class="textright">0.00</td>
-                        <td><a href="#" class="btn_accion" id="add_product_venta"><i class="fas fa-plus"></i></a></td>
-                    </tr>
-                    <br><br>
-                    <th colspan="7">BUSCAR PROMOCIONES</th>
-                    <tr>
-                        <th width="100px">Codigo</th>
-                        <th width="100px">Descripcion</th>
-                        <th width="100px">Existencia</th>
-                        <th width="100px">Cantidad</th>
-                        <th class="textright">Precio</th>
-                        <th class="textright">Precio Total</th>
-                        <th>Accion</th>
-                    </tr> 
-                    <tr>
-                        
-                        <td>
-                        <?php
-                        include 'conex.php';
-           $query_prom = mysqli_query($conex,"SELECT * from tbl_promociones");
-           $result_prom = mysqli_num_rows($query_prom)
-                ?>
-            
-                <select name="selec_producto" id="selec_producto">
-                   <?php
-                     echo $option;
-                      if($result_prom > 0){
-                        while ($promo= mysqli_fetch_array($query_prom)) {
-                        
-                   ?>
-                   <option value="<?php echo $promo["id_promocion"]; ?>"><?php echo $promo["nombre_promocion"]?> </option>
-                   <?php
-                   }
-                   }
-
-                   ?>
-                </select>
-                    
-                       </td>
-                            
-                        <td id="txt_descripcion">----</td>
-                        <td id="txt_existencia">---</td>
-                        <td><input type="text" name="txt_cant_producto" id="txt_cant_producto" value="0" min="1" disabled></td>
-                        <td id="txt_Precio" class="textright">0.00</td>
-                        <td id="txt_Precio_total" class="textright">0.00</td>
-                        <td><a href="#" class="btn_accion" id="add_product_venta"><i class="fas fa-plus"></i></a></td>
-                    </tr>
-
-
-                    <tr>
-                        <th>Codigo</th>
-                        <th colspan="2">Descripcion</th>
-                        <th>Cantidad</th>
-                        <th class="textright">Precio</th>
-                        <th class="textright">Precio Total</th>
-                        <th>Accion</th>
                     </tr>
                 </thead>
 
-                <tbody id="detalle_venta">
-                    <!-- Se utilizara contenido Ajax para llenar la tabla -->
-                </tbody>
+                <?php
+                /* include 'php/conexion.php';*/
+                include 'conex.php';
+                //Paginador
+                $sql_register = mysqli_query($conex, "SELECT COUNT(*) as total_registro FROM tbl_venta");
+                $result_register = mysqli_fetch_array($sql_register);
+                $total_registro = $result_register['total_registro'];
 
-                <tfoot id = "detalle_totales">
-                    <!-- Se utilizara contenido Ajax para llenar la tabla -->
-                </tfoot>
+                $por_pagina = 10;
+
+                if (empty($_GET['pagina'])) {
+                    $pagina = 1;
+                } else {
+                    $pagina = $_GET['pagina'];
+                }
+
+                $desde = ($pagina - 1) * $por_pagina;
+                $total_paginas = ceil($total_registro / $por_pagina);
+
+                $query = mysqli_query($conex, " SELECT f.id_venta, f.fecha_venta, f.total, f.id_cliente, 
+                ev.descripcion as estatus,
+                u.nombre_usuario as vendedor,
+                 cl.nombre_cliente as cliente
+                FROM tbl_venta f
+                INNER JOIN tbl_ms_usuario u
+                ON f.id_usuario = u.id_usuario
+                INNER JOIN tbl_clientes cl
+                ON f.id_cliente = cl.id_cliente
+                INNER JOIN tbl_estado_venta ev
+                ON f.id_estado_venta  = ev.id_estado_venta 
+                WHERE f.id_estado_venta != 10
+                ORDER BY f. fecha_venta DESC LIMIT $desde, $por_pagina");
+
+
+
+                $result = mysqli_num_rows($query);
+                if ($result > 0) {
+
+                    while ($data = mysqli_fetch_array($query)) {
+                        if ($data["estatus"] == "PROCESADA") {
+                            $ESTADO = '<samp class="pagada">' . $data["estatus"] . '</samp>';
+                        } else {
+                            $ESTADO = '<samp class="anulada">' . $data["estatus"] . '</samp>';
+                        }
+
+                ?>
+
+                        <tr id="row_<?php echo $data["id_venta"]; ?>">
+                            <td><?php echo $data["id_venta"] ?></td>
+                            <td><?php echo $data["fecha_venta"] ?></td>
+                            <td><?php echo $data["cliente"] ?></td>
+                            <td><?php echo $data["vendedor"] ?></td>
+                            <td> <?php echo $ESTADO ?></td>
+                            <td>L. <?php echo $data["total"] ?></td>
+                            <td>
+                                <div class="div_acciones">
+                                    <div>
+                                        <button class="btn_view view_factura" type="button" cl="<?php echo $data["id_cliente"] ?>" f="<?php echo $data["id_venta"] ?>">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                    </div>
+
+
+                                    <?php
+                                    if ($data["estatus"] == 'PROCESADA') {
+                                    ?>
+                                        <div class="div_factura">
+                                            <button class="btn_anular anular_factura" fac="<?php echo $data["id_venta"]; ?>"> <i class="fas fa-ban"></i> </button>
+                                        </div>
+                                    <?php
+                                    } else {
+                                    ?>
+                                        <div class="div_factura">
+                                            <button class="btn_anular inactive"> <i class="fas fa-ban"></i> </button>
+                                        </div>
+                                    <?php
+                                    }
+                                    ?>
+                                </div>
+
+
+
+
+
+
+                                <!--  <a class="link_edit" href="./productos/editarproducto.php?id=// echo $data["id_producto"]; ?>"><i class='bx bx-edit'></i></a>
+                                <a class="link_delete" href="./productos/eliminarproducto.php?id=<?php //echo $data["id_producto"]; 
+                                                                                                    ?>"><i class='bx bxs-trash'></i></a>
+                                 -->
+                            </td>
+                        </tr>
+                <?php
+                    }
+                }
+
+                ?>
+
             </table>
+            &nbsp;&nbsp;&nbsp;
 
-        </center>
-    </section>
-    <script src="../../accesos/JS/jquery-3.6.4.min.js"> </script>
+            <div class="paginador">
+                <ul>
+                    <?php
+                    if ($pagina != 1) {
+                    ?>
+                        <li><a href="?pagina=<?php echo 1; ?>">|<< /a>
+                        </li>
+                        <li><a href="?pagina=<?php echo $pagina - 1; ?>">
+                                <<< /a>
+                        </li>
+                    <?php
+                    }
+                    for ($i = 1; $i <= $total_paginas; $i++) {
+                        if ($i == $pagina) {
+                            echo '<li class="pageSelected">' . $i . '</li>';
+                        } else {
+                            echo '<li><a href="?pagina=' . $i . '">' . $i . '</a></li>';
+                        }
+                    }
+                    if ($pagina != $total_paginas) {
+                    ?>
+                        <li><a href="?pagina=<?php echo $pagina + 1; ?>">>></a></li>
+                        <li><a href="?pagina=<?php echo $total_paginas; ?>">>|</a></li>
+                    <?php } ?>
+                </ul>
+            </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
-    <script src="../../accesos/JS/Funciones_Facturacion.js"> </script>
 
-    <script type= "text/javascript">
-        $(document).ready(function () {
-            var usuarioid = <?php echo $_SESSION['id_usuario']; ?>;
-            searchfordetalle(usuarioid);
-        });
-    
-    </script>
-    
+            </style>
+
+
+        </section>
+        <script>
+            let sidebar = document.querySelector(".sidebar");
+            let closeBtn = document.querySelector("#btn");
+            let searchBtn = document.querySelector(".bx-search");
+
+            closeBtn.addEventListener("click", () => {
+                sidebar.classList.toggle("open");
+                menuBtnChange();
+            });
+
+            function menuBtnChange() {
+                if (sidebar.classList.contains("open")) {
+                    closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+                } else {
+                    closeBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+                }
+            }
+        </script>
+        <!--diseño buscar-->
+        <style type="text/css">
+            form {
+                display: flex;
+                align-items: center;
+            }
+
+            input[type="text"] {
+                padding: 8px;
+                border: none;
+                border-radius: 10px;
+                margin-right: 10px;
+                font-size: 16px;
+            }
+
+            button[type="submit"] {
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                padding: 8px 16px;
+                font-size: 16px;
+            }
+        </style>
+
+
+
+        <script src="../../accesos/JS/jquery-3.6.4.min.js"> </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script src="../../accesos/JS/Funciones_Facturacion.js"> </script>
 
 </body>
+<!--diseño siguiente-->
+<style type="text/css">
+    .navigation {
+        display: flex;
+        justify-content: left;
+        align-items: left;
+
+    }
+
+    .navigation button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 5px 20px;
+        text-align: left;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 1px 2px;
+        cursor: pointer;
+    }
+
+    .navigation button:hover {
+        opacity: 0.8;
+    }
+
+    .navigation .page-number {
+        margin: 0 0px;
+        font-size: 10px;
+    }
+</style>
+<!--Codigo java ventana flotante-->
+
+
 
 </html>

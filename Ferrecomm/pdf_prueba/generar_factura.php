@@ -48,6 +48,11 @@ $sql = mysqli_query($conexion, "select id_usuario from tbl_venta where id_venta=
 $row = mysqli_fetch_array($sql);
 $id_usuario = $row[0]; //Guardamos el id_usuario de la factura
 
+//extraer estado de la venta 
+$sql = mysqli_query($conexion, "select id_estado_venta  from tbl_venta where id_venta=$id");
+$row = mysqli_fetch_array($sql);
+$id_estado = $row[0]; //Guardamos el estado de venta
+
 //extrar nombre de usuario 
 $sql = mysqli_query($conexion, "select nombre_usuario from tbl_ms_usuario where id_usuario=$id_usuario");
 $row = mysqli_fetch_array($sql);
@@ -100,6 +105,10 @@ $pdf->Cell(116, 7, utf8_decode(date("d/m/Y", strtotime($fecha)) . " " . date("h:
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->SetTextColor(39, 39, 51);
 $pdf->Cell(35, 7, utf8_decode(strtoupper("Factura No. $id")), 0, 0, 'C');
+if($id_estado == 2){
+	$pdf->Image('./img/anulado.png', 0, 0, $pdf->GetPageWidth(), $pdf->GetPageHeight());
+}
+
 
 $pdf->Ln(7);
 

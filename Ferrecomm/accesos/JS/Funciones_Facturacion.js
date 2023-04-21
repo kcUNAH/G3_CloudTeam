@@ -335,6 +335,63 @@ $(document).ready(function () {
 
     })
 
+    // generar factura de historial de facturas 
+    $('.view_factura').click(function (e) {
+        e.preventDefault();
+        var codcliente = $(this).attr('cl');
+        var factura = $(this).attr('f');
+        generarPDF(codcliente,factura);
+
+    })
+
+    //anular_factura
+
+    $('.anular_factura').click(function (e) {
+        console.log('entro');
+        e.preventDefault();
+        var factura = $(this).attr('fac');
+        var action='anular_venta';
+        var today = new Date();
+        var fecha = new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString();        
+        $.ajax({
+            url: '../../accesos_usuarios/administrador/ajax.php',
+            type: "POST",
+            async: true,
+            data: { action: action, factura: factura, fecha: fecha },
+
+            success: function (response) {
+                if (response != 'error') {
+                    
+
+                    Swal.fire({
+                        title: 'Factura anulada con exito',
+                        showClass: {
+                          popup: 'animate__animated animate__fadeInDown'
+                        },
+                        hideClass: {
+                          popup: 'animate__animated animate__fadeOutUp'
+                        }
+                      })
+
+                      var reinciar= location.reload()
+
+
+                      setTimeout( reinciar, 10000);
+                                       
+
+                } else {
+                    console.log('no data')
+                }
+
+            },
+            error: function (error) {
+
+            }
+        });
+
+
+    })
+    
 
 
     //fin del ready 

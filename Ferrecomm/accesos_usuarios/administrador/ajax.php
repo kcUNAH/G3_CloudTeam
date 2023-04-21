@@ -140,6 +140,10 @@ if (!empty($_POST)) {
                                         <td colspan="5" class="textright">Subtotal</td>
                                         <td class="textright">'.$tl_sisv.'</td>
                                    </tr>
+                                   <tr>
+                                        <td colspan="5" class="textright">Descuento</td>
+                                        <td class="textright">'.$tl_sisv.'</td>
+                                   </tr>
                                     <tr>
                                         <td colspan="5" class="textright">ISV ('.$isv.'%)</td>
                                         <td class="textright">'.$impuesto.'</td>
@@ -376,6 +380,29 @@ if (!empty($_POST)) {
         }
         mysqli_close($conexion);
         exit;
+    }
+
+
+    //anular factura
+    if ($_POST['action'] == 'anular_venta'){
+        $cod_usuario = $_SESSION['id_usuario'];
+        $fecha = $_POST['fecha'];
+        $NO_factura = $_POST['factura'];
+
+        $query_procesar = mysqli_query($conexion, "CALL Anular_Factura($NO_factura, $cod_usuario, '$fecha')");
+        $Result_detalle = mysqli_num_rows($query_procesar);
+
+        if ($Result_detalle > 0){
+            $data = mysqli_fetch_assoc($query_procesar);
+            echo json_encode($data, JSON_UNESCAPED_UNICODE);
+        }else{
+            echo 'error';
+        }
+
+        mysqli_close($conexion);
+        exit;
+
+
     }
 
 
