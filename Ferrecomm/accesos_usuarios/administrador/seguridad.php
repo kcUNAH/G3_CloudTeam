@@ -308,7 +308,7 @@ button[type="submit"] {
    
     <div>
     <a ></a>
-    <a class="btn2" href = " "><i class='bx bxs-user-detail'>Permisos</i></a>
+    <a class="btn2" href = "seguridad/permiso.php "><i class='bx bxs-user-detail'>Permisos</i></a>
     <a class="btn" href = "./respaldos/MenuRespaldos.php"><i class='bx bx-user'> Respaldos</i></a> 
 </div>
     <div>

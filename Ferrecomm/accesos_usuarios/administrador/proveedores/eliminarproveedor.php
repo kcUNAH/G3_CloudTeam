@@ -23,7 +23,7 @@ if(empty($_GET['id'])){
     header('Location: ../../administrador/proveedores.php');
 }
  $id_proveedor = $_GET['id'];
-
+ $id_objeto=11;
 
  $sql = mysqli_query($conex, "SELECT id_proveedor,nombre_proveedor,rtn_proveedor,telefono_proveedor,correo_proveedor,direccion_proveedor FROM tbl_proveedores WHERE id_proveedor = $id_proveedor;");
  $result_sql = mysqli_num_rows($sql);
@@ -48,6 +48,12 @@ if(empty($_GET['id'])){
     $consultarp = mysqli_query($conex, "SELECT COUNT(*) FROM tbl_compras WHERE id_proveedor = $id_proveedor");
     $result_consultarp = mysqli_fetch_array($consultarp);
     
+    $usuarioprimero = "SELECT permiso_eliminacion FROM tbl_ms_permisos WHERE id_objeto = 11 ";
+    $obtener_primer_ingreso = mysqli_query($conex,$usuarioprimero);
+    $filai_primer = mysqli_fetch_array($obtener_primer_ingreso);
+    $va_primer_ingreso = $filai_primer ['permiso_eliminacion'];
+  
+    if($va_primer_ingreso=="SI" && $id_objeto==11){
     if ($result_consultarp[0] > 0) {
         // hay compras asociadas, no se puede eliminar el proveedor
        
@@ -90,12 +96,23 @@ if($query_delete){
          $accion='Eliminar';
          $descripcion= 'El Usuario intento eliminar Un proveedor';
          bitacora($codigoObjeto, $accion,$descripcion);
-     }
-}
+        }
+    }
+    }else{
+        if($va_primer_ingreso=="NO"  && $id_objeto==11){
+            echo
+            '<script>
+            alert("usted no tiene permisos para Eliminar un proveedor");
+            window.location= "../proveedores.php";
+            </script>
+            ';
+    }
+  }
+    }
+       
 
-}
-
-      
+        
+    
 ?>
 
 

@@ -39,6 +39,17 @@ if (!empty($_POST)) {
         $telefono_final=$pais.$telefono;
         $query = mysqli_query($conex, "SELECT * FROM tbl_proveedores WHERE nombre_proveedor = '$nombre_proveedor' or correo_proveedor = '$correo_proveedor' ");
         $result = mysqli_fetch_array($query);
+        $id_objeto=11;
+
+
+        $usuarioprimero = "SELECT permiso_insercion FROM tbl_ms_permisos WHERE id_rol = 1 ";
+        $obtener_primer_ingreso = mysqli_query($conex,$usuarioprimero);
+        $filai_primer = mysqli_fetch_array($obtener_primer_ingreso);
+        $va_primer_ingreso =$filai_primer ['permiso_insercion'];
+      
+        $query = mysqli_query($conex, "SELECT * FROM tbl_proveedores WHERE nombre_proveedor = '$nombre_proveedor' or correo_proveedor = '$correo_proveedor' ");
+        $result = mysqli_fetch_array($query);
+        if($va_primer_ingreso=="SI" && $id_objeto==11){
 
         if ($result > 0) {
             // $alert= '<p class= "msg_error">El usuario ya existe.</p>';
@@ -84,14 +95,22 @@ if (!empty($_POST)) {
                 $descripcion= 'Se intento registrar un proveedor';
                 bitacora($codigoObjeto, $accion,$descripcion);
             }
-     
-       
         }
-            
+        }else{
+            if($va_primer_ingreso=="NO"){
+                echo
+                '<script>
+                alert("usted no tiene permisos para crear un proveedor");
+                window.location= "../proveedores.php";
+                </script>
+                ';
+        }
         
-    }
-}
-
-
-
-?>
+        }
+           
+                
+            }
+            
+        }
+        
+        ?>
