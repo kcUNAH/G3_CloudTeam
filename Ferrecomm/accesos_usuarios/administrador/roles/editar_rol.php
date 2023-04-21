@@ -159,7 +159,7 @@ if(!isset ($_SESSION['usuario'])){
         <span class="tooltip">Inicio</span>
       </li>
       <li>
-        <a href="../Facturacion.php">
+        <a href="../Menu_facturacion.php">
           <i class='bx bx-money'></i>
           <span class="links_name">Facturación</span>
         </a>
@@ -390,6 +390,6 @@ function menuBtnChange() {
 }
   </script>
 
-<a href="clientes.php" class="btn_pdf">Atrás</a>
+<a href="rol.php" class="btn_pdf">Atrás</a>
 </body>
 </html>
