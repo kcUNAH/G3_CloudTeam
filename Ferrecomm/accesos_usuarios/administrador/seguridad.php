@@ -57,6 +57,13 @@ if(!isset ($_SESSION['usuario'])){
             <span class="tooltip">Compras</span>
         </li>
         <li>
+            <a href="Comprobante.php">
+            <i class='bx bx-spreadsheet'></i>
+                <span class="links_name">Comprobantes</span>
+            </a>
+            <span class="tooltip">Comprobantes compras</span>
+        </li>
+        <li>
             <a href="Productos.php">
                 <i class='bx bx-shopping-bag'></i>
                 <span class="links_name">Productos</span>
@@ -109,7 +116,7 @@ if(!isset ($_SESSION['usuario'])){
   </div>
   <section class="home-section">
 </br>
-      <h1>  seguridad <i class='bx bx-shield-quarter'></i></h1>
+      <h1>  Seguridad <i class='bx bx-shield-quarter'></i></h1>
  
       <style>
      body {
