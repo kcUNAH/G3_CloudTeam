@@ -38,16 +38,19 @@
                     
                     </button>
                     </a>
+                    <a href="clientes/clientes.php">
                     <button class="card2">
                     <h4>clientes</h4>
                     <h1> <i class="fa-solid fa-users"></i> </h1>
                     </button>
+                    </a>
                 </div>
                 <div class="down">
+                    <a href="descuentos/descuentos.php">
                     <button class="card3">
                     <h4>descuentos</h4>
                     <h1> <i class="fa-solid fa-percent"></i></h1>
-                    </button>
+                    </button></a>
 
                     <a href="Historial_Facturas.php">
                     <button class="card4" >
