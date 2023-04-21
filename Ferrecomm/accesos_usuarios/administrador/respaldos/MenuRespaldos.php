@@ -23,7 +23,7 @@ if(!isset ($_SESSION['usuario'])){
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../../../accesos/CSS/EstiloMenu.css">
-    <link rel="stylesheet" href="../../../accesos/CSS/tabladescuentos.css">
+    <link rel="stylesheet" href="../../../accesos/CSS/respaldos.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
    </head>
@@ -121,19 +121,23 @@ if(!isset ($_SESSION['usuario'])){
                     
                       
                      </div>
-    <form action="procesar_sql.php" method="post" enctype="multipart/form-data">
-    <label for="archivo_sql">Selecciona un archivo SQL: </label><br>
-    <input type="file" name="archivo_sql" id="archivo_sql">
-    <br>
-    <input type="submit" value="Enviar">
-    </br>
-
-
-    </form>
-    <form action="respaldo.php" method="post" enctype="multipart/form-data">
+              
+    <label>¿Que acción desea realizar?</label>
+    <form action="respaldo.php" method="post" enctype="multipart/form-data" >
     <button type="submit" class="btn btn-dark" name="btnrespaldo" value="ok">Respaldo</button>
     <button type="button" class="btn btn-outline-danger" onclick="location.href='../seguridad.php'" >Cancelar</button>
     </form>
+
+
+    <form action="procesar_sql.php" method="post" enctype="multipart/form-data">
+    <label for="archivo_sql">Selecciona un archivo SQL: </label><br>
+    <input type="file" name="archivo_sql" id="archivo_sql">
+    <br></br>
+    <input type="submit" value="Enviar">
+    </form>
+
+    
+    
  
     
 </div>
@@ -144,14 +148,19 @@ if(!isset ($_SESSION['usuario'])){
 form {
   display: flex;
   align-items: center;
+  margin-bottom:30px;
 }
 
-input[type="text"] {
-  padding: 8px;
+
+
+input[type="submit"] {
+  background-color: #4CAF50;
+  color: black;
   border: none;
-  border-radius: 10px;
-  margin-right: 10px;
-  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 8px 16px;
+  font-size: 15px;
 }
 
 button[type="submit"] {
@@ -162,7 +171,22 @@ button[type="submit"] {
   cursor: pointer;
   padding: 8px 16px;
   font-size: 16px;
+  margin-top: 30px;
+  margin-left: 10px;
 }
+
+button[type="button"] {
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 8px 16px;
+  font-size: 16px;
+  margin-top: 30px;
+  margin-left: 10px;
+}
+
 table{
     border-collapse: collapse;
     font-size: 10pt;
