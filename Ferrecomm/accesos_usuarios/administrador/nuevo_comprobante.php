@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 
@@ -129,8 +128,7 @@ if(!isset ($_SESSION['usuario'])){
                 </a>
                 <span class="tooltip">Inventario</span>
             </li>
-        
-            <a href="../../php/Cerrar_Seccion.php">
+            <a href="../../index.php">
                 <li class="profile">
                     <i class='bx bx-log-out' id="log_out"></i>
                     <div class="Salir">Cerrar Sesión</div>
@@ -139,7 +137,7 @@ if(!isset ($_SESSION['usuario'])){
         </ul>
     </div> <!-- Main content -->
     <section class="content" style="background-color: #DCFFFE;">
-        <h2 style="text-align: center;  color: rgba(255, 102, 0, 0.91);"> Añadir Nueva Compra <i
+        <h2 style="text-align: center;  color: rgba(255, 102, 0, 0.91);"> Añadir Nuevo Comprobante <i
                 class='bx bxs-cart'></i></h2>
         <div class="row">
             <div class="col-md-12">
@@ -151,77 +149,38 @@ if(!isset ($_SESSION['usuario'])){
 
                     </div>
                     <div class="panel-body" style="height: auto;" id="formularioregistros">
-                        <form name="formulario" id="formulario" method="POST">
+                        <form name="formulario2" id="formulario2" method="POST">
                             <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                                <label>Proveedor(*):</label>
-                                <input type="hidden" name="idingreso" id="idingreso">
-                                <select id="idproveedor" name="idproveedor" class="form-control selectpicker"
-                                    data-live-search="true" required>
-
-                                </select>
+                                <label>Nombre Comprobante :</label>
+                                <input type="text" class="form-control" name="NombreRol" id="NombreRol"
+                                    maxlength="20" placeholder="" required=""
+                                    onkeyup="validarTextbox()" ></input>
+                              
                             </div>
-                            <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                <label>Fecha(*):</label>
-                                <input type="datetime-local" class="form-control" name="fecha_hora" id="fecha_hora" required=""
-                                    value="<?php echo date('Y-m-d\TH:i:s'); ?>">
+                            <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                <label>Descripcion de Comprobante :</label>
+                                <input type="text" class="form-control" name="Descripcion" id="Descripcion"
+                                    maxlength="20" placeholder="" required=""
+                                    onkeyup="validarTextbox()" ></input>
+                                    
+                            
                             </div>
+                          
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <label>Tipo Comprobante(*):</label>
-                                <select name="tipo_comprobante" id="tipo_comprobante" class="form-control selectpicker"
+                                <label>Estado Comprobante </label>
+                                <input type="hidden" name="idRol" id="idRol">
+                                <select name="EstadoRol" id="EstadoRol" class="form-control selectpicker"
                                     required="">
-                                   
+                                    <option value="Activo">Activo</option>
+                                    <option value="Inactivo">Inactivo</option>
+                                  
                                 </select>
                             </div>
-
-                            <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                                <label>Nº Compra:</label>
-                                <input type="text" class="form-control" name="num_comprobante" id="num_comprobante"
-                                    maxlength="10" placeholder="" required="" readonly>
-                            </div>
-                            <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                                <label>Impuesto:</label>
-                                <input type="text" class="form-control" name="impuesto" id="impuesto" readonly >
-                            </div>
-                            <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                                <a data-toggle="modal" href="#myModal">
-                                    <button id="btnAgregarArt" type="button" class="btn btn-primary"> <span
-                                            class="fa fa-plus"></span> Agregar Productos</button>
-                                </a>
-                            </div>
-
-                            <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-                                <table id="detalles"
-                                    class="table table-striped table-bordered table-condensed table-hover" >
-                                    <thead
-                                        style="width: 130.083px; background-color: rgba(255, 102, 0, 0.91); color: rgb(0, 0, 0);">
-                                        <th>Opciones</th>
-                                        <th>Artículo</th>
-                                        <th>Cantidad</th>
-                                        <th>Precio Compra</th>
-                                        <th> subtotal</th>
-                                        <th>ISV</th>
-                                    </thead>
-                                    <tfoot>
-                                        <th>TOTAL</th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th>
-                                            <h4 id="total">L. 0.00</h4><input type="hidden" name="total_compra"
-                                                id="total_compra">
-                                        </th>
-                                    </tfoot>
-                                    <tbody>
-
-                                    </tbody>
-                                </table>
-                            </div>
-
+                           
+                        
                             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <button class="btn btn-primary" onclick=" guardaryeditar();" type="submit"
-                                    id="btnGuardar"><i class="fa fa-save"></i>
+                            <button class="btn btn-primary" onclick="guardaryeditar()" type="submit"
+                                    id="btnGuardar2"><i class="fa fa-save"></i>
                                     Guardar</button>
 
                                 <button id="btnCancelar" class="btn btn-danger" onclick="cancelarform()"
@@ -238,42 +197,10 @@ if(!isset ($_SESSION['usuario'])){
     </div><!-- /.content-wrapper -->
     <!--Fin-Contenido-->
 
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h2 style="text-align: center;  color: rgba(255, 102, 0, 0.91);"> Seleccionar Productos a la compra
-                        <i class='bx bxs-cart'></i></h2>
-                </div>
-                <div class="modal-body">
-                    <table id="tblarticulos" style=" width: 100%; overflow-x: auto;"
-                        class="table table-striped table-bordered table-condensed table-hover ancho-100">
-                        <thead
-                            style="width: 107.083px; background-color: rgba(255, 102, 0, 0.91); color: rgb(0, 0, 0);">>
-                            <th>Opciones</th>
-                            <th>Nombre</th>
-                            <th>Categoría</th>
 
-                            <th>Stock</th>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Fin modal -->
     <div>
         <style>
-          
-
             .row {
                 margin-right: 321px;
                 margin-left: 375px;
@@ -307,7 +234,7 @@ if(!isset ($_SESSION['usuario'])){
             </div>
         </div>
         </form>
-        <script src="formularioproducto.js"></script>
+        <script src="../formularioproducto.js"></script>
 
         <script>
             let sidebar = document.querySelector(".sidebar");
@@ -326,6 +253,27 @@ if(!isset ($_SESSION['usuario'])){
                 }
             }
         </script>
+<script>
+      function validarTextbox() {
+  let textbox1 = document.getElementById("NombreRol");
+  let textbox2 = document.getElementById("Descripcion");
+  
+  let texto1 = textbox1.value;
+  let texto2 = textbox2.value;
+  
+  // Eliminar caracteres especiales y números
+  texto1 = texto1.replace(/[^A-Za-z]/g, "");
+  texto2 = texto2.replace(/[^A-Za-z]/g, "");
+  
+  // Convertir texto a mayúsculas
+  texto1 = texto1.toUpperCase();
+  texto2 = texto2.toUpperCase();
+  
+  // Asignar texto validado al textbox
+  textbox1.value = texto1;
+  textbox2.value = texto2;
+}
+    </script>
         <!-- jQuery -->
         <script src="../public/js/jquery-3.1.1.min.js"></script>
         <!-- Bootstrap 3.3.5 -->
@@ -348,7 +296,7 @@ if(!isset ($_SESSION['usuario'])){
 
 
 
-        <script src="../../js/functions_compras.js"></script>
+        <script src="../../js/functions_comprobantes.js"></script>
     </div>
     <style>
         .modal-body {

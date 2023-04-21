@@ -62,6 +62,13 @@
                 <span class="tooltip">Compras</span>
             </li>
             <li>
+            <a href="Comprobante.php">
+                <i class='bx bxs-cart'></i>
+                <span class="links_name">Comprobantes</span>
+            </a>
+            <span class="tooltip">Comprobantes compras</span>
+        </li>
+            <li>
                 <a href="../Productos.php">
                     <i class='bx bx-shopping-bag'></i>
                     <span class="links_name">Productos</span>
@@ -132,11 +139,9 @@
                             </div>
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <label>Tipo Comprobante(*):</label>
-                                <select name="tipo_comprobante" id="tipo_comprobante" class="form-control selectpicker"
+                                <select name="tipo_comprobante2" id="tipo_comprobante2" class="form-control selectpicker"
                                     required="">
-                                    <option value="Boleta">Boleta</option>
-                                    <option value="Factura">Factura</option>
-                                    <option value="Ticket">Ticket</option>
+                                   
                                 </select>
                             </div>
 

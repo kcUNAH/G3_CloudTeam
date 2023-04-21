@@ -1,7 +1,7 @@
 <?php
 
 require('./fpdf.php');
-
+$id_compra=($_GET['buscador']); // reemplaza "valor_a_buscar" con el valor que quieras buscar
 class PDF extends FPDF
 {
 
@@ -53,13 +53,13 @@ class PDF extends FPDF
       $this->SetFont('Arial', 'B', 10);
       $this->Cell(190,6,utf8_decode("Fecha y Hora impresión: " .$fecha_modificacion),0);
       $this->Ln(5);
-
+      $id_compra=($_GET['buscador']); // reemplaza "valor_a_buscar" con el valor que quieras buscar
       /* TITULO DE LA TABLA */
       //color
       $this->SetTextColor(228, 100, 0);
       $this->Cell(90); // mover a la derecha
       $this->SetFont('Arial', 'B', 15);
-      $this->Cell(100, 10, utf8_decode("Reporte de compras "), 0, 1, 'C', 0);
+      $this->Cell(100, 10, utf8_decode('Detalle de compra #'.$id_compra ), 0, 1, 'C', 0);
       $this->Ln(7);
 
       /* CAMPOS DE LA TABLA */
@@ -68,13 +68,7 @@ class PDF extends FPDF
       $this->SetTextColor(255, 255, 255); //colorTexto
       $this->SetDrawColor(163, 163, 163); //colorBorde
       $this->SetFont('Arial', 'B', 11);
-      $this->Cell(50,10, utf8_decode('#'), 1, 0, 'C', 1);
-      $this->Cell(50,10, utf8_decode('Proveedor'), 1, 0, 'C', 1);
-      $this->Cell(50, 10, utf8_decode('Fecha'), 1, 0, 'C', 1);
-     // $this->Cell(40, 10, utf8_decode('Descripcion'), 1, 0, 'C', 1);
-      $this->Cell(50, 10, utf8_decode('Total'), 1, 0, 'C', 1);
-      //$this->Cell(30, 10, utf8_decode('Imagen'), 1, 0, 'C', 1);
-      $this->Cell(50, 10, utf8_decode('Estado'), 1, 1, 'C', 1);
+ 
    }
 
    // Pie de página
@@ -111,34 +105,56 @@ function dep($data)
 }
 //dep($_GET['buscador']);
 //die();
-$valor_buscar=($_GET['buscador']); // reemplaza "valor_a_buscar" con el valor que quieras buscar
+$id_compra=($_GET['buscador']); // reemplaza "valor_a_buscar" con el valor que quieras buscar
 
-$consulta_reporte_producto = $conexion->query("
-  SELECT c.id_compra, p.nombre_proveedor, c.fecha_compra, c.total_compra, e.nombre_estad_compra
-  FROM tbl_compras c 
-  INNER JOIN tbl_proveedores p ON c.id_proveedor = p.id_proveedor 
-  INNER JOIN tbl_estado_compras e ON c.id_estado_compras = e.id_estado_compras
-  WHERE c.id_compra LIKE '%$valor_buscar%' 
-     OR p.nombre_proveedor LIKE '%$valor_buscar%' 
-     OR c.fecha_compra LIKE '%$valor_buscar%' 
-     OR c.total_compra LIKE '%$valor_buscar%' 
-     OR e.nombre_estad_compra LIKE '%$valor_buscar%'
-  ORDER BY c.fecha_compra DESC
+// Agregar encabezado de la tabla
+
+
+$pdf->Cell(40, 10, utf8_decode('#'), 1, 0, 'C', 0);
+$pdf->Cell(40, 10, utf8_decode('ID Producto'), 1, 0, 'C', 0);
+$pdf->Cell(40, 10, utf8_decode('Nombre Producto'), 1, 0, 'C', 0);
+$pdf->Cell(40, 10, utf8_decode('Cantidad'), 1, 0, 'C', 0);
+$pdf->Cell(40, 10, utf8_decode('Precio Unitario'), 1, 0, 'C', 0);
+$pdf->Cell(40, 10, utf8_decode('Subtotal'), 1, 0, 'C', 0);
+$pdf->Cell(40, 10, utf8_decode('ISV'), 1, 0, 'C', 0);
+$pdf->Cell(40, 10, utf8_decode('Total'), 1, 1, 'C', 0);
+
+// Obtener y mostrar los detalles de la compra actual
+$consulta_detalle_compra = $conexion->query("
+  SELECT d.id_producto, p.nombre_producto, d.cantidad_compra, d.precio_costo, 
+  d.cantidad_compra * d.precio_costo AS subtotal,
+  (d.cantidad_compra * d.precio_costo * 15) / 100 AS isv,
+  (d.cantidad_compra * d.precio_costo) + ((d.cantidad_compra * d.precio_costo * 15) / 100) AS total
+  FROM tbl_detall_compra d 
+  INNER JOIN tbl_producto p ON d.id_producto = p.id_producto 
+  WHERE d.id_compra = " . $id_compra . "
+  ORDER BY d.id_detall_compra
 ");
-$contador = 1;
-// AnchoCelda,AltoCelda,titulo,borde(1-0),saltoLinea(1-0),posicion(L-C-R),ColorFondo(1-0)
 
-while ($datos_reporte = $consulta_reporte_producto->fetch_object()) {  
-    $pdf->Cell(50, 10, utf8_decode($contador), 1, 0, 'C', 0);
-$pdf->Cell(50, 10, utf8_decode($datos_reporte->nombre_proveedor), 1, 0, 'C', 0);
-$pdf->Cell(50, 10, utf8_decode($datos_reporte->fecha_compra), 1, 0, 'C', 0);
-$pdf->Cell(50, 10, utf8_decode($datos_reporte->total_compra), 1, 0, 'C', 0);
-$pdf->Cell(50, 10, utf8_decode($datos_reporte->nombre_estad_compra), 1, 1, 'C', 0);
-$contador +=1 ;
-   }
-$i = $i + 1;
-/* TABLA */
+$total_subtotal = 0;
+$total_isv = 0;
+$total_total = 0;
 
+while ($datos_detalle = $consulta_detalle_compra->fetch_object()) {
 
+  $pdf->Cell(40, 10, utf8_decode($datos_detalle->id_producto), 1, 0, 'C', 0);
+  $pdf->Cell(40, 10, utf8_decode($datos_detalle->nombre_producto), 1, 0, 'C', 0);
+  $pdf->Cell(40, 10, utf8_decode($datos_detalle->cantidad_compra), 1, 0, 'C', 0);
+  $pdf->Cell(40, 10, utf8_decode(number_format($datos_detalle->precio_costo, 2)), 1, 0, 'C', 0);
+  $pdf->Cell(40, 10, utf8_decode(number_format($datos_detalle->subtotal, 2)), 1, 0, 'C', 0);
+  $pdf->Cell(40, 10, utf8_decode(number_format($datos_detalle->isv, 2)), 1, 0, 'C', 0);
+  $pdf->Cell(40, 10, utf8_decode(number_format($datos_detalle->total, 2)), 1, 1, 'C', 0);
+
+  $total_subtotal += $datos_detalle->subtotal;
+  $total_isv += $datos_detalle->isv;
+  $total_total += $datos_detalle->total;
+}
+
+$pdf->Cell(160, 10, utf8_decode('Total:'), 1, 0, 'R', 0);
+$pdf->Cell(40, 10, utf8_decode(number_format($total_subtotal, 2)), 1, 0, 'C', 0);
+$pdf->Cell(40, 10, utf8_decode(number_format($total_isv, 2)), 1, 0, 'C', 0);
+$pdf->Cell(40, 10, utf8_decode(number_format($total_total, 2)), 1, 1, 'C', 0);
+
+$pdf->Ln();
 
 $pdf->Output('ReporteCompras.pdf', 'I');//nombreDescarga, Visor(I->visualizar - D->descargar)

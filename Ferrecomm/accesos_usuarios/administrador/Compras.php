@@ -90,11 +90,9 @@ margin-left: -3px;">
                       </div>
                       <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <label>Tipo Comprobante(*):</label>
-                        <select name="tipo_comprobante" id="tipo_comprobante" class="form-control selectpicker"
-                          required="" disabled>
-                          <option value="Boleta">Boleta</option>
-                          <option value="Factura">Factura</option>
-                          <option value="Ticket">Ticket</option>
+                        <select id="tipo_comprobante2" name="tipo_comprobante2" class="form-control selectpicker"
+                          data-live-search="true" required disabled >
+
                         </select>
                       </div>
                 
@@ -106,7 +104,7 @@ margin-left: -3px;">
                       </div>
                       <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
                         <label>Impuesto:</label>
-                        <input type="text" class="form-control" name="impuesto" id="impuesto">
+                        <input type="text" class="form-control" name="impuesto1" id="impuesto1" value="15%">
                       </div>
                       <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <a data-toggle="modal" href="#myModal">
@@ -124,6 +122,7 @@ margin-left: -3px;">
                             <th>Cantidad</th>
                             <th>Precio Compra</th>
                             <th> subtotal</th>
+                            <th>isv</th>
                             <th>Total</th>
                           </thead>
                           <tfoot>
@@ -179,7 +178,7 @@ margin-left: -3px;">
         <span class="tooltip">Inicio</span>
       </li>
       <li>
-        <a href="Facturacion.php">
+        <a href="Menu_facturacion.php">
           <i class='bx bx-money'></i>
           <span class="links_name">Facturación</span>
         </a>
@@ -192,6 +191,13 @@ margin-left: -3px;">
         </a>
         <span class="tooltip">Compras</span>
       </li>
+      <li>
+            <a href="Comprobante.php">
+            <i class='bx bx-spreadsheet'></i>
+                <span class="links_name">Comprobantes</span>
+            </a>
+            <span class="tooltip">Comprobantes compras</span>
+        </li>
       <li>
         <a href="Productos.php">
           <i class='bx bx-shopping-bag'></i>

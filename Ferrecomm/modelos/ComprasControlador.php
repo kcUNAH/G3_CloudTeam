@@ -21,6 +21,8 @@ $tipo_comprobante=isset($_POST["tipo_comprobante"])? ($_POST["tipo_comprobante"]
 $serie_comprobante=isset($_POST["serie_comprobante"])? ($_POST["serie_comprobante"]):"";
 $num_comprobante=isset($_POST["num_comprobante"])? ($_POST["num_comprobante"]):"";// POR SI PIDE COMPROBANTE
 $fecha_hora=isset($_POST["fecha_hora"])? ($_POST["fecha_hora"]):"";
+
+
 $impuesto=isset($_POST["impuesto"])? ($_POST["impuesto"]):"";
 $total_compra=isset($_POST["total_compra"])? ($_POST["total_compra"]):"";
 
@@ -28,10 +30,10 @@ switch ($_GET["op"]){
 	
 	case 'guardaryeditar':
 		if (empty($idingreso)){
-
+			
 		//$rspta=$ingreso->insertar($idproveedor,$idusuario,$tipo_comprobante,$serie_comprobante,$num_comprobante,$fecha_hora,$impuesto,$total_compra,$_POST["idarticulo"],$_POST["cantidad"],$_POST["precio_compra"],$_POST["precio_venta"]);
-		$sentencia="INSERT INTO tbl_compras (id_proveedor,id_usuario,fecha_compra,total_compra,id_estado_compras)
-		VALUES ('$idproveedor','$idusuario','$fecha_hora','$total_compra',1)";
+		$sentencia="INSERT INTO tbl_compras (id_proveedor,id_usuario,fecha_compra,total_compra,id_estado_compras,id_comprobante)
+		VALUES ('$idproveedor','$idusuario','$fecha_hora','$total_compra',1,$tipo_comprobante)";
 		//echo $sentencia ? "Ingreso registrado" : "No se pudieron registrar todos los datos del ingreso";
 		$datos = $conn->query($sentencia);
 		$id_compra = $conn->insert_id;
@@ -58,20 +60,31 @@ switch ($_GET["op"]){
 			while ($fila = $resultado_detalles_compra->fetch_assoc()) {
 				$id_producto = $fila['id_producto'];
 				$cantidad_compra = $fila['cantidad_compra'];
-
+			
 				// Recuperar la cantidad actual en el inventario
 				$sql_inventario = "SELECT cantidad FROM tbl_inventario WHERE id_producto = '$id_producto'";
 				$resultado_inventario = $conn->query($sql_inventario);
 				$fila_inventario = $resultado_inventario->fetch_assoc();
 				$cantidad_actual = $fila_inventario['cantidad'];
+				$usuario =$_SESSION['usuario']['user'];
+				$sql_id_user = "SELECT id_usuario FROM tbl_ms_usuario WHERE usuario = '$usuario'";
+				$resultado_id = $conn->query($sql_id_user);
+				$fila_id = $resultado_id->fetch_assoc();
+				$id_usuario = $fila_id['id_usuario'];
 
+				
 				// Actualizar la cantidad en el inventario
 				$cantidad_nueva = $cantidad_actual + $cantidad_compra;
 				$sql_actualizar_inventario = "UPDATE tbl_inventario SET cantidad = '$cantidad_nueva' WHERE id_producto = '$id_producto'";
 				$resultado_actualizar_inventario = $conn->query($sql_actualizar_inventario);
-}
+			
+				// Agregar registro al movimiento de inventario
+				$tipo_movimiento = 3;
+				$fecha = date("Y-m-d H:i:s");
+				$sql_movimiento_inventario = "INSERT INTO tbl_mov_inventario (id_producto,id_usuario , cantidad_mov, id_tipo_mov_invt 	, fecha_mov , 	comentario 	) VALUES ('$id_producto',$id_usuario, '$cantidad_compra', '$tipo_movimiento', '$fecha','Nueva Compra')";
+				$resultado_movimiento_inventario = $conn->query($sql_movimiento_inventario);
 
-
+			}			
 		/////
 		echo $num_elementos ? "Compra registrada con exito" : "No se pudieron registrar todos los datos de la compra";
 		/////
@@ -96,22 +109,79 @@ switch ($_GET["op"]){
 
 
 	case 'anular':
+		$sql_id_compra = "SELECT  id_estado_compras 	 FROM tbl_compras WHERE id_compra = '$idingreso'";
+		$resultado_id_compra = $conn->query($sql_id_compra);
+		$fila_id = $resultado_id_compra->fetch_assoc();
+		$resultado_id_compra = $fila_id['id_estado_compras'];
+		if($resultado_id_compra == 2 ){
 
+			echo "Error! Compra ya ha sido anulada.";
+		}else{
+
+
+	
+
+
+
+		$usuario =$_SESSION['usuario']['user'];
+		$sql_id_user = "SELECT id_usuario FROM tbl_ms_usuario WHERE usuario = '$usuario'";
+		$resultado_id = $conn->query($sql_id_user);
+		$fila_id = $resultado_id->fetch_assoc();
+		$id_usuario = $fila_id['id_usuario'];
 
 		$sql="UPDATE tbl_compras SET  	id_estado_compras 	= 2  WHERE id_compra ='$idingreso'"; // 2 es anulado
 		$datos = $conn->query($sql);
 
 	
+			// Obtener los detalles de la compra que se va a anular
+			$sql_detalle = "SELECT id_producto, cantidad_compra FROM tbl_detall_compra WHERE id_compra = '$idingreso'";
+			$resultado_detalle = $conn->query($sql_detalle);
+
+			// Almacenar los detalles de la compra en un array
+			$detalles_compra = array();
+			while ($fila_detalle = $resultado_detalle->fetch_assoc()) {
+			$id_producto = $fila_detalle['id_producto'];
+			$cantidad_compra = $fila_detalle['cantidad_compra'];
+			$detalles_compra[] = array('id_producto' => $id_producto, 'cantidad_compra' => $cantidad_compra);
+			}
+
+			// Restar la cantidad comprada del inventario para cada producto en los detalles de compra
+			foreach ($detalles_compra as $detalle) {
+			$id_producto = $detalle['id_producto'];
+			$cantidad_compra = $detalle['cantidad_compra'];
+
+			// Obtener la cantidad actual en el inventario
+			$sql_inventario = "SELECT cantidad FROM tbl_inventario WHERE id_producto = '$id_producto'";
+			$resultado_inventario = $conn->query($sql_inventario);
+			$fila_inventario = $resultado_inventario->fetch_assoc();
+			$cantidad_actual = $fila_inventario['cantidad'];
+
+			// Actualizar la cantidad en el inventario
+			$cantidad_nueva = $cantidad_actual - $cantidad_compra;
+			$sql_actualizar_inventario = "UPDATE tbl_inventario SET cantidad = '$cantidad_nueva' WHERE id_producto = '$id_producto'";
+			$resultado_actualizar_inventario = $conn->query($sql_actualizar_inventario);
+
+			$tipo_movimiento = 4;
+				$fecha = date("Y-m-d H:i:s");
+				$sql_movimiento_inventario = "INSERT INTO tbl_mov_inventario (id_producto,id_usuario , cantidad_mov, id_tipo_mov_invt 	, fecha_mov , 	comentario 	) VALUES ('$id_producto',$id_usuario, '$cantidad_compra', '$tipo_movimiento', '$fecha','Compra Anulada')";
+				$resultado_movimiento_inventario = $conn->query($sql_movimiento_inventario);
+
+
+			}
+
  		echo $datos ? "Compra anulada" : "Compra no se puede anular";
+	}
 	break;
 
 	case 'mostrar':
-		$sql = "SELECT i.id_compra, DATE(i.fecha_compra) as fecha, i.id_proveedor, p.nombre_proveedor as proveedor, u.id_usuario, u.nombre_usuario as usuario, i.id_compra, i.total_compra, i.id_estado_compras, ec.nombre_estad_compra
-		FROM tbl_compras i 
-		INNER JOIN tbl_proveedores p ON i.id_proveedor=p.id_proveedor 
-		INNER JOIN tbl_ms_usuario u ON i.id_usuario=u.id_usuario 
-		INNER JOIN tbl_estado_compras ec ON i.id_estado_compras=ec.id_estado_compras
-		WHERE i.id_compra='$idingreso'";
+		$sql = "SELECT i.id_compra, DATE(i.fecha_compra) as fecha, i.id_proveedor, p.nombre_proveedor as proveedor, u.id_usuario, u.nombre_usuario as usuario, i.id_compra, i.total_compra, i.id_estado_compras, ec.nombre_estad_compra, cc.nombre, i.id_comprobante
+        FROM tbl_compras i 
+        INNER JOIN tbl_proveedores p ON i.id_proveedor=p.id_proveedor 
+        INNER JOIN tbl_ms_usuario u ON i.id_usuario=u.id_usuario 
+        INNER JOIN tbl_estado_compras ec ON i.id_estado_compras=ec.id_estado_compras
+        INNER JOIN tbl_comprobantes_compra cc ON i.id_comprobante = cc.id_comprobante
+        WHERE i.id_compra='$idingreso'";
+
 		
 		$datos = $conn->query($sql);
 		$fila = $datos->fetch_assoc();
@@ -134,14 +204,17 @@ switch ($_GET["op"]){
                                     <th>Producto</th>
                                     <th>Cantidad</th>
                                     <th>Precio Compra</th>
-                                   
+									<th>ISV</th>
                                     <th>Subtotal</th>
+									
                                 </thead>';
 
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<tr class="filas"><td>'.$contador + 1 .'</td><td>'.$reg->nombre_producto.'</td><td style="width: 100px;" >'.$reg->cantidad_compra.'</td><td style="width: 50px;">'.$reg->precio_costo.'</td><td>'.$reg->precio_costo*$reg->cantidad_compra.'</td></tr>';
-					$total=$total+($reg->precio_costo*$reg->cantidad_compra);
+					echo '<tr class="filas"><td>'.$contador + 1 .'</td><td>'.$reg->nombre_producto.'</td><td style="width: 100px;" >'.$reg->cantidad_compra.'</td><td style="width: 50px;">'.$reg->precio_costo.'</td><td>'.$reg->precio_costo *0.15.'</td><td>'.$reg->precio_costo*$reg->cantidad_compra.'</td></tr>';
+					$total=$total+(($reg->precio_costo *0.15 + $reg->precio_costo)*$reg->cantidad_compra) ;
+				
+				
 					$contador +=1;
 				}
 		echo '<tfoot>
@@ -159,6 +232,7 @@ switch ($_GET["op"]){
          include_once "../php/conexion2.php";
          $btnView = '';
          $btnEdit = '';
+		 $btndetalle = '';
          $btnDelete = '';
          $sentencia = "SELECT tbl_compras.*, tbl_proveedores.nombre_proveedor, tbl_estado_compras.nombre_estad_compra
 		 FROM tbl_compras
@@ -172,8 +246,8 @@ switch ($_GET["op"]){
          // Recorrer los resultados de la consulta y agregarlos a la matriz de datos
          
          while ($row = $datos->fetch_assoc()) {
-			$btnEdit = "<button type='button' style='color: green; background-color: #fff; border-color: #fff;' class='btn btn-primary btn-sm link_edit' data-toggle='modal' data-target='#myModal' onclick='mostrar(" . $row['id_compra'] . ")'><i class='bx bx-edit'></i></button>";
-
+			$btndetalle = "<button type='button' style='color: blue; background-color: #fff; border-color: #fff;' class='btn btn-primary btn-sm link_edit'   onclick='detalleM(" . $row['id_compra'] . ")'><i class='bx bx-low-vision'></i></button>";
+$btnEdit = "<button type='button' style='color: green; background-color: #fff; border-color: #fff;' class='btn btn-primary btn-sm link_edit' data-toggle='modal' data-target='#myModal' onclick='mostrar(" . $row['id_compra'] . ")'><i class='bx bx-edit'></i></button>"; 
              $btnDelete = "<button type='button' class='btn btn-primary btn-sm link_delete' style='color: red; background-color: #fff; border-color: #fff;' onclick='anular(" . $row['id_compra'] . ")'><i class='bx bxs-trash'></i></button>";
           
 			 $data[] = array(
@@ -182,7 +256,7 @@ switch ($_GET["op"]){
 				"fecha_compra" => $row['fecha_compra'],
 				"total_compra" => $row['total_compra'],
 				"nombre_estad_compra" => $row['nombre_estad_compra'], // corrected key name
-				"options" => $btnEdit . " " . $btnDelete
+				"options" => $btnEdit . " " . $btnDelete." ".	$btndetalle
 			);
          }
          // Devolver los datos en formato JSON
@@ -227,7 +301,22 @@ switch ($_GET["op"]){
     
 		while ($reg = $datos->fetch_object())
 				{
-				echo '<option value=' . $reg->id_proveedor. '>' . $reg->nombre_proveedor. '</option>';
+				echo '<option value=' . $reg->id_proveedor. '>' . $reg->nombre_proveedor." --- ".$reg->rtn_proveedor. '</option>';
+				}
+             
+	break;
+	case 'selectComprobante':
+        include_once "../php/conexion2.php";
+         $btnView = '';
+         $btnEdit = '';
+         $btnDelete = '';
+         $sentencia = "SELECT * FROM tbl_comprobantes_compra ";
+         $datos = $conn->query($sentencia);
+         
+    
+		while ($reg = $datos->fetch_object())
+				{
+				echo '<option value=' . $reg->id_comprobante. '>' . $reg->nombre.'</option>';
 				}
              
 	break;
@@ -249,12 +338,13 @@ switch ($_GET["op"]){
 
 	case 'listarArticulos':
 		include_once "../php/conexion2.php";
-		$sentencia = "SELECT tbl_producto.*, tbl_categoria.nombre_categoria 
+		$sentencia = "SELECT tbl_producto.*, tbl_categoria.nombre_categoria, tbl_inventario.cantidad 
 		FROM tbl_producto 
-		INNER JOIN tbl_categoria ON tbl_producto.id_categoria = tbl_categoria.id_categoria;
+		INNER JOIN tbl_categoria ON tbl_producto.id_categoria = tbl_categoria.id_categoria 
+		INNER JOIN tbl_inventario ON tbl_producto.id_producto = tbl_inventario.id_producto;
 		";
-		$datos = $conn->query($sentencia);
-
+	$datos = $conn->query($sentencia);
+	
  		//Vamos a declarar un array
  		$data= Array();
 
@@ -264,7 +354,7 @@ switch ($_GET["op"]){
  				"1"=>$reg->nombre_producto,
  				"2"=>$reg->nombre_categoria ,
  			
- 				"3"=>$reg->cantidad_max
+ 				"3"=>$reg->cantidad
  				);
  		}
  		$results = array(

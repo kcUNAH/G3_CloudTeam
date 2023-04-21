@@ -1,9 +1,9 @@
 
 var tableRoles;
 var tableprod;
-$("#impuesto").val("15 %");
+
 document.addEventListener('DOMContentLoaded', function () {
-	listarArticulos()
+	
     tableRoles = $('#tablePedidos').dataTable({
         "aProcessing": true,
         "aServerSide": true,
@@ -11,16 +11,15 @@ document.addEventListener('DOMContentLoaded', function () {
             "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
         },
         "ajax": {
-            "url":  '../../modelos/ComprasControlador.php?op=listar',
+            "url":  '../../modelos/ComprobantesControlador.php?op=listar',
             "dataSrc": ""
             
         },
         "columns": [
-            { "data": "id_compra" },
-            { "data": "nombre_proveedor" },
-            { "data": "fecha_compra" },
-            { "data": "total_compra" },
-            { "data": "nombre_estad_compra" },
+            { "data": "id_comprobante" },
+            { "data": "nombre" },
+            { "data": "descripcion" },
+            { "data": "estado" },
             { "data": "options" }
         ],
         "resonsieve": "true",
@@ -41,103 +40,36 @@ $('#tablePedidos').dataTable({
 //Función que se ejecuta al inicio
 function init(){
 
-	//Cargamos los items al select proveedor
-	$.post("../../modelos/ComprasControlador.php?op=selectProveedor", function(r){
-	            $("#idproveedor").html(r);
-	            $('#idproveedor').selectpicker('refresh');
-	});
-	$.post("../../modelos/ComprasControlador.php?op=selectComprobante", function(r){
-		$("#tipo_comprobante").html(r);
-		$('#tipo_comprobante').selectpicker('refresh');
 
-		
-});
-$.post("../../modelos/ComprasControlador.php?op=selectComprobante", function(r){
-	$("#tipo_comprobante2").html(r);
-	$('#tipo_comprobante2').selectpicker('refresh');
-
-	tipo_comprobante2
-});
-	$.post("../../modelos/ComprasControlador.php?op=selectEstado", function(r){
-		$("#estadoc").html(r);
-		$('#estadoc').selectpicker('refresh');
-});
-	$.post("../../modelos/ComprasControlador.php?op=selectidcompra", function(r){
-		
-
-		
-		$("#num_comprobante").val(r);
-});
-
-	
 }
 
 //Función limpiar
 function limpiar()
 {
-	$("#idproveedor").val("");
-	$("#proveedor").val("");
+	$("#idRol").val("");
+	$("#Descripcion").val("");
 	$("#serie_comprobante").val("");
-	$("#num_comprobante").val("");
-	$("#impuesto").val("15 %");
+	$("#NombreRol").val("");
 
-	$("#total_compra").val("");
-	$(".filas").remove();
-	$("#total").html("0");
 	
-	//Obtenemos la fecha actual
-	var now = new Date();
-	var day = ("0" + now.getDate()).slice(-2);
-	var month = ("0" + (now.getMonth() + 1)).slice(-2);
-	var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
     $('#fecha_hora').val(today);
 
     //Marcamos el primer tipo_documento
-  
-
+    $("#EstadoRol").val("Activo");
+	$("#EstadoRol").selectpicker('refresh');
 }
 
 //Función mostrar formulario
 function mostrarform(flag)
 {
-	limpiar();
-	if (flag)
-	{
-		$("#listadoregistros").hide();
-		$("#formularioregistros").show();
-		//$("#btnGuardar").prop("disabled",false);
-		$("#btnagregar").hide();
-		listarArticulos();
 
-		$("#btnGuardar").hide();
-		$("#btnCancelar").show();
-		detalles=0;
-		$("#btnAgregarArt").show();
-	}
-	else
-	{
-		$("#listadoregistros").show();
-		$("#formularioregistros").hide();
-		$("#btnagregar").show();
-	}
 
 }
-//Función generar pdf
-function generarpdf() {
-	let buscador = $('.dataTables_filter input').val();
-	let url = '../../fpdf/Reportecompras.php?buscador=' + encodeURIComponent(buscador);
-	window.location.href = url;
-  }
-  function detalleM(idingreso) {
 
-	let url = '../../fpdf/ReporteDetalleCompra.php?buscador=' + encodeURIComponent(idingreso);
-	window.location.href = url;
-  }
-  
 //Función cancelarform
 function cancelarform()
 {
-	window.location.href = '../administrador/compras.php';
+	window.location.href = '../administrador/Comprobante.php';
 
 	limpiar();
 	mostrarform(false);
@@ -204,49 +136,50 @@ function listarArticulos()
 
 function guardaryeditar(e)
 {
-	
-var form = document.querySelector('#formulario');
-form.onsubmit = function (e) {
-    e.preventDefault();
-	const fechaActual = new Date();
-	const fechaInput = new Date(document.getElementById("fecha_hora").value);
-	
-	if (fechaInput.getTime() > fechaActual.getTime()) {
-	  // La fecha ingresada es mayor que la fecha actual
-	  alert("La fecha ingresada no puede ser mayor a la fecha actual.");
-	 return false;
-	}else{
 
 	//$("#btnGuardar").prop("disabled",true);
-	var formData = new FormData($("#formulario")[0]);
-
-	$.ajax({
-		url: "../../modelos/ComprasControlador.php?op=guardaryeditar",
-	    type: "POST",
-	    data: formData,
-	    contentType: false,
-	    processData: false,
-
-		success: function(datos)
-		{                    
-			bootbox.alert({
-				message: datos,
-				callback: function() {
-					//location.reload();
-					// Abre la página "nuevaPagina.html" en una nueva ventana
-					window.location.href = "../administrador/Compras.php";
 
 
-				}
-			});	          
-			mostrarform(false);
-			listar();
-		}
+	var formrol = document.querySelector('#formulario2');
+	formrol.onsubmit = function (e) {
+    e.preventDefault();
+
+	var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+	var ajaxUrl = "../../modelos/ComprobantesControlador.php?op=guardaryeditar";
+	var formData = new FormData(formrol);
+	request.open("POST", ajaxUrl, true);
+	request.send(formData);
 	
-	});
-	limpiar();
+	request.onreadystatechange = function() {
+		if (this.readyState === 4 && this.status === 200) {
+			var response = this.responseText;
+			// Display the response message in a div or alert box
+			
+			// Or use an alert box to display the response
+			// alert(response);
+			window.location.href = "../administrador/Comprobante.php";
+			
+			if(response == "Comprobante Ya existe"){
+				bootbox.alert(response)
+
+			}else{
+
+				bootbox.alert(response)
+				limpiar()
+			}
+		
+					
+				
+
+			
+		}
+	};
+	
+
+  
+
 }
-}	
+
 }
 function actualizar()
 {
@@ -286,8 +219,8 @@ function mostrar(idingreso)
 
 		$("#idproveedor").val(data.id_proveedor);
 		$("#idproveedor").selectpicker('refresh');
-		$("#tipo_comprobante2").val(data.id_comprobante);
-		$("#tipo_comprobante2").selectpicker('refresh');
+		$("#tipo_comprobante").val(data.tipo_comprobante);
+		$("#tipo_comprobante").selectpicker('refresh');
 		$("#estadoc").val(data.id_estado_compras);
 		$("#estadoc").selectpicker('refresh');
 		$("#num_comprobante").val(data.id_compra);
@@ -309,10 +242,10 @@ function mostrar(idingreso)
 //Función para anular registros
 function anular(idingreso)
 {
-	bootbox.confirm("¿Está Seguro de anular la compra?", function(result){
+	bootbox.confirm("¿Está Seguro de eliminar este  comprobante?", function(result){
 		if(result)
         {
-        	$.post("../../modelos/ComprasControlador.php?op=anular", {idingreso : idingreso}, function(e){
+        	$.post("../../modelos/ComprobantesControlador.php?op=anular",{idingreso : idingreso}, function(e){
         		bootbox.alert(e);
 	           
 				tableRoles.api().ajax.reload();
@@ -323,20 +256,24 @@ function anular(idingreso)
 
 //Declaración de variables necesarias para trabajar con las compras y
 //sus detalles
-var impuesto='15 %';
+var impuesto=18;
 var cont=0;
 var detalles=0;
 //$("#guardar").hide();
 $("#btnGuardar").hide();
-
+$("#tipo_comprobante").change(marcarImpuesto);
 
 function marcarImpuesto()
   {
   	var tipo_comprobante=$("#tipo_comprobante option:selected").text();
- 
+  	if (tipo_comprobante=='Factura')
+    {
         $("#impuesto").val(impuesto); 
-    
-    
+    }
+    else
+    {
+        $("#impuesto").val("0"); 
+    }
   }
 
   function agregarDetalle(idarticulo, articulo) {
@@ -356,15 +293,13 @@ function marcarImpuesto()
 	
 	if (!encontrado) {
 	  // Si no se encontró, agrega una nueva fila
-	  var subtotal = (cantidad * precio_venta);
+	  var subtotal = cantidad * precio_venta;
 	  var fila = '<tr class="filas" id="fila'+cont+'">'+
 		'<td><button type="button" class="btn btn-danger" onclick="eliminarDetalle('+cont+')">X</button></td>'+
 		'<td><input type="hidden" name="idarticulo[]" style="width: 500px;" value="'+idarticulo+'">'+articulo+'</td>'+
-		'<td><input type="number" name="cantidad[]" id="cantidad[]" style="width: 50px;" value="'+cantidad+'"onkeypress="validarPrecio(event);" onkeyup="modificarSubototales()"></td>'+
-		'<td><input type="text" name="precio_venta[]" id="cantidad[]" style="width: 200px;" value="'+precio_venta+'" onkeypress="validarPrecio(event);" onkeyup="modificarSubototales()"></td>'+
-		
-		'<td><span name="subtotal" id="subtotal'+cont+'">'+ (subtotal * 0.15 ) + subtotal +'</span></td>'+
-		'<td><span name="ISV" id="ISV'+cont+'">'+ subtotal * 0.15 +'</span></td>'+
+		'<td><input type="number" name="cantidad[]" id="cantidad[]" style="width: 50px;" value="'+cantidad+'" onkeyup="modificarSubototales()"></td>'+
+		'<td><input type="text" name="precio_venta[]" style="width: 200px;" value="'+precio_venta+'" onkeyup="modificarSubototales()"></td>'+
+		'<td><span name="subtotal" id="subtotal'+cont+'">'+subtotal+'</span></td>'+
 	
 		'</tr>';
 	  cont++;
@@ -374,16 +309,7 @@ function marcarImpuesto()
 	}
   }
   
-  function validarPrecio(event) {
-	const input = event.target;
-	const regex = /^\d*\.?\d{0,2}$/;
-	const char = String.fromCharCode(event.keyCode);
-  
-	if (!regex.test(input.value + char)) {
-	  event.preventDefault();
-	}
-  }
-  
+
   function modificarSubototales()
   {
 	  var cant = document.getElementsByName("cantidad[]");
@@ -396,11 +322,7 @@ function marcarImpuesto()
 		  var inpS=sub[i];
   
 		  inpS.value=inpC.value * inpP.value;
-		  document.getElementsByName("subtotal")[i].innerHTML = inpS.value * 0.15 + inpS.value ;
-		  document.getElementsByName("ISV")[i].innerHTML = inpS.value * 0.15;
-
-
-		
+		  document.getElementsByName("subtotal")[i].innerHTML = inpS.value;
 	  }
 	  calcularTotales();
   }
@@ -409,10 +331,8 @@ function marcarImpuesto()
   	var total = 0.0;
 
   	for (var i = 0; i <sub.length; i++) {
-		total += (document.getElementsByName("subtotal")[i].value) *  0.15 + (document.getElementsByName("subtotal")[i].value);
-		
+		total += document.getElementsByName("subtotal")[i].value;
 	}
-	
 	$("#total").html("L. " + total);
     $("#total_compra").val(total);
     evaluar();
