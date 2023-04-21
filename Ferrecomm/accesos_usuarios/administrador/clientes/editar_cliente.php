@@ -200,7 +200,7 @@ if(!isset ($_SESSION['usuario'])){
       </li>
     
 
-      <a href="../../php/Cerrar_Seccion.php">
+      <a href="../../../php/Cerrar_Seccion.php">
         <li class="profile">
           <i class='bx bx-log-out' id="log_out"></i>
           <div class="Salir">Cerrar Sesión</div>

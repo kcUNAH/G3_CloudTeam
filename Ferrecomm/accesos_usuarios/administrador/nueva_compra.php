@@ -129,7 +129,7 @@ if(!isset ($_SESSION['usuario'])){
                 </a>
                 <span class="tooltip">Usuarios</span>
             </li>
-            <a href="../../../index.php">
+            <a href="../../php/Cerrar_Seccion.php">
                 <li class="profile">
                     <i class='bx bx-log-out' id="log_out"></i>
                     <div class="Salir">Cerrar Sesión</div>
