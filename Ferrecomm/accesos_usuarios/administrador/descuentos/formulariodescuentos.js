@@ -25,7 +25,7 @@ const validarFormulario = (e) => {
 function validarPorcentaje(){
 	var inputPrecio = Number(document.getElementById('porcentaje_descontar').value);
 
-	if ( inputPrecio == 0  ) {
+	if ( inputPrecio <= 0 || inputPrecio > 100 || isNaN(inputPrecio)) {
 		document.getElementById(`grupo__porcentaje_descontar`).classList.add('formulario__grupo-incorrecto');
 		document.getElementById(`grupo__porcentaje_descontar`).classList.remove('formulario__grupo-correcto');
 		document.querySelector(`#grupo__porcentaje_descontar .formulario__input-error`).classList.add('formulario__input-error-activo');

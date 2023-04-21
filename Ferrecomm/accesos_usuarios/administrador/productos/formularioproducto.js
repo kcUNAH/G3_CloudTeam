@@ -49,7 +49,7 @@ function validarMenor(){
 	var inputMenor = Number(document.getElementById('cantidad_min').value);
 	var inputMayor = Number(document.getElementById('cantidad_max').value);
 
-	if (inputMenor > inputMayor || inputMenor == 0 || inputMenor === inputMayor) {
+	if (inputMenor > inputMayor || inputMenor <= 0 || inputMenor === inputMayor ) {
 		document.getElementById(`grupo__cantidad_min`).classList.add('formulario__grupo-incorrecto');
 		document.getElementById(`grupo__cantidad_min`).classList.remove('formulario__grupo-correcto');
 		document.querySelector(`#grupo__cantidad_min .formulario__input-error`).classList.add('formulario__input-error-activo');
@@ -68,7 +68,7 @@ function validarMayor(){
 	var inputMenor = Number(document.getElementById('cantidad_min').value);
 	var inputMayor = Number(document.getElementById('cantidad_max').value);
 
-	if ( inputMayor < inputMenor || inputMenor == 0 || inputMayor === inputMenor ) {
+	if ( inputMayor < inputMenor || inputMayor <= 0 || inputMayor === inputMenor ) {
 		document.getElementById(`grupo__cantidad_max`).classList.add('formulario__grupo-incorrecto');
 		document.getElementById(`grupo__cantidad_max`).classList.remove('formulario__grupo-correcto');
 		document.querySelector(`#grupo__cantidad_max .formulario__input-error`).classList.add('formulario__input-error-activo');
@@ -86,7 +86,7 @@ function validarMayor(){
 function validarPrecio(){
 	var inputPrecio = Number(document.getElementById('precio_producto').value);
 
-	if ( inputPrecio == 0  ) {
+	if ( inputPrecio <= 0 || isNaN(inputPrecio)  ) {
 		document.getElementById(`grupo__precio_producto`).classList.add('formulario__grupo-incorrecto');
 		document.getElementById(`grupo__precio_producto`).classList.remove('formulario__grupo-correcto');
 		document.querySelector(`#grupo__precio_producto .formulario__input-error`).classList.add('formulario__input-error-activo');
