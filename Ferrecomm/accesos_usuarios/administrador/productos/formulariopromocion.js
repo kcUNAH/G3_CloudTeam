@@ -38,7 +38,7 @@ const validarFormulario = (e) => {
 function validarPrecio(){
 	var inputPrecio = Number(document.getElementById('precio_venta').value);
 
-	if ( inputPrecio == 0  ) {
+	if ( inputPrecio <= 0 || isNaN(inputPrecio) ) {
 		document.getElementById(`grupo__precio_venta`).classList.add('formulario__grupo-incorrecto');
 		document.getElementById(`grupo__precio_venta`).classList.remove('formulario__grupo-correcto');
 		document.querySelector(`#grupo__precio_venta .formulario__input-error`).classList.add('formulario__input-error-activo');
