@@ -8,41 +8,49 @@ class PDF extends FPDF
    // Cabecera de página
    function Header()
    {
-      //include '../php/conexion.php';//llamamos a la conexion BD
+      include '../php/conexion.php';//llamamos a la conexion BD
 
-      //$consulta_info = $conexion->query(" SELECT * FROM tbl_producto ");//traemos datos de la empresa desde BD
-      //$dato_info = $consulta_info->fetch_object();
+      $consulta_info = $conexion->query(" SELECT valor FROM tbl_ms_parametros where id_parametro = '9' ");
+      $dato_info = $consulta_info->fetch_object();
       $this->Image('Logo.jpeg', 220, 5, 70); //logo de la empresa,moverDerecha,moverAbajo,tamañoIMG
       $this->SetFont('Arial', 'B', 19); //tipo fuente, negrita(B-I-U-BIU), tamañoTexto
       $this->Cell(83); // Movernos a la derecha
       $this->SetTextColor(0, 0, 0); //color
       //creamos una celda o fila
-      $this->Cell(110, 15, utf8_decode('FERRECOMM'), 0, 0, 'C', 0); // AnchoCelda,AltoCelda,titulo,borde(1-0),saltoLinea(1-0),posicion(L-C-R),ColorFondo(1-0)
+      $this->Cell(110, 15, utf8_decode($dato_info->valor), 0, 0, 'C', 0); // AnchoCelda,AltoCelda,titulo,borde(1-0),saltoLinea(1-0),posicion(L-C-R),ColorFondo(1-0)
       $this->Ln(3); // Salto de línea
       $this->SetTextColor(103); //color
 
       /* UBICACION */
+      $consulta_info = $conexion->query(" SELECT valor FROM tbl_ms_parametros where id_parametro = '5' ");
+      $ubi_info = $consulta_info->fetch_object();
       $this->Cell(10);  // mover a la derecha
       $this->SetFont('Arial', 'B', 10);
-      $this->Cell(96, 10, utf8_decode("Ubicación : Los Planes Santa Maria, Carretera CA-7"), 0, 0, '', 0);
+      $this->Cell(96, 10, utf8_decode("Ubicación: ".$ubi_info->valor), 0, 0, '', 0);
       $this->Ln(5);
 
       /* TELEFONO */
+      $consulta_info = $conexion->query(" SELECT valor FROM tbl_ms_parametros where id_parametro = '4' ");
+      $tel_info = $consulta_info->fetch_object();
       $this->Cell(10);  // mover a la derecha
       $this->SetFont('Arial', 'B', 10);
-      $this->Cell(59, 10, utf8_decode("Teléfono : 9825-5333"), 0, 0, '', 0);
+      $this->Cell(59, 10, utf8_decode("Teléfono: ".$tel_info->valor ), 0, 0, '', 0);
       $this->Ln(5);
 
       /* COREEO */
+      $consulta_info = $conexion->query(" SELECT valor FROM tbl_ms_parametros where id_parametro = '3' ");
+      $correo_info = $consulta_info->fetch_object();
       $this->Cell(10);  // mover a la derecha
       $this->SetFont('Arial', 'B', 10);
-      $this->Cell(85, 10, utf8_decode("Correo : cloudteamg3@gmail.com"), 0, 0, '', 0);
+      $this->Cell(85, 10, utf8_decode("Correo: " .$correo_info->valor), 0, 0, '', 0);
       $this->Ln(5);
 
       /* SUCURSAL */
+      $consulta_info = $conexion->query(" SELECT valor FROM tbl_ms_parametros where id_parametro = '10' ");
+      $suc_info = $consulta_info->fetch_object();
       $this->Cell(10);  // mover a la derecha
       $this->SetFont('Arial', 'B', 10);
-      $this->Cell(85, 10, utf8_decode("Sucursal : 1 "), 0, 0, '', 0);
+      $this->Cell(85, 10, utf8_decode("Sucursal: ".$suc_info->valor), 0, 0, '', 0);
       $this->Ln(7);
 
       date_default_timezone_set('America/Tegucigalpa');
