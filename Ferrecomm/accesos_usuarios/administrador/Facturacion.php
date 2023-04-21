@@ -21,7 +21,7 @@
 
         <center>
             <div class="title_page">
-                <h1> </br> Facturacion <i class='fas fa-cube'></i></h1>
+                <h1> </br> Ventas <i class='fas fa-cube'></i></h1>
             </div>
         </center>
 
@@ -77,7 +77,7 @@
                         $query_prom = mysqli_query($conex, "SELECT * from tbl_forma_pago");
                         $result_prom = mysqli_num_rows($query_prom)
                         ?>
-
+                        <input type="hidden" name="txt_tipo_pago" id="txt_tipo_pago" value="">
                         <select name="selec_tipo_pago" id="selec_tipo_pago">
                             <?php
                             echo $option;
@@ -97,6 +97,33 @@
 
 
                     <div class="w50">
+                        <label>Tipo de venta <br></label>
+
+                        <?php
+                        include 'conex.php';
+                        $query_prom = mysqli_query($conex, "SELECT * from tbl_tipo_venta");
+                        $result_prom = mysqli_num_rows($query_prom)
+                        ?>
+                        <input type="hidden" name="txt_tipo_venta" id="txt_tipo_venta" value="">
+
+                        <select name="selec_tipo_venta" id="selec_tipo_venta">
+                            <?php
+                            echo $option;
+                            if ($result_prom > 0) {
+                                while ($promo = mysqli_fetch_array($query_prom)) {
+
+                            ?>
+                                    <option value="<?php echo $promo["id_tip_venta"]; ?>"><?php echo $promo["nombre_tip_venta"]?></option>
+                            <?php
+                                }
+                            }
+
+                            ?>
+                        </select>
+
+                    </div>
+
+                    <div class="w50">
                         <label>Aplicar Descuento <br></label>
 
                         <?php
@@ -104,6 +131,8 @@
                         $query_prom = mysqli_query($conex, "SELECT * from tbl_descuentos");
                         $result_prom = mysqli_num_rows($query_prom)
                         ?>
+                        <input type="hidden" name="txt_descuento" id="txt_descuento" value="">
+                        
 
                         <select name="selec_descuento" id="selec_descuento">
                             <?php
@@ -132,7 +161,7 @@
                     </div>
                 </div>
             </div>
-
+            <input type="hidden" name="id" id="id" value=<?php echo $_SESSION['id_usuario']; ?>>
             <table class="tbl_venta">
                 <thead>
                     <th colspan="7">BUSCAR PRODUCTOS</th>

@@ -218,13 +218,18 @@ $(document).ready(function () {
         if ($('#txt_cant_producto').val() > 0) {
             var codproducto = $('#txt_cod_producto').val();
             var cantidad = $('#txt_cant_producto').val();
+            var descuento = $('#txt_descuento').val();
             var action = 'addProductoDetalle';
+
+            if(descuento == ''){
+                descuento = 1;
+            }
 
             $.ajax({
                 url: '../../accesos_usuarios/administrador/ajax.php',
                 type: "POST",
                 async: true,
-                data: { action: action, producto: codproducto, cantidad: cantidad },
+                data: { action: action, producto: codproducto, cantidad: cantidad, descuento,descuento },
 
                 success: function (response) {
                     if (response != 'error') {
@@ -303,6 +308,23 @@ $(document).ready(function () {
         if (rows > 0) {
             var action = 'procesar_venta';
             var codcliente = $('#idcliente').val();
+            var id_tip_venta = $('#txt_tipo_venta').val();
+            var id_pago = $('#txt_tipo_pago').val();
+            var id_descuentos = $('#txt_descuento').val();
+
+            if(id_descuentos == ''){
+                id_descuentos = 1;
+            }
+
+            if(id_pago == ''){
+                id_pago = 1;
+            }
+
+            if(id_tip_venta == ''){
+                id_tip_venta = 1;
+            }
+
+
             var today = new Date();
 
             var fecha = new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString();
@@ -311,7 +333,7 @@ $(document).ready(function () {
                 url: '../../accesos_usuarios/administrador/ajax.php',
                 type: "POST",
                 async: true,
-                data: { action: action, codcliente: codcliente, fecha: fecha },
+                data: { action: action, codcliente: codcliente, fecha: fecha, id_tip_venta : id_tip_venta, id_pago : id_pago, id_descuentos : id_descuentos},
 
                 success: function (response) {
                     if (response != 'error') {
@@ -408,13 +430,43 @@ function generarPDF(cliente, factura) {
 }
 
 
+//buscar Descuento select .
+const Descuento = document.querySelector('#selec_descuento');
+Descuento.addEventListener('change', (e) => {
+    var opcion = $('#selec_descuento').val();
+    var id = $('#id').val();
+     console.log(opcion);
+    var descuento = opcion;
+    $('#txt_descuento').val(descuento);
+
+    searchfordetalle(id);
+})
+
+//buscar tipo de pago select 
+const tipo_venta = document.querySelector('#selec_tipo_venta');
+tipo_venta.addEventListener('change', (e) => {
+    var opcion = $('#selec_tipo_venta').val();
+    console.log(opcion);
+    var tipo_pago = opcion;
+    $('#txt_tipo_venta').val(tipo_pago);
+})
+
+//buscar tipo de pago select 
+const tipo_pago = document.querySelector('#selec_tipo_pago');
+tipo_pago.addEventListener('change', (e) => {
+    var opcion = $('#selec_tipo_pago').val();
+    console.log(opcion);
+    var tipo_pago = opcion;
+    $('#txt_tipo_pago').val(tipo_pago);
+})
+
+
  //buscar producto select 
  const producto = document.querySelector('#selec_producto');
 
  producto.addEventListener('change', (e) => {
     var opcion = $('#selec_producto').val();
-    console.log(opcion);
-    
+
     var producto = opcion;
     var action = 'searchProducto';
     $('#txt_cod_producto').val(producto);
@@ -558,13 +610,17 @@ function viewProcesar() {
 function searchfordetalle(id) {
     var action = 'searchfordetalle';
     var user = id;
+    var descuento = $('#txt_descuento').val();
+    if(descuento == ''){
+        descuento = 1;
+    }
 
 
     $.ajax({
         url: '../../accesos_usuarios/administrador/ajax.php',
         type: "POST",
         async: true,
-        data: { action: action, user: user },
+        data: { action: action, user: user, descuento:descuento },
 
         success: function (response) {
             if (response != 'error') {

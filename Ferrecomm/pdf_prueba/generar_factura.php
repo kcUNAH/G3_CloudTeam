@@ -53,6 +53,64 @@ $sql = mysqli_query($conexion, "select id_estado_venta  from tbl_venta where id_
 $row = mysqli_fetch_array($sql);
 $id_estado = $row[0]; //Guardamos el estado de venta
 
+
+
+
+//extraer tipo de la venta 
+$sql = mysqli_query($conexion, "select id_tip_venta  from tbl_venta where id_venta=$id");
+$row = mysqli_fetch_array($sql);
+$id_tipo_venta = $row[0]; //Guardamos el estado de venta
+
+//extraer pago de la venta 
+$sql = mysqli_query($conexion, "select id_pago  from tbl_venta where id_venta=$id");
+$row = mysqli_fetch_array($sql);
+$id_pago = $row[0]; //Guardamos el estado de venta
+
+if($id_pago == null){
+	$id_pago = 1; 
+}
+
+//extraer pago de la venta 
+$sql = mysqli_query($conexion, "select nombre_forma_pago  from tbl_forma_pago where id_pago =$id_pago");
+$row = mysqli_fetch_array($sql);
+$pago = $row[0]; //Guardamos el pago de venta
+
+
+
+//extraer tip_venta  de la venta 
+$sql = mysqli_query($conexion, "select id_tip_venta  from tbl_venta where id_venta=$id");
+$row = mysqli_fetch_array($sql);
+$id_tipo_venta = $row[0]; //Guardamos el estado de venta
+
+if($id_tipo_venta == null){
+	$id_tipo_venta = 1; 
+}
+
+//extraer tipo venta  de la venta 
+$sql = mysqli_query($conexion, "select nombre_tip_venta  from tbl_tipo_venta where id_tip_venta  =$id_tipo_venta");
+$row = mysqli_fetch_array($sql);
+$tipo_venta = $row[0]; //Guardamos el tipo venta de venta
+
+
+
+//extraer tipo venta  de la venta 
+$sql = mysqli_query($conexion, "select id_descuentos  from tbl_venta_descuento where id_venta =$id");
+$row = mysqli_fetch_array($sql);
+$id_descuento = $row['0']; //Guardamos el tipo venta de venta
+
+if($id_descuento == null){
+	$id_descuento = 1;
+}
+
+$sql = mysqli_query($conexion, "select porcentaje_descontar  from tbl_descuentos where id_descuentos=$id_descuento");
+$row = mysqli_fetch_array($sql);
+$descuento = $row['porcentaje_descontar']; //Guardamos el tipo venta de venta
+
+
+
+
+
+
 //extrar nombre de usuario 
 $sql = mysqli_query($conexion, "select nombre_usuario from tbl_ms_usuario where id_usuario=$id_usuario");
 $row = mysqli_fetch_array($sql);
@@ -113,6 +171,21 @@ if($id_estado == 2){
 $pdf->Ln(7);
 
 $pdf->SetFont('Arial', '', 10);
+$pdf->Cell(12, 7, utf8_decode("Pago:"), 0, 0, 'L');
+$pdf->SetTextColor(97, 97, 97);
+$pdf->Cell(134, 7, utf8_decode($pago), 0, 0, 'L');
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->SetTextColor(97, 97, 97);
+
+$pdf->Ln(10);
+$pdf->SetFont('Arial', '', 10);
+$pdf->SetTextColor(39, 39, 51);
+$pdf->Cell(13, 7, utf8_decode("tipo:"), 0, 0);
+$pdf->SetTextColor(97, 97, 97);
+$pdf->Cell(60, 7, utf8_decode($tipo_venta), 0, 0, 'L');
+$pdf->Ln(7);
+
+$pdf->SetFont('Arial', '', 10);
 $pdf->Cell(12, 7, utf8_decode("Cajero:"), 0, 0, 'L');
 $pdf->SetTextColor(97, 97, 97);
 $pdf->Cell(134, 7, utf8_decode($nombre), 0, 0, 'L');
@@ -170,7 +243,9 @@ while ($row = mysqli_fetch_assoc($ventas)) {
 	$pdf->Cell(90, 7, utf8_decode($row['nombre_producto']), 'L', 0, 'C');
 	$pdf->Cell(15, 7, utf8_decode($row['cantidad']), 'L', 0, 'C');
 	$pdf->Cell(25, 7, utf8_decode($row['precio_venta']), 'L', 0, 'C');
-	$pdf->Cell(19, 7, utf8_decode("$0.00 USD"), 'L', 0, 'C');
+	$sub_total = ($row['cantidad'] * $row['precio_venta']); 
+	$descuento_producto = (($sub_total/100)*$descuento);
+	$pdf->Cell(19, 7, number_format($descuento_producto, 2, '.', ','), 'L', 0, 'C');
 	$sub_total = ($row['cantidad'] * $row['precio_venta']);
 	$total = $total + $sub_total;
 	$pdf->Cell(32, 7,  number_format($sub_total, 2, '.', ','), 'LR', 0, 'C');
@@ -187,7 +262,9 @@ $sql3=mysqli_query($conexion, "SELECT isv from tbl_venta where id_venta = $id");
 $row3=mysqli_fetch_assoc($sql3);
 $ISV=$row3['isv'];
 
-$total_final=$subtotal+$ISV;
+$descuento_aplicado = (($total / 100)*$descuento);
+
+$total_final=$subtotal+$ISV-$descuento_aplicado;
 
 
 /*----------  Fin Detalles de la tabla  ----------*/
@@ -211,8 +288,8 @@ $pdf->Ln(7);
 
 $pdf->Cell(100, 7, utf8_decode(''), '', 0, 'C');
 $pdf->Cell(15, 7, utf8_decode(''), '', 0, 'C');
-$pdf->Cell(32, 7, utf8_decode("DESCUENTO : "), '', 0, 'C');
-$pdf->Cell(34, 7, number_format(0.00, 2, '.', ','), '', 0, 'C');
+$pdf->Cell(32, 7, utf8_decode("DESCUENTO ($descuento %) : "), '', 0, 'C');
+$pdf->Cell(34, 7, number_format($descuento_aplicado, 2, '.', ','), '', 0, 'C');
 
 $pdf->Ln(7);
 
@@ -229,7 +306,7 @@ $pdf->Ln(7);
 $pdf->Cell(100, 7, utf8_decode(''), '', 0, 'C');
 $pdf->Cell(15, 7, utf8_decode(''), '', 0, 'C');
 $pdf->Cell(32, 7, utf8_decode("USTED AHORRA"), '', 0, 'C');
-$pdf->Cell(34, 7, utf8_decode("$0.00 USD"), '', 0, 'C');
+$pdf->Cell(34, 7, utf8_decode("$descuento_aplicado LPS."), '', 0, 'C');
 
 $pdf->Ln(12);
 

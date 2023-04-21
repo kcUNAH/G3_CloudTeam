@@ -98,10 +98,14 @@ if (!empty($_POST)) {
             $codproducto = $_POST['producto'];
             $cantidad    = $_POST['cantidad'];
             $token       = md5($_SESSION['id_usuario']);
-
+            $Descuento    =$_POST['descuento'];
             $query_isv = mysqli_query($conexion, "SELECT valor FROM tbl_ms_parametros WHERE parametro = 'IMPUESTO' ");
             $fila_isv = mysqli_fetch_array($query_isv);
             $resul_isv = $fila_isv['valor'];
+
+            $query_des = mysqli_query($conexion, "SELECT porcentaje_descontar FROM tbl_descuentos WHERE id_descuentos = $Descuento ");
+            $fila_des = mysqli_fetch_array($query_des);
+            $resul_des = $fila_des['porcentaje_descontar'];
 
             $query_detalle_temp = mysqli_query($conexion, "CALL add_detalle_temp($codproducto, $cantidad, '$token')");
             $result = mysqli_num_rows($query_detalle_temp);
@@ -111,6 +115,7 @@ if (!empty($_POST)) {
             $isv = 0;
             $total = 0;
             $arrayData = array();
+            $descuentod=0;
 
             if ($result > 0) {
                 if ($resul_isv > 0) {
@@ -133,8 +138,9 @@ if (!empty($_POST)) {
                 }
 
                 $impuesto = round($sub_total * ($isv / 100 ), 2);
+                $descuentod = round($sub_total * ($resul_des / 100 ), 2);
                 $tl_sisv = round($sub_total - $impuesto, 2);
-                $total = round($tl_sisv + $impuesto); 
+                $total = round($tl_sisv + $impuesto - $descuentod); 
 
                 $detalleTotales = '<tr>
                                         <td colspan="5" class="textright">Subtotal</td>
@@ -142,7 +148,7 @@ if (!empty($_POST)) {
                                    </tr>
                                    <tr>
                                         <td colspan="5" class="textright">Descuento</td>
-                                        <td class="textright">'.$tl_sisv.'</td>
+                                        <td class="textright">'.$descuentod.'</td>
                                    </tr>
                                     <tr>
                                         <td colspan="5" class="textright">ISV ('.$isv.'%)</td>
@@ -176,6 +182,7 @@ if (!empty($_POST)) {
         } else {
 
             $token       = md5($_SESSION['id_usuario']);
+            $Descuento    =$_POST['descuento'];
 
             $query = mysqli_query($conexion, "SELECT tmp.id_venta_detalle,
                                               tmp.token_usuario, 
@@ -190,6 +197,10 @@ if (!empty($_POST)) {
 
             $result = mysqli_num_rows($query);
 
+            $query_des = mysqli_query($conexion, "SELECT porcentaje_descontar FROM tbl_descuentos WHERE id_descuentos = $Descuento ");
+            $fila_des = mysqli_fetch_array($query_des);
+            $resul_des = $fila_des['porcentaje_descontar'];
+
 
             $query_isv = mysqli_query($conexion, "SELECT valor FROM tbl_ms_parametros WHERE parametro = 'IMPUESTO' ");
             $fila_isv = mysqli_fetch_array($query_isv);
@@ -202,6 +213,7 @@ if (!empty($_POST)) {
             $isv = 0;
             $total = 0;
             $arrayData = array();
+            $descuentod = 0; 
 
             if ($result > 0) {
                 if ($resul_isv > 0) {
@@ -224,12 +236,17 @@ if (!empty($_POST)) {
                 }
 
                 $impuesto = round($sub_total * ($isv / 100 ), 2);
+                $descuentod = round($sub_total * ($resul_des / 100 ), 2);
                 $tl_sisv = round($sub_total - $impuesto, 2);
-                $total = round($tl_sisv + $impuesto); 
+                $total = round($tl_sisv + $impuesto - $descuentod); 
 
                 $detalleTotales = '<tr>
                                         <td colspan="5" class="textright">Subtotal</td>
                                         <td class="textright">'.$tl_sisv.'</td>
+                                   </tr>
+                                   <tr>
+                                        <td colspan="5" class="textright">Descuento</td>
+                                        <td class="textright">'.$descuentod.'</td>
                                    </tr>
                                     <tr>
                                         <td colspan="5" class="textright">ISV ('.$isv.'%)</td>
@@ -361,12 +378,15 @@ if (!empty($_POST)) {
         $token = md5($_SESSION['id_usuario']);
         $cod_usuario = $_SESSION['id_usuario'];
         $fecha = $_POST['fecha'];
+        $descuento = $_POST['id_descuentos'];
+        $tipo_pago = $_POST['id_pago'];
+        $tipo_venta = $_POST['id_tip_venta'];
 
         $query = mysqli_query($conexion,"SELECT * FROM tbl_venta_detalle_temp WHERE token_usuario = '$token'  "); 
         $result = mysqli_num_rows($query); 
 
         if($result > 0 ){
-            $query_procesar = mysqli_query($conexion, "CALL procesar_venta($cod_usuario, $codcliente, '$token', '$fecha')");
+            $query_procesar = mysqli_query($conexion, "CALL procesar_venta($cod_usuario, $codcliente, '$token', '$fecha', $descuento, $tipo_pago, $tipo_venta)");
             $Result_detalle = mysqli_num_rows($query_procesar);
 
             if ($Result_detalle > 0){
