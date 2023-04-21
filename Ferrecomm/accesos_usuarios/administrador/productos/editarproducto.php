@@ -314,7 +314,7 @@ if (!empty($_POST)) {
 
       <h2>  Editar producto <i class='bx bx-edit'></i></h2>
       
-      <form action="" method="POST" enctype="multipart/form-data">
+      <form action="" method="POST" enctype="multipart/form-data" id="formulario">
         <div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
       <input type="hidden" name="id_producto" value="<?php echo $id_producto;?>">
         <label for="id_categoria">Categoria</label></br>
@@ -408,10 +408,9 @@ if (!empty($_POST)) {
 			</div>
 
 
-            
-      <button class="btn_agregar">Actualizar</button>
-      <button type="reset" onclick="location.href='../Productos.php'" class="btn_cancelar">Cancelar</button>
-
+            <button type="submit" class="btn_agregar">Actualizar</button>
+      <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado exitosamente!</p>
+      <button type="reset" onclick="location.href='../categoria.php'" class="btn_cancelar">Cancelar</button>
 
 
                     <script>
@@ -423,7 +422,7 @@ if (!empty($_POST)) {
 
                     
                 </form>
-<script src="formularioproducto.js"></script>
+<script src="formularioproductoeditar.js"></script>
 
       
   <script>

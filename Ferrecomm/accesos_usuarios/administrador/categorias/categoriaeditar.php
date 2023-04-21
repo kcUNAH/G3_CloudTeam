@@ -256,7 +256,7 @@ if (!empty($_POST)) {
   </style>
   <section class="home-section"></br>
       <h2>  Editar categoria <i class='bx bxs-category'></i></h2>
-            <form action="" method="POST" enctype="multipart/form-data" id="">
+            <form action="" method="POST" enctype="multipart/form-data" id="formulario">
         <div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
       <input type="hidden" name="id_categoria" value="<?php echo $id_categoria;?>">
         
@@ -282,7 +282,7 @@ if (!empty($_POST)) {
                 </br>
             
 
-                <button class="btn_agregar">Actualizar</button>
+                <button type="submit" class="btn_agregar">Actualizar</button>
       <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado exitosamente!</p>
       <button type="reset" onclick="location.href='../categoria.php'" class="btn_cancelar">Cancelar</button>
 
@@ -308,7 +308,7 @@ if (!empty($_POST)) {
                     ?>
                 </form>
       </form>
- <script src="formularioproducto.js"></script>
+ <script src="formulariocategoriaeditar.js"></script>
 
   <script>
   let sidebar = document.querySelector(".sidebar");
