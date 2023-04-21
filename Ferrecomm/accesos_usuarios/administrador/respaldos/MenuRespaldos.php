@@ -43,14 +43,14 @@ if(!isset ($_SESSION['usuario'])){
             <span class="tooltip">Inicio</span>
         </li>
         <li>
-            <a href="../Facturacion.php">
+            <a href="../Menu_facturacion.php">
                 <i class='bx bx-money'></i>
                 <span class="links_name">Facturación</span>
             </a>
             <span class="tooltip">Facturación</span>
         </li>
         <li>
-            <a href="../../../compras.php">
+            <a href="../compras.php">
                 <i class='bx bxs-cart'></i>
                 <span class="links_name">Compras</span>
             </a>
