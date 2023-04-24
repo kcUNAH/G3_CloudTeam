@@ -14,27 +14,33 @@
 <body>
 
     <section class="home-section">
-        <!-- 
-    <div class="modal">
-            <div class="bodyModal">
-                <form action="" method="$_POST" name="form_add_product" id="form_add_product">
-                    <h1>rrrrr</h1>
-                </form>
-            </div>
-        </div>
-        -->
+
     </br>
         <h1> HISTORIAL DE FACTURAS <i class='bx bx-shopping-bag'></i> </h1>
         <?php include 'conex.php'; ?>
 
         <section id="container">
+
+        <?php
+       
+       $busqueda = strtolower($_REQUEST['busqueda']);
+       if(empty($busqueda))
+       {
+    echo '<script>
+        window.location.href= "Historial_facturas.php";
+        </script>
+        ';
+       }
+      
+      ?>
+
             <form action="Historial_facturasbuscar.php" method="get" style="background-color:#DCFFFE ;">
-                <input type="text" name="busqueda" style="text-transform:uppercase; margin-left: 40px" id="busqueda" placeholder="No. Factura">
+                <input type="text" name="busqueda" style="text-transform:uppercase; margin-left: 40px" id="busqueda" placeholder="No. Factura" value="<?php echo $busqueda; ?>">
                 <button type="submit" class="boton-buscar">Buscar</button>
                 <a href="Facturacion.php" class="btn_newproducto" style="margin-left: 50px"> Nueva venta<i id="icon_nuevo" class='bx bxs-cart-add'></i></a>
-                <a href="../../fpdf/Reportehistorialfactura.php" target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf'></i></a>
+                <a href="../../fpdf/Reportehistorialfacturabuscar.php?buscar=<?php echo $busqueda ?>" target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf'></i></a>
             </form>
-           <!-- <div>
+          <!-- <div>
                 <h5>Buscar por fecha </h5>
                 <form action="buscarVenta.php" method="get" class="form_search_date">
                     <label for="">De: </label>
@@ -43,7 +49,7 @@
                     <input type="date" name="fecha_a" id="fecha_a" required>
                     <button type="submit" class="btn_view">Buscar</button>
                 </form>
-            </div> -->
+            </div>-->
 
 
             &nbsp;&nbsp;&nbsp;
@@ -92,7 +98,14 @@
                 ON f.id_cliente = cl.id_cliente
                 INNER JOIN tbl_estado_venta ev
                 ON f.id_estado_venta  = ev.id_estado_venta 
-                WHERE f.id_estado_venta != 10
+                WHERE ( f.id_venta LIKE '%$busqueda%' OR
+                        f.fecha_venta LIKE '%$busqueda%' OR
+                        f.total LIKE '%$busqueda%' OR
+                        f.id_cliente LIKE '%$busqueda%' OR
+                        ev.descripcion LIKE '%$busqueda%' OR
+                        u.nombre_usuario LIKE '%$busqueda%' OR 
+                        cl.nombre_cliente LIKE '%$busqueda%' OR
+                        f.id_estado_venta LIKE '%$busqueda%')
                 ORDER BY f. fecha_venta DESC LIMIT $desde, $por_pagina");
 
 
