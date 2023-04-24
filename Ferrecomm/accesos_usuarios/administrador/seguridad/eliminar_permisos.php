@@ -1,141 +1,100 @@
 <?php
 session_start();
 
-if(!isset ($_SESSION['usuario'])){
+
+if (!isset($_SESSION['usuario'])) {
     echo '
     <script>
     alert("Por favor, debe iniciar seccion");
-    window.location= "index.php";
+    window.location= "../index.php";
     </script>
     ';
     //header("localitation: index.php");
     session_destroy();
     die();
 }
-
 ?>
 
+<?php 
+ include '../conex.php';
+ include '../../../php/bitacora.php';
 
-<?php
-        
-        include '../conex.php';
-        include '../../../php/bitacora.php';
-         
-        if (!empty($_POST)){
-            $alert="";
-            if (empty($_POST['id_permisos']) ) //Si van vacios nos muestra el mensaje de erro, sino capturalos datos
-            {
-                $alert= '<p class= "msg_error"> Todos los campos son obligatorios.</p>';    
-            }else{
-              
-        
-         // Conexión a la base de datos
-
-// Actualización de los valores de los checkboxes
-$creado_por="ADMINISTRADOR";
-$modificado_por="ADMINISTRADOR";
-$d=strtotime("today");
-date("Y-m-d h:i:sa", $d);
-
-$host = 'localhost'; // tu servidor de base de datos
-$dbname = 'ferrecomm_db'; // tu base de datos
-$user = 'root'; // tu usuario
-$password = ""; // tu contraseña
+if(empty($_GET['id'])){
+    header('Location: ../../administrador/proveedores.php');
+}
+ $id_permisos = $_GET['id'];
 
 
+ $sql= mysqli_query($conex,"SELECT p.id_permisos, r.rol , o.objeto , p.permiso_insercion, p.permiso_eliminacion, p.permiso_actualizacion, p.permiso_consultar, p.creado_por,
+ p.fecha_creacion, p.modificado_por, p.fecha_modificacion 
+ FROM tbl_ms_permisos p INNER JOIN tbl_ms_rol r on p.id_rol = r.id_rol INNER JOIN tbl_ms_objetos o on p.id_objeto = o.id_objeto WHERE id_permisos= $id_permisos");
 
+ $result_sql = mysqli_num_rows($sql);
+ 
+
+ if($result_sql == 0){
+    header('Location: ../../administrador/proveedores.php');
+ }else{
+    $option = '';
+    while ($data = mysqli_fetch_array($sql)){
+      $id_permisos = $data['id_permisos'];
+      $id_rol= $data['rol'];
+      $id_objeto =$data['objeto'];
+      $permiso_insercion = $data['permiso_insercion'];
+      $permiso_eliminacion= $data['permiso_eliminacion'];
+      $permiso_actualizacion = $data['permiso_actualizacion'];
+      $permiso_consultar = $data['permiso_consultar'];
+     
+     
+    }
+ }
+
+ if(!empty($_POST)){
+ // Retrieve the form data
 $id_permisos = $_POST['id_permisos'];
+$id_rol = $_POST['id_rol'];
+$id_objeto = $_POST['id_objeto'];
 $permiso_insercion = $_POST['permiso_insercion'];
-$permiso_eliminacion= $_POST['permiso_eliminacion'];
+$permiso_eliminacion = $_POST['permiso_eliminacion'];
 $permiso_actualizacion = $_POST['permiso_actualizacion'];
 $permiso_consultar = $_POST['permiso_consultar'];
 
-
-
-$sql_update = mysqli_query($conex,"UPDATE tbl_ms_permisos SET 
-permiso_insercion = '$permiso_insercion', permiso_eliminacion ='$permiso_eliminacion', 
-permiso_actualizacion = '$permiso_actualizacion' , permiso_consultar = '$permiso_consultar '
-WHERE id_permisos = $id_permisos");
-
-              
-
-                    if($sql_update){
-                       // $alert= '<p class= "msg_save">El usuario se ha actualizado correctamente.</p>';
-                        
-                       echo '<script>
-                        alert("El permiso se ha actualizado correctamente");
-                        window.location= "permiso.php";
-                        </script>
-                        ';
-                        $codigoObjeto=3;
-                        $accion='Actualizar';
-                        $descripcion= 'permisos Actualizo ';
-                        bitacora($codigoObjeto, $accion,$descripcion);
-                    }else{
-                        //$alert= '<p class= "msg_error">Error al actualizar el usario.</p>';
-                        echo '<script>
-                        alert("Error al actualizar el usario");
-                        window.location= "editarpermisos.php";
-                        </script>
-                        ';
-                        $codigoObjeto=3;
-                        $accion='Actualizar';
-                        $descripcion= 'Se produjo un error al  Actualizo el permiso';
-                        bitacora($codigoObjeto, $accion,$descripcion);
-                
-
-                    }
-                }
-  
-  
-
-  }
-  
-
-         
-
-//Si no existe el usuario me redirecciona a gestion de usuario QUITAR EL !
-    if(empty($_REQUEST['id']))
-    {
-        header('Location: ../../administrador/permiso.php');
-        mysqli_close($conex);
-    }
-
-    $id_permisos = $_REQUEST['id'];
-
-    $sql= mysqli_query($conex,"SELECT p.id_permisos, r.rol , o.objeto , p.permiso_insercion, p.permiso_eliminacion, p.permiso_actualizacion, p.permiso_consultar, p.creado_por,
- p.fecha_creacion, p.modificado_por, p.fecha_modificacion 
- FROM tbl_ms_permisos p INNER JOIN tbl_ms_rol r on p.id_rol = r.id_rol INNER JOIN tbl_ms_objetos o on p.id_objeto = o.id_objeto WHERE id_permisos= $id_permisos");
-    
-  
-    $result_sql = mysqli_num_rows($sql);
-
-//Si es igual a cero no hay registro
-    if($result_sql == 0)
-    {
-        header('Location: ../permiso.php');
-    }else{
-        $option = ' ';
-        while ($data = mysqli_fetch_array($sql)){
-          
+// Update the permission settings in the database
+// Assuming $conn is the database connection object
+$sql = "UPDATE tbl_ms_permisos SET 
+        permiso_insercion = 0, 
+        permiso_eliminacion = 0, 
+        permiso_actualizacion = 0, 
+        permiso_consultar = 0 
+        WHERE id_permisos = $id_permisos";
+if (mysqli_query($conex, $sql)) {
+    echo
+    '<script>
+    alert("Los permisos de este usuario se a deshabilitado correctamente");
+    window.location= "permiso.php";
+    </script>
+    ';
+    $codigoObjeto=4;
+    $accion='Actualizar';
+    $descripcion= 'Se actualizaron los permisos del usuario';
+    bitacora($codigoObjeto, $accion,$descripcion);
      
-            $id_permisos = $data['id_permisos'];
-            $id_rol= $data['rol'];
-            $id_objeto =$data['objeto'];
-            $permiso_insercion = $data['permiso_insercion'];
-            $permiso_eliminacion= $data['permiso_eliminacion'];
-            $permiso_actualizacion = $data['permiso_actualizacion'];
-            $permiso_consultar = $data['permiso_consultar'];
-           
-           
-    
+}else{
+    echo
+    '<script> error deshabilitadolos permisos correctamente");
+    window.location= "permiso.php";
+    </script>
+    ';
+    $codigoObjeto=4;
+    $accion='Actualizar';
+    $descripcion= 'El Usuario intentó actualizar los permisos';
+    bitacora($codigoObjeto, $accion,$descripcion);
+}
+}
 
-      
-    }
 
-    }
-    
-?> 
+ 
+?>
 
 
 
@@ -347,9 +306,9 @@ WHERE id_permisos = $id_permisos");
 
   </style>
   <section class="home-section"></br>
-      <h2>  Editar permisos<i class='bx bx-edit'></i></h2>
+      <h2> Eliminar permisos<i class='bx bxs-trash'></i></h2>
       <div>
-            <form action=" " method="POST" enctype="multipart/form-data" id="">
+            <form action=" " method="POST" enctype="multipart/form-data" id="formulario">
 
             <input type="hidden"   name=" id_permisos" id=" id_permisos "  value="<?php echo  $id_permisos;?>" >
 
@@ -361,16 +320,27 @@ WHERE id_permisos = $id_permisos");
                       <p>id_objeto:
               <input type="text" class="field"  name="id_objeto" id="id_objeto"   maxlength="2"  value="<?php echo $id_objeto;?>" disabled>
                       </p>  
-<label><input type="hidden" name="permiso_insercion" value="0"><input type="checkbox" name="permiso_insercion" value="1" <?php if ($permiso_insercion == 1) echo "checked"; ?>> Permiso de inserción</label></br>
+                    
+                      <p>
+                      <label>permiso insertar:</label>
+                      <input type="checkbox" name="permiso_insercion" value="1" <?php if ($permiso_insercion == 1) echo "checked"; ?> disabled>
+                      </p>
+                      <p>
+                        <label>permiso eliminar:</label>
+                      <input type="checkbox" name="permiso_eliminacion" value="1" <?php if ($permiso_eliminacion == 1) echo "checked"; ?> disabled>
+                          </p>
+                          <p>
+                          <label>permiso Actualizar:</label>
+                          <input type="checkbox" name="permiso_actualizacion" value="1" <?php if ($permiso_actualizacion == 1) echo "checked"; ?> disabled>
+                            </p>
+                            <p>
+                            <label>permiso consultar:</label>
+                            <input type="checkbox" name="permiso_consultar" value="1" <?php if ($permiso_consultar == 1) echo "checked"; ?> disabled>
+                              </p>
 
-<label><input type="hidden" name="permiso_eliminacion" value="0"><input type="checkbox" name="permiso_eliminacion" value="1" <?php if ($permiso_eliminacion == 1) echo "checked"; ?>> Permiso de eliminación</label> </br>
-
-<label><input type="hidden" name="permiso_actualizacion" value="0"><input type="checkbox" name="permiso_actualizacion" value="1" <?php if ($permiso_actualizacion == 1) echo "checked"; ?>> Permiso de actualización</label></br>
-
-<label><input type="hidden" name="permiso_consultar" value="0"><input type="checkbox" name="permiso_consultar" value="1" <?php if ($permiso_consultar == 1) echo "checked"; ?>> Permiso de consulta</label></br>
 
 
-    <button type="submit" class="btn_agregar">Actualizar</button>
+    <button class="btn_agregar">Eliminar</button>
       <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado exitosamente!</p>
       <button type="reset" onclick="location.href='permiso.php'" class="btn_cancelar">Cancelar</button>
       </form>

@@ -40,7 +40,7 @@ if(!isset ($_SESSION['usuario'])){
                  date_default_timezone_set('America/Tegucigalpa');
                  $fecha_modificacion =date("Y-m-d H:i:s");
                 $estado = $_POST['estado'];
-              
+                $id_objeto==16 ;
                 
                 if ($estado == 1) {
                     $estado= 'ACTIVO';
@@ -62,6 +62,12 @@ if(!isset ($_SESSION['usuario'])){
                     rol='$rol', descripcion='$descripcion',fecha_modificacion='$fecha_modificacion', modificado_por='$modificado_por',
                      estado='$estado'
                     WHERE id_rol= $id_rol");
+
+$usuarioprimero = "SELECT permiso_actualizacion FROM tbl_ms_permisos WHERE id_objeto = 11 ";
+$obtener_primer_ingreso = mysqli_query($conex,$usuarioprimero);
+$filai_primer = mysqli_fetch_array($obtener_primer_ingreso);
+$va_primer_ingreso =$filai_primer ['permiso_actualizacion'];
+if($va_primer_ingreso==1 && $id_objeto==16 ){
 
                     if($sql_update){
                        // $alert= '<p class= "msg_save">El usuario se ha actualizado correctamente.</p>';
@@ -86,13 +92,24 @@ if(!isset ($_SESSION['usuario'])){
                         $accion='Actualizar';
                         $descripcion= 'Se produjo un error al  Actualizo el ROL';
                         bitacora($codigoObjeto, $accion,$descripcion);
-                    }
-                
-                
-            }
-            }
+                      }
         
-    }
+                    }else{
+                       if($va_primer_ingreso==0 && $id_objeto==16){
+                        
+                        echo
+                        '<script>
+                        alert("usted no tiene permisos para Editar un rol");
+                        window.location= "parametros.php";
+                        </script>
+                        ';
+                }
+                
+                }
+            }     
+            } 
+            
+            
 
 //Si no existe el usuario me redirecciona a gestion de usuario QUITAR EL !
     if(empty($_GET['id']))
@@ -131,7 +148,7 @@ if(!isset ($_SESSION['usuario'])){
     }
 
     }
-    
+  }
 ?>
 
 <!DOCTYPE html>

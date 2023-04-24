@@ -28,13 +28,18 @@ include '../../../php/bitacora.php';
             window.location= "rol.php";
             </script>';
         } else {
-
+          $id_objeto==16;
 
        $query_delete = mysqli_query($conex,"DELETE FROM tbl_ms_rol WHERE id_rol = $id_rol");
       
        
        //$query_delete=mysqli_query($conex,"UPDATE tbl_ms_usuario SET estado_usuario = 2 WHERE id_usuario = $idusuario ");
-       
+       $usuarioprimero = "SELECT permiso_eliminacion FROM tbl_ms_permisos WHERE id_objeto = 11 ";
+       $obtener_primer_ingreso = mysqli_query($conex,$usuarioprimero);
+       $filai_primer = mysqli_fetch_array($obtener_primer_ingreso);
+       $va_primer_ingreso = $filai_primer ['permiso_eliminacion'];
+     
+       if($va_primer_ingreso==1 && $id_objeto==16){
        
        if($query_delete){
            // header("Location: GestionUsuarios.php");
@@ -64,9 +69,24 @@ include '../../../php/bitacora.php';
             bitacora($codigoObjeto, $accion,$descripcion);
 
 
+          
         }
-   }
-  }
+        }else{
+            if($va_primer_ingreso==0 && $id_objeto==11){
+                echo
+                '<script>
+                alert("usted no tiene permisos para Eliminar un proveedor");
+                window.location= "../proveedores.php";
+                </script>
+                ';
+        }
+      }
+        }
+           
+    
+            
+        
+    
     //COMIENZO
 
     if(empty($_REQUEST['id'])){ //Validando que no vaya vacia

@@ -53,7 +53,7 @@ if(empty($_GET['id'])){
     $filai_primer = mysqli_fetch_array($obtener_primer_ingreso);
     $va_primer_ingreso = $filai_primer ['permiso_eliminacion'];
   
-    if($va_primer_ingreso=="SI" && $id_objeto==11){
+    if($va_primer_ingreso==1 && $id_objeto==11){
     if ($result_consultarp[0] > 0) {
         // hay compras asociadas, no se puede eliminar el proveedor
        
@@ -99,7 +99,7 @@ if($query_delete){
         }
     }
     }else{
-        if($va_primer_ingreso=="NO"  && $id_objeto==11){
+        if($va_primer_ingreso==0 && $id_objeto==11){
             echo
             '<script>
             alert("usted no tiene permisos para Eliminar un proveedor");

@@ -1,10 +1,15 @@
 <?php
 session_start();
-if(!isset ($_SESSION['usuario'])){
+if (isset($_SESSION['id_usuario'])) {
+    // Si el usuario ha iniciado sesión, mostrar el campo de entrada con su ID de usuario
+    $usuarioinicio = $_SESSION['id_usuario'];
+    echo ' <input type="hidden"value="'.  $usuarioinicio.'" readonly>';
+} else {
+    // Si el usuario no ha iniciado sesión, mostrar un mensaje de error o redirigir a la página de inicio de sesión
     echo '
     <script>
     alert("Por favor, debe iniciar seccion");
-    window.location= "index.php";
+    window.location= "../index.php";
     </script>
     ';
     //header("localitation: index.php");
@@ -121,7 +126,7 @@ if(!isset ($_SESSION['usuario'])){
   <button type="submit" class="boton-buscar">Buscar</button>
   
   
-  <a href="../../../fpdf/reporteparametros.php" target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
+  <a href="../../../fpdf/reportepermisos.php" target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
 
 </form>
@@ -141,8 +146,8 @@ if(!isset ($_SESSION['usuario'])){
       <thead> 
         <tr>
        <th style="display: none;">id_permiso</th>
-        <th>id_rol</th>
-        <th>id_objeto</th>
+        <th>Rol</th>
+        <th>permiso Asiganado</th>
         <th>permiso insertar</th>
         <th>permiso eliminar</th>
         <th>permiso Actualizar</th>
@@ -169,6 +174,7 @@ if(!isset ($_SESSION['usuario'])){
         $sql_register =mysqli_query($conex,"SELECT COUNT(*) as total_registro FROM tbl_ms_permisos");
         $result_register = mysqli_fetch_array($sql_register);
         $total_registro = $result_register['total_registro'];
+        
         $por_pagina = 10;
         if(empty($_GET['pagina'])){
           $pagina = 1;
@@ -178,21 +184,23 @@ if(!isset ($_SESSION['usuario'])){
 
        $desde = ($pagina-1) * $por_pagina;
        $total_paginas = ceil($total_registro / $por_pagina);
-
-        $query = mysqli_query($conex,"SELECT id_permisos, id_rol, id_objeto, permiso_insercion, permiso_eliminacion,permiso_actualizacion,permiso_consultar,creado_por,
-      fecha_creacion, modificado_por,fecha_modificacion FROM tbl_ms_permisos  ORDER BY id_permisos ASC LIMIT $desde,$por_pagina;");
-
      
-        $result = mysqli_num_rows($query);
-        if($result > 0){ //si hay registros
+    
+       $query = mysqli_query($conex,"SELECT p.id_permisos, r.rol , o.objeto , p.permiso_insercion, p.permiso_eliminacion, p.permiso_actualizacion, p.permiso_consultar, p.creado_por,
+       p.fecha_creacion, p.modificado_por, p.fecha_modificacion 
+       FROM tbl_ms_permisos p INNER JOIN tbl_ms_rol r on p.id_rol = r.id_rol INNER JOIN tbl_ms_objetos o on p.id_objeto = o.id_objeto ORDER BY p.id_permisos ASC LIMIT $desde,$por_pagina;");
 
-            while($data = mysqli_fetch_array($query)){
-        ?>
-        
-         <tr>
-         <td style="display: none;"><?php echo $data["id_permisos"] ?></td>
-            <td><?php echo $data["id_rol"] ?></td>
-            <td><?php echo $data["id_objeto"] ?></td>
+    
+       $result = mysqli_num_rows($query);
+       if($result > 0){ //si hay registros
+
+           while($data = mysqli_fetch_array($query)){
+       ?>
+       
+        <tr>
+        <td style="display: none;"><?php echo $data["id_permisos"] ?></td>
+           <td><?php echo $data["rol"] ?></td>
+           <td><?php echo $data["objeto"] ?></td>
             <td><?php  echo $data["permiso_insercion"] ?></td>
             <td><?php echo $data["permiso_eliminacion"] ?></td>
             <td><?php echo $data["permiso_actualizacion"] ?></td>
@@ -202,7 +210,8 @@ if(!isset ($_SESSION['usuario'])){
             <td><?php echo $data["modificado_por"] ?></td>
             <td><?php echo $data["fecha_modificacion"] ?></td>
             <td> <a type="button" class="link_edit" href="editarpermisos.php?id=<?php echo $data["id_permisos"]; ?>"><i class='bx bx-edit'></i></a>
-
+ 
+            <a type="button"class="link_delete" href="eliminar_permisos.php?id=<?php echo $data["id_permisos"]; ?>"><i class='bx bxs-trash'></i></a>
              </td>
         </tr>
         <?php

@@ -76,7 +76,7 @@ if (!empty($_POST)) {
                   $obtener_primer_ingreso = mysqli_query($conex,$usuarioprimero);
                   $filai_primer = mysqli_fetch_array($obtener_primer_ingreso);
                   $va_primer_ingreso =$filai_primer ['permiso_actualizacion'];
-                  if($va_primer_ingreso=="SI" && $id_objeto==12 ){
+                  if($va_primer_ingreso==1 && $id_objeto==12 ){
             if ($query_update) {
                 echo
                 '<script>
@@ -98,11 +98,12 @@ if (!empty($_POST)) {
             }
         
         }else{
-           if($va_primer_ingreso=="NO" && $id_objeto==12){
+           if($va_primer_ingreso==0 && $id_objeto==12){
+            
             echo
             '<script>
-            alert("usted no tiene permisos para Editar el proveedor");
-            window.location= "../seguridad/proveedores.php";
+            alert("usted no tiene permisos para Editar un parametro");
+            window.location= "parametros.php";
             </script>
             ';
     }

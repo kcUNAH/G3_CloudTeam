@@ -16,15 +16,7 @@ if (!isset($_SESSION['usuario'])) {
     die();
 }
 ?>
-
-
 <?php
-
-
-
-
-
-
 if (!empty($_POST)) {
 
     if (empty($_POST['rol']) || empty($_POST['descripcion']) ) //Si van vacios nos muestra el mensaje de erro, sino capturalos datos
@@ -46,12 +38,25 @@ if (!empty($_POST)) {
        // $modificado_por = $_POST['modificado_por '];
        // $fecha_modificacion = $_POST['fecha_modificacion'];
         $estado = 'NUEVO';
-       
+        $id_objeto=16;
+$d=strtotime("today");
+date("Y-m-d h:i:sa", $d);
+
+
+
+
         $query = mysqli_query($conex, "SELECT * FROM tbl_ms_rol 
         WHERE rol = '$rol'");
-
         $result = mysqli_fetch_array($query);
 
+
+      
+        $usuarioprimero = "SELECT permiso_insercion FROM tbl_ms_permisos WHERE id_objeto =  $id_objeto";
+        $obtener_primer_ingreso = mysqli_query($conex,$usuarioprimero);
+        $filai_primer = mysqli_fetch_array($obtener_primer_ingreso);
+        $va_primer_ingreso =$filai_primer ['permiso_insercion'];
+        if($va_primer_ingreso==1 && $id_objeto==16){
+        
         if ($result > 0) {
             // $alert= '<p class= "msg_error">El usuario ya existe.</p>';
             echo
@@ -65,50 +70,70 @@ if (!empty($_POST)) {
             $descripcion = 'intento ingresar un ROL ya existente';
             bitacora($codigoObjeto, $accion, $descripcion);
         } else {
+             
+      
+
             $query_insert = mysqli_query($conex, "INSERT INTO tbl_ms_rol(rol, descripcion,
             creado_por, fecha_creacion, estado)
             VALUES('$rol','$descripcion','$creado_por','$fecha_creacion',
              '$estado')");
-
+  $ultimo_id= mysqli_insert_id($conex);
 
             if ($query_insert) {
                 //  $alert= '<p class= "msg_save">El usuario se ha creado.</p>';
-                echo
-                        '<script>
+              
+                
+              $query_proveedores = mysqli_query($conex, "INSERT INTO tbl_ms_permisos (id_rol,id_objeto, permiso_insercion, permiso_eliminacion, permiso_actualizacion, permiso_consultar, creado_por, fecha_creacion, modificado_por, fecha_modificacion) 
+            VALUES ($ultimo_id,11,0,0,0,0, 'ADMINISTRADOR', '$fecha_creacion', 'ADMINISTRADOR', CURTIME())");
+             $query_parametro = mysqli_query($conex, "INSERT INTO tbl_ms_permisos (id_rol,id_objeto, permiso_insercion, permiso_eliminacion, permiso_actualizacion, permiso_consultar, creado_por, fecha_creacion, modificado_por, fecha_modificacion) 
+             VALUES ($ultimo_id,12,0,0,0,0, 'ADMINISTRADOR', '$fecha_creacion', 'ADMINISTRADOR', CURTIME())");
+            $query_inventario = mysqli_query($conex, "INSERT INTO tbl_ms_permisos (id_rol,id_objeto, permiso_insercion, permiso_eliminacion, permiso_actualizacion, permiso_consultar, creado_por, fecha_creacion, modificado_por, fecha_modificacion) 
+            VALUES ($ultimo_id, 13,0,0,0,0, 'ADMINISTRADOR', '$fecha_creacion', 'ADMINISTRADOR', CURTIME())");
+            $query_producto = mysqli_query($conex, "INSERT INTO tbl_ms_permisos (id_rol,id_objeto, permiso_insercion, permiso_eliminacion, permiso_actualizacion, permiso_consultar, creado_por, fecha_creacion, modificado_por, fecha_modificacion) 
+            VALUES ($ultimo_id, 14,0,0,0,0, 'ADMINISTRADOR', '$fecha_creacion', 'ADMINISTRADOR', CURTIME())");
+           $query_clientes = mysqli_query($conex, "INSERT INTO tbl_ms_permisos (id_rol,id_objeto, permiso_insercion, permiso_eliminacion, permiso_actualizacion, permiso_consultar, creado_por, fecha_creacion, modificado_por, fecha_modificacion) 
+           VALUES ($ultimo_id, 15,0,0,0,0, 'ADMINISTRADOR', '$fecha_creacion', 'ADMINISTRADOR', CURTIME())");
+          $query_compra = mysqli_query($conex, "INSERT INTO tbl_ms_permisos (id_rol,id_objeto, permiso_insercion, permiso_eliminacion, permiso_actualizacion, permiso_consultar, creado_por, fecha_creacion, modificado_por, fecha_modificacion) 
+          VALUES ($ultimo_id, 17,0,0,0,0, 'ADMINISTRADOR', '$fecha_creacion', 'ADMINISTRADOR', CURTIME())");
+         
+          
+           
+           
+           
+           
+           
+           
+           echo       
+               '<script>
                 alert("Creador ROL correctamente");
                 window.location= "rol.php";
                 </script>
                 ';
-
-              
+               
                 $codigoObjeto = 7;
                 $accion = 'Registro';
                 $descripcion = 'El usuario registro un ROL nuevo';
                 bitacora($codigoObjeto, $accion, $descripcion);
-            } else {
-                // $alert= '<p class= "msg_error">Error al crear el usario.</p>';
-                echo
-                    '<script>
-                alert("Error al crear el ROL");
-                window.location= "rol.php";
-                </script>
-                ';
-                $codigoObjeto = 7;
-                $accion = 'Registro';
-                $descripcion = 'Error al intentar crear un ROL';
-                bitacora($codigoObjeto, $accion, $descripcion);
+              }
             }
-        }
-    }
-}
-
-
-
-
-
-?>
-
-
+            }else{
+                if($va_primer_ingreso==0){
+                    echo
+                    '<script>
+                    alert("usted no tiene permisos para crear un Rol");
+                    window.location= "rol.php";
+                    </script>
+                    ';
+            }
+            
+            }
+               
+                    
+                }
+                
+            }
+            
+            ?>
 
 <!DOCTYPE html>
 <html lang="en">

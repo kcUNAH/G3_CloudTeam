@@ -49,7 +49,8 @@ if (!empty($_POST)) {
       
         $query = mysqli_query($conex, "SELECT * FROM tbl_proveedores WHERE nombre_proveedor = '$nombre_proveedor' or correo_proveedor = '$correo_proveedor' ");
         $result = mysqli_fetch_array($query);
-        if($va_primer_ingreso=="SI" && $id_objeto==11){
+        if($va_primer_ingreso==1 && $id_objeto==11){
+
 
         if ($result > 0) {
             // $alert= '<p class= "msg_error">El usuario ya existe.</p>';
@@ -97,7 +98,7 @@ if (!empty($_POST)) {
             }
         }
         }else{
-            if($va_primer_ingreso=="NO"){
+            if($va_primer_ingreso==0){
                 echo
                 '<script>
                 alert("usted no tiene permisos para crear un proveedor");

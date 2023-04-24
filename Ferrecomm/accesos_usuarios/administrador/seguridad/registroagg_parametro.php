@@ -52,7 +52,7 @@ date("Y-m-d h:i:sa", $d);
         $obtener_primer_ingreso = mysqli_query($conex,$usuarioprimero);
         $filai_primer = mysqli_fetch_array($obtener_primer_ingreso);
         $va_primer_ingreso =$filai_primer ['permiso_insercion'];
-        if($va_primer_ingreso=="SI" && $id_objeto==12){
+        if($va_primer_ingreso==1 && $id_objeto==12){
         if ($result > 0) {
             // $alert= '<p class= "msg_error">El usuario ya existe.</p>';
             echo
@@ -99,11 +99,11 @@ date("Y-m-d h:i:sa", $d);
             }
         }
         }else{
-            if($va_primer_ingreso=="NO"){
+            if($va_primer_ingreso==0){
                 echo
                 '<script>
-                alert("usted no tiene permisos para crear un proveedor");
-                window.location= "../seguridad/parametros.php";
+                alert("usted no tiene permisos para crear un parametro");
+                window.location= "parametros.php";
                 </script>
                 ';
         }

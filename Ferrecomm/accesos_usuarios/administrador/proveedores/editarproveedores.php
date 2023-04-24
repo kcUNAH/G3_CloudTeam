@@ -42,7 +42,7 @@ if(!isset ($_SESSION['usuario'])){
             $obtener_primer_ingreso = mysqli_query($conex,$usuarioprimero);
             $filai_primer = mysqli_fetch_array($obtener_primer_ingreso);
             $va_primer_ingreso =$filai_primer ['permiso_actualizacion'];
-            if($va_primer_ingreso=="SI" && $id_objeto==11 ){
+            if($va_primer_ingreso==1 && $id_objeto==11 ){
             if($result > 0){ //Si ya existe manda eel mensaje 
                 $alert= '<p class= "msg_error">El proveedor ya existe.</p>';
             }else{
@@ -78,7 +78,7 @@ if(!isset ($_SESSION['usuario'])){
                 }
         
                     }else{
-                       if($va_primer_ingreso=="NO" && $id_objeto==11){
+                       if($va_primer_ingreso==0 && $id_objeto==11){
                         echo
                         '<script>
                         alert("usted no tiene permisos para Editar el proveedor");
