@@ -312,12 +312,12 @@ if (mysqli_query($conex, $sql)) {
 
             <input type="hidden"   name=" id_permisos" id=" id_permisos "  value="<?php echo  $id_permisos;?>" >
 
-            <p>id_rol:
+            <p>Rol:
 				
                 <input type="text" class="field"  name="id_rol" id="id_rol" style="text-transform:uppercase;" value="<?php echo   $id_rol;?>" disabled>
                   </p>
   
-                      <p>id_objeto:
+                      <p>Permiso Asignado:
               <input type="text" class="field"  name="id_objeto" id="id_objeto"   maxlength="2"  value="<?php echo $id_objeto;?>" disabled>
                       </p>  
                     
