@@ -181,62 +181,52 @@ function guardaryeditar(e)
 }
 
 }
-function actualizar()
-{
-	var formData = new FormData($("#formulario2")[0]);
+function actualizar() {
 
-	$.ajax({
-		url: "../../modelos/ComprasControlador.php?op=actualizar",
-	    type: "POST",
-	    data: formData,
-	    contentType: false,
-	    processData: false,
-
-		success: function(datos)
-		{                    
-			bootbox.alert({
-				message: datos,
-				callback: function() {
-					
-				}
-			});	          
-			
-		tableRoles.api().ajax.reload();	
+	var formrol = document.querySelector('#formularioactualizar');
+	formrol.onsubmit = function(e) {
+	  e.preventDefault();
+  
+	  var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+	  var ajaxUrl = "../../modelos/ComprobantesControlador.php?op=actualizar";
+	  var formData = new FormData(formrol);
+	  request.open("POST", ajaxUrl, true);
+	  request.send(formData);
+  
+	  request.onreadystatechange = function() {
+		if (this.readyState === 4 && this.status === 200) {
+		  var response = this.responseText;
+		  $("#myModal").modal("hide");
+		  // Muestra el mensaje utilizando bootbox.alert()
+		  bootbox.alert(response, function() {
+			// Minimiza el modal después de mostrar el mensaje
+			tableRoles.api().ajax.reload();	
 		
+		  });
 		}
-		
-
-	});
-
-}
+	  };
+	}
+  }
+  
 function mostrar(idingreso)
 {
-	$.post("../../modelos/ComprasControlador.php?op=mostrar",{idingreso : idingreso}, function(data, status)
+	$.post("../../modelos/ComprobantesControlador.php?op=mostrar",{idingreso : idingreso}, function(data, status)
 	{
 		//window.location.href = '../administrador/mostrarcompra.php';
 		data = JSON.parse(data);		
 		mostrarform(true);
 
-		$("#idproveedor").val(data.id_proveedor);
-		$("#idproveedor").selectpicker('refresh');
-		$("#tipo_comprobante").val(data.tipo_comprobante);
-		$("#tipo_comprobante").selectpicker('refresh');
-		$("#estadoc").val(data.id_estado_compras);
-		$("#estadoc").selectpicker('refresh');
-		$("#num_comprobante").val(data.id_compra);
-		$("#fecha_hora").val(data.fecha);
-		$("#impuesto").val(data.impuesto);
-		$("#idingreso").val(data.id_compra);
-
+		$("#idComprobante").val(data.id_comprobante);
+		$("#EstadoComprobante").val(data.estado);
+		$("#EstadoComprobante").selectpicker('refresh');
+		$("#Descripcion").val(data.descripcion);
+		$("#NombreComprobante").val(data.nombre);
+	
 		//Ocultar y mostrar los botones
-		$("#btnGuardar").hide();
 		$("#btnCancelar").show();
-		$("#btnAgregarArt").hide();
+		
  	});
 
- 	$.post("../../modelos/ComprasControlador.php?op=listarDetalle&id="+idingreso,function(r){
-	        $("#detalles").html(r);
-	});
 }
 
 //Función para anular registros

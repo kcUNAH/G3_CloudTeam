@@ -73,82 +73,54 @@ margin-left: -3px;">
                   <div class="panel-body table-responsive" id="listadoregistros">
 
                   </div>
-                  <div class="panel-body" style="height: auto;" id="formularioregistros2">
-                    <form name="formulario2" id="formulario2" method="POST">
-                      <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                        <label>Proveedor(*):</label>
-                        <input type="hidden" name="idingreso" id="idingreso">
-                        <select id="idproveedor" name="idproveedor" class="form-control selectpicker"
-                          data-live-search="true" required disabled >
-
-                        </select>
-                      </div>
-                      <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                        <label>Fecha(*):</label>
-                        <input type="date" class="form-control" name="fecha_hora" id="fecha_hora" required="" 
-                          value="" disabled>
-                      </div>
-                      <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        <label>Tipo Comprobante(*):</label>
-                        <select name="tipo_comprobante" id="tipo_comprobante" class="form-control selectpicker"
-                          required="" disabled>
-                          <option value="Boleta">Boleta</option>
-                          <option value="Factura">Factura</option>
-                          <option value="Ticket">Ticket</option>
-                        </select>
-                      </div>
-                
-
-                      <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                        <label>Nº Compra:</label>
-                        <input type="text" class="form-control" name="num_comprobante" id="num_comprobante"
-                          maxlength="10" placeholder="" required="" readonly>
-                      </div>
-                      <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                        <label>Impuesto:</label>
-                        <input type="text" class="form-control" name="impuesto1" id="impuesto1" value="15%">
-                      </div>
-                      <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <a data-toggle="modal" href="#myModal">
-                          <button id="btnAgregarArt" type="button" class="btn btn-primary"> <span
-                              class="fa fa-plus"></span> Agregar Productos</button>
-                        </a>
-                      </div>
-
-                      <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-                        <table id="detalles" class="table table-striped table-bordered table-condensed table-hover">
-                          <thead
-                            style="width: 130.083px; background-color', 'rgba(255, 102, 0, 0.911)">
-                         
-                            <th>Producto</th>
-                            <th>Cantidad</th>
-                            <th>Precio Compra</th>
-                            <th> subtotal</th>
-                            <th>isv</th>
-                            <th>Total</th>
-                          </thead>
-                          <tfoot>
-                            <th>TOTAL</th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
+                  <div class="panel-body" style="height: auto;" id="formularioactualizar2">
+                  <form name="formularioactualizar" id="formularioactualizar" method="POST">
+                            <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                <label>Nombre Comprobante :</label>
+                                <input type="text" class="form-control" style="text-transform:uppercase;" onblur="cambiarAMayusculas(this);" name="NombreComprobante" id="NombreComprobante"
+                                    maxlength="20" placeholder="" required=""
+                                    onkeyup="validarTextbox()" ></input>
+                              
+                            </div>
+                            <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                <label>Descripcion de Comprobante :</label>
+                                <input type="text" class="form-control" style="text-transform:uppercase;" onblur="cambiarAMayusculas(this);" name="Descripcion" id="Descripcion"
+                                    maxlength="20" placeholder="" required=""
+                                    onkeyup="validarTextbox()" ></input>
+                                    
                             
-                            <th>
-                              <h4 id="total">L. 0.00</h4><input type="hidden" name="total_compra" id="total_compra">
-                            </th>
-                          </tfoot>
-                          <tbody>
+                            </div>
+                          
+                            <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <label>Estado Comprobante </label>
+                                <input type="hidden" name="idComprobante" id="idComprobante">
+                                <select name="EstadoComprobante" id="EstadoComprobante" class="form-control selectpicker"
+                                    required="">
+                                    <option value="Activo">Activo</option>
+                                    <option value="Inactivo">Inactivo</option>
+                                  
+                                </select>
+                            </div>
+                           
+                            <script>
+                        function cambiarAMayusculas(elemento) {
+                            let texto = elemento.value;
+                            elemento.value = texto.toUpperCase();
+                        }
+                    </script>
+                        
 
-                          </tbody>
-                        </table>
-                      </div>
 
-                      <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                      </div>
-                    </form>
+
+                            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <button class="btn btn-primary" onclick=" actualizar();" type="submit"
+                                    id="actualizabtn"><i class="fa fa-save"></i>
+                                    Actualizar</button>
+
+                                <button id="btnCancelar" class="btn btn-danger" onclick="cancelarform()"
+                                    type="button"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
+                            </div>
+                        </form>
                   </div>
                   <!--Fin centro -->
                 </div><!-- /.box -->
@@ -360,7 +332,7 @@ h1 {
       </div>
     </div>
     </form>
-    <script src="formularioproducto.js"></script>
+    
 
     <script>
       let sidebar = document.querySelector(".sidebar");
@@ -408,7 +380,7 @@ h1 {
 
     <!-- AdminLTE App -->
     <script src="../public/js/app.min.js"></script>
-    <script src="formularioproducto.js"></script>
+   
     <!-- DATATABLES -->
     <script src="../public/datatables/jquery.dataTables.min.js"></script>
     <script src="../public/datatables/dataTables.buttons.min.js"></script>
@@ -429,5 +401,4 @@ h1 {
 
 
 </body>
-
 </html>

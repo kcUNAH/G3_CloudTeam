@@ -50,9 +50,22 @@ switch ($_GET["op"]){
 	break;
 	case 'actualizar':
 		
-	
-	
- 		echo $datos ? "Compra Actualizada" : "Compra no se puede Actualizada";
+		//dep($_POST);
+		//die();
+		$nombreComprobante = $_POST['NombreComprobante'];
+		$descripcion = $_POST['Descripcion'];
+		$idComprobante = $_POST['idComprobante'];
+		$estadoComprobante = $_POST['EstadoComprobante'];
+		
+		$sentencia = "UPDATE tbl_comprobantes_compra SET nombre = '$nombreComprobante', descripcion = '$descripcion', estado = '$estadoComprobante' WHERE id_comprobante = $idComprobante";
+		$resultado = $conn->query($sentencia);
+		
+		if($resultado){
+			echo "Comprobante actualizado con exito";
+		} else{
+			echo "Error al realizar el update: ";
+		}
+		
 		
 		
 	break;
@@ -74,8 +87,15 @@ switch ($_GET["op"]){
 	break;
 
 	case 'mostrar':
+		//dep($_POST);
+		//die();
+		$idComprobante = $_POST['idingreso'];
+$sentencia = "SELECT * FROM tbl_comprobantes_compra WHERE id_comprobante = $idComprobante";
+$datos = $conn->query($sentencia);
+		$fila = $datos->fetch_assoc();
+		echo json_encode($fila);
 
-
+		break;
 	case 'listarDetalle':
 	
 
@@ -96,7 +116,7 @@ switch ($_GET["op"]){
          // Recorrer los resultados de la consulta y agregarlos a la matriz de datos
          
          while ($row = $datos->fetch_assoc()) {
-			$btnEdit = "<button type='button' style='color: green; background-color: #fff; border-color: #fff;' class='btn btn-primary btn-sm link_edit'  onclick='mostrar2(" . $row['id_comprobante'] . ")'><i class='bx bx-edit'></i></button>";
+			$btnEdit = "<button type='button' style='color: green; background-color: #fff; border-color: #fff;' class='btn btn-primary btn-sm link_edit' data-toggle='modal' data-target='#myModal' onclick='mostrar(" . $row['id_comprobante'] . ")'><i class='bx bx-edit'></i></button>";
 
              $btnDelete = "<button type='button' class='btn btn-primary btn-sm link_delete' style='color: red; background-color: #fff; border-color: #fff;' onclick='anular(" . $row['id_comprobante'] . ")'><i class='bx bxs-trash'></i></button>";
           
