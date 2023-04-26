@@ -1,18 +1,8 @@
 <?php
-session_start();
+
 
 date_default_timezone_set('America/Tegucigalpa');
-if(!isset ($_SESSION['usuario'])){
-    echo '
-    <script>
-    alert("Por favor, debe iniciar seccion");
-    window.location= "../../../index.php";
-    </script>
-    ';
-    //header("localitation: index.php");
-    session_destroy();
-    die();
-}
+
 
 
 ?>
