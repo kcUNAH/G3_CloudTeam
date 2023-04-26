@@ -281,15 +281,16 @@ $sql3=mysqli_query($conexion, "SELECT isv from tbl_venta where id_venta = $id");
 $row3=mysqli_fetch_assoc($sql3);
 $ISV=$row3['isv'];
 
-$descuento_promo = (($totalpromocion / 100)*$descuento);
+$descuento_promo = (($totalpromocion/100)*$descuento);
 
 $impuesto_promo = (($totalpromocion/100)*15);
 $impuestofinal= $ISV+$impuesto_promo;
-
 $descuento_aplicado = (($total / 100)*$descuento);
+$subtotalpromocion = $totalpromocion - $impuesto_promo;
+
 $descuentotal= $descuento_promo +$descuento_aplicado;
-$subtotal_final=($subtotal+$sub_total_promociones-$impuesto_promo);
-$total_final=$subtotal+$totalpromocion+$ISV-$descuentotal;
+$subtotal_final=($subtotal+$totalpromocion-$impuesto_promo);
+$total_final=$subtotal+$subtotalpromocion+$impuestofinal-$descuentotal;
 
 
 /*----------  Fin Detalles de la tabla  ----------*/
@@ -314,7 +315,7 @@ $pdf->Ln(7);
 $pdf->Cell(100, 7, utf8_decode(''), '', 0, 'C');
 $pdf->Cell(15, 7, utf8_decode(''), '', 0, 'C');
 $pdf->Cell(32, 7, utf8_decode("DESCUENTO ($descuento %) : "), '', 0, 'C');
-$pdf->Cell(34, 7, number_format($descuento_aplicado, 2, '.', ','), '', 0, 'C');
+$pdf->Cell(34, 7, number_format($descuentotal, 2, '.', ','), '', 0, 'C');
 
 $pdf->Ln(7);
 
@@ -331,7 +332,7 @@ $pdf->Ln(7);
 $pdf->Cell(100, 7, utf8_decode(''), '', 0, 'C');
 $pdf->Cell(15, 7, utf8_decode(''), '', 0, 'C');
 $pdf->Cell(32, 7, utf8_decode("USTED AHORRA"), '', 0, 'C');
-$pdf->Cell(34, 7, utf8_decode("$descuento_aplicado LPS."), '', 0, 'C');
+$pdf->Cell(34, 7, utf8_decode("$descuentotal LPS."), '', 0, 'C');
 
 $pdf->Ln(12);
 
