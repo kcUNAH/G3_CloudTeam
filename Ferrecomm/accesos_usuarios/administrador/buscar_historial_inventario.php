@@ -28,7 +28,10 @@
       $busqueda = strtolower($_REQUEST['busqueda']);
       if(empty($busqueda))
       {
-        header("Location: VerMasInventario.php");
+        echo '<script>
+         window.location= "VerMasInventario.php";
+        </script>
+        ';
       }
       ?>
 

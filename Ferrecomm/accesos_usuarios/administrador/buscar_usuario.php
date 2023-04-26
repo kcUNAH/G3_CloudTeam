@@ -29,7 +29,10 @@
       $busqueda = strtolower($_REQUEST['busqueda']);
       if(empty($busqueda))
       {
-        header("Location: GestionUsuarios.php");
+        echo '<script>
+         window.location= "GestionUsuarios.php";
+        </script>
+        ';
       }
       ?>
 
