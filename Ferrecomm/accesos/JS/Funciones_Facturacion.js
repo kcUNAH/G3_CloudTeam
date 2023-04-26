@@ -188,7 +188,7 @@ $(document).ready(function () {
     });
 
 
-   
+
 
 
     // validar cantidad del producto  
@@ -211,6 +211,136 @@ $(document).ready(function () {
     });
 
 
+    // validar cantidad de promociones 
+    $('#txt_cant_promocion').keyup(function (e) {
+        e.preventDefault();
+        var cantidad = $(this).val();
+        var precio = $('#txt_Precio_promocion').html();
+        var precio_total = cantidad * precio;
+
+        $('#txt_Precio_total_promocion').html(precio_total);
+
+        //ocultar boton de agregar si la cantidad es menor que 1 O si la cantidad ingresada es mayor que la existente 
+        if (($(this).val() < 1 || isNaN($(this).val()))) {
+            $('#add_promocion_venta').slideUp();
+        } else {
+            $('#add_promocion_venta').slideDown();
+        }
+
+    });
+
+    //agregar promocion a la tabla temporal 
+    $('#add_promocion_venta').click(function (e) {
+        e.preventDefault();
+
+        if ($('#txt_cant_promocion').val() > 0) {
+            var codproducto = $('#txt_cod_promocion').val();
+            var cantidad = $('#txt_cant_promocion').val();
+            var descuento = $('#txt_descuento').val();
+            var action = 'addPromocionDetalle';
+            var impuesto_promocion = 0;
+            var total_sin_impuesto_promocion = 0;
+            var totalpromocion = 0;
+            var descuento_promocion = 0;
+
+            if (descuento == '') {
+                descuento = 1;
+            }
+
+            $.ajax({
+                url: '../../accesos_usuarios/administrador/ajax.php',
+                type: "POST",
+                async: true,
+                data: { action: action, producto: codproducto, cantidad: cantidad, descuento, descuento },
+
+                success: function (response) {
+                    if (response != 'error') {
+
+                        var id = $('#id').val();
+                        searchfordetalle(id);
+                        var info = JSON.parse(response);
+                        console.log(info);
+                        impuesto_promocion = info.impuesto //total_promocion
+                        $('#total_promocion').val(info.total);
+                        $('#detalle_venta_promociones').html(info.detalle);
+                        // vaciar campos 
+
+
+                        // prueba
+                        var action = 'Union_tablas';
+                        var producto = 1;
+                        var cantidad = 1;
+                        totalpromocion = info.total;
+
+                        $.ajax({
+                            url: '../../accesos_usuarios/administrador/ajax.php',
+                            type: "POST",
+                            async: true,
+                            data: { action: action, producto: producto, cantidad: cantidad, total: totalpromocion, descuento:descuento },
+
+                            success: function (response) {
+                                if (response != 'error') {
+                                    var info = JSON.parse(response);
+                                    $('#detalle_venta').html(info.detalle);
+                                    $('#detalle_totales').html(info.totales);
+
+                                } else {
+                                    console.log('Sin Datos')
+                                }
+                                viewProcesar();
+
+                            },
+                            error: function (error) {
+
+                            }
+                        });
+
+
+
+
+
+                        $('#txt_cod_promocion').val('');
+                        $('#txt_descripcion_promocion').html('--');
+                        $('#txt_cant_promocion').val('0');
+                        $('#txt_Precio_promocion').html('0.00');
+                        $('#txt_Precio_total_promocion').html('0.00');
+
+                        // bloquear impunt 
+                        $('#txt_cant_promocion').attr('disabled', 'disabled');
+
+                        //ocultar boton agregar 
+                        $('#add_promocion_venta').slideUp();
+                    } else {
+                        console.log('Sin Datos')
+                    }
+                    viewProcesar();
+
+                },
+                error: function (error) {
+
+                }
+            });
+
+            // segundo ajax 
+
+
+
+
+
+
+
+
+
+
+
+        }
+        totalpromocion = $('#total_promocion').val();
+        console.log('total fuera de ajax: ' + totalpromocion);
+        console.log(totalpromocion);
+
+    })
+
+
     //Agregar producto al detalle temporal
     $('#add_product_venta').click(function (e) {
         e.preventDefault();
@@ -221,7 +351,9 @@ $(document).ready(function () {
             var descuento = $('#txt_descuento').val();
             var action = 'addProductoDetalle';
 
-            if(descuento == ''){
+
+
+            if (descuento == '') {
                 descuento = 1;
             }
 
@@ -229,7 +361,7 @@ $(document).ready(function () {
                 url: '../../accesos_usuarios/administrador/ajax.php',
                 type: "POST",
                 async: true,
-                data: { action: action, producto: codproducto, cantidad: cantidad, descuento,descuento },
+                data: { action: action, producto: codproducto, cantidad: cantidad, descuento, descuento },
 
                 success: function (response) {
                     if (response != 'error') {
@@ -260,6 +392,8 @@ $(document).ready(function () {
 
                 }
             });
+
+
 
 
 
@@ -312,15 +446,15 @@ $(document).ready(function () {
             var id_pago = $('#txt_tipo_pago').val();
             var id_descuentos = $('#txt_descuento').val();
 
-            if(id_descuentos == ''){
+            if (id_descuentos == '') {
                 id_descuentos = 1;
             }
 
-            if(id_pago == ''){
+            if (id_pago == '') {
                 id_pago = 1;
             }
 
-            if(id_tip_venta == ''){
+            if (id_tip_venta == '') {
                 id_tip_venta = 1;
             }
 
@@ -333,7 +467,7 @@ $(document).ready(function () {
                 url: '../../accesos_usuarios/administrador/ajax.php',
                 type: "POST",
                 async: true,
-                data: { action: action, codcliente: codcliente, fecha: fecha, id_tip_venta : id_tip_venta, id_pago : id_pago, id_descuentos : id_descuentos},
+                data: { action: action, codcliente: codcliente, fecha: fecha, id_tip_venta: id_tip_venta, id_pago: id_pago, id_descuentos: id_descuentos },
 
                 success: function (response) {
                     if (response != 'error') {
@@ -362,7 +496,7 @@ $(document).ready(function () {
         e.preventDefault();
         var codcliente = $(this).attr('cl');
         var factura = $(this).attr('f');
-        generarPDF(codcliente,factura);
+        generarPDF(codcliente, factura);
 
     })
 
@@ -372,9 +506,9 @@ $(document).ready(function () {
         console.log('entro');
         e.preventDefault();
         var factura = $(this).attr('fac');
-        var action='anular_venta';
+        var action = 'anular_venta';
         var today = new Date();
-        var fecha = new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString();        
+        var fecha = new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString();
         $.ajax({
             url: '../../accesos_usuarios/administrador/ajax.php',
             type: "POST",
@@ -383,23 +517,23 @@ $(document).ready(function () {
 
             success: function (response) {
                 if (response != 'error') {
-                    
+
 
                     Swal.fire({
                         title: 'Factura anulada con exito',
                         showClass: {
-                          popup: 'animate__animated animate__fadeInDown'
+                            popup: 'animate__animated animate__fadeInDown'
                         },
                         hideClass: {
-                          popup: 'animate__animated animate__fadeOutUp'
+                            popup: 'animate__animated animate__fadeOutUp'
                         }
-                      })
+                    })
 
-                      var reinciar= location.reload()
+                    var reinciar = location.reload()
 
 
-                      setTimeout( reinciar, 10000);
-                                       
+                    setTimeout(reinciar, 10000);
+
 
                 } else {
                     console.log('no data')
@@ -413,7 +547,8 @@ $(document).ready(function () {
 
 
     })
-    
+
+
 
 
     //fin del ready 
@@ -423,19 +558,23 @@ $(document).ready(function () {
 function generarPDF(cliente, factura) {
     var ancho = 1000;
     var alto = 800;
-    var x = parseInt((window.screen.width / 2) - (ancho/2));
-    var y = parseInt((window.screen.height / 2) - (alto/2));
-    $url = '../../pdf_prueba/generar_factura.php?cl='+cliente+'&f='+factura;
-    window.open($url, "Factura","left="+x+",top="+y+",height="+alto+",width="+ancho+",scrollbar=si,location=no,resizable=si,menubar=no");
+    var x = parseInt((window.screen.width / 2) - (ancho / 2));
+    var y = parseInt((window.screen.height / 2) - (alto / 2));
+    $url = '../../pdf_prueba/generar_factura.php?cl=' + cliente + '&f=' + factura;
+    window.open($url, "Factura", "left=" + x + ",top=" + y + ",height=" + alto + ",width=" + ancho + ",scrollbar=si,location=no,resizable=si,menubar=no");
 }
 
 
 //buscar Descuento select .
 const Descuento = document.querySelector('#selec_descuento');
 Descuento.addEventListener('change', (e) => {
+
     var opcion = $('#selec_descuento').val();
+
+    var x = $('#select2-selec_producto-container').val();
+    console.log('hello');
     var id = $('#id').val();
-     console.log(opcion);
+    console.log(opcion);
     var descuento = opcion;
     $('#txt_descuento').val(descuento);
 
@@ -461,12 +600,10 @@ tipo_pago.addEventListener('change', (e) => {
 })
 
 
- //buscar producto select 
- const producto = document.querySelector('#selec_producto');
+//buscar producto select 
 
- producto.addEventListener('change', (e) => {
-    var opcion = $('#selec_producto').val();
 
+function buscarproducto(opcion) {
     var producto = opcion;
     var action = 'searchProducto';
     $('#txt_cod_producto').val(producto);
@@ -537,10 +674,59 @@ tipo_pago.addEventListener('change', (e) => {
 
         }
     });
+}
+
+const promocion = document.querySelector('#selec_promocion');
+
+promocion.addEventListener('change', (e) => {
+    var opcion = $('#selec_promocion').val();
+
+    var promocion = opcion;
+    var action = 'searchPromocion';
+    $('#txt_cod_promocion').val(promocion);
+
+    $.ajax({
+        url: '../../accesos_usuarios/administrador/ajax.php',
+        type: "POST",
+        async: true,
+        data: { action: action, promocion: promocion },
+
+        success: function (response) {
+            if (response == 'error') {
+                //asignar valores a la tabla 
+                $('#txt_descripcion_promocion').html('--');
+                $('#txt_Precio').html('0.00');
+                $('#txt_Precio_total').html('0.00');
+
+                //habilitar cantidad 
+                $('#txt_cant_promocion').attr('disabled', 'disabled');
+
+                //ocultar boton agregar 
+                $('#add_promocion_venta').slideUp();
+
+            } else {
+                var inforProducto = JSON.parse(response);
+                //asignar valores a la tabla 
+                console.log(inforProducto);
+                $('#txt_descripcion_promocion').html(inforProducto.nombre_promocion);
+                $('#txt_cant_promocion').val('1');
+                $('#txt_Precio_promocion').html(inforProducto.precio_venta);
+                $('#txt_Precio_total_promocion').html(inforProducto.precio_venta);
+                //habilitar cantidad 
+                $('#txt_cant_promocion').removeAttr('disabled');
+                //mostrar bonton agregar 
+                $('#add_promocion_venta').slideDown();
 
 
 
-     });
+            }
+
+        },
+        error: function (error) {
+
+        }
+    });
+});
 
 
 
@@ -611,7 +797,8 @@ function searchfordetalle(id) {
     var action = 'searchfordetalle';
     var user = id;
     var descuento = $('#txt_descuento').val();
-    if(descuento == ''){
+    $('#add_promocion_venta').slideUp();
+    if (descuento == '') {
         descuento = 1;
     }
 
@@ -620,7 +807,7 @@ function searchfordetalle(id) {
         url: '../../accesos_usuarios/administrador/ajax.php',
         type: "POST",
         async: true,
-        data: { action: action, user: user, descuento:descuento },
+        data: { action: action, user: user, descuento: descuento },
 
         success: function (response) {
             if (response != 'error') {

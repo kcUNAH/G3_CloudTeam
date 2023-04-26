@@ -12,6 +12,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php include "Header.php"; ?>
 
+    <link rel="stylesheet" type="text/css" href="select2/select2.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="select2/select2.min.js"></script>
+
 </head>
 
 <body>
@@ -113,7 +117,7 @@
                                 while ($promo = mysqli_fetch_array($query_prom)) {
 
                             ?>
-                                    <option value="<?php echo $promo["id_tip_venta"]; ?>"><?php echo $promo["nombre_tip_venta"]?></option>
+                                    <option value="<?php echo $promo["id_tip_venta"]; ?>"><?php echo $promo["nombre_tip_venta"] ?></option>
                             <?php
                                 }
                             }
@@ -132,7 +136,7 @@
                         $result_prom = mysqli_num_rows($query_prom)
                         ?>
                         <input type="hidden" name="txt_descuento" id="txt_descuento" value="">
-                        
+
 
                         <select name="selec_descuento" id="selec_descuento">
                             <?php
@@ -141,7 +145,7 @@
                                 while ($promo = mysqli_fetch_array($query_prom)) {
 
                             ?>
-                                    <option value="<?php echo $promo["id_descuentos"]; ?>"><?php echo $promo["porcentaje_descontar"]?> %  <?php echo $promo["nombre_descuento"]?></option>
+                                    <option value="<?php echo $promo["id_descuentos"]; ?>"><?php echo $promo["porcentaje_descontar"] ?> % <?php echo $promo["nombre_descuento"] ?></option>
                             <?php
                                 }
                             }
@@ -150,7 +154,7 @@
                         </select>
 
                     </div>
-             
+
                     <div class="w50">
                         <label> Acciones <br><br></label>
 
@@ -186,7 +190,7 @@
 
                             <select name="selec_producto" id="selec_producto">
                                 <?php
-                                echo $option;
+                                echo "<option selected disabled>Selecciona uno</option>";
                                 if ($result_prom > 0) {
                                     while ($promo = mysqli_fetch_array($query_prom)) {
 
@@ -197,7 +201,30 @@
                                 }
 
                                 ?>
+                                <script type="text/javascript">
+                                    $('#selec_producto').select2({
+                                        language: {
+
+                                            noResults: function() {
+
+                                                return "No hay resultado";
+                                            },
+                                            searching: function() {
+
+                                                return "Buscando..";
+                                            }
+                                        }
+                                    });
+                                    $('#selec_producto').change(function(e) {
+                                        opcion = $('#selec_producto').val();
+                                        buscarproducto(opcion);
+                                    })
+                                </script>
+
+
                             </select>
+
+
                         </td>
                         <td id="txt_descripcion">----</td>
                         <td id="txt_existencia">---</td>
@@ -210,8 +237,7 @@
                     <th colspan="7">BUSCAR PROMOCIONES</th>
                     <tr>
                         <th width="100px">Codigo</th>
-                        <th width="100px">Descripcion</th>
-                        <th width="100px">Existencia</th>
+                        <th colspan="2">Descripcion</th>
                         <th width="100px">Cantidad</th>
                         <th class="textright">Precio</th>
                         <th class="textright">Precio Total</th>
@@ -220,13 +246,14 @@
                     <tr>
 
                         <td>
+                        <input type="hidden" name="txt_cod_promocion" id="txt_cod_promocion" value="">
                             <?php
                             include 'conex.php';
                             $query_prom = mysqli_query($conex, "SELECT * from tbl_promociones");
                             $result_prom = mysqli_num_rows($query_prom)
                             ?>
 
-                            <select name="selec_producto" id="selec_producto">
+                            <select name="selec_promocion" id="selec_promocion">
                                 <?php
                                 echo $option;
                                 if ($result_prom > 0) {
@@ -243,12 +270,12 @@
 
                         </td>
 
-                        <td id="txt_descripcion">----</td>
-                        <td id="txt_existencia">---</td>
-                        <td><input type="text" name="txt_cant_producto" id="txt_cant_producto" value="0" min="1" disabled></td>
-                        <td id="txt_Precio" class="textright">0.00</td>
-                        <td id="txt_Precio_total" class="textright">0.00</td>
-                        <td><a href="#" class="btn_accion" id="add_product_venta"><i class="fas fa-plus"></i></a></td>
+                        <td colspan="2" id="txt_descripcion_promocion">----</td>
+                        <td><input type="text" name="txt_cant_promocion" id="txt_cant_promocion" value="0" min="1" disabled></td>
+                        <td id="txt_Precio_promocion" class="textright">0.00</td>
+                        <td id="txt_Precio_total_promocion" class="textright">0.00</td>
+                        <td><a href="#" class="btn_accion" id="add_promocion_venta"><i class="fas fa-plus"></i></a></td>
+
                     </tr>
 
 
@@ -264,6 +291,13 @@
 
                 <tbody id="detalle_venta">
                     <!-- Se utilizara contenido Ajax para llenar la tabla -->
+                </tbody>
+
+                <th colspan="7">PROMOCIONES</th>
+                <input type="hidden" name="total_promocion" id="total_promocion" value="">
+
+                <tbody id="detalle_venta_promociones">
+                    
                 </tbody>
 
                 <tfoot id="detalle_totales">

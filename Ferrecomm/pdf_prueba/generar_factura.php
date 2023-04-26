@@ -126,7 +126,12 @@ $datosC = mysqli_fetch_assoc($clientes);
 $ventas = mysqli_query($conexion, "SELECT d.id_venta, d.id_producto, d.cantidad, d.precio_venta, f.total, p.id_producto, p.nombre_producto, f.fecha_venta 
                                     FROM tbl_producto p  INNER JOIN tbl_venta_detalle d  ON p.id_producto=d.id_producto INNER JOIN tbl_venta f 
                                     ON d.id_venta=f.id_venta WHERE f.fecha_venta='$fecha' and d.id_venta=$id");
-//$ventas2 = mysqli_query($conexion, "SELECT d.id_factura, d.id_promocion, d.cantidad, d.precio, d.total, m.id_promocion, m.descripcion, f.FECHA FROM tbl_promocion m INNER JOIN tbl_factura_detalle d ON m.id_promocion=d.id_promocion INNER JOIN tbl_factura f ON d.id_factura=f.id_factura WHERE f.fecha='$fecha' and d.id_factura=$id");
+
+$ventas2 = mysqli_query($conexion, "SELECT m.cantidad, m.precio_venta, p.nombre_promocion
+									FROM tbl_venta_promocion m 
+									INNER JOIN tbl_promociones p
+									ON m.id_promocion = p.id_promocion
+									WHERE  m.id_venta=$id");
 
 
 
@@ -253,6 +258,20 @@ while ($row = mysqli_fetch_assoc($ventas)) {
 	$pdf->Ln(7);
 }
 
+$totalpromocion = 0.00;
+while ($row = mysqli_fetch_assoc($ventas2)) {
+	$pdf->Cell(90, 7, utf8_decode($row['nombre_promocion']), 'L', 0, 'C');
+	$pdf->Cell(15, 7, utf8_decode($row['cantidad']), 'L', 0, 'C');
+	$pdf->Cell(25, 7, utf8_decode($row['precio_venta']), 'L', 0, 'C');
+	$sub_total_promociones = ($row['cantidad'] * $row['precio_venta']); 
+	$descuento_promociones = (($sub_total_promociones/100)*$descuento);
+	$pdf->Cell(19, 7, number_format($descuento_promociones, 2, '.', ','), 'L', 0, 'C');
+	//$sub_total_promociones = ($row['cantidad'] * $row['precio_venta']);
+	$totalpromocion = $totalpromocion + $sub_total_promociones;
+	$pdf->Cell(32, 7,  number_format($sub_total_promociones, 2, '.', ','), 'LR', 0, 'C');
+	$pdf->Ln(7);
+}
+
 
 $sql3=mysqli_query($conexion, "SELECT subtotal from tbl_venta where id_venta = $id");
 $row3=mysqli_fetch_assoc($sql3);
@@ -262,9 +281,15 @@ $sql3=mysqli_query($conexion, "SELECT isv from tbl_venta where id_venta = $id");
 $row3=mysqli_fetch_assoc($sql3);
 $ISV=$row3['isv'];
 
-$descuento_aplicado = (($total / 100)*$descuento);
+$descuento_promo = (($totalpromocion / 100)*$descuento);
 
-$total_final=$subtotal+$ISV-$descuento_aplicado;
+$impuesto_promo = (($totalpromocion/100)*15);
+$impuestofinal= $ISV+$impuesto_promo;
+
+$descuento_aplicado = (($total / 100)*$descuento);
+$descuentotal= $descuento_promo +$descuento_aplicado;
+$subtotal_final=($subtotal+$sub_total_promociones-$impuesto_promo);
+$total_final=$subtotal+$totalpromocion+$ISV-$descuentotal;
 
 
 /*----------  Fin Detalles de la tabla  ----------*/
@@ -275,14 +300,14 @@ $pdf->SetFont('Arial', 'B', 9);
 $pdf->Cell(100, 7, utf8_decode(''), 'T', 0, 'C');
 $pdf->Cell(15, 7, utf8_decode(''), 'T', 0, 'C');
 $pdf->Cell(32, 7, utf8_decode("SUBTOTAL"), 'T', 0, 'C');
-$pdf->Cell(34, 7, number_format($subtotal, 2, '.', ','), 'T', 0, 'C');
+$pdf->Cell(34, 7, number_format($subtotal_final, 2, '.', ','), 'T', 0, 'C');
 
 $pdf->Ln(7);
 
 $pdf->Cell(100, 7, utf8_decode(''), '', 0, 'C');
 $pdf->Cell(15, 7, utf8_decode(''), '', 0, 'C');
 $pdf->Cell(32, 7, utf8_decode("ISV (15%)"), '', 0, 'C');
-$pdf->Cell(34, 7, number_format($ISV, 2, '.', ','), '', 0, 'C');
+$pdf->Cell(34, 7, number_format($impuestofinal, 2, '.', ','), '', 0, 'C');
 
 $pdf->Ln(7);
 
