@@ -109,7 +109,7 @@ if(!isset ($_SESSION['usuario'])){
 
     $sql = mysqli_query($conex,"SELECT u.id_usuario, u.usuario, u.nombre_usuario, u.estado_usuario, u.contrasenia, 
     (r.rol), u.fecha_ultima_conexion, u.preguntas_contestadas,u.primer_ingreso, u.correo_electronico, 
-     u.creado_por, u.fecha_creacion, u.fecha_modificacion as id_rol, 
+     u.creado_por, u.fecha_creacion, (u.id_rol) as id_rol, 
      (r.rol) as rol 
     FROM tbl_ms_usuario u 
     INNER JOIN tbl_ms_rol r 
