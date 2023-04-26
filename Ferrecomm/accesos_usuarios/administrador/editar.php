@@ -23,7 +23,8 @@ if(!isset ($_SESSION['usuario'])){
     
         if (!empty($_POST)){
             
-            if(empty($_POST['usuario']) || empty($_POST['nombre_usuario'])  )  //Si van vacios nos muestra el mensaje de erro, sino capturalos datos
+            if(empty($_POST['usuario']) || empty($_POST['nombre_usuario']) || empty($_POST['id_rol']) || 
+            empty($_POST['estado_usuario']) || empty($_POST['correo_electronico']))  //Si van vacios nos muestra el mensaje de erro, sino capturalos datos
             {
                 $alert= '<p class= "msg_error"> Todos los campos son obligatorios.</p>';    
         
