@@ -24,7 +24,10 @@
        $busqueda = strtolower($_REQUEST['busqueda']);
        if(empty($busqueda))
        {
-        header("location: promocion.php");
+        echo '<script>
+         window.location= "promocion.php";
+        </script>
+        ';
        }
       
       ?>
