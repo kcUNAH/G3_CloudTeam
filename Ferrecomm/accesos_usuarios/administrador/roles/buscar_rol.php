@@ -28,7 +28,10 @@
       $busqueda = strtolower($_REQUEST['busqueda']);
       if(empty($busqueda))
       {
-        header("Location: rol.php");
+        echo '<script>
+         window.location= "./rol.php";
+        </script>
+        ';
       }
       ?>
 
