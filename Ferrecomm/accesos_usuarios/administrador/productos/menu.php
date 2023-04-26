@@ -79,7 +79,7 @@ if(!isset ($_SESSION['usuario'])){
             <span class="tooltip">Categorias</span>
         </li>
         <li>
-            <a href="promocion.php">
+            <a href="../productos/promocion.php">
             <i class='bx bxs-purchase-tag-alt'></i>
                 <span class="links_name">Promociones</span>
             </a>
