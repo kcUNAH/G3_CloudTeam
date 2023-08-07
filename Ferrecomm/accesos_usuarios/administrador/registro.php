@@ -273,11 +273,11 @@ if (!empty($_POST)) {
                     <label for="usuario" class="formulario__label">Usuario</label>
                     <div class="formulario__grupo-input">
                         <input type="text" class="formulario__input" style="text-transform:uppercase;" onblur="cambiarAMayusculas(this);" name="usuario"
-                            id="usuario" placeholder="USUARIO123">
+                            id="usuario" placeholder="USUARIO">
                         <i class="formulario__validacion-estado fas fa-times-circle"></i>
                     </div>
                     <p class="formulario__input-error">El usuario tiene que ser de 4 a 16 dígitos y solo puede contener
-                        numeros, letras y guion bajo.</p>
+                        números, letras y guión bajo.</p>
                 </div>
 
                 <!-- Grupo: Nombre -->
@@ -298,7 +298,7 @@ if (!empty($_POST)) {
                     <option value="2">INACTIVO</option>
                 </select>
 -->
-               <label for="id_rol">Rol</label></br>
+               <label for="id_rol">ROL</label></br>
                 
                 <?php
            $query_prom = mysqli_query($conex,"SELECT * from tbl_ms_rol");
@@ -306,6 +306,7 @@ if (!empty($_POST)) {
         ?>
             
                 <select name="id_rol" id="id_rol">
+                <option value="0">Seleccione </option>
                    <?php
                      echo $option;
                       if($result_prom > 0){
@@ -318,6 +319,7 @@ if (!empty($_POST)) {
                    }
 
                    ?>
+                  
                 </select>
 
                 <!-- Grupo: Correo Electronico -->
@@ -328,8 +330,8 @@ if (!empty($_POST)) {
                             placeholder="correo@correo.com">
                         <i class="formulario__validacion-estado fas fa-times-circle"></i>
                     </div>
-                    <p class="formulario__input-error">El correo solo puede contener letras, numeros, puntos, guiones y
-                        guion bajo.</p>
+                    <p class="formulario__input-error">El correo solo puede contener letras, números, puntos, guiones y
+                        guión bajo.</p>
                 </div>
 
                  <!-- Grupo: Contraseña -->
