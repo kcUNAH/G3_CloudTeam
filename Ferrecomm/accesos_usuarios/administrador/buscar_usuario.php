@@ -174,11 +174,14 @@
                     <?php echo $data["fecha_modificacion"] ?>
                   </td>
                   <td>
-                    <!--  <a class="link_factura" href="#"><i class='bx bx-check-double'></i></i></a>-->
+                  <?php if($data["id_usuario"] != 1){ ?>
                     <a class="link_edit" href="editar.php?id=<?php echo $data["id_usuario"]; ?>"><i
                         class='bx bx-edit'></i></a>
+
+                        
                     <a class="link_delete" href="elim_usuario.php?id=<?php echo $data["id_usuario"]; ?>"><i
                         class='bx bxs-trash'></i></a>
+                        <?php } ?>
                   </td>
 
 
