@@ -71,7 +71,7 @@
                 
                 <th>Usuario</th>
                 <th>Nombre</th>
-                <th>Rol</th>
+                <th>ROL</th>
                 <th>Ultima Conexión</th>
                 <th>Fecha Vencimiento</th>
                 <th>Correo</th>
@@ -104,6 +104,7 @@
 
             $sqlregistre = mysqli_query($conex, "SELECT COUNT(*) AS total_registro FROM tbl_ms_usuario
                                                           WHERE (id_usuario LIKE '%$busqueda%' OR
+                                                          usuario LIKE '%$busqueda%' OR
                                                           nombre_usuario LIKE '%$busqueda%' OR
                                                           estado_usuario LIKE '%$busqueda%' OR
                                                           correo_electronico LIKE '%$busqueda%'
@@ -126,6 +127,7 @@
             u.fecha_ultima_conexion,  u.fecha_vencimiento, u.correo_electronico, u.creado_por, 
             u.fecha_creacion, u.fecha_modificacion FROM tbl_ms_usuario u INNER JOIN tbl_ms_rol r on u.id_rol = r.id_rol
             WHERE (u.id_usuario LIKE '%$busqueda%' OR
+                                              u.usuario LIKE '%$busqueda%' OR
                                               u.nombre_usuario LIKE '%$busqueda%' OR
                                               u.estado_usuario LIKE '%$busqueda%' OR
                                               u.correo_electronico LIKE '%$busqueda%' OR
