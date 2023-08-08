@@ -61,6 +61,7 @@
                 <th>Creado Por</th>
                 <th>Fecha Creación</th>
                 <th>Fecha Modificación</th>
+                <th>Estado</th>
 
                 <th>Acciones</th>
 
@@ -130,6 +131,9 @@
                   </td>
                   <td>
                     <?php echo $data["fecha_modificacion"] ?>
+                  </td>
+                  <td>
+                    <?php echo $data["estado_usuario"] ?>
                   </td>
                   <td>
                     <!--  <a class="link_factura" href="#"><i class='bx bx-check-double'></i></i></a>-->

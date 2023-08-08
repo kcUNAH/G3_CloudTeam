@@ -37,7 +37,7 @@ if (!empty($_POST)) {
 
         $rol = $_POST['id_rol'];
         //Creacion automatica de fecha
-        date_default_timezone_set('America/Mexico_City');
+        date_default_timezone_set('America/Tegucigalpa');
         $fecha_vencimiento = (new DateTime('+ 12 months'))->format('Y-m-d H:i:s');
 
         $correo_electronico = $_POST['email'];
