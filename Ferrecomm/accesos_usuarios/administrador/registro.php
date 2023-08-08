@@ -41,10 +41,10 @@ if (!empty($_POST)) {
         $fecha_vencimiento = (new DateTime('+ 12 months'))->format('Y-m-d H:i:s');
 
         $correo_electronico = $_POST['email'];
-        $creado_por = "ADMINISTRADOR";
+        $creado_por = "ADMIN";
         $primer_ingreso = "NO";
         //Creacion automatica de fecha
-        date_default_timezone_set('America/Mexico_City');
+        date_default_timezone_set('America/Tegucigalpa');
         $fecha_creacion = date("Y-m-d H:i:s");
 
 
@@ -306,7 +306,7 @@ if (!empty($_POST)) {
         ?>
             
                 <select name="id_rol" id="id_rol">
-                <option value="0">Seleccione </option>
+                <option value="0">-SELECCIONAR </option>  <!--COPIAR A OTRAS FORMULARIOS -->
                    <?php
                      echo $option;
                       if($result_prom > 0){

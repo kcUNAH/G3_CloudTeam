@@ -54,11 +54,11 @@
                
                 <th>Usuario</th>
                 <th>Nombre</th>
-                <th>Rol</th>
+                <th>ROL</th>
                 <th>Ultima Conexión</th>
                 <th>Fecha Vencimiento</th>
                 <th>Correo</th>
-                
+                <th>Creado Por</th>
                 <th>Fecha Creación</th>
                 <th>Fecha Modificación</th>
 
@@ -122,7 +122,9 @@
                   <td>
                     <?php echo $data["correo_electronico"] ?>
                   </td>
-                  
+                  <td>
+                    <?php echo $data["creado_por"] ?>
+                  </td>
                   <td>
                     <?php echo $data["fecha_creacion"] ?>
                   </td>
