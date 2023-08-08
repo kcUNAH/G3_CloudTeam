@@ -105,7 +105,7 @@ class PDF extends FPDF
 
 include '../php/conexion.php';
 
-$pdf = new PDF('L','mm',array(300, 250) ); ///-------------------
+$pdf = new PDF('L','mm',array(300, 250) );
 $pdf->AddPage("landscape"); /* aqui entran dos para parametros (horientazion,tamaño)V->portrait H->landscape tamaño (A3.A4.A5.letter.legal) */
 $pdf->AliasNbPages(); //muestra la pagina / y total de paginas
 

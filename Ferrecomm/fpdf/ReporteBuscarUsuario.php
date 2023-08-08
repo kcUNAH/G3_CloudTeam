@@ -67,7 +67,7 @@ class PDF extends FPDF
       $this->SetTextColor(228, 100, 0);
       $this->Cell(90); // mover a la derecha
       $this->SetFont('Arial', 'B', 15);
-      $this->Cell(100, 10, utf8_decode("Reporte de Usuarios "), 0, 1, 'C', 0);
+      $this->Cell(100, 10, utf8_decode("REPORTE USUARIO "), 0, 1, 'C', 0);
       $this->Ln(7);
 
       /* CAMPOS DE LA TABLA */
@@ -124,8 +124,10 @@ $consulta_reporte_producto = $conexion->query("SELECT u.id_usuario, u.usuario, u
 u.fecha_ultima_conexion,  u.fecha_vencimiento, u.correo_electronico, u.creado_por, 
 u.fecha_creacion, u.fecha_modificacion FROM tbl_ms_usuario u INNER JOIN tbl_ms_rol r on u.id_rol = r.id_rol
 WHERE (u.id_usuario LIKE '%$busqueda%' OR
+                                  u.usuario LIKE '%$busqueda%' OR
                                   u.nombre_usuario LIKE '%$busqueda%' OR
-                                  u.estado_usuario LIKE '%$busqueda%' OR
+                                  u.fecha_ultima_conexion LIKE '%$busqueda%' OR
+                                  u.fecha_vencimiento LIKE '%$busqueda%' OR
                                   u.correo_electronico LIKE '%$busqueda%' OR
                                   r.rol LIKE '%$busqueda%')
                                    

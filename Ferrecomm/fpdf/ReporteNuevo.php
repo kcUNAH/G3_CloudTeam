@@ -67,19 +67,19 @@ class PDF extends FPDF
       $this->SetTextColor(228, 100, 0);
       $this->Cell(90); // mover a la derecha
       $this->SetFont('Arial', 'B', 15);
-      $this->Cell(100, 10, utf8_decode("Reporte de Usuarios "), 0, 1, 'C', 0);
+      $this->Cell(100, 10, utf8_decode("REPORTE DE NUEVOS USUARIOS "), 0, 1, 'C', 0);
       $this->Ln(7);
 
-      /* CAMPOS DE LA TABLA */
+        /* CAMPOS DE LA TABLA */
       //color
       $this->SetFillColor(228, 100, 0); //colorFondo
       $this->SetTextColor(255, 255, 255); //colorTexto
       $this->SetDrawColor(163, 163, 163); //colorBorde
       $this->SetFont('Arial', 'B', 11);
-      $this->Cell(25,20, utf8_decode('Usuario'), 1, 0, 'C', 1);
-      $this->Cell(40, 20, utf8_decode('Nombre'), 1, 0, 'C', 1);
+      $this->Cell(30,20, utf8_decode('Usuario'), 1, 0, 'C', 1);
+      $this->Cell(42, 20, utf8_decode('Nombre'), 1, 0, 'C', 1);
      // $this->Cell(40, 10, utf8_decode('Descripcion'), 1, 0, 'C', 1);
-      $this->Cell(30, 20, utf8_decode('Rol'), 1, 0, 'C', 1);
+      $this->Cell(22, 20, utf8_decode('Rol'), 1, 0, 'C', 1);
       //$this->Cell(30, 10, utf8_decode('Imagen'), 1, 0, 'C', 1);
       $this->Cell(35, 20, utf8_decode('Ultima Conexión'), 1, 0, 'C', 1);
       $this->Cell(35, 20, utf8_decode('Fecha Vencimiento'), 1, 0, 'C', 1);
@@ -105,7 +105,7 @@ class PDF extends FPDF
 
 include '../php/conexion.php';
 
-$pdf = new PDF();
+$pdf = new PDF('L','mm',array(300, 250) );
 $pdf->AddPage("landscape"); /* aqui entran dos para parametros (horientazion,tamaño)V->portrait H->landscape tamaño (A3.A4.A5.letter.legal) */
 $pdf->AliasNbPages(); //muestra la pagina / y total de paginas
 
@@ -133,17 +133,19 @@ WHERE  (u.id_usuario LIKE '%$busqueda%' OR
 // AnchoCelda,AltoCelda,titulo,borde(1-0),saltoLinea(1-0),posicion(L-C-R),ColorFondo(1-0)
 
 while ($datos_reporte = $consulta_reporte_producto->fetch_object()) {  
-$pdf->Cell(25, 20, utf8_decode($datos_reporte->usuario), 1, 0, 'C', 0);
-$pdf->Cell(40, 20, utf8_decode($datos_reporte->nombre_usuario), 1, 0, 'C', 0);
-//$pdf->Multicell(20, 7, utf8_decode($datos_reporte->descripcion_producto), 1, 'J', false);
-$pdf->Cell(30, 20, utf8_decode($datos_reporte->rol), 1, 0, 'C', 0);
-$pdf->Cell(35, 20, utf8_decode($datos_reporte->fecha_ultima_conexion), 1, 0, 'C', 0);
-$pdf->Cell(35, 20, utf8_decode($datos_reporte->fecha_vencimiento), 1, 0, 'C', 0);
-$pdf->Cell(45, 20, utf8_decode($datos_reporte->correo_electronico), 1, 0, 'C', 0);
-//$pdf->Cell(40, 20, utf8_decode($datos_reporte->creado_por), 1, 0, 'C', 0);
-$pdf->Cell(35, 20, utf8_decode($datos_reporte->fecha_creacion), 1, 0, 'C', 0);
-$pdf->Cell(38, 20, utf8_decode($datos_reporte->fecha_modificacion), 1, 1, 'C', 0);
-   }
+   //$pdf->MultiCell(25,20, 1, 0, 'C', 0);
+   //$pdf->MultiCell(25, 20, utf8_decode($datos_reporte->usuario), 1, 0, 'C', 0);
+   $pdf->Cell(30, 20, utf8_decode($datos_reporte->usuario),1, 0, 'C', 0);
+   $pdf->Cell(42, 20, utf8_decode($datos_reporte->nombre_usuario ), 1, 0, 'C', 0);
+   //$pdf->Multicell(20, 7, utf8_decode($datos_reporte->descripcion_producto), 1, 'J', false);
+   $pdf->Cell(22, 20, utf8_decode($datos_reporte->rol), 1, 0, 'C', 0);
+   $pdf->Cell(35, 20, utf8_decode($datos_reporte->fecha_ultima_conexion), 1, 0, 'C', 0);
+   $pdf->Cell(35, 20, utf8_decode($datos_reporte->fecha_vencimiento), 1, 0, 'C', 0);
+   $pdf->Cell(45, 20, utf8_decode($datos_reporte->correo_electronico), 1, 0, 'C', 0);
+   //$pdf->Cell(40, 20, utf8_decode($datos_reporte->creado_por), 1, 0, 'C', 0);
+   $pdf->Cell(35, 20, utf8_decode($datos_reporte->fecha_creacion), 1, 0, 'C', 0);
+   $pdf->Cell(38, 20, utf8_decode($datos_reporte->fecha_modificacion), 1, 1, 'C', 0);
+      }
 $i = $i + 1;
 /* TABLA */
 
