@@ -58,7 +58,7 @@
                 <th>Modificado Por</th>
                 <th>Fecha Modificación</th>
                 <th>Estado</th>
-                <th>Acciones</th>
+                <th>Acción</th>
 
               </tr>
             </thead>
