@@ -128,7 +128,7 @@ WHERE  (u.id_usuario LIKE '%$busqueda%' OR
                                   u.correo_electronico LIKE '%$busqueda%' OR
                                   r.rol LIKE '%$busqueda%' OR
                                   u.estado_usuario ='NUEVO')
-                                  ORDER BY i.id_usuario DESC
+                                  
                                   ");
 
 // AnchoCelda,AltoCelda,titulo,borde(1-0),saltoLinea(1-0),posicion(L-C-R),ColorFondo(1-0)
