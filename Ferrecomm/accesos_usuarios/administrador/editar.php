@@ -345,7 +345,8 @@ if(!isset ($_SESSION['usuario'])){
 
             <label for="Estado_usuario">Estado</label>
             <select name="estado_usuario" id="estado_usuario">
-            <option value="0">-SELECCIONAR </option>  <!--COPIAR A OTRAS FORMULARIOS -->
+                
+           <!-- <option value="0">-SELECCIONAR </option>  COPIAR A OTRAS FORMULARIOS -->
                 <option value="1">ACTIVO</option>
                 <option value="2">INACTIVO</option>
             </select>
@@ -358,7 +359,7 @@ if(!isset ($_SESSION['usuario'])){
         ?>
             
                 <select name="id_rol" id="id_rol">
-                <option value="0">-SELECCIONAR </option>  <!--COPIAR A OTRAS FORMULARIOS -->
+                <!-- <option value="0">-SELECCIONAR </option>  <!--COPIAR A OTRAS FORMULARIOS -->
                    <?php
                      echo $option;
                       if($result_prom > 0){
