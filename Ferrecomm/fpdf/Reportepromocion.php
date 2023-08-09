@@ -67,7 +67,7 @@ class PDF extends FPDF
       $this->SetTextColor(228, 100, 0);
       $this->Cell(90); // mover a la derecha
       $this->SetFont('Arial', 'B', 15);
-      $this->Cell(100, 10, utf8_decode("Reporte de promociones "), 0, 1, 'C', 0);
+      $this->Cell(100, 10, utf8_decode("REPORTE DE PROMOCIONES"), 0, 1, 'C', 0);
       $this->Ln(7);
 
             /* CAMPOS DE LA TABLA */
@@ -76,11 +76,11 @@ class PDF extends FPDF
       $this->SetTextColor(255, 255, 255); //colorTexto
       $this->SetDrawColor(163, 163, 163); //colorBorde
       $this->SetFont('Arial', 'B', 11);
-      $this->Cell(70,10, utf8_decode('Promocion'), 1, 0, 'C', 1);
+      $this->Cell(70,10, utf8_decode('Promoción'), 1, 0, 'C', 1);
       $this->Cell(50, 10, utf8_decode('Fecha inicio'), 1, 0, 'C', 1);
       $this->Cell(50, 10, utf8_decode('Fecha final'), 1, 0, 'C', 1);
       $this->Cell(50, 10, utf8_decode('Precio venta'), 1, 0, 'C', 1);
-      $this->Cell(50, 10, utf8_decode('Estado promocion'), 1, 1, 'C', 1);
+      $this->Cell(50, 10, utf8_decode('Estado promoción'), 1, 1, 'C', 1);
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
       
    }

@@ -67,7 +67,7 @@ class PDF extends FPDF
       $this->SetTextColor(228, 100, 0);
       $this->Cell(90); // mover a la derecha
       $this->SetFont('Arial', 'B', 15);
-      $this->Cell(100, 10, utf8_decode("Reporte de productos "), 0, 1, 'C', 0);
+      $this->Cell(100, 10, utf8_decode("REPORTE DE PRODUCTOS"), 0, 1, 'C', 0);
       $this->Ln(7);
 
       /* CAMPOS DE LA TABLA */
@@ -76,14 +76,14 @@ class PDF extends FPDF
       $this->SetTextColor(255, 255, 255); //colorTexto
       $this->SetDrawColor(163, 163, 163); //colorBorde
       $this->SetFont('Arial', 'B', 11);
-      $this->Cell(50,10, utf8_decode('Categoria'), 1, 0, 'C', 1);
+      $this->Cell(50,10, utf8_decode('Categoría'), 1, 0, 'C', 1);
       $this->Cell(70, 10, utf8_decode('Nombre'), 1, 0, 'C', 1);
      // $this->Cell(40, 10, utf8_decode('Descripcion'), 1, 0, 'C', 1);
       $this->Cell(30, 10, utf8_decode('Precio'), 1, 0, 'C', 1);
       //$this->Cell(30, 10, utf8_decode('Imagen'), 1, 0, 'C', 1);
       $this->Cell(40, 10, utf8_decode('Unidad medida'), 1, 0, 'C', 1);
-      $this->Cell(40, 10, utf8_decode('Cantidad minima'), 1, 0, 'C', 1);
-      $this->Cell(40, 10, utf8_decode('Cantidad maxima'), 1, 1, 'C', 1);
+      $this->Cell(40, 10, utf8_decode('Cantidad mínima'), 1, 0, 'C', 1);
+      $this->Cell(40, 10, utf8_decode('Cantidad máxima'), 1, 1, 'C', 1);
    }
 
    // Pie de página
