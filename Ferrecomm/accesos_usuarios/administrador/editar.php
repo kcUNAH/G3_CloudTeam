@@ -331,23 +331,11 @@ if(!isset ($_SESSION['usuario'])){
     padding: 10px;
 }
 
-  </style>
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class="form_register">
-       
-        <div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
-        <h1>Editar Usuario</h1>
+</style>
+  <section class="home-section"></br>
+  <h2>  Editar Usuario <i class='bx bxs-user'></i></h2>
+      
+  <div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
         <form action="" method ="POST">
             <input type="hidden" name="id_usuario" style="text-transform:uppercase;" value="<?php echo $iduser;?>">
             <label for="usuario">Usuario</label>
