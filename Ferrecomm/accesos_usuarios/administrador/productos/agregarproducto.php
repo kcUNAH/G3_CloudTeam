@@ -96,7 +96,7 @@ include '../conex.php';
   <section class="home-section"></br>
       <h2>  Añadir nuevo producto <i class='bx bx-shopping-bag'></i></h2>
             <form action="./agregar.php" method="POST" enctype="multipart/form-data" id="formulario">
-            <label for="id_estado_prom">Categoria</label></br>
+            <label for="id_estado_prom">Categoría</label></br>
                 
                 <?php
            $query_prom = mysqli_query($conex,"SELECT * from tbl_categoria");
@@ -129,12 +129,12 @@ include '../conex.php';
 			    </div>
 
                 <div class="formulario__grupo" id="grupo__descripcion_producto">
-				<label for="descripcion_producto" class="formulario__label">Descripcion</label>
+				<label for="descripcion_producto" class="formulario__label">Descripción</label>
 				<div class="formulario__grupo-input">
 					<input type="text" class="field"  name="descripcion_producto" id="descripcion_producto" style="text-transform:uppercase;" onblur="cambiarAMayusculas(this);" required >
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">La descripcion del producto debe de tener 4 a 16 letras, solo puede contener numeros Y letras.</p>
+				<p class="formulario__input-error">La descripción del producto debe de tener 4 a 16 letras, solo puede contener números y letras.</p>
 			    </div>
 
                 <div class="formulario__grupo" id="grupo__precio_producto">
@@ -143,7 +143,7 @@ include '../conex.php';
 					<input type="number" class="field"  name="precio_producto" id="precio_producto" required >
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">El precio solo puede contener numeros y puntos</p>
+				<p class="formulario__input-error">El precio solo puede contener números y puntos</p>
 			    </div>
 
             <p class="input-file-wrapper">
@@ -157,25 +157,25 @@ include '../conex.php';
 					<input type="text" class="field"  name="unidad_medida" id="unidad_medida" style="text-transform:uppercase;" onblur="cambiarAMayusculas(this);" required>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">Solo puede contener numeros y letras</p>
+				<p class="formulario__input-error">Solo puede contener números y letras</p>
 			    </div>
 
                 <div class="formulario__grupo" id="grupo__cantidad_min">
-				<label for="cantidad_min" class="formulario__label">Cantidad minima:</label>
+				<label for="cantidad_min" class="formulario__label">Cantidad mínima:</label>
 				<div class="formulario__grupo-input">
 					<input type="number" class="field"  name="cantidad_min" id="cantidad_min" required >
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">Solo puede contener numeros y debe ser menor que la Cantidad Maxima</p>
+				<p class="formulario__input-error">Solo puede contener números y debe ser menor que la cantidad máxima</p>
 			    </div>
 
                 <div class="formulario__grupo" id="grupo__cantidad_max">
-				<label for="cantidad_max" class="formulario__label">Cantidad maxima:</label>
+				<label for="cantidad_max" class="formulario__label">Cantidad máxima:</label>
 				<div class="formulario__grupo-input">
 					<input type="number" class="field"  name="cantidad_max" id="cantidad_max" required>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">Solo puede contener numeros y debe ser mayos que la Cantidad Minima </p>
+				<p class="formulario__input-error">Solo puede contener números y debe ser mayos que la cantidad mínima </p>
 			    </div>
 
             </br>

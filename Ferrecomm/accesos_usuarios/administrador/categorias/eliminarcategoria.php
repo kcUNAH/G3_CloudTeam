@@ -163,7 +163,7 @@ WHERE id_categoria = $id_categoria;");
 }
   </style>
   <section class="home-section"></br>
-      <h2>  Eliminar categoria <i class='bx bxs-category'></i></h2>
+      <h2>  Eliminar categoría <i class='bx bxs-category'></i></h2>
             <form action="" method="POST" enctype="multipart/form-data" id="">
         <div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
       <input type="hidden" name="id_categoria" value="<?php echo $id_categoria;?>">
@@ -171,7 +171,7 @@ WHERE id_categoria = $id_categoria;");
 
 
                 <div class="formulario__grupo" id="grupo__nombre_categoria">
-				<label for="nombre_categoria" class="formulario__label">Nombre de la categoria</label>
+				<label for="nombre_categoria" class="formulario__label">Nombre de la categoría</label>
 				<div class="formulario__grupo-input">
 					<input type="text" class="field"  name="nombre_categoria" id="nombre_categoria" style="text-transform:uppercase;" value="<?php echo $nombre_categoria;?>" onblur="cambiarAMayusculas(this);" disabled >
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
@@ -180,12 +180,12 @@ WHERE id_categoria = $id_categoria;");
 			    </div>
 
                 <div class="formulario__grupo" id="grupo__presentacion">
-				<label for="presentacion" class="formulario__label">Presentacion</label>
+				<label for="presentacion" class="formulario__label">Presentación</label>
 				<div class="formulario__grupo-input">
 					<input type="text" class="field"  name="presentacion" id="presentacion" style="text-transform:uppercase;" value="<?php echo $presentacion;?>" onblur="cambiarAMayusculas(this);" disabled >
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">Solo puede contener letras y numeros</p>
+				<p class="formulario__input-error">Solo puede contener letras y números</p>
 			    </div>
                 </br>
             

@@ -14,7 +14,7 @@
   
   <section class="home-section">
 </br>
-<h1>  Categorias <i class='bx bxs-category'></i></h1>
+<h1>  Categorías <i class='bx bxs-category'></i></h1>
       <?php include '../conex.php';?>
 
       <section id="container"  >
@@ -36,7 +36,7 @@
   <input type="text" name="busqueda" style="text-transform:uppercase; margin-left: 40px" id="busqueda" placeholder="Buscar..." value="<?php echo $busqueda; ?>">
   <button type="submit" class="boton-buscar">Buscar</button>
   <a href= "../productos.php" class="btn_productos" style="margin-left: 190px"> Productos<i id="icon_nuevo" class='bx bx-shopping-bag'></i></i></a>
-  <a href= "promocionagregar.php" class="btn_newproducto" style="margin-left: 30px"> Nueva Categoria<i id="icon_nuevo" class='bx bxs-category'></i></a>
+  <a href= "promocionagregar.php" class="btn_newproducto" style="margin-left: 30px"> Nueva Categoría<i id="icon_nuevo" class='bx bxs-category'></i></a>
   <a href="../../../fpdf/Reportecategoriabuscar.php?buscar=<?php echo $busqueda ?>"   target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
 
@@ -48,8 +48,8 @@
       <table>
         <thead>
         <tr >
-           <th >Categoria</th>
-           <th >Presentacion</th>
+           <th >Categoría</th>
+           <th >Presentación</th>
            <th >Acción</th>
            
         </tr>

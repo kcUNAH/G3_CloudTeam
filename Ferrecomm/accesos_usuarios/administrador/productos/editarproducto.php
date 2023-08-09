@@ -225,7 +225,7 @@ if (!empty($_POST)) {
       <form action="" method="POST" enctype="multipart/form-data" id="formulario">
         <div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
       <input type="hidden" name="id_producto" value="<?php echo $id_producto;?>">
-        <label for="id_categoria">Categoria</label></br>
+        <label for="id_categoria">Categoría</label></br>
         <?php
            $query_categoria = mysqli_query($conexion,"SELECT * from tbl_categoria");
            $result_categoria = mysqli_num_rows($query_categoria)
@@ -258,12 +258,12 @@ if (!empty($_POST)) {
 			    </div>
 
                 <div class="formulario__grupo" id="grupo__descripcion_producto">
-				<label for="descripcion_producto" class="formulario__label">Descripcion</label>
+				<label for="descripcion_producto" class="formulario__label">Descripción</label>
 				<div class="formulario__grupo-input">
 					<input type="text" class="field"  name="descripcion_producto" id="descripcion_producto" style="text-transform:uppercase;" value="<?php echo $descripcion_producto;?>" onblur="cambiarAMayusculas(this);" required >
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">La descripcion del producto debe de tener 4 a 16 letras, solo puede contener numeros Y letras.</p>
+				<p class="formulario__input-error">La descripción del producto debe de tener 4 a 16 letras, solo puede contener números Y letras.</p>
 			    </div>
 
                 <div class="formulario__grupo" id="grupo__precio_producto">
@@ -272,7 +272,7 @@ if (!empty($_POST)) {
 					<input type="number" class="field"  name="precio_producto" id="precio_producto" value="<?php echo $precio_producto;?>" required >
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">El precio solo puede contener numeros y puntos</p>
+				<p class="formulario__input-error">El precio solo puede contener números y puntos</p>
 			    </div>
 
             <p class="input-file-wrapper">
@@ -288,25 +288,25 @@ if (!empty($_POST)) {
 					<input type="text" class="field"  name="unidad_medida" id="unidad_medida" style="text-transform:uppercase;" value="<?php echo $unidad_medida;?>" onblur="cambiarAMayusculas(this);" required>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">Solo puede contener numeros y letras</p>
+				<p class="formulario__input-error">Solo puede contener números y letras</p>
 			    </div>
 
                 <div class="formulario__grupo" id="grupo__cantidad_min">
-				<label for="cantidad_min" class="formulario__label">Cantidad minima:</label>
+				<label for="cantidad_min" class="formulario__label">Cantidad mínima:</label>
 				<div class="formulario__grupo-input">
 					<input type="number" class="field"  name="cantidad_min" id="cantidad_min" value="<?php echo $cantidad_min;?>" required >
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">Solo puede contener numeros y debe ser menor que la Cantidad Maxima</p>
+				<p class="formulario__input-error">Solo puede contener numeros y debe ser menor que la cantidad máxima</p>
 			    </div>
 
                 <div class="formulario__grupo" id="grupo__cantidad_max">
-				<label for="cantidad_max" class="formulario__label">Cantidad maxima:</label>
+				<label for="cantidad_max" class="formulario__label">Cantidad máxima:</label>
 				<div class="formulario__grupo-input">
 					<input type="number" class="field"  name="cantidad_max" id="cantidad_max" value="<?php echo $cantidad_max;?>" required>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">Solo puede contener numeros y debe ser mayos que la Cantidad Minima </p>
+				<p class="formulario__input-error">Solo puede contener números y debe ser mayor que la cantidad mínima </p>
 			    </div>
 
             </br>

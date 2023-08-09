@@ -168,12 +168,12 @@ WHERE id_promocion = $id_promocion;");
       <input type="hidden" name="id_promocion" value="<?php echo $id_promocion;?>">
         
       <div class="formulario__grupo" id="grupo__nombre_promocion">
-				<label for="nombre_promocion" class="formulario__label">Promocion</label>
+				<label for="nombre_promocion" class="formulario__label">Promoción</label>
 				<div class="formulario__grupo-input">
 					<input type="text" class="field"  name="nombre_promocion" id="nombre_promocion" style="text-transform:uppercase;" value="<?php echo $nombre_promocion;?>" onblur="cambiarAMayusculas(this);" disabled >
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">La descripcion del producto debe de tener 4 a 16 letras, solo puede contener numeros Y letras.</p>
+				<p class="formulario__input-error">La promoción debe de tener 4 a 16 letras, solo puede contener números y letras.</p>
 			    </div>
 
                 <div class="formulario__grupo" id="grupo__fecha_inicio">
@@ -200,10 +200,10 @@ WHERE id_promocion = $id_promocion;");
 					<input type="number" class="field"  name="precio_venta" id="precio_venta" style="text-transform:uppercase;" value="<?php echo $precio_venta;?>" onblur="cambiarAMayusculas(this);" disabled>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">Solo puede contener numeros</p>
+				<p class="formulario__input-error">Solo puede contener números</p>
 			    </div>
 
-                <label for="id_estado_prom">Estado promocion</label></br>  
+                <label for="id_estado_prom">Estado promoción</label></br>  
             <input type="text" class="field" name="categoria" id="categoria" value="<?=$estado?>" disabled>
             </p>
                 

@@ -186,13 +186,13 @@ span{
       <form action="" method="POST" enctype="multipart/form-data">
         <div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
       <input type="hidden" name="id_producto" value="<?php echo $id_producto;?>">
-            <label for="id_categoria">Categoria:</label></br>    
+            <label for="id_categoria">Categoría:</label></br>    
             <input type="text" class="field" name="categoria" id="categoria" value="<?=$categoria?>" disabled>
             </p>
             <p>Nombre del producto:
             <input type="text" class="field" name="nombre_producto" id="nombre_producto" value="<?=$nombre_producto?>" disabled>
             </p>
-            <p>Descripcion:
+            <p>Descripción:
              <input type="text" class="field" name="descripcion_producto" id="descripcion_producto" value="<?php echo $descripcion_producto;?>" disabled>
             </p>
              <p>Precio:
@@ -206,10 +206,10 @@ span{
             <p>Unidad medida:
             <input type="text" class="field" name="unidad_medida" id="unidad_medida" value="<?php echo $unidad_medida;?>" disabled >
             </p>
-            <p>Cantidad minima:
+            <p>Cantidad mínima:
             <input type="text" class="field" name="cantidad_min" id="cantidad_min" value="<?php echo $cantidad_min;?>" disabled>
             </p>
-            <p>Cantidad maxima:
+            <p>Cantidad máxima:
             <input type="text" class="field" name="cantidad_max" id="cantidad_max" value="<?php echo $cantidad_max;?>" disabled>
             </p>
             </br>

@@ -56,7 +56,7 @@ include '../../../php/bitacora.php';
       <table>
         <thead>
         <tr >
-           <th >Promocion</th>
+           <th >Promoción</th>
            <th >Producto</th>
            <th >Cantidad</th>
            <th >Acción</th>

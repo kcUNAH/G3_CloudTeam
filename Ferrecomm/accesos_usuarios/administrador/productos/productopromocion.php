@@ -189,7 +189,7 @@ if (!empty($_POST)) {
 				</div>
 				<p class="formulario__input-error">Debe ser mayor que 0</p>
 			    </div>
-            <label for="id_estado_prom">Elija una promocion</label></br>
+            <label for="id_estado_prom">Elija una promoción</label></br>
                 
                 <?php
            $query_prom = mysqli_query($conex,"SELECT * from tbl_promociones");

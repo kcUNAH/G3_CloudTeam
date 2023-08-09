@@ -153,12 +153,12 @@ if (!empty($_POST)) {
 
 
                 <div class="formulario__grupo" id="grupo__nombre_promocion">
-				<label for="nombre_promocion" class="formulario__label">Promocion</label>
+				<label for="nombre_promocion" class="formulario__label">Promoción</label>
 				<div class="formulario__grupo-input">
 					<input type="text" class="field"  name="nombre_promocion" id="nombre_promocion" style="text-transform:uppercase;" onblur="cambiarAMayusculas(this);" required >
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">La promocion debe de tener 3 a 16 letras, solo puede contener numeros Y letras.</p>
+				<p class="formulario__input-error">La promoción debe de tener 3 a 16 letras, solo puede contener números y letras.</p>
 			    </div>
 
                 <div class="formulario__grupo" id="grupo__fecha_inicio">
@@ -185,10 +185,10 @@ if (!empty($_POST)) {
 					<input type="number" class="field"  name="precio_venta" id="precio_venta" style="text-transform:uppercase;" onblur="cambiarAMayusculas(this);" required>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">Solo puede contener numeros y no se acepta un pecrio de valor 0</p>
+				<p class="formulario__input-error">Solo puede contener números y no se acepta un pecrio de valor 0</p>
 			    </div>
 
-                <label for="id_estado_prom">Estado promocion</label></br>
+                <label for="id_estado_prom">Estado promoción</label></br>
                 
                 <?php
            $query_prom = mysqli_query($conex,"SELECT * from tbl_estado_promociones");

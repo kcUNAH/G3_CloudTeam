@@ -162,13 +162,13 @@ WHERE id_promocion_producto = $id_promocion_producto;");
       <input type="hidden" name="id_promocion_producto" value="<?php echo $id_promocion_producto;?>">
      
 
-                <label for="id_estado_prom">Estado promocion</label></br>  
+                <label for="id_estado_prom">Promoción</label></br>  
             <input type="text" class="field" name="categoria" id="categoria" value="<?=$promocion?>" disabled>
             </p>
-            <label for="id_estado_prom">Estado promocion</label></br>  
+            <label for="id_estado_prom">Producto</label></br>  
             <input type="text" class="field" name="categoria" id="categoria" value="<?=$producto?>" disabled>
             </p>
-            <label for="id_estado_prom">Estado promocion</label></br>  
+            <label for="id_estado_prom">Cantidad</label></br>  
             <input type="text" class="field" name="categoria" id="categoria" value="<?=$cantidad?>" disabled>
             </p>
                 

@@ -33,14 +33,14 @@
       <table>
         <thead>
         <tr >
-           <th >Codigo</th>
+           <th >Código</th>
            <th >Categoría</th>
            <th >Nombre</th>
            <th >Descripción</th>
            <th >Precio</th>
            <th >Imagen</th>
            <th >Unidad medida</th>
-           <th >Cantidad minima</th>
+           <th >Cantidad mínima</th>
            <th >Cantidad máxima</th>
            <th >Promociones</th>
            <th >Acción</th>
