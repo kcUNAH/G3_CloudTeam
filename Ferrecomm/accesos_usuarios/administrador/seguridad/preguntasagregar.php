@@ -15,28 +15,28 @@ include '../../../php/bitacora.php';
 
 if (!empty($_POST)) {
 
-    if (empty($_POST['nombre_descuento']) || empty($_POST['porcentaje_descontar'])) //Si van vacios nos muestra el mensaje de erro, sino capturalos datos
+    if (empty($_POST['pregunta']) ) //Si van vacios nos muestra el mensaje de erro, sino capturalos datos
     {
         // $alert= '<p class= "msg_error"> Todos los campos son obligatorios.</p>';  
         echo '<script>
             alert("Todos los campos son obligatorios");
-            window.location= "descuentoagregar.php";
+            window.location= "preguntasagregar.php";
             </script>
             ';
     } else {
 
-        $nombre_descuento = $_POST['nombre_descuento'];
-        $porcentaje_descontar = $_POST['porcentaje_descontar'];
+        $pregunta = $_POST['pregunta'];
+        date_default_timezone_set('America/Mexico_City');
+        $fecha_creacion = date("Y-m-d H:i:s");
        
-        $query = mysqli_query($conex, "SELECT * FROM tbl_descuentos WHERE nombre_descuento = '$nombre_descuento'");
+        $query = mysqli_query($conex, "SELECT * FROM tbl_ms_preguntas WHERE pregunta = '$pregunta'");
         $result = mysqli_fetch_array($query);
 
         if ($result > 0) {
-            // $alert= '<p class= "msg_error">El usuario ya existe.</p>';
             echo
                 '<script>
-                alert("El descuento ya existe");
-                window.location= "descuentos.php";
+                alert("La pregunta ya existe");
+                window.location= "preguntas.php";
                 </script>
                 ';
             $codigoObjeto = 7;
@@ -44,35 +44,34 @@ if (!empty($_POST)) {
             $descripcion = 'Intento ingresar un descuento ya existente';
             bitacora($codigoObjeto, $accion, $descripcion);
         } else {
-            $query_insert = mysqli_query($conex, "INSERT INTO tbl_descuentos(nombre_descuento, porcentaje_descontar)
-            VALUES('$nombre_descuento','$porcentaje_descontar')");
+            $query_insert = mysqli_query($conex, "INSERT INTO tbl_ms_preguntas(pregunta, fecha_creacion)
+            VALUES('$pregunta','$fecha_creacion')");
 
 
             if ($query_insert) {
-                //  $alert= '<p class= "msg_save">El usuario se ha creado.</p>';
                 echo
                         '<script>
-                alert("Descuento creado correctamente");
-                window.location= "descuentos.php";
+                alert("Pregunta creada correctamente");
+                window.location= "preguntas.php";
                 </script>
                 ';
 
               
                 $codigoObjeto = 7;
                 $accion = 'Registro';
-                $descripcion = 'El usuario registro un descuento nuevo';
+                $descripcion = 'El usuario registro una pregunta nueva';
                 bitacora($codigoObjeto, $accion, $descripcion);
             } else {
                 // $alert= '<p class= "msg_error">Error al crear el usario.</p>';
                 echo
                     '<script>
-                alert("Error al crear el descuento");
-                window.location= "descuentos.php";
+                alert("Error al crear una pregunta");
+                window.location= "preguntas.php";
                 </script>
                 ';
                 $codigoObjeto = 7;
                 $accion = 'Registro';
-                $descripcion = 'Error al intentar crear un descuento';
+                $descripcion = 'Error al intentar crear una pregunta';
                 bitacora($codigoObjeto, $accion, $descripcion);
             }
         }
@@ -105,9 +104,6 @@ if (!empty($_POST)) {
 
   <section class="home-section">
   
-
-    
-
   <style>
    form{
     background-color: #db881a;
@@ -189,25 +185,19 @@ if (!empty($_POST)) {
 }
 </style>
   <section class="home-section"></br>
-      <h2>  Añadir Descuento <i class='bx bxs-discount'></i></h2>
-            <form action="" method="POST" enctype="multipart/form-data" id="formulario">
-
-            <div class="formulario__grupo" id="grupo__nombre_descuento">
-				<label for="nombre_descuento" class="formulario__label" >Nombre del descuento:</label>
+      <h2>  Nueva pregunta ¿?</h2>  
+      
+        
+        <form action="" method ="POST" enctype="multipart/form-data" id="formulario">
+            <div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
+        <input type="hidden" name="id_pregunta" value="<?php echo $id_pregunta;?>">
+            <div class="formulario__grupo" id="grupo__pregunta">
+				<label for="preguna" class="formulario__label" >Pregunta:</label>
 				<div class="formulario__grupo-input">
-                <input type="text" class="field"  name="nombre_descuento" id="nombre_descuento" style="text-transform:uppercase;" onblur="cambiarAMayusculas(this);" required >
+                <input type="text" class="field"  name="pregunta" id="pregunta" style="text-transform:uppercase;" onblur="cambiarAMayusculas(this);" required >
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">El nombre del descuento tiene que contener letras y contener 3 a 25 de las mismas</p>
-			    </div>
-
-            <div class="formulario__grupo" id="grupo__porcentaje_descontar">
-				<label for="porcentaje_descontar" class="formulario__label">Descuento:</label>
-				<div class="formulario__grupo-input">
-			<input type="number" class="field"  name="porcentaje_descontar" id="porcentaje_descontar" required>
-					<i class="formulario__validacion-estado fas fa-times-circle"></i>
-				</div>
-				<p class="formulario__input-error">El porcentaje debe de ser mayor a 1 y menor a 100</p>
+				<p class="formulario__input-error">La pregunta solo puede contener letras, signos de interrogación y contener 100 letras</p>
 			    </div>
 
             </br>
@@ -218,7 +208,7 @@ if (!empty($_POST)) {
 
       <button type="submit" class="btn_agregar">Agregar</button>
       <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado exitosamente!</p>
-      <button type="reset" onclick="location.href='descuentos.php'" class="btn_cancelar">Cancelar</button>
+      <button type="reset" onclick="location.href='preguntas.php'" class="btn_cancelar">Cancelar</button>
       </form>
 
                     <script>
@@ -246,7 +236,7 @@ if (!empty($_POST)) {
 
         </div>
 
-        <script src="formulariodescuentos.js"></script>
+        <script src="formulariopreguntasagregar.js"></script>
 
 <script>
 let sidebar = document.querySelector(".sidebar");
@@ -267,7 +257,7 @@ function menuBtnChange() {
 }
 </script>
 
-    <a href="descuentos.php" class="btn_pdf">Atrás</a>
+    <a href="preguntas.php" class="btn_pdf">Atrás</a>
 
 
 </body>

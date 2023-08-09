@@ -13,19 +13,18 @@ include '../../../php/bitacora.php';
     
         if (!empty($_POST)){
             
-            if(empty($_POST['nombre_descuento']) || empty($_POST['porcentaje_descontar'])  )  //Si van vacios nos muestra el mensaje de erro, sino capturalos datos
+            if(empty($_POST['pregunta']) )  //Si van vacios nos muestra el mensaje de erro, sino capturalos datos
             {
                 $alert= '<p class= "msg_error"> Todos los campos son obligatorios.</p>';    
         
             }else{
                 
-                $id_descuento = $_POST['id_descuento'];
-                $nombre_descuento = $_POST['nombre_descuento'];
-                $porcentaje_descontar = $_POST['porcentaje_descontar'];
+                $id_pregunta = $_POST['id_pregunta'];
+                $pregunta = $_POST['pregunta'];
               
 
-                $query = mysqli_query($conex,"SELECT * FROM tbl_descuentos
-                WHERE (nombre_descuento = '$nombre_descuento' AND id_descuentos != $id_descuento)");
+                $query = mysqli_query($conex,"SELECT * FROM tbl_ms_preguntas
+                WHERE (pregunta = '$pregunta' AND id_pregunta != $id_pregunta)");
 
             $result = mysqli_fetch_array($query); //Almacena datos
 
@@ -34,32 +33,32 @@ include '../../../php/bitacora.php';
             }else{
 
                
-                    $sql_update = mysqli_query($conex,"UPDATE tbl_descuentos SET 
-                    nombre_descuento ='$nombre_descuento', porcentaje_descontar='$porcentaje_descontar'
-                    WHERE id_descuentos = $id_descuento");
+                    $sql_update = mysqli_query($conex,"UPDATE tbl_ms_preguntas SET 
+                    pregunta ='$pregunta'
+                    WHERE id_pregunta = $id_pregunta");
 
                     if($sql_update){
                        // $alert= '<p class= "msg_save">El usuario se ha actualizado correctamente.</p>';
                         
                        echo '<script>
-                        alert("El descuento se ha actualizado correctamente");
-                        window.location= "descuentos.php";
+                        alert("La pregunta se ha actualizado correctamente");
+                        window.location= "preguntas.php";
                         </script>
                         ';
                         $codigoObjeto=3;
                         $accion='Actualizar';
-                        $descripcion= 'El descuento Actualizo el cliente';
+                        $descripcion= 'La pregunta sea actualizo';
                         bitacora($codigoObjeto, $accion,$descripcion);
                     }else{
                         //$alert= '<p class= "msg_error">Error al actualizar el usario.</p>';
                         echo '<script>
-                        alert("Error al actualizar el descuento");
-                        window.location= "editar_cliente.php";
+                        alert("Error al actualizar la pregunta");
+                        window.location= "preguntaseditar.php";
                         </script>
                         ';
                         $codigoObjeto=3;
                         $accion='Actualizar';
-                        $descripcion= 'Se produjo un error al  Actualizo el cliente';
+                        $descripcion= 'Se produjo un error al actualizar la pregunta';
                         bitacora($codigoObjeto, $accion,$descripcion);
                     }
                 
@@ -72,27 +71,26 @@ include '../../../php/bitacora.php';
 //Si no existe el usuario me redirecciona a gestion de usuario QUITAR EL !
     if(empty($_GET['id']))
     {
-        header('Location: descuentos.php');
+        header('Location: preguntas.php');
     }
 
-    $id_descuento  = $_GET['id'];
+    $id_pregunta = $_GET['id'];
 
-    $sql = mysqli_query($conex,"SELECT id_descuentos, nombre_descuento, porcentaje_descontar
-     FROM tbl_descuentos
-    WHERE id_descuentos = $id_descuento ");
+    $sql = mysqli_query($conex,"SELECT id_pregunta, pregunta
+     FROM tbl_ms_preguntas
+    WHERE id_pregunta = $id_pregunta ");
 
     $result_sql = mysqli_num_rows($sql);
 
 //Si es igual a cero no hay registro
     if($result_sql == 0)
     {
-        header('Location: clientes.php');
+        header('Location: preguntas.php');
     }else{
         $option = ' ';
         while ($data = mysqli_fetch_array($sql)){
-            $id_descuento  = $data['id_descuentos'];
-            $nombre_descuento = $data['nombre_descuento'];
-            $porcentaje_descontar = $data['porcentaje_descontar'];
+            $id_pregunta  = $data['id_pregunta'];
+            $pregunta = $data['pregunta'];
       
     }
 
@@ -201,28 +199,19 @@ include '../../../php/bitacora.php';
 }
 </style>
   <section class="home-section"></br>
-      <h2>  Editar Descuento <i class='bx bxs-discount'></i></h2>  
+      <h2>  Editar pregunta ¿?</h2>
       
         
         <form action="" method ="POST" enctype="multipart/form-data" id="formulario">
             <div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
-        <input type="hidden" name="id_descuento" value="<?php echo $id_descuento;?>">
-            <div class="formulario__grupo" id="grupo__nombre_descuento">
-				<label for="nombre_descuento" class="formulario__label" >Nombre del descuento:</label>
+        <input type="hidden" name="id_pregunta" value="<?php echo $id_pregunta;?>">
+            <div class="formulario__grupo" id="grupo__pregunta">
+				<label for="preguna" class="formulario__label" >Pregunta:</label>
 				<div class="formulario__grupo-input">
-                <input type="text" class="field"  name="nombre_descuento" id="nombre_descuento" style="text-transform:uppercase;" value="<?=$nombre_descuento?>" onblur="cambiarAMayusculas(this);" required >
+                <input type="text" class="field"  name="pregunta" id="pregunta" style="text-transform:uppercase;" value="<?=$pregunta?>" onblur="cambiarAMayusculas(this);" required >
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">El nombre del descuento tiene que contener letras y contener 3 a 25 de las mismas</p>
-			    </div>
-
-            <div class="formulario__grupo" id="grupo__porcentaje_descontar">
-				<label for="porcentaje_descontar" class="formulario__label">Descuento:</label>
-				<div class="formulario__grupo-input">
-			<input type="number" class="field"  name="porcentaje_descontar" id="porcentaje_descontar" value="<?=$porcentaje_descontar?>" required>
-					<i class="formulario__validacion-estado fas fa-times-circle"></i>
-				</div>
-				<p class="formulario__input-error">El porcentaje debe de ser mayor a 1 y menor a 100</p>
+				<p class="formulario__input-error">La pregunta solo puede contener letras, signos de interrogación y contener 100 letras</p>
 			    </div>
 
             </br>
@@ -231,9 +220,9 @@ include '../../../php/bitacora.php';
 				<p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor llene todos los campos correctamente </p>
 			</div>
 
-      <button type="submit" class="btn_agregar">Agregar</button>
+      <button type="submit" class="btn_agregar">Actualizar</button>
       <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado exitosamente!</p>
-      <button type="reset" onclick="location.href='descuentos.php'" class="btn_cancelar">Cancelar</button>
+      <button type="reset" onclick="location.href='preguntas.php'" class="btn_cancelar">Cancelar</button>
       </form>
 
                     <script>
@@ -261,7 +250,7 @@ include '../../../php/bitacora.php';
 
         </div>
 
-        <script src="formulariodescuentoseditar.js"></script>
+        <script src="formulariopreguntaseditar.js"></script>
 
 <script>
 let sidebar = document.querySelector(".sidebar");
@@ -282,7 +271,7 @@ function menuBtnChange() {
 }
 </script>
 
-    <a href="descuentos.php" class="btn_pdf">Atrás</a>
+    <a href="preguntas.php" class="btn_pdf">Atrás</a>
 
 
 </body>

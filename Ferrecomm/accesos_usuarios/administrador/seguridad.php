@@ -256,6 +256,31 @@ if(!isset ($_SESSION['usuario'])){
 			box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 			transform: translateY(-2px);
 		}
+        .btn5 {
+			display: inline-block;
+			background-color: #3ef02e;
+			color: #fff;
+			border: none;
+			border-radius: 5px;
+			padding: 20px 40px;
+			font-size: 30px;
+			font-weight: bold;
+			text-align: center;
+			text-decoration: none;
+			cursor: pointer;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+			transition: all 0.3s ease;
+            float: left;
+            margin-left: 30px;
+			margin-top: 50px;
+            display: block;
+            
+		}
+        .btn5:hover {
+			background-color: #0062cc;
+			box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+			transform: translateY(-2px);
+		}
         </style>
 
           <!--diseño buscar-->
@@ -309,7 +334,9 @@ button[type="submit"] {
     <div>
     <a ></a>
     <a class="btn2" href = "seguridad/permiso.php "><i class='bx bxs-user-detail'>Permisos</i></a>
-    <a class="btn" href = "./respaldos/MenuRespaldos.php"><i class='bx bx-user'> Respaldos</i></a> 
+    <a class="btn" href = "./respaldos/MenuRespaldos.php"><i class='bx bx-data'> Respaldos</i></a> 
+    <a class="btn5" href = "seguridad/preguntas.php"><i class='bx bx-question-mark'>Preguntas</i></a>
+    
 </div>
     <div>
    
