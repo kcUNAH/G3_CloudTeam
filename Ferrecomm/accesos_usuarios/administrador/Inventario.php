@@ -97,7 +97,7 @@
             FROM tbl_inventario i 
             INNER JOIN tbl_producto p on i.id_producto = p.id_producto 
             INNER JOIN tbl_categoria c on p.id_categoria = c.id_categoria 
-            ORDER BY i.id_inventario ASC
+            ORDER BY i.id_inventario DESC
             LIMIT $desde,$por_pagina");
 
 

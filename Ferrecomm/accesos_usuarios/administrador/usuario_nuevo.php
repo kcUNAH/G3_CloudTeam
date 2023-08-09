@@ -72,7 +72,7 @@
         u.fecha_ultima_conexion,  u.fecha_vencimiento, u.correo_electronico, u.creado_por, 
         u.fecha_creacion, u.fecha_modificacion FROM tbl_ms_usuario u INNER JOIN tbl_ms_rol r on u.id_rol = r.id_rol
         WHERE estado_usuario ='NUEVO' 
-        ORDER BY u.id_usuario ASC
+        ORDER BY u.id_usuario DESC
         LIMIT $desde,$por_pagina");
         
         $result = mysqli_num_rows($query);

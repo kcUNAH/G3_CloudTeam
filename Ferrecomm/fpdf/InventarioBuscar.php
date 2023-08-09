@@ -134,7 +134,7 @@ WHERE (p.nombre_producto LIKE '%$busqueda%' OR
         p.cantidad_max  LIKE '%$busqueda%' OR
         p.precio_producto LIKE '%$busqueda%' OR
         c.nombre_categoria LIKE '%$busqueda%')
-         ");
+        ORDER BY i.id_inventario DESC");
 
 // AnchoCelda,AltoCelda,titulo,borde(1-0),saltoLinea(1-0),posicion(L-C-R),ColorFondo(1-0)
 

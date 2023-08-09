@@ -88,7 +88,7 @@
             INNER JOIN tbl_producto p on m.id_producto = p.id_producto 
             INNER JOIN tbl_tipo_mov_invt h on m.id_tipo_mov_invt = h.id_tipo_mov_invt
             INNER JOIN tbl_ms_usuario u on m.id_usuario = u.id_usuario
-            ORDER BY m.id_mov_invent ASC
+            ORDER BY m.id_mov_invent DESC
             LIMIT $desde,$por_pagina");
 
 
