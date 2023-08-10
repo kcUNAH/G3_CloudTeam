@@ -81,7 +81,7 @@ class PDF extends FPDF
      // $this->Cell(40, 10, utf8_decode('Descripcion'), 1, 0, 'C', 1);
       $this->Cell(22, 20, utf8_decode('Rol'), 1, 0, 'C', 1);
       //$this->Cell(30, 10, utf8_decode('Imagen'), 1, 0, 'C', 1);
-      $this->Cell(35, 20, utf8_decode('Ultima Conexión'), 1, 0, 'C', 1);
+      $this->Cell(35, 20, utf8_decode('Última Conexión'), 1, 0, 'C', 1);
       $this->Cell(35, 20, utf8_decode('Fecha Vencimiento'), 1, 0, 'C', 1);
       $this->Cell(45, 20, utf8_decode('Correo Electronico'), 1, 0, 'C', 1);
       //$this->Cell(40, 20, utf8_decode('Creador Por'), 1, 0, 'C', 1);

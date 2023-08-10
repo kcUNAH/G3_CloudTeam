@@ -31,8 +31,8 @@ if(!isset ($_SESSION['usuario'])){
             }else{
                 
                 $id_usuario = $_POST['id_usuario'];
-                $usuario = $_POST['usuario'];
-                $nombre_usuario = $_POST['nombre_usuario'];
+                $usuario = strtoupper($_POST['usuario']);
+                $nombre_usuario = strtoupper($_POST['nombre_usuario']);
                 $estado_usuario = $_POST['estado_usuario'];
                 //$contrasenia = $_POST['contrasenia'];
                 $rol = $_POST['id_rol'];
