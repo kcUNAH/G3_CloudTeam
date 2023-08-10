@@ -344,12 +344,12 @@ if(!isset ($_SESSION['usuario'])){
             <input type="text" name="nombre_usuario" id="nombre_usuario" style="text-transform:uppercase;" placeholder="Nombre Completo" value="<?php echo $nombre_usuario; ?>">
 
             <label for="Estado_usuario">Estado</label>
-            <select name="estado_usuario" id="estado_usuario">
-                
-           <option value="0">-SELECCIONAR </option>  <!-- COPIAR A OTRAS FORMULARIOS -->
-                <option value="1">ACTIVO</option>
-                <option value="2">INACTIVO</option>
-            </select>
+<select name="estado_usuario" id="estado_usuario">
+    <option value="0">-SELECCIONAR</option>
+    <option value="1" <?php if ($estado_usuario === 'ACTIVO') echo 'selected'; ?>>ACTIVO</option>
+    <option value="2" <?php if ($estado_usuario === 'INACTIVO') echo 'selected'; ?>>INACTIVO</option>
+    <option value="3" <?php if ($estado_usuario === 'NUEVO') echo 'selected'; ?>>NUEVO</option>
+</select>
             
             <label for="id_rol">Rol</label></br>
                 
