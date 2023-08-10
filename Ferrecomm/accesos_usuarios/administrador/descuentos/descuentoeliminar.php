@@ -27,40 +27,6 @@ WHERE id_descuentos = $id_descuento;");
     }
  }
 
-
-
-
- if(!empty($_POST)){
-    $id_descuento=$_POST['id_descuento'];
-  
-   $query_delete = mysqli_query($conex,"DELETE FROM tbl_descuentos WHERE id_descuentos= $id_descuento ");
-   if($query_delete){
-       
-        echo
-            '<script>
-            alert("Descuento eliminado correctamente");
-            window.location= "./descuentos.php";
-            </script>
-            ';
-   $codigoObjeto=4;
-    $accion='Eliminar';
-    $descripcion= 'Elimino un descuento correctamente';
-    bitacora($codigoObjeto, $accion,$descripcion);
-        
-    }else{
-        echo
-            '<script>
-            alert("Error al eliminar el descuento correctamente");
-            window.location= "./descuentos.php";
-            </script>
-            ';
-
-         $codigoObjeto=4;
-        $accion='Eliminar';
-        $descripcion= 'El Usuario intento eliminar un descuento';
-        bitacora($codigoObjeto, $accion,$descripcion);
-    }
-}
  
 
 ?>
@@ -158,7 +124,7 @@ WHERE id_descuentos = $id_descuento;");
   </style>
   <section class="home-section"></br>
       <h2>  Eliminar descuento <i class='bx bxs-discount'></i></h2>
-            <form action="" method="POST" enctype="multipart/form-data" id="">
+            <form action="eliminar.php" method="POST" enctype="multipart/form-data" id="">
         <div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
 
       <input type="hidden" name="id_descuento" value="<?php echo $id_descuento;?>">

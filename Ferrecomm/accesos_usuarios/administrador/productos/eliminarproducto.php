@@ -45,44 +45,6 @@ WHERE id_producto = $id_producto;");
     }
  }
 
-   if(!empty($_POST)){
-        $id_producto=$_POST['id_producto'];
-
-        $query_check = mysqli_query($conex, "SELECT * FROM tbl_promociones_producto WHERE id_producto= $id_producto");
-        if (mysqli_num_rows($query_check) > 0) {
-            echo '<script>alert("No se puede eliminar esta producto, ya que posee una promocion y para eliminar este producto debera eliminar primero la promocion ");</script>';
-        } else {
-    
-
-       $query_delete = mysqli_query($conex,"DELETE FROM tbl_producto WHERE id_producto = $id_producto ");
-       if($query_delete){
-           // header("Location: GestionUsuarios.php");
-            
-            echo
-                '<script>
-                alert("Producto eliminado correctamente");
-                window.location= "../Productos.php";
-                </script>
-                ';
-       $codigoObjeto=4;
-        $accion='Eliminar';
-        $descripcion= 'Elimino Producto correctamente';
-        bitacora($codigoObjeto, $accion,$descripcion);
-            
-        }else{
-            echo
-                '<script>
-                alert("Error al eliminar el producto correctamente");
-                window.location= "../Productos.php";
-                </script>
-                ';
-
-             $codigoObjeto=4;
-            $accion='Eliminar';
-            $descripcion= 'El Usuario intento eliminar Un producto';
-            bitacora($codigoObjeto, $accion,$descripcion);
-        }
-   }}
 
 ?>
 
@@ -183,7 +145,7 @@ span{
 
       <h2>  Eliminar producto <i class='bx bxs-trash'></i></h2>
       
-      <form action="" method="POST" enctype="multipart/form-data">
+      <form action="productoeliminar.php" method="POST" enctype="multipart/form-data">
         <div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
       <input type="hidden" name="id_producto" value="<?php echo $id_producto;?>">
             <label for="id_categoria">Categoría:</label></br>    

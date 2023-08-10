@@ -94,8 +94,8 @@ $ultimo_id= mysqli_insert_id($conex);
                 
                 
                 $codigoObjeto=7;
-                $accion='Registro';
-                $descripcion= 'Se agrego un producto con Exito';
+                $accion='Nuevo producto';
+                $descripcion= 'El usuario agrego un producto con éxito';
                 bitacora($codigoObjeto, $accion,$descripcion);
             } else {
                 echo

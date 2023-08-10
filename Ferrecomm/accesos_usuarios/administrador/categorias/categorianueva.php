@@ -7,50 +7,6 @@ include '../../../php/bitacora.php';
 
 
 
-if (!empty($_POST)) {
-
-    if (empty($_POST['nombre_categoria']) || empty($_POST['presentacion']))  //Si van vacios nos muestra el mensaje de erro, sino capturalos datos
-    {
-        echo '<script>
-            alert("Todos los campos son obligatorios");
-            window.location.href= "promocionagregar.php";
-            </script>
-            ';
-    } else {
-
-        $nombre_categoria =$_POST['nombre_categoria'];
-        $presentacion = $_POST['presentacion'];
-
-            $query_insert = mysqli_query($conex, "INSERT INTO tbl_categoria(nombre_categoria,presentacion)
-            VALUES('$nombre_categoria','$presentacion')");
-
-            if ($query_insert) {
-                echo
-                '<script>
-                alert("Categoria agregada correctamente");
-                window.location= "../categoria.php";
-                </script>
-                ';
-                $codigoObjeto=7;
-                $accion='Registro';
-                $descripcion= 'Se agrego una categoria nueva con Exito';
-                bitacora($codigoObjeto, $accion,$descripcion);
-            } else {
-                echo
-                '<script>
-                alert("Error al añadir la caategoria");
-                window.location= "categorianueva.php";
-                </script>
-                ';
-            }
-        }
-    }
-
-
-
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -145,7 +101,7 @@ if (!empty($_POST)) {
   </style>
   <section class="home-section"></br>
       <h2>  Añadir nueva categoría <i class='bx bxs-category'></i></h2>
-            <form action="" method="POST" enctype="multipart/form-data" id="formulario">
+            <form action="agregar.php" method="POST" enctype="multipart/form-data" id="formulario">
 
 
                 <div class="formulario__grupo" id="grupo__nombre_categoria">

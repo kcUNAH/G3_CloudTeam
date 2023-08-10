@@ -6,84 +6,6 @@ include '../../../php/bitacora.php';
 ?>
 
 
-<?php
-
-
-
-
-
-
-if (!empty($_POST)) {
-
-    if (empty($_POST['nombre_descuento']) || empty($_POST['porcentaje_descontar'])) //Si van vacios nos muestra el mensaje de erro, sino capturalos datos
-    {
-        // $alert= '<p class= "msg_error"> Todos los campos son obligatorios.</p>';  
-        echo '<script>
-            alert("Todos los campos son obligatorios");
-            window.location= "descuentoagregar.php";
-            </script>
-            ';
-    } else {
-
-        $nombre_descuento = $_POST['nombre_descuento'];
-        $porcentaje_descontar = $_POST['porcentaje_descontar'];
-       
-        $query = mysqli_query($conex, "SELECT * FROM tbl_descuentos WHERE nombre_descuento = '$nombre_descuento'");
-        $result = mysqli_fetch_array($query);
-
-        if ($result > 0) {
-            // $alert= '<p class= "msg_error">El usuario ya existe.</p>';
-            echo
-                '<script>
-                alert("El descuento ya existe");
-                window.location= "descuentos.php";
-                </script>
-                ';
-            $codigoObjeto = 7;
-            $accion = 'Registro';
-            $descripcion = 'Intento ingresar un descuento ya existente';
-            bitacora($codigoObjeto, $accion, $descripcion);
-        } else {
-            $query_insert = mysqli_query($conex, "INSERT INTO tbl_descuentos(nombre_descuento, porcentaje_descontar)
-            VALUES('$nombre_descuento','$porcentaje_descontar')");
-
-
-            if ($query_insert) {
-                //  $alert= '<p class= "msg_save">El usuario se ha creado.</p>';
-                echo
-                        '<script>
-                alert("Descuento creado correctamente");
-                window.location= "descuentos.php";
-                </script>
-                ';
-
-              
-                $codigoObjeto = 7;
-                $accion = 'Registro';
-                $descripcion = 'El usuario registro un descuento nuevo';
-                bitacora($codigoObjeto, $accion, $descripcion);
-            } else {
-                // $alert= '<p class= "msg_error">Error al crear el usario.</p>';
-                echo
-                    '<script>
-                alert("Error al crear el descuento");
-                window.location= "descuentos.php";
-                </script>
-                ';
-                $codigoObjeto = 7;
-                $accion = 'Registro';
-                $descripcion = 'Error al intentar crear un descuento';
-                bitacora($codigoObjeto, $accion, $descripcion);
-            }
-        }
-    }
-}
-
-
-
-
-
-?>
 
 
 
@@ -190,7 +112,7 @@ if (!empty($_POST)) {
 </style>
   <section class="home-section"></br>
       <h2>  Añadir Descuento <i class='bx bxs-discount'></i></h2>
-            <form action="" method="POST" enctype="multipart/form-data" id="formulario">
+            <form action="agregar.php" method="POST" enctype="multipart/form-data" id="formulario">
 
             <div class="formulario__grupo" id="grupo__nombre_descuento">
 				<label for="nombre_descuento" class="formulario__label" >Nombre del descuento:</label>

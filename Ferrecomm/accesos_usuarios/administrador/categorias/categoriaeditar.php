@@ -27,49 +27,6 @@ WHERE id_categoria = $id_categoria;");
     }
  }
 
-
-
- 
-
-
-if (!empty($_POST)) {
-
-    if (empty($_POST['nombre_categoria']) || empty($_POST['presentacion']) )  
-        {
-            $alert= '<p class= "msg_error"> Todos los campos son obligatorios.</p>';
-    } else {
-        $id_categoria = $_POST['id_categoria'];
-        $nombre_categoria = $_POST['nombre_categoria'];
-        $presentacion = $_POST['presentacion'];
-               
-            $query_update = mysqli_query($conex, "UPDATE tbl_categoria SET nombre_categoria = '$nombre_categoria',
-            presentacion = '$presentacion'
-            WHERE id_categoria = $id_categoria "); 
-                
-            if ($query_update) {
-                echo
-                '<script>
-                alert("Categoria actualizada correctamente");
-                window.location= "../categoria.php";
-                </script>
-                ';
-                $codigoObjeto=3;
-              $accion='Actualizar';
-              $descripcion= 'Actualizo la categoria';
-              bitacora($codigoObjeto, $accion,$descripcion);
-            } else {
-                echo
-                '<script>
-                alert("Error al actualizar la categoria");
-                window.location= "promocioneditar.php";
-                </script>
-                ';
-            }
-            }
-    }
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -164,7 +121,7 @@ if (!empty($_POST)) {
   </style>
   <section class="home-section"></br>
       <h2>  Editar categoría <i class='bx bxs-category'></i></h2>
-            <form action="" method="POST" enctype="multipart/form-data" id="formulario">
+            <form action="editar.php" method="POST" enctype="multipart/form-data" id="formulario">
         <div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
       <input type="hidden" name="id_categoria" value="<?php echo $id_categoria;?>">
         

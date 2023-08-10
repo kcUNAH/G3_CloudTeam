@@ -40,43 +40,6 @@ WHERE id_promocion = $id_promocion;");
     }
  }
 
-
-
- 
-
- if(!empty($_POST)){
-    $id_promocion=$_POST['id_promocion'];
-
-    
-
-   $query_delete = mysqli_query($conexion,"DELETE FROM tbl_promociones WHERE id_promocion = $id_promocion ");
-   if($query_delete){
-       
-        echo
-            '<script>
-            alert("Promocion eliminada correctamente");
-            window.location= "promocion.php";
-            </script>
-            ';
-   $codigoObjeto=4;
-    $accion='Eliminar';
-    $descripcion= 'Elimino una promocion correctamente';
-    bitacora($codigoObjeto, $accion,$descripcion);
-        
-    }else{
-        echo
-            '<script>
-            alert("Error al eliminar la promocion correctamente");
-            window.location= "promocion.php";
-            </script>
-            ';
-
-         $codigoObjeto=4;
-        $accion='Eliminar';
-        $descripcion= 'El Usuario intento eliminar una promocion';
-        bitacora($codigoObjeto, $accion,$descripcion);
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -163,7 +126,7 @@ WHERE id_promocion = $id_promocion;");
 
       <h2>  Eliminar promoción <i class='bx bxs-trash'></i></h2>
       
-      <form action="" method="POST" enctype="multipart/form-data">
+      <form action="eliminarpromocion.php" method="POST" enctype="multipart/form-data">
         <div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
       <input type="hidden" name="id_promocion" value="<?php echo $id_promocion;?>">
         

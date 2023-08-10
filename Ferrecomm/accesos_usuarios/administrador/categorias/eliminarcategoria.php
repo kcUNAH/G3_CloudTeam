@@ -28,47 +28,6 @@ WHERE id_categoria = $id_categoria;");
     }
  }
 
-
-
-
- if(!empty($_POST)){
-    $id_categoria=$_POST['id_categoria'];
-  
-    $query_check = mysqli_query($conex, "SELECT * FROM tbl_producto WHERE id_categoria = $id_categoria");
-    if (mysqli_num_rows($query_check) > 0) {
-        echo '<script>alert("No se puede eliminar esta categoria porque esta siendo usada en uno o varios productos, porfavor cambie de categoria esos productos");</script>';
-    } else {
-
-   $query_delete = mysqli_query($conex,"DELETE FROM tbl_categoria WHERE id_categoria = $id_categoria ");
-   if($query_delete){
-       
-        echo
-            '<script>
-            alert("Categoria eliminada correctamente");
-            window.location= "../categoria.php";
-            </script>
-            ';
-   $codigoObjeto=4;
-    $accion='Eliminar';
-    $descripcion= 'Elimino una categoria correctamente';
-    bitacora($codigoObjeto, $accion,$descripcion);
-        
-    }else{
-        echo
-            '<script>
-            alert("Error al eliminar la categoria correctamente");
-            window.location= "../categoria.php";
-            </script>
-            ';
-
-         $codigoObjeto=4;
-        $accion='Eliminar';
-        $descripcion= 'El Usuario intento eliminar una categoria';
-        bitacora($codigoObjeto, $accion,$descripcion);
-    }
-}
- }
-
 ?>
 
 <!DOCTYPE html>
@@ -164,7 +123,7 @@ WHERE id_categoria = $id_categoria;");
   </style>
   <section class="home-section"></br>
       <h2>  Eliminar categoría <i class='bx bxs-category'></i></h2>
-            <form action="" method="POST" enctype="multipart/form-data" id="">
+            <form action="eliminar.php" method="POST" enctype="multipart/form-data" id="">
         <div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
       <input type="hidden" name="id_categoria" value="<?php echo $id_categoria;?>">
         
