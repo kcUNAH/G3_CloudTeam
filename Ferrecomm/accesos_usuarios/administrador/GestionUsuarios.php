@@ -52,7 +52,7 @@
             <thead>
               <tr>
                
-                <th> Usuario</th>
+                <th>Usuario</th>
                 <th>Nombre</th>
                 <th>ROL</th>
                 <th>Ultima Conexión</th>

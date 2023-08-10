@@ -248,15 +248,12 @@ if($va_primer_ingreso==1 && $id_objeto==16 ){
 				<p class="formulario__input-error">La descripción tiene que contener letras y contener 3 a 25 de las mismas</p>
 			    </div>
 
-
-
                 <label for="estado">Estado</label>
-            <select name="estado" id="estado">
-                <option value="1">ACTIVO</option>
-                <option value="2">INACTIVO</option>
-                
-                
-            </select>
+<select name="estado" id="estado">
+    <option value="1" <?php if ($estado === 'ACTIVO') echo 'selected'; ?>>ACTIVO</option>
+    <option value="2" <?php if ($estado === 'INACTIVO') echo 'selected'; ?>>INACTIVO</option>
+</select>
+
 
             </br>
             
