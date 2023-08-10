@@ -29,40 +29,6 @@ WHERE id_pregunta = $id_pregunta;");
 
 
 
-
- if(!empty($_POST)){
-    $id_pregunta=$_POST['id_pregunta'];
-  
-   $query_delete = mysqli_query($conex,"DELETE FROM tbl_ms_preguntas WHERE id_pregunta= $id_pregunta ");
-   if($query_delete){
-       
-        echo
-            '<script>
-            alert("Pregunta eliminada correctamente");
-            window.location= "./preguntas.php";
-            </script>
-            ';
-   $codigoObjeto=4;
-    $accion='Eliminar';
-    $descripcion= 'Elimino una pregunta correctamente';
-    bitacora($codigoObjeto, $accion,$descripcion);
-        
-    }else{
-        echo
-            '<script>
-            alert("Error al eliminar la pregunta correctamente");
-            window.location= "./preguntas.php";
-            </script>
-            ';
-
-         $codigoObjeto=4;
-        $accion='Eliminar';
-        $descripcion= 'El Usuario intento eliminar un descuento';
-        bitacora($codigoObjeto, $accion,$descripcion);
-    }
-}
- 
-
 ?>
 
 
@@ -166,7 +132,7 @@ WHERE id_pregunta = $id_pregunta;");
 </style>
   <section class="home-section"></br>
       <h2>  Eliminar pregunta ¿? </h2>
-            <form action="" method="POST" enctype="multipart/form-data" id="">
+            <form action="eliminarpregunta.php" method="POST" enctype="multipart/form-data" id="">
         <div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
 
       <input type="hidden" name="id_pregunta" value="<?php echo $id_pregunta;?>">

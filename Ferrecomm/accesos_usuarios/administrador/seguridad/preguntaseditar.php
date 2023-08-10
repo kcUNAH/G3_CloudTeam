@@ -10,63 +10,6 @@ include '../../../php/bitacora.php';
         
         include '../conex.php';
 
-    
-        if (!empty($_POST)){
-            
-            if(empty($_POST['pregunta']) )  //Si van vacios nos muestra el mensaje de erro, sino capturalos datos
-            {
-                $alert= '<p class= "msg_error"> Todos los campos son obligatorios.</p>';    
-        
-            }else{
-                
-                $id_pregunta = $_POST['id_pregunta'];
-                $pregunta = $_POST['pregunta'];
-              
-
-                $query = mysqli_query($conex,"SELECT * FROM tbl_ms_preguntas
-                WHERE (pregunta = '$pregunta' AND id_pregunta != $id_pregunta)");
-
-            $result = mysqli_fetch_array($query); //Almacena datos
-
-            if($result > 0){ //Si ya existe manda eel mensaje 
-                $alert= '<p class= "msg_error">El cliente ya existe.</p>';
-            }else{
-
-               
-                    $sql_update = mysqli_query($conex,"UPDATE tbl_ms_preguntas SET 
-                    pregunta ='$pregunta'
-                    WHERE id_pregunta = $id_pregunta");
-
-                    if($sql_update){
-                       // $alert= '<p class= "msg_save">El usuario se ha actualizado correctamente.</p>';
-                        
-                       echo '<script>
-                        alert("La pregunta se ha actualizado correctamente");
-                        window.location= "preguntas.php";
-                        </script>
-                        ';
-                        $codigoObjeto=3;
-                        $accion='Actualizar';
-                        $descripcion= 'La pregunta sea actualizo';
-                        bitacora($codigoObjeto, $accion,$descripcion);
-                    }else{
-                        //$alert= '<p class= "msg_error">Error al actualizar el usario.</p>';
-                        echo '<script>
-                        alert("Error al actualizar la pregunta");
-                        window.location= "preguntaseditar.php";
-                        </script>
-                        ';
-                        $codigoObjeto=3;
-                        $accion='Actualizar';
-                        $descripcion= 'Se produjo un error al actualizar la pregunta';
-                        bitacora($codigoObjeto, $accion,$descripcion);
-                    }
-                
-                
-            }
-            }
-        
-    }
 
 //Si no existe el usuario me redirecciona a gestion de usuario QUITAR EL !
     if(empty($_GET['id']))
@@ -202,7 +145,7 @@ include '../../../php/bitacora.php';
       <h2>  Editar pregunta ¿?</h2>
       
         
-        <form action="" method ="POST" enctype="multipart/form-data" id="formulario">
+        <form action="editarpregunta.php" method ="POST" enctype="multipart/form-data" id="formulario">
             <div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
         <input type="hidden" name="id_pregunta" value="<?php echo $id_pregunta;?>">
             <div class="formulario__grupo" id="grupo__pregunta">
