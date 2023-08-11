@@ -42,7 +42,7 @@ date_default_timezone_set('America/Tegucigalpa');
 <body>
     <!-- Main content -->
     <section class="content" style="background-color: #DCFFFE;">
-        <h2 style="text-align: center;  color: rgba(255, 102, 0, 0.91);"> Añadir Nuevo Comprobante <i
+        <h2 style="text-align: center;  color: rgba(255, 102, 0, 0.91);"> <b>Añadir Nuevo Comprobante</b> <i
                 class='bx bxs-cart'></i></h2>
         <div class="row">
             <div class="col-md-12">
@@ -159,25 +159,30 @@ date_default_timezone_set('America/Tegucigalpa');
             }
         </script>
 <script>
-      function validarTextbox() {
+    function validarTextbox() {
   let textbox1 = document.getElementById("NombreRol");
   let textbox2 = document.getElementById("Descripcion");
   
   let texto1 = textbox1.value;
   let texto2 = textbox2.value;
   
-  // Eliminar caracteres especiales y números
-  texto1 = texto1.replace(/[^A-Za-z]/g, "");
-  texto2 = texto2.replace(/[^A-Za-z]/g, "");
+  // Eliminar caracteres especiales, números y espacios adicionales
+  texto1 = texto1.replace(/[^A-Za-z ]/g, "");
+  texto2 = texto2.replace(/[^A-Za-z ]/g, "");
   
   // Convertir texto a mayúsculas
   texto1 = texto1.toUpperCase();
   texto2 = texto2.toUpperCase();
   
+  // Eliminar espacios adicionales
+  texto1 = texto1.replace(/\s+/g, ' ');
+  texto2 = texto2.replace(/\s+/g, ' ');
+  
   // Asignar texto validado al textbox
   textbox1.value = texto1;
   textbox2.value = texto2;
 }
+
     </script>
         <!-- jQuery -->
         <script src="../public/js/jquery-3.1.1.min.js"></script>

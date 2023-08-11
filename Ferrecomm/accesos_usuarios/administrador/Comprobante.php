@@ -128,12 +128,12 @@ margin-left: -3px;">
 
     <!-- /////////////////////////////////#DCFFFE/////////////////////////////////////////////////////////////////////-->
     <div id="divModal"></div>
-    <h2 style="text-align: center;  color: rgba(255, 102, 0, 0.91);">Comprobantes <i
+    <h2 style="text-align: center;  color: rgba(255, 102, 0, 0.91);"><b>Comprobantes</b> <i
                 class='bx bxs-cart'></i></h2>
     <main class="app-content" style="background-color: #DCFFFE;">
     <div class="center">    
   <a href="nuevo_comprobante.php" class="btn_newproducto">Nuevo comprobante<i id="icon_nuevo" class='bx bxs-cart-add'></i></a>
-  <a href="../../fpdf/Reportecomprobante.php" target="_blank" class="btn_pdf">Generar PDF<i id="" class=''></i></a>
+  <a onclick="generarpdf()" target="_blank" class="btn_pdf">Generar PDF<i id="" class=''></i></a>
 </div>
 
       <div class="row">
@@ -149,7 +149,7 @@ margin-left: -3px;">
                     <tr>
                       <th>Id comprobante</th>
                       <th>Nombre</th>
-                      <th>Descripcion</th>
+                      <th>Descripción</th>
                       <th>Estado</th>
                       <th>Acciones</th>
                     </tr>
@@ -292,7 +292,19 @@ h1 {
     <script src="../public/js/bootbox.min.js"></script>
     <script src="../public/js/bootstrap-select.min.js"></script>
 
-
+<script>
+  $(document).ready(function() {
+    setTimeout(function() {
+        $('.dataTables_filter input').on('input', function(event) {
+            var inputValue = $(this).val();
+            var sanitizedValue = inputValue.replace(/[^a-zA-Z0-9\s]/g, ''); // Remueve caracteres no permitidos
+            if (sanitizedValue !== inputValue) {
+                $(this).val(sanitizedValue);
+            }
+        });
+    }, 1000); // Retraso de 1 segundo (ajusta según sea necesario)
+});
+</script>
 
     <script src="../../js/functions_comprobantes.js"></script>
     </div>

@@ -346,5 +346,16 @@ function marcarImpuesto()
   	detalles=detalles-1;
   	evaluar();
   }
+  function generarpdf() {
+    let buscador = $('.dataTables_filter input').val();
+    let url = '../../fpdf/Reportecomprobante.php?buscador=' + encodeURIComponent(buscador);
 
+    // Abre la URL en una nueva ventana
+    window.open(url, '_blank');
+}
+
+
+
+
+  window.location.href = url;
 init();

@@ -67,7 +67,7 @@ class PDF extends FPDF
       $this->SetTextColor(228, 100, 0);
       $this->Cell(90); // mover a la derecha
       $this->SetFont('Arial', 'B', 15);
-      $this->Cell(100, 10, utf8_decode("Reporte de comprobantes "), 0, 1, 'C', 0);
+      $this->Cell(100, 10, utf8_decode("REPORTE DE COMPROBANTES"), 0, 1, 'C', 0);
       $this->Ln(7);
 
       /* CAMPOS DE LA TABLA */
@@ -77,7 +77,7 @@ class PDF extends FPDF
       $this->SetDrawColor(163, 163, 163); //colorBorde
       $this->SetFont('Arial', 'B', 11);
       $this->Cell(100,10, utf8_decode('Nombre'), 1, 0, 'C', 1);
-      $this->Cell(100,10, utf8_decode('Descripcion'), 1, 0, 'C', 1);
+      $this->Cell(100,10, utf8_decode('Descripción'), 1, 0, 'C', 1);
       $this->Cell(80, 10, utf8_decode('Estado'), 1, 1, 'C', 1);
    }
 
@@ -105,8 +105,19 @@ $i = 0;
 $pdf->SetFont('Arial', '', 12);
 $pdf->SetDrawColor(163, 163, 163); //colorBorde
 
-$consulta_reporte_producto = $conexion->query("SELECT id_comprobante, nombre, descripcion, estado
-FROM tbl_comprobantes_compra ORDER BY id_comprobante ASC");
+$valor_buscar=($_GET['buscador']); // reemplaza "valor_a_buscar" con el valor que quieras buscar
+
+$consulta_reporte_producto = $conexion->query("
+  SELECT id_comprobante,nombre, descripcion, estado 
+  FROM tbl_comprobantes_compra 
+ 
+  WHERE id_comprobante LIKE '%$valor_buscar%' 
+     OR nombre LIKE '%$valor_buscar%' 
+     OR descripcion LIKE '%$valor_buscar%' 
+     OR estado LIKE '%$valor_buscar%' 
+  ORDER BY id_comprobante DESC
+");
+
 
 // AnchoCelda,AltoCelda,titulo,borde(1-0),saltoLinea(1-0),posicion(L-C-R),ColorFondo(1-0)
 

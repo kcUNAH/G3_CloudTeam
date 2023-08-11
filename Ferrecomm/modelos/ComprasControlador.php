@@ -243,12 +243,18 @@ switch ($_GET["op"]){
          // Crear una matriz para almacenar los datos de la tabla
          $data = array();
 		 $result = "";
-         // Recorrer los resultados de la consulta y agregarlos a la matriz de datos
+         // Recorrer los resultados de la consulta y agregarlos a la matriz de datos<box-icon type='solid' name='file-pdf'></box-icon>
          
          while ($row = $datos->fetch_assoc()) {
-			$btndetalle = "<button type='button' style='color: blue; background-color: #fff; border-color: #fff;' class='btn btn-primary btn-sm link_edit'   onclick='detalleM(" . $row['id_compra'] . ")'><i class='bx bx-low-vision'></i></button>";
+			$btndetalle = "<button type='button' style='color: blue; background-color: #fff; border-color: #fff;' class='btn btn-primary btn-sm link_edit' onclick='detalleM(" . $row['id_compra'] . ")'>
+    <span class='fas fa-file-pdf'></span>
+</button>";
+
 $btnEdit = "<button type='button' style='color: green; background-color: #fff; border-color: #fff;' class='btn btn-primary btn-sm link_edit' data-toggle='modal' data-target='#myModal' onclick='mostrar(" . $row['id_compra'] . ")'><i class='bx bx-edit'></i></button>"; 
-             $btnDelete = "<button type='button' class='btn btn-primary btn-sm link_delete' style='color: red; background-color: #fff; border-color: #fff;' onclick='anular(" . $row['id_compra'] . ")'><i class='bx bxs-trash'></i></button>";
+$btnDelete = "<button type='button' class='btn btn-primary btn-sm link_delete' style='color: red; background-color: #fff; border-color: #fff;' onclick='anular(" . $row['id_compra'] . ")'>
+<i class='fa-solid fa-ban'></i>
+</button>";
+
           
 			 $data[] = array(
 				"id_compra" => $row['id_compra'],
@@ -310,7 +316,7 @@ $btnEdit = "<button type='button' style='color: green; background-color: #fff; b
          $btnView = '';
          $btnEdit = '';
          $btnDelete = '';
-         $sentencia = "SELECT * FROM tbl_comprobantes_compra ";
+         $sentencia = "SELECT * FROM tbl_comprobantes_compra where estado ='Activo' ";
          $datos = $conn->query($sentencia);
          
     

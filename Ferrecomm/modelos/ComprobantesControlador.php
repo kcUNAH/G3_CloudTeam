@@ -76,11 +76,21 @@ switch ($_GET["op"]){
 	case 'anular':
        
 		$sw=true;
-		
+
+
+		$validar = "SELECT * FROM tbl_compras WHERE id_comprobante = $idComprobante";
+		$datos = $conn->query($validar);
+	
+		if ($datos->num_rows <= 0){
 			$sentencia="DELETE FROM tbl_comprobantes_compra WHERE id_comprobante = $idComprobante ";
 			$datos = $conn->query($sentencia);
 		
-			echo  "Comprobante ha sido Eliminado con exito";
+			echo  "Comprobante ha sido Eliminado con exito.";
+		}else{
+			echo  "Comprobante no se puede eliminar porque tiene compras relacionadas.";
+		}
+
+			
 
 
 	

@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,6 +22,11 @@
 
 
   <!-- DATATABLES -->
+  <head>
+    <!-- Otros elementos en el encabezado -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
   <link rel="stylesheet" type="text/css" href="../public/datatables/jquery.dataTables.min.css">
   <link href="../public/datatables/buttons.dataTables.min.css" rel="stylesheet" />
   <link href="../public/datatables/responsive.dataTables.min.css" rel="stylesheet" />
@@ -38,7 +40,7 @@
 
 <body class="app sidebar-mini">
   <!-- Modal -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+  <div class="modal fade" id="myModal" name="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
 
       <div class="modal-content" style="background-color: #fff0">
@@ -63,23 +65,23 @@ margin-left: -3px;">
                         <label>Proveedor(*):</label>
                         <input type="hidden" name="idingreso" id="idingreso">
                         <select id="idproveedor" name="idproveedor" class="form-control selectpicker"
-                          data-live-search="true" required disabled >
+                          data-live-search="true" required disabled>
 
                         </select>
                       </div>
                       <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
                         <label>Fecha(*):</label>
-                        <input type="date" class="form-control" name="fecha_hora" id="fecha_hora" required="" 
-                          value="" disabled>
+                        <input type="date" class="form-control" name="fecha_hora" id="fecha_hora" required="" value=""
+                          disabled>
                       </div>
                       <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <label>Tipo Comprobante(*):</label>
                         <select id="tipo_comprobante2" name="tipo_comprobante2" class="form-control selectpicker"
-                          data-live-search="true" required disabled >
+                          data-live-search="true" required disabled>
 
                         </select>
                       </div>
-                
+
 
                       <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
                         <label>Nº Compra:</label>
@@ -99,9 +101,8 @@ margin-left: -3px;">
 
                       <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                         <table id="detalles" class="table table-striped table-bordered table-condensed table-hover">
-                          <thead
-                            style="width: 130.083px; background-color', 'rgba(255, 102, 0, 0.911)">
-                         
+                          <thead style="width: 130.083px; background-color', 'rgba(255, 102, 0, 0.911)">
+
                             <th>Producto</th>
                             <th>Cantidad</th>
                             <th>Precio Compra</th>
@@ -115,7 +116,7 @@ margin-left: -3px;">
                             <th></th>
                             <th></th>
                             <th></th>
-                            
+
                             <th>
                               <h4 id="total">L. 0.00</h4><input type="hidden" name="total_compra" id="total_compra">
                             </th>
@@ -127,8 +128,8 @@ margin-left: -3px;">
                       </div>
 
                       <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                       </div>
                     </form>
                   </div>
@@ -141,26 +142,27 @@ margin-left: -3px;">
         </div><!-- /.content-wrapper -->
       </div>
       <div class="modal-footer">
-        
+
       </div>
     </div>
   </div>
   </div>
   <!-- Fin modal -->
- 
+
   <section class="home-section">
     </br>
     </header>
 
     <!-- /////////////////////////////////#DCFFFE/////////////////////////////////////////////////////////////////////-->
     <div id="divModal"></div>
-    <h2 style="text-align: center;  color: rgba(255, 102, 0, 0.91);">Compras <i
-                class='bx bxs-cart'></i></h2>
+    <h2 style="text-align: center; color: rgba(255, 102, 0, 0.91);"><b>Compras</b> <i class='bx bxs-cart'></i></h2>
+
     <main class="app-content" style="background-color: #DCFFFE;">
-    <div class="center">    
-  <a href="nueva_compra.php" class="btn_newproducto">Nueva Compra<i id="icon_nuevo" class='bx bxs-cart-add'></i></a>
-  <a onclick="generarpdf()" target="_blank" class="btn_pdf">Generar PDF<i id="" class=''></i></a>
-</div>
+      <div class="center">
+        <a href="nueva_compra.php" class="btn_newproducto">Nueva Compra<i id="icon_nuevo"
+            class='bx bxs-cart-add'></i></a>
+        <a onclick="generarpdf()" target="_blank" class="btn_pdf">Generar PDF<i id="" class=''></i></a>
+      </div>
 
       <div class="row">
         <div class="col-md-12">
@@ -189,7 +191,7 @@ margin-left: -3px;">
           </div>
         </div>
       </div>
-   
+
 
     </main>
     <!-- Essential javascripts for application to work-->
@@ -200,15 +202,17 @@ margin-left: -3px;">
         margin-right: 321px;
         margin-left: 375px;
       }
+
       .center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-h1 {
-  display: flex;
-  align-items: center;
-}
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      h1 {
+        display: flex;
+        align-items: center;
+      }
 
 
       .content {
@@ -226,25 +230,27 @@ h1 {
         color: red;
         font-size: 25px;
       }
+
       .btn_pdf {
-  display: inline-block;
-  background-color: rgba(255, 102, 0, 0.911);
-  color: rgb(255, 255, 255);
-  padding: 5px 25px;
-  border-radius: 10px;
-  margin: 20px;
-  text-decoration: none;
-}
-.btn_newproducto {
-  display: inline-block;
-  background: #306fe6;
-  color: rgb(255, 255, 255);
-  padding: 5px 25px;
-  border-radius: 10px;
-  margin: 20px;
-    margin-left: 20px;
-  text-decoration: none;
-}
+        display: inline-block;
+        background-color: rgba(255, 102, 0, 0.911);
+        color: rgb(255, 255, 255);
+        padding: 5px 25px;
+        border-radius: 10px;
+        margin: 20px;
+        text-decoration: none;
+      }
+
+      .btn_newproducto {
+        display: inline-block;
+        background: #306fe6;
+        color: rgb(255, 255, 255);
+        padding: 5px 25px;
+        border-radius: 10px;
+        margin: 20px;
+        margin-left: 20px;
+        text-decoration: none;
+      }
     </style>
 
     <div class="form-group col-md-6" id="tbldiv">
@@ -276,9 +282,10 @@ h1 {
           closeBtn.classList.replace("bx-menu-alt-right", "bx-menu");
         }
       }
-      
-    </script>
 
+    </script>
+    
+ 
     <!-- jQuery -->
     <script src="../public/js/jquery-3.1.1.min.js"></script>
     <!-- Bootstrap 3.3.5 -->
@@ -302,6 +309,21 @@ h1 {
 
 
     <script src="../../js/functions_compras.js"></script>
+    <script src="../../js/sweetalert.min.js"></script>
+    <script >
+$(document).ready(function() {
+    setTimeout(function() {
+        $('.dataTables_filter input').on('input', function(event) {
+            var inputValue = $(this).val();
+            var sanitizedValue = inputValue.replace(/[^a-zA-Z0-9\s]/g, ''); // Remueve caracteres no permitidos
+            if (sanitizedValue !== inputValue) {
+                $(this).val(sanitizedValue);
+            }
+        });
+    }, 1000); // Retraso de 1 segundo (ajusta según sea necesario)
+});
+
+    </script>
     </div>
 
 

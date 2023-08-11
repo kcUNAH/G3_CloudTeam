@@ -230,6 +230,7 @@ date_default_timezone_set('America/Tegucigalpa');
                 }
             }
         </script>
+        
         <!-- jQuery -->
         <script src="../public/js/jquery-3.1.1.min.js"></script>
         <!-- Bootstrap 3.3.5 -->
@@ -249,11 +250,11 @@ date_default_timezone_set('America/Tegucigalpa');
 
         <script src="../public/js/bootbox.min.js"></script>
         <script src="../public/js/bootstrap-select.min.js"></script>
-
-
-
+ 
+        <script src="../../js/sweetalert.min.js"></script>
         <script src="../../js/functions_compras.js"></script>
     </div>
+    <script></script>
     <style>
         .modal-body {
             position: relative;

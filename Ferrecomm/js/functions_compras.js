@@ -124,10 +124,15 @@ function mostrarform(flag)
 }
 //Función generar pdf
 function generarpdf() {
-	let buscador = $('.dataTables_filter input').val();
-	let url = '../../fpdf/Reportecompras.php?buscador=' + encodeURIComponent(buscador);
-	window.location.href = url;
-  }
+    let buscador = $('.dataTables_filter input').val();
+    let url = '../../fpdf/Reportecompras.php?buscador=' + encodeURIComponent(buscador);
+    
+    // Abre la URL en una nueva ventana
+    window.open(url, '_blank');
+}
+
+
+
   function detalleM(idingreso) {
 
 	let url = '../../fpdf/ReporteDetalleCompra.php?buscador=' + encodeURIComponent(idingreso);
@@ -309,16 +314,28 @@ function mostrar(idingreso)
 //Función para anular registros
 function anular(idingreso)
 {
-	bootbox.confirm("¿Está Seguro de anular la compra?", function(result){
-		if(result)
-        {
-        	$.post("../../modelos/ComprasControlador.php?op=anular", {idingreso : idingreso}, function(e){
-        		bootbox.alert(e);
-	           
-				tableRoles.api().ajax.reload();
-        	});	
-        }
-	})
+	bootbox.confirm({
+		message: "¿Está seguro de anular la compra?",
+		buttons: {
+			confirm: {
+				label: 'Aceptar',
+				className: 'btn-success'
+			},
+			cancel: {
+				label: 'Cancelar',
+				className: 'btn-danger'
+			}
+		},
+		callback: function(result) {
+			if (result) {
+				$.post("../../modelos/ComprasControlador.php?op=anular", { idingreso: idingreso }, function(e) {
+					bootbox.alert(e);
+					tableRoles.api().ajax.reload();
+				});
+			}
+		}
+	});
+	
 }
 
 //Declaración de variables necesarias para trabajar con las compras y
@@ -364,7 +381,7 @@ function marcarImpuesto()
 		'<td><input type="text" name="precio_venta[]" id="cantidad[]" style="width: 200px;" value="'+precio_venta+'" onkeypress="validarPrecio(event);" onkeyup="modificarSubototales()"></td>'+
 		
 		'<td><span name="subtotal" id="subtotal'+cont+'">'+ (subtotal * 0.15 ) + subtotal +'</span></td>'+
-		'<td><span name="ISV" id="ISV'+cont+'">'+ subtotal * 0.15 +'</span></td>'+
+		'<td><span name="ISV" id="ISV'+cont+'">'+ (subtotal * 0.15) +'</span></td>'
 	
 		'</tr>';
 	  cont++;
@@ -396,8 +413,8 @@ function marcarImpuesto()
 		  var inpS=sub[i];
   
 		  inpS.value=inpC.value * inpP.value;
-		  document.getElementsByName("subtotal")[i].innerHTML = inpS.value * 0.15 + inpS.value ;
-		  document.getElementsByName("ISV")[i].innerHTML = inpS.value * 0.15;
+		  document.getElementsByName("subtotal")[i].innerHTML = (inpS.value * 0.15 + inpS.value).toFixed(2) ;
+		  document.getElementsByName("ISV")[i].innerHTML = (inpS.value * 0.15).toFixed(2);
 
 
 		
@@ -413,8 +430,8 @@ function marcarImpuesto()
 		
 	}
 	
-	$("#total").html("L. " + total);
-    $("#total_compra").val(total);
+	$("#total").html("L. " + total.toFixed(2));
+    $("#total_compra").val(total.toFixed(2));
     evaluar();
   }
 
