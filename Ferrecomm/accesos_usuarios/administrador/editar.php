@@ -137,7 +137,7 @@ if(!isset ($_SESSION['usuario'])){
            // $fecha_vencimiento = $data['fecha_vencimiento'];
             $correo_electronico = $data['correo_electronico'];
             //Creacion automatica de fecha
-            date_default_timezone_set('America/Mexico_City');
+            date_default_timezone_set('America/tegucigalpa');
             $fecha_modificacion =date("Y-m-d H:i:s");
             
             $option = '<option value="'.$id_rol.'"select>'.$rol.'</option>';
