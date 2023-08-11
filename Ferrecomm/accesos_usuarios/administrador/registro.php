@@ -248,22 +248,16 @@ if (!empty($_POST)) {
 }
   </style>
 
-
-
-
-
-
     <?php include 'conex.php'; ?>
-    <section id="container">
+    
 
         <div class="form_register">
             
-          
+            <section class="home-section"></br>
+            <h2>  Registro Usuario <i class='bx bxs-user'></i></h2>
             <div class="alert">
                 <?php echo isset($alert) ? $alert : ''; ?>
             </div>
-
-            <h1>Registro Usuario</h1>
             <!-- formulario registro-->
             <form action="" method="POST" class="formulario__registro" id="formulario">
             
@@ -379,7 +373,7 @@ if (!empty($_POST)) {
 
         </div>
 
-    </section>
+   
     <script src="accesos/JS/scrip.js"> </script>
     <script src="../JS/formulario_registro.js"> </script>
     <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
