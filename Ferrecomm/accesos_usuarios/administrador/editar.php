@@ -34,7 +34,8 @@ if(!isset ($_SESSION['usuario'])){
                 $usuario = strtoupper($_POST['usuario']);
                 $nombre_usuario = strtoupper($_POST['nombre_usuario']);
                 $estado_usuario = $_POST['estado_usuario'];
-                //$contrasenia = $_POST['contrasenia'];
+                $contrasenia = $_POST['contrasenia'];
+                $contrasenia = hash('sha512', $contrasenia);
                 $rol = $_POST['id_rol'];
                // $fecha_vencimiento = $_POST['fecha_vencimiento'];
                 $correo_electronico = $_POST['correo_electronico'];
@@ -63,7 +64,8 @@ if(!isset ($_SESSION['usuario'])){
 
                
                     $sql_update = mysqli_query($conex,"UPDATE tbl_ms_usuario
-                    SET nombre_usuario='$nombre_usuario', estado_usuario='$estado_usuario', id_rol='$rol', 
+                    SET nombre_usuario='$nombre_usuario', estado_usuario='$estado_usuario', 
+                    contrasenia='$contrasenia', id_rol='$rol', 
                     correo_electronico='$correo_electronico',
                     fecha_modificacion='$fecha_modificacion'
                     WHERE id_usuario = $id_usuario");
@@ -129,7 +131,7 @@ if(!isset ($_SESSION['usuario'])){
             $usuario = $data['usuario'];
             $nombre_usuario = $data['nombre_usuario'];
             $estado_usuario = $data['estado_usuario'];
-            //$contrasenia = $data['contrasenia'];
+            $contrasenia = $data['contrasenia'];
            $rol = $data['rol'];
            $id_rol = $data['id_rol'];
            // $fecha_vencimiento = $data['fecha_vencimiento'];
@@ -350,7 +352,16 @@ if(!isset ($_SESSION['usuario'])){
     <option value="2" <?php if ($estado_usuario === 'INACTIVO') echo 'selected'; ?>>INACTIVO</option>
     <option value="3" <?php if ($estado_usuario === 'NUEVO') echo 'selected'; ?>>NUEVO</option>
 </select>
-            
+
+<label for="Contrasenia">Contraseña</label>
+<div class="formulario__grupo-input">
+                            <input type="password" class="formulario__input" name="contrasenia" id="contrasenia">
+                            <i class="formulario__validacion-estado fa-solid fa-eye" id="Ojito"></i>
+                        </div>
+                        <p class="formulario__input-error">La contraseña tiene que ser de 5 a 20 dígitos.</p>
+                    </div>            
+
+
             <label for="id_rol">Rol</label></br>
                 
                 <?php
