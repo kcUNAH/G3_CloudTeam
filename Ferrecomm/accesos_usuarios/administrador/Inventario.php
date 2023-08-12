@@ -52,13 +52,13 @@
               <tr>
                 
                 <th>Nombre Producto</th>
-                <th>Categoria</th>
+                <th>Categoría</th>
                 <th>Medida</th>
                 
                 <th>Existencia</th>
                 <th>Precio </th>
                 <th>Acciones </th>
-                <th>Ver Más </th>
+                <th>Ver más </th>
                 
 
 
@@ -149,7 +149,7 @@
                     <?php echo $color ?>
                   </td>
                   <td>
-                  <a href='VerMas_Producto.php?id=<?php echo $data["id_producto"]; ?>' class='btn_inventario' > Ver Más<i id='' class='b'></i></a>
+                  <a href='VerMas_Producto.php?id=<?php echo $data["id_producto"]; ?>' class='btn_inventario' > Ver más<i id='' class='b'></i></a>
                   </td>
                   <!-- 
                   <td>

@@ -50,7 +50,7 @@ if(!isset ($_SESSION['usuario'])){
             <span class="tooltip">Facturación</span>
         </li>
         <li>
-            <a href="../../../compras.php">
+            <a href="../compras.php">
                 <i class='bx bxs-cart'></i>
                 <span class="links_name">Compras</span>
             </a>
@@ -110,7 +110,7 @@ if(!isset ($_SESSION['usuario'])){
     </ul>
   </div>
   <section class="home-section">
-  <h1> Parametros <i class='bx bxs-notepad'></i></h1>
+  <h1> Parámetros <i class='bx bxs-notepad'></i></h1>
 
 
   <section class="home-section">  
@@ -130,7 +130,7 @@ if(!isset ($_SESSION['usuario'])){
   
   <button type="submit" class="boton-buscar">Buscar</button>
   
-  <a href="agg_parametro.php" class="btn_newproducto" style="margin-left: 350px" > Agregar Parametro<i id="icon_nuevo"  class='bx bxs-notepad'></i></a>
+  <a href="agg_parametro.php" class="btn_newproducto" style="margin-left: 350px" > Agregar parámetro<i id="icon_nuevo"  class='bx bxs-notepad'></i></a>
   <a href="../../../fpdf/reporteparametros.php" target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
 
 
@@ -154,13 +154,13 @@ if(!isset ($_SESSION['usuario'])){
       <thead> 
         <tr>
        <th style="display: none;">id_parametro</th>
-        <th>Parametro</th>
+        <th>Parámetro</th>
         <th>Valor</th>
         <th>Fecha creación</th>
-        <th>Fecha modificacion</th>
-        <th>creado por</th>
+        <th>Fecha modificación</th>
+        <th>Creado por</th>
         <th>Modificado por</th>
-        <th>id usuario</th>
+        <th>Id usuario</th>
 
         <th>Acción 
           

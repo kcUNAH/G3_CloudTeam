@@ -21,7 +21,7 @@
         <center>
             <div class="divt">
             <div class="title_page">
-                <h1> </br> Facturacion <i class='fas fa-cube'></i></h1> <h1>   </h1>
+                <h1> </br> Facturación <i class='fas fa-cube'></i></h1> <h1>   </h1>
             </div>
             </div>
         </center>
@@ -32,7 +32,7 @@
                 <div class="up">
                     <a href="Facturacion.php">
                     <button class="card1">
-                        <h4>ventas</h4>
+                        <h4>Ventas</h4>
                     <h1>  <i class='fa-solid fa-cart-shopping'></i> </h1>
                     
                     
@@ -40,7 +40,7 @@
                     </a>
                     <a href="clientes/clientes.php">
                     <button class="card2">
-                    <h4>clientes</h4>
+                    <h4>Clientes</h4>
                     <h1> <i class="fa-solid fa-users"></i> </h1>
                     </button>
                     </a>
@@ -48,7 +48,7 @@
                 <div class="down">
                     <a href="descuentos/descuentos.php">
                     <button class="card3">
-                    <h4>descuentos</h4>
+                    <h4>Descuentos</h4>
                     <h1> <i class="fa-solid fa-percent"></i></h1>
                     </button></a>
 

@@ -50,7 +50,7 @@ if(!isset ($_SESSION['usuario'])){
             <span class="tooltip">Facturación</span>
         </li>
         <li>
-            <a href="../../../compras.php">
+            <a href="../compras.php">
                 <i class='bx bxs-cart'></i>
                 <span class="links_name">Compras</span>
             </a>
@@ -146,15 +146,15 @@ if(!isset ($_SESSION['usuario'])){
         <tr>
        <th style="display: none;">id_permiso</th>
         <th>Rol</th>
-        <th>Permiso Asiganado</th>
+        <th>Permiso asiganado</th>
         <th>Permiso insertar</th>
         <th>Permiso eliminar</th>
-        <th>Permiso Actualizar</th>
+        <th>Permiso actualizar</th>
         <th>Permiso consultar</th>
         <th>Creado por</th>
-        <th>Fecha creacion</th>
+        <th>Fecha creación</th>
         <th>Modificado por</th>
-        <th>Fecha modificacion</th>
+        <th>Fecha modificación</th>
 
         <th>Acción 
           

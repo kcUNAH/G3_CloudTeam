@@ -50,7 +50,7 @@ if(!isset ($_SESSION['usuario'])){
             <span class="tooltip">Facturación</span>
         </li>
         <li>
-            <a href="../../../compras.php">
+            <a href="../compras.php">
                 <i class='bx bxs-cart'></i>
                 <span class="links_name">Compras</span>
             </a>

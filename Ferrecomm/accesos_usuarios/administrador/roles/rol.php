@@ -51,12 +51,12 @@
             <thead>
               <tr>
                
-                <th>ROL</th>
+                <th>Rol</th>
                 <th>Descripción</th>
-                <th>Creado Por</th>
-                <th>Fecha Creación</th>
-                <th>Modificado Por</th>
-                <th>Fecha Modificación</th>
+                <th>Creado por</th>
+                <th>Fecha creación</th>
+                <th>Modificado por</th>
+                <th>Fecha modificación</th>
                 <th>Estado</th>
                 <th>Acción</th>
 
