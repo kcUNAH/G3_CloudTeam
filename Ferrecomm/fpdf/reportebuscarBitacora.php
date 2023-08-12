@@ -1,4 +1,19 @@
 <?php
+session_start();
+if (!isset($_SESSION['usuario'])) {
+    echo '
+    <script>
+    alert("Por favor, debe iniciar seccion");
+    window.location= "index.php";
+    </script>
+    ';
+    //header("localitation: index.php");
+    session_destroy();
+    die();
+}
+?>
+
+<?php
 
 require('./fpdf.php');
 
@@ -77,12 +92,12 @@ class PDF extends FPDF
       $this->SetFont('Arial', 'B', 11);
       $this->SetFont('Arial', 'B', 11);
     
-      $this->Cell(50,10, utf8_decode('fecha'), 1, 0, 'C', 1);
-      $this->Cell(20, 10, utf8_decode('id_usuario'), 1, 0, 'C', 1);
+      $this->Cell(50,10, utf8_decode('Fecha'), 1, 0, 'C', 1);
+      $this->Cell(20, 10, utf8_decode('Id usuario'), 1, 0, 'C', 1);
      // $this->Cell(40, 10, utf8_decode('Descripcion'), 1, 0, 'C', 1);
-      $this->Cell(20, 10, utf8_decode('id_objeto'), 1, 0, 'C', 1);
+      $this->Cell(20, 10, utf8_decode('Id objeto'), 1, 0, 'C', 1);
       //$this->Cell(30, 10, utf8_decode('Imagen'), 1, 0, 'C', 1);
-      $this->Cell(50, 10, utf8_decode('Accion'), 1, 0, 'C', 1);
+      $this->Cell(50, 10, utf8_decode('Acción'), 1, 0, 'C', 1);
       $this->Cell(130, 10, utf8_decode('Descripción'), 1, 1, 'C', 1);
    
    }
@@ -102,6 +117,12 @@ class PDF extends FPDF
 }
 
 include '../php/conexion.php';
+include '../php/bitacora.php';
+
+$codigoObjeto=7;
+$accion='Generó reporte';
+$descripcion= 'El usuario generó un reporte de bitacora';
+bitacora($codigoObjeto, $accion,$descripcion);
 
 $pdf = new PDF();
 $pdf->AddPage("landscape"); /* aqui entran dos para parametros (horientazion,tamaño)V->portrait H->landscape tamaño (A3.A4.A5.letter.legal) */

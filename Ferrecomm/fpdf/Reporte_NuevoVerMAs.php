@@ -1,4 +1,19 @@
 <?php
+session_start();
+if (!isset($_SESSION['usuario'])) {
+    echo '
+    <script>
+    alert("Por favor, debe iniciar seccion");
+    window.location= "index.php";
+    </script>
+    ';
+    //header("localitation: index.php");
+    session_destroy();
+    die();
+}
+?>
+
+<?php
 
 require('./fpdf.php');
 
@@ -102,6 +117,12 @@ class PDF extends FPDF
 }
 
 include '../php/conexion.php';
+include '../php/bitacora.php';
+
+$codigoObjeto=7;
+$accion='Generó reporte';
+$descripcion= 'El usuario generó un reporte del historial del producto';
+bitacora($codigoObjeto, $accion,$descripcion);
 
 
 

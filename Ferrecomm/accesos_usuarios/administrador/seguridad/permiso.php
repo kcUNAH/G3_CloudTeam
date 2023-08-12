@@ -110,7 +110,7 @@ if(!isset ($_SESSION['usuario'])){
     </ul>
   </div>
   <section class="home-section">
-  <h1> permisos <i class='bx bxs-notepad'></i></h1>
+  <h1> Permisos <i class='bx bxs-notepad'></i></h1>
 
 
   <section class="home-section">  

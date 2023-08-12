@@ -1,4 +1,19 @@
 <?php
+session_start();
+if (!isset($_SESSION['usuario'])) {
+    echo '
+    <script>
+    alert("Por favor, debe iniciar seccion");
+    window.location= "index.php";
+    </script>
+    ';
+    //header("localitation: index.php");
+    session_destroy();
+    die();
+}
+?>
+
+<?php
 
 require('./fpdf.php');
 
@@ -67,7 +82,7 @@ class PDF extends FPDF
       $this->SetTextColor(228, 100, 0);
       $this->Cell(90); // mover a la derecha
       $this->SetFont('Arial', 'B', 15);
-      $this->Cell(100, 10, utf8_decode("Reporte de productos "), 0, 1, 'C', 0);
+      $this->Cell(100, 10, utf8_decode("REPORTE DE CLIENTES"), 0, 1, 'C', 0);
       $this->Ln(7);
 
       /* CAMPOS DE LA TABLA */
@@ -81,7 +96,7 @@ class PDF extends FPDF
      // $this->Cell(40, 10, utf8_decode('Descripcion'), 1, 0, 'C', 1);
       $this->Cell(40, 10, utf8_decode('Teléfono'), 1, 0, 'C', 1);
       //$this->Cell(30, 10, utf8_decode('Imagen'), 1, 0, 'C', 1);
-      $this->Cell(80, 10, utf8_decode('Dirección'), 1, 1, 'C', 1);
+      $this->Cell(95, 10, utf8_decode('Dirección'), 1, 1, 'C', 1);
      
    }
 
@@ -100,6 +115,12 @@ class PDF extends FPDF
 }
 
 include '../php/conexion.php';
+include '../php/bitacora.php';
+
+$codigoObjeto=7;
+$accion='Generó reporte';
+$descripcion= 'El usuario generó un reporte de clientes';
+bitacora($codigoObjeto, $accion,$descripcion);
 
 $pdf = new PDF();
 $pdf->AddPage("landscape"); /* aqui entran dos para parametros (horientazion,tamaño)V->portrait H->landscape tamaño (A3.A4.A5.letter.legal) */
@@ -119,7 +140,7 @@ $pdf->Cell(60, 10, utf8_decode($datos_reporte->dni_cliente), 1, 0, 'C', 0);
 $pdf->Cell(80, 10, utf8_decode($datos_reporte->nombre_cliente), 1, 0, 'C', 0);
 //$pdf->Multicell(20, 7, utf8_decode($datos_reporte->descripcion_producto), 1, 'J', false);
 $pdf->Cell(40, 10, utf8_decode($datos_reporte->telefono_cliente), 1, 0, 'C', 0);
-$pdf->Cell(80, 10, utf8_decode($datos_reporte->direccion_cliente), 1, 1, 'C', 0);
+$pdf->Cell(95, 10, utf8_decode($datos_reporte->direccion_cliente), 1, 1, 'C', 0);
 
    }
 $i = $i + 1;

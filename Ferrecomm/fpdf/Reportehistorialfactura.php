@@ -1,4 +1,19 @@
 <?php
+session_start();
+if (!isset($_SESSION['usuario'])) {
+    echo '
+    <script>
+    alert("Por favor, debe iniciar seccion");
+    window.location= "index.php";
+    </script>
+    ';
+    //header("localitation: index.php");
+    session_destroy();
+    die();
+}
+?>
+
+<?php
 
 require('./fpdf.php');
 
@@ -67,7 +82,7 @@ class PDF extends FPDF
      $this->SetTextColor(228, 100, 0);
      $this->Cell(90); // mover a la derecha
      $this->SetFont('Arial', 'B', 15);
-     $this->Cell(100, 10, utf8_decode("Reporte Historial de facturas "), 0, 1, 'C', 0);
+     $this->Cell(100, 10, utf8_decode("REPORTE DE HISTORIAL FACTURA"), 0, 1, 'C', 0);
      $this->Ln(7);
 
            /* CAMPOS DE LA TABLA */
@@ -100,6 +115,12 @@ class PDF extends FPDF
 }
                                                                                                                                                                                                                                                                                                 
 include '../php/conexion.php';
+include '../php/bitacora.php';
+
+$codigoObjeto=7;
+$accion='Generó reporte';
+$descripcion= 'El usuario generó un reporte de historial factura';
+bitacora($codigoObjeto, $accion,$descripcion);
 
 $pdf = new PDF();
 $pdf->AddPage("landscape"); /* aqui entran dos para parametros (horientazion,tamaño)V->portrait H->landscape tamaño (A3.A4.A5.letter.legal) */

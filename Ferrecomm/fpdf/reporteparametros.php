@@ -1,4 +1,20 @@
 <?php
+session_start();
+if (!isset($_SESSION['usuario'])) {
+    echo '
+    <script>
+    alert("Por favor, debe iniciar seccion");
+    window.location= "index.php";
+    </script>
+    ';
+    //header("localitation: index.php");
+    session_destroy();
+    die();
+}
+?>
+
+
+<?php
 
 require('./fpdf.php');
 
@@ -67,7 +83,7 @@ class PDF extends FPDF
      $this->SetTextColor(228, 100, 0);
      $this->Cell(90); // mover a la derecha
      $this->SetFont('Arial', 'B', 15);
-     $this->Cell(100, 10, utf8_decode("Reporte de parametros "), 0, 1, 'C', 0);
+     $this->Cell(100, 10, utf8_decode("REPORTE DE PARÁMETROS"), 0, 1, 'C', 0);
      $this->Ln(7);
 
            /* CAMPOS DE LA TABLA */
@@ -76,13 +92,13 @@ class PDF extends FPDF
       $this->SetTextColor(255, 255, 255); //colorTexto
       $this->SetDrawColor(163, 163, 163); //colorBorde
       $this->SetFont('Arial', 'B', 10);
-      $this->Cell(50,10, utf8_decode('Parametro'), 1, 0, 'C', 1);
+      $this->Cell(50,10, utf8_decode('Parámetro'), 1, 0, 'C', 1);
       $this->Cell(95, 10, utf8_decode('Valor'), 1, 0, 'C', 1);
      // $this->Cell(40, 10, utf8_decode('Descripcion'), 1, 0, 'C', 1);
-      $this->Cell(45, 10, utf8_decode('Fecha de creacion'), 1, 0, 'C', 1);
+      $this->Cell(45, 10, utf8_decode('Fecha de creación'), 1, 0, 'C', 1);
       //$this->Cell(30, 10, utf8_decode('Imagen'), 1, 0, 'C', 1);
-      $this->Cell(45, 10, utf8_decode('Fecha de modificacion'), 1, 0, 'C', 1);
-      $this->Cell(50, 10, utf8_decode('Creado Por'), 1, 1, 'C', 1);
+      $this->Cell(45, 10, utf8_decode('Fecha de modificación'), 1, 0, 'C', 1);
+      $this->Cell(50, 10, utf8_decode('Creado por'), 1, 1, 'C', 1);
     
    } 
 
@@ -101,6 +117,12 @@ class PDF extends FPDF
 }
                                                                                                                                                                                                                                                                                                 
 include '../php/conexion.php';
+include '../php/bitacora.php';
+
+$codigoObjeto=7;
+$accion='Generó reporte';
+$descripcion= 'El usuario generó un reporte de parámetros';
+bitacora($codigoObjeto, $accion,$descripcion);
 
 $pdf = new PDF();
 $pdf->AddPage("landscape"); /* aqui entran dos para parametros (horientazion,tamaño)V->portrait H->landscape tamaño (A3.A4.A5.letter.legal) */
