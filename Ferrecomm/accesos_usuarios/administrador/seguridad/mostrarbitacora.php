@@ -110,7 +110,7 @@ if(!isset ($_SESSION['usuario'])){
     </ul>
   </div>
   <section class="home-section">
-  <h1> Bitacora <i class='bx bx-note'></i></h1>
+  <h1> Bitácora <i class='bx bx-note'></i></h1>
 
 
     <?php include '../conex.php'; ?>
@@ -150,11 +150,11 @@ if(!isset ($_SESSION['usuario'])){
       <thead>
         <tr>
             <th>Id</th>
-            <th>fecha</th>
-            <th>id_usuario</th>
-            <th>id_objeto</th>
-            <th>accion</th>
-            <th>descripcion</th>
+            <th>Fecha</th>
+            <th>Id usuario</th>
+            <th>Id objeto</th>
+            <th>Acción</th>
+            <th>Descripción</th>
           
 
             
