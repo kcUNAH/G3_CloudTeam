@@ -119,8 +119,79 @@ if(!isset ($_SESSION['usuario'])){
    </div>
   </div>
   <section class="home-section">
-      <div class="text">Inicio</div>
+      <div class="text">Inicio, Bienvenido <?php echo $_SESSION['usuario']['nombre'] ?> </div>      </div>
+
+      <div class="center">
+      <div class="gallery-info">
+        
+    </div>
+
+        <div class="image-gallery">
+            <div class="image-container">
+            <img src="../../accesos/Imagenes/Inicio(1).jpg" alt="Imagen 1">
+            </div>
+            <div class="image-container">
+            <img src="../../accesos/Imagenes/Inicio(2).jpg" alt="Imagen 2">
+            </div>
+            <div class="image-container">
+            <img src="../../accesos/Imagenes/Inicio(3).jpg" alt="Imagen 3">
+            </div>
+            <div class="image-container">
+            <img src="../../accesos/Imagenes/Inicio(4).jpg" alt="Imagen 4">
+            </div>
+        </div>
+    </div>
+
   </section>
+  <style>
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.image-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas en la cuadrícula */
+    gap: 20px; /* Espacio entre las imágenes */
+}
+
+.gallery-info {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #FFA500; /*Color naranja*/
+}
+
+.gallery-info h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.gallery-info p {
+    font-size: 18px;
+}
+
+
+.image-container {
+    background-color: orange;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+  </style>
   <script>
   let sidebar = document.querySelector(".sidebar");
   let closeBtn = document.querySelector("#btn");

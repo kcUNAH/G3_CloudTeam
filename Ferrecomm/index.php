@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+
+
 if (isset($_SESSION['usuario'])) {
     header("localitation: inicio.php");
 }
@@ -10,7 +12,7 @@ if (isset($_SESSION['usuario'])) {
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
@@ -20,6 +22,7 @@ if (isset($_SESSION['usuario'])) {
 
 </head>
 
+
 <body>
 
     <main>
@@ -28,12 +31,12 @@ if (isset($_SESSION['usuario'])) {
             <div class="caja__trasera">
                 <div class="caja__trasera__login">
                     <h3>¿Ya tienes una cuenta?</h3>
-                    <p>Inicia seción para entrar a la pagina</p>
-                    <button id="btn__iniciar-secion"> iniciar secion </button>
+                    <p>Inicia sesión para entrar a la pagina</p>
+                    <button id="btn__iniciar-secion"> iniciar sesión </button>
                 </div>
                 <div class="caja__trasera__Registro">
-                    <h3>¿Aun no tienes una cuenta?</h3>
-                    <p>Registrate para que puedas iniciar seción</p>
+                    <h3>Aún  no tienes una cuenta?</h3>
+                    <p>Resgístrarse para que puedas iniciar sesión</p>
 
                     <button id="btn__Registrarse"> Resgístrarse </button>
                     <h5 id="btn__Recupera">Recuperar contraseña</h5>
@@ -46,7 +49,7 @@ if (isset($_SESSION['usuario'])) {
             <div class="contenedor__login-registro">
                 <!-- formulario login-->
                 <form action="php/login_usuario.php"  method="POST" class="formulario__login" id="formulario_login_ingreso">
-                    <h2>Iniciar secion</h2>
+                    <h2>Iniciar sesión</h2>
                     <!-- Grupo: Usuario -->
                     <div class="formulario__grupo" id="grupo__usuario_login">
                         <label for="usuario" class="formulario__label">Usuario</label>
@@ -116,7 +119,7 @@ if (isset($_SESSION['usuario'])) {
                             <input type="password" class="formulario__input" name="contra" id="contra">
                             <i class="formulario__validacion-estado fa-solid fa-eye" id="Ojito"></i>
                         </div>
-                        <p class="formulario__input-error">La contraseña tiene que ser de 5 a 20 dígitos.</p>
+                        <p class="formulario__input-error">La contraseña tiene que ser de 5 a 20 dígitos contener mayusculas, numero, caracteres especiales y minusculas.</p>
                     </div>
 
 

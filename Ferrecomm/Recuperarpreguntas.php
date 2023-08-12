@@ -9,6 +9,25 @@ if (empty($_SESSION['vario']) && empty($_POST['usuario'])) {
     header('Location: ' . '/G3_CloudTeam/Ferrecomm/');
     die();
 }
+
+$usuario = ($_SESSION['vario']);
+
+$estado = "SELECT primer_ingreso FROM tbl_ms_usuario WHERE usuario = '$usuario'";
+        $obtener_estado = mysqli_query($conn, $estado);
+        $fila_estado = mysqli_fetch_array($obtener_estado);
+        $va_ingreso = $fila_estado['primer_ingreso'];
+
+        if ($va_ingreso == 'NO'){
+            echo '
+            <script>
+            alert("EL usuario no ha completado su inicio de sesión");
+            </script>
+            ';
+            header('Location: ' . '/G3_CloudTeam/Ferrecomm/');
+            die();
+        }
+
+
 if (empty($_SESSION['vario'])) {
     if ($_POST['usuario'] != "") {
         $_SESSION['vario'] = ($_POST['usuario']);
