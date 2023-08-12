@@ -114,28 +114,36 @@ if(!isset ($_SESSION['usuario'])){
 
 
     <?php include '../conex.php'; ?>
-    <section id="container">
-
-
-    
-
-
-       
-      <section id="container"  >
-      <form action=" buscarbitacora.php" method="get" style="background-color:#DCFFFE ;">
-  <input type="text" name="busqueda" style="margin-left: 40px" id="busqueda" placeholder="Buscar...">
-  <button type="submit" class="boton-buscar">Buscar</button>
-   
-  <a href="../../../fpdf/reportebitacora.php" target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a> 
   
+    <section id="container">
+    <div style="display: flex; align-items: center; margin-bottom: 20px;">
+        <form method="post" action="eliminar_por_fecha.php" class="no-form-bg">
+            <label class="label-style">Fecha de inicio:</label>
+            <input type="date" id="start_date" name="start_date" required>
+            
+            <label class="label-style">Fecha de fin:</label>
+            <input type="date" id="end_date" name="end_date" required>
+            
+            <button type="submit" class="boton-eliminar" name="delete_by_date">DEPURAR</button>
+        </form>
 
+        <div style="margin-right: 10px;">
+            <form action="buscarbitacora.php" method="get" class="no-form-bg">
+                <input type="text" name="busqueda" id="busqueda" placeholder="Buscar..." class="input-busqueda">
+                <button type="submit" class="boton-buscar">Buscar</button>
+            </form>
+        </div>
+        
+        <a href="../../../fpdf/reportebitacora.php" target="_blank" class="btn_pdf">PDF <i class='bx bxs-file-pdf'></i></a>
+    </div>
+</section>
 
         </form>
 
 
 
 
-        <?php include '../conex.php'; ?>
+       
         <section id="container">
 
       <table>
@@ -156,6 +164,26 @@ if(!isset ($_SESSION['usuario'])){
        /* include 'php/conexion.php';*/
        include '../conex.php';
         //Paginador
+        if (isset($_POST['action']) && $_POST['action'] === 'depurar') {
+          include '../conex.php';
+          
+          // Obtener los primeros 50 registros de la bitácora
+          $query = "SELECT id_bitacora FROM tbl_bitacora ORDER BY fecha DESC, id_bitacora DESC LIMIT 50";
+          $result = mysqli_query($conex, $query);
+          
+          while ($row = mysqli_fetch_assoc($result)) {
+              $id_bitacora = $row['id_bitacora'];
+              
+              // Eliminar el registro correspondiente de la bitácora
+              $delete_query = "DELETE FROM tbl_bitacora WHERE id_bitacora = $id_bitacora";
+              mysqli_query($conex, $delete_query);
+          }
+          
+          header('Location: index.php');  // Redireccionar de vuelta a la página principal
+          exit();
+      }
+  
+      
        $sql_register =mysqli_query($conex,"SELECT COUNT(*) as total_registro FROM tbl_bitacora");
        $result_register = mysqli_fetch_array($sql_register);
        $total_registro = $result_register['total_registro'];
@@ -174,8 +202,9 @@ if(!isset ($_SESSION['usuario'])){
        FROM tbl_bitacora p 
        INNER JOIN tbl_ms_usuario c ON p.id_usuario = c.id_usuario 
        INNER JOIN tbl_ms_objetos a ON p.id_objeto = a.id_objeto 
-       ORDER BY p.id_bitacora ASC 
+       ORDER BY p.fecha DESC, p.id_bitacora DESC
        LIMIT $desde, $por_pagina");
+       
          $result = mysqli_num_rows($query);
         if($result > 0){ //si hay registros
 
@@ -195,6 +224,7 @@ if(!isset ($_SESSION['usuario'])){
             }
         }
 
+        
         ?>
 
       </table>
@@ -246,6 +276,7 @@ if(!isset ($_SESSION['usuario'])){
      closeBtn.classList.replace("bx-menu-alt-right","bx-menu");
    }
   }
+
   </script>
 <!--diseño buscar-->
 <style type="text/css">
@@ -271,15 +302,13 @@ button[type="submit"] {
   padding: 8px 16px;
   font-size: 16px;
 }
-table{
+table {
+    width: 100%;
     border-collapse: collapse;
-    font-size: 10pt;
-    font-family: Arial;
-    margin-left: 40px;
-    margin-right: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
     background-color: #fff;
-    
-}
+  }
 
 thead{
   background-color: rgba(255, 102, 0, 0.911);
@@ -346,8 +375,10 @@ table th:nth-child(6){
     color: #181212;
     
 }
-
-
+/* Restablecer el estilo predeterminado del formulario */
+form:focus {
+        outline: none;
+    }
 table tr:nth-child(){
     background: #fff;
 }
@@ -400,6 +431,16 @@ table td {
     text-decoration: none;
 
 } 
+.btn_de{
+    display: inline-block;
+    background-color: red;
+    color:rgb(255, 255, 255);
+    padding: 5px 25px;
+    border-radius: 10px;
+    margin: 20px;
+    text-decoration: none;
+
+} 
 .h1{
     color:rgba(255, 102, 0, 0.911);
     margin-left: 20px;
@@ -407,14 +448,97 @@ table td {
     font-size: 30pt;
     
 } 
+/* adaptar la tabla a la pantalla*/ 
+@media (max-width: 600px) {
+    table {
+      display: block;
+      overflow-x: auto;
+    }
+  }
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+  }
+
+ 
+  /* Estilos para el botón de eliminar */
+  .boton-eliminar[type="submit"] {
+        background-color: red;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-right: 30px;
+        margin-left: 10px;
+    }
+
+    .boton-eliminar:hover {
+        background-color: blue;
+    }
+
+    /* Estilos para el botón de buscar */
+    .boton-buscar {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+       
+    }
+
+    .boton-buscar:hover {
+        background-color: blue;
+    }
+
+    /* Estilos para el botón PDF */
+    .btn_pdf {
+        background-color: orangered;
+        color: white;
+        text-decoration: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+    }
+
+    .btn_pdf:hover {
+        background-color: blue;
+    }
+    
+    /* Estilos para el textbox de búsqueda */
+    .input-busqueda {
+        border: 1px solid #ccc;
+        padding: 6px 10px;
+        border-radius: 4px;
+        transition: border-color 0.3s;
+        outline: none;
+    }
+
+    .input-busqueda:hover,
+    .input-busqueda:focus {
+        border-color: #28a745;
+    }
+
+    /* Estilos para quitar el fondo del formulario */
+    .no-form-bg {
+        background: none;
+    }
+     /* Estilos para los label */
+     .label-style {
+        font-weight: bold;
+        margin-right: 5px;
+    }
 </style>
 
 
 
-</style>
 
 </body>
 
 </style>
 </body>
 </html>
+

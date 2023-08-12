@@ -304,7 +304,7 @@ span{
             </br>
             
       <button class="btn_agregar">Eliminar</button>
-      <button type="reset" onclick="location.href='../Productos.php'" class="btn_cancelar">Cancelar</button>
+      <button type="reset" onclick="location.href='eliminarproveedor.php'" class="btn_cancelar">Cancelar</button>
 
 
 

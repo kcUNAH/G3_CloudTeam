@@ -277,8 +277,28 @@ button[type="submit"] {
   padding: 8px 16px;
   font-size: 16px;
 }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    background-color: #fff;
+  }
+  /* adaptar la tabla a la pantalla*/ 
+@media (max-width: 600px) {
+    table {
+      display: block;
+      overflow-x: auto;
+    }
+  }
 
+th, td {
+    border: 1px solid #ccc;
+    padding: 7px;
+    text-align: left;
+  }
 </style>
+
 
 </body>
 <!--diseño siguiente-->

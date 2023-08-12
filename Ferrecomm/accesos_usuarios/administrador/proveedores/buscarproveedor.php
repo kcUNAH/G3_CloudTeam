@@ -134,7 +134,7 @@ if(!isset ($_SESSION['usuario'])){
        <table>
       <thead>
         <tr>
-        <th style="display: none;">id proveedor</th>
+        <th >id proveedor</th>
         <th>Nombre del proveedor</th>
         <th>RTN</th>
         <th>Teléfono</th>
@@ -196,7 +196,7 @@ if(!isset ($_SESSION['usuario'])){
         ?>
         
         <tr>
-        <td style="display: none;"><?php echo $data["id_proveedor"] ?></td>
+        <td><?php echo $data["id_proveedor"] ?></td>
             <td><?php echo $data["nombre_proveedor"] ?></td>
             <td><?php echo $data["rtn_proveedor"] ?></td>
             <td><?php echo $data["telefono_proveedor"] ?></td>
@@ -359,7 +359,26 @@ button[type="submit"] {
   padding: 8px 16px;
   font-size: 16px;
 }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    background-color: #fff;
+  }
+  /* adaptar la tabla a la pantalla*/ 
+@media (max-width: 600px) {
+    table {
+      display: block;
+      overflow-x: auto;
+    }
+  }
 
+th, td {
+    border: 1px solid #ccc;
+    padding: 7px;
+    text-align: left;
+  }
 
 </style>
 <!--Codigo java ventana flotante-->

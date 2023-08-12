@@ -1,21 +1,20 @@
 <?php
 session_start();
-if (isset($_SESSION['id_usuario'])) {
-    // Si el usuario ha iniciado sesión, mostrar el campo de entrada con su ID de usuario
-    $usuarioinicio = $_SESSION['id_usuario'];
-    echo ' <input type="hidden"value="'.  $usuarioinicio.'" readonly>';
-} else {
-    // Si el usuario no ha iniciado sesión, mostrar un mensaje de error o redirigir a la página de inicio de sesión
+
+
+if(!isset ($_SESSION['usuario'])){
     echo '
     <script>
     alert("Por favor, debe iniciar seccion");
-    window.location= "../index.php";
+    window.location= "index.php";
     </script>
     ';
     //header("localitation: index.php");
     session_destroy();
     die();
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -94,7 +93,7 @@ if (isset($_SESSION['id_usuario'])) {
             <span class="tooltip">Proveedores</span>
         </li>
         <li>
-            <a href="../../../inventario.php">
+            <a href="../inventario.php">
                 <i class='bx bx-package'></i>
                 <span class="links_name">Inventario</span>
             </a>
@@ -147,15 +146,15 @@ if (isset($_SESSION['id_usuario'])) {
         <tr>
        <th style="display: none;">id_permiso</th>
         <th>Rol</th>
-        <th>permiso Asiganado</th>
-        <th>permiso insertar</th>
-        <th>permiso eliminar</th>
-        <th>permiso Actualizar</th>
-        <th>permiso consultar</th>
-        <th>creado_por</th>
-        <th>fecha_creacion</th>
-        <th>modificado_por</th>
-        <th>fecha_modificacion</th>
+        <th>Permiso Asiganado</th>
+        <th>Permiso insertar</th>
+        <th>Permiso eliminar</th>
+        <th>Permiso Actualizar</th>
+        <th>Permiso consultar</th>
+        <th>Creado por</th>
+        <th>Fecha creacion</th>
+        <th>Modificado por</th>
+        <th>Fecha modificacion</th>
 
         <th>Acción 
           
@@ -201,10 +200,11 @@ if (isset($_SESSION['id_usuario'])) {
         <td style="display: none;"><?php echo $data["id_permisos"] ?></td>
            <td><?php echo $data["rol"] ?></td>
            <td><?php echo $data["objeto"] ?></td>
-            <td><?php  echo $data["permiso_insercion"] ?></td>
-            <td><?php echo $data["permiso_eliminacion"] ?></td>
-            <td><?php echo $data["permiso_actualizacion"] ?></td>
-            <td><?php echo $data["permiso_consultar"] ?></td>
+          <td><?php echo ($data["permiso_insercion"] == 1) ? 'SI' : 'NO'; ?></td>
+<td><?php echo ($data["permiso_eliminacion"] == 1) ? 'SI' : 'NO'; ?></td>
+<td><?php echo ($data["permiso_actualizacion"] == 1) ? 'SI' : 'NO'; ?></td>
+<td><?php echo ($data["permiso_consultar"] == 1) ? 'SI' : 'NO'; ?></td>
+
             <td><?php echo $data["creado_por"] ?></td>
             <td><?php echo $data["fecha_creacion"] ?></td>
             <td><?php echo $data["modificado_por"] ?></td>

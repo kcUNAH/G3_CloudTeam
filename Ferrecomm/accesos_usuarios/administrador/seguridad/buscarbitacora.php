@@ -133,13 +133,29 @@ if(!isset ($_SESSION['usuario'])){
 
 
 
-<form action="buscarbitacora.php" method="get" style="background-color:#DCFFFE ;">
-<form action="buscarproveedor.php" method="get" style="background-color:#DCFFFE ;">
-<input type="text" name="busqueda" style="text-transform:uppercase; margin-left: 40px" id="busqueda" placeholder="Buscar..." value="<?php echo $busqueda; ?>"><button type="submit" class="boton-buscar">Buscar</button>
-  <a href="../../../fpdf/reportebuscarBitacora.php?buscar=<?php echo $busqueda ?>"   target="_blank" class="btn_pdf"> PDF <i class='bx bxs-file-pdf' ></i></a>
+<section id="container">
+    <div style="display: flex; align-items: center; margin-bottom: 20px;">
+        <form method="post" action="eliminar_por_fecha.php" class="no-form-bg">
+            <label class="label-style">Fecha de inicio:</label>
+            <input type="date" id="start_date" name="start_date" required>
+            
+            <label class="label-style">Fecha de fin:</label>
+            <input type="date" id="end_date" name="end_date" required>
+            
+            <button type="submit" class="boton-eliminar" name="delete_by_date">DEPURAR</button>
+        </form>
 
+        <div style="margin-right: 10px;">
+            <form action="buscarbitacora.php" method="get" class="no-form-bg">
+                <input type="text" name="busqueda" id="busqueda" placeholder="Buscar..." class="input-busqueda">
+                <button type="submit" class="boton-buscar">Buscar</button>
+            </form>
+        </div>
+        
+        <a href="../../../fpdf/reportebitacora.php" target="_blank" class="btn_pdf">PDF <i class='bx bxs-file-pdf'></i></a>
+    </div>
+</section>
 
-</form>
 
  
   &nbsp;&nbsp;&nbsp; 
@@ -193,13 +209,14 @@ if(!isset ($_SESSION['usuario'])){
        $desde = ($pagina-1) * $por_pagina;
        $total_paginas = ceil($total_registro / $por_pagina);
 
-        $query = mysqli_query($conex,"SELECT id_bitacora,fecha,id_usuario,id_objeto,accion,descripcion
+       $query = mysqli_query($conex,"SELECT id_bitacora,fecha,id_usuario,id_objeto,accion,descripcion
         FROM tbl_bitacora   WHERE (id_bitacora LIKE '%$busqueda%' OR
                                                                  fecha LIKE '%$busqueda%' OR
                                                                  id_usuario LIKE '%$busqueda%' OR
                                                                  id_objeto LIKE '%$busqueda%' OR
                                                                  accion LIKE '%$busqueda%' OR
-                                                                 descripcion LIKE '%$busqueda%')ORDER BY id_bitacora ASC LIMIT $desde,$por_pagina;");
+                                                                 descripcion LIKE '%$busqueda%') ORDER BY fecha DESC, id_bitacora DESC LIMIT $desde,$por_pagina;");
+
         $result = mysqli_num_rows($query);
         if($result > 0){ 
 
@@ -308,15 +325,13 @@ button[type="submit"] {
   padding: 8px 16px;
   font-size: 16px;
 }
-table{
+table {
+    width: 100%;
     border-collapse: collapse;
-    font-size: 10pt;
-    font-family: Arial;
-    margin-left: 40px;
-    margin-right: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
     background-color: #fff;
-    
-}
+  }
 
 thead{
   background-color: rgba(255, 102, 0, 0.911);
@@ -444,6 +459,88 @@ table td {
     text-decoration: none;
 
 } 
+
+/* adaptar la tabla a la pantalla*/ 
+@media (max-width: 600px) {
+    table {
+      display: block;
+      overflow-x: auto;
+    }
+  }
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+  }
+  /* Estilos para el botón de eliminar */
+  .boton-eliminar[type="submit"] {
+        background-color: red;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-right: 30px;
+        margin-left: 10px;
+    }
+
+    .boton-eliminar:hover {
+        background-color: blue;
+    }
+
+    /* Estilos para el botón de buscar */
+    .boton-buscar {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+       
+    }
+
+    .boton-buscar:hover {
+        background-color: blue;
+    }
+
+    /* Estilos para el botón PDF */
+    .btn_pdf {
+        background-color: orangered;
+        color: white;
+        text-decoration: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+    }
+
+    .btn_pdf:hover {
+        background-color: blue;
+    }
+    
+    /* Estilos para el textbox de búsqueda */
+    .input-busqueda {
+        border: 1px solid #ccc;
+        padding: 6px 10px;
+        border-radius: 4px;
+        transition: border-color 0.3s;
+        outline: none;
+    }
+
+    .input-busqueda:hover,
+    .input-busqueda:focus {
+        border-color: #28a745;
+    }
+
+    /* Estilos para quitar el fondo del formulario */
+    .no-form-bg {
+        background: none;
+    }
+     /* Estilos para los label */
+     .label-style {
+        font-weight: bold;
+        margin-right: 5px;
+    }
 </style>
 <!--Codigo java ventana flotante-->
 
